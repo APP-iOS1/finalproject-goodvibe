@@ -28,9 +28,12 @@
 		5BDB9ADF29757AED00BFD5D9 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9ADE29757AED00BFD5D9 /* StoreViewModel.swift */; };
 		5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */; };
 		5BDB9AE329757B2000BFD5D9 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE229757B2000BFD5D9 /* CommentViewModel.swift */; };
+		5BDB9AE62975821C00BFD5D9 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */; };
+		CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		414CB0F993F8EA399091DE32 /* Pods-GukbapMinister.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.release.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.release.xcconfig"; sourceTree = "<group>"; };
 		5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GukbapMinister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GukbapMinisterApp.swift; sourceTree = "<group>"; };
 		5BDB9AB12975751C00BFD5D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,6 +52,10 @@
 		5BDB9ADE29757AED00BFD5D9 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		5BDB9AE229757B2000BFD5D9 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		5BDB9AE4297581C800BFD5D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
+		651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GukbapMinister.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.debug.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,18 +67,29 @@
 				5BDB9ACB297576EA00BFD5D9 /* FirebaseStorage in Frameworks */,
 				5BDB9AC7297576EA00BFD5D9 /* FirebaseFirestore in Frameworks */,
 				5BDB9AC9297576EA00BFD5D9 /* FirebaseFirestoreSwift in Frameworks */,
+				CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13CB4F71E6746A9AA2165841 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5BDB9AA32975751C00BFD5D9 = {
 			isa = PBXGroup;
 			children = (
 				5BDB9AC12975761B00BFD5D9 /* GoogleService-Info.plist */,
 				5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */,
 				5BDB9AAD2975751C00BFD5D9 /* Products */,
+				F70E710625D1AB6AB3F6F637 /* Pods */,
+				13CB4F71E6746A9AA2165841 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,8 +104,10 @@
 		5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */ = {
 			isa = PBXGroup;
 			children = (
+				5BDB9AE4297581C800BFD5D9 /* Info.plist */,
 				5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */,
 				5BDB9AB12975751C00BFD5D9 /* ContentView.swift */,
+				5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */,
 				5BDB9ACE297578CE00BFD5D9 /* Views */,
 				5BDB9ADD29757ABD00BFD5D9 /* ViewModels */,
 				5BDB9ADC29757AA200BFD5D9 /* Models */,
@@ -146,6 +166,15 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		F70E710625D1AB6AB3F6F637 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */,
+				414CB0F993F8EA399091DE32 /* Pods-GukbapMinister.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,9 +182,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BDB9ABA2975751F00BFD5D9 /* Build configuration list for PBXNativeTarget "GukbapMinister" */;
 			buildPhases = (
+				8E77E0C6C4116B5F9E3CA552 /* [CP] Check Pods Manifest.lock */,
 				5BDB9AA82975751C00BFD5D9 /* Sources */,
 				5BDB9AA92975751C00BFD5D9 /* Frameworks */,
 				5BDB9AAA2975751C00BFD5D9 /* Resources */,
+				AF7C4F845A652242BF147038 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,11 +252,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8E77E0C6C4116B5F9E3CA552 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GukbapMinister-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF7C4F845A652242BF147038 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5BDB9AA82975751C00BFD5D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BDB9AE62975821C00BFD5D9 /* NaverMapView.swift in Sources */,
 				5BDB9ABE297575B900BFD5D9 /* MapView.swift in Sources */,
 				5BDB9AD2297579A900BFD5D9 /* SignInView.swift in Sources */,
 				5BDB9ACD2975788C00BFD5D9 /* CollectionView.swift in Sources */,
@@ -362,6 +436,7 @@
 		};
 		5BDB9ABB2975751F00BFD5D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -370,6 +445,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GukbapMinister/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -390,6 +466,7 @@
 		};
 		5BDB9ABC2975751F00BFD5D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 414CB0F993F8EA399091DE32 /* Pods-GukbapMinister.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -398,6 +475,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GukbapMinister/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
