@@ -8,8 +8,47 @@
 import SwiftUI
 
 struct SignInView: View {
+    @State var emailID: String = ""
+    @State var password: String = ""
+    
+    @State var signUpView: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            //MARK: - Email
+            TextField("Email", text: $emailID)
+                .textContentType(.emailAddress)
+                .border(1, .black.opacity(0.5))
+                .textInputAutocapitalization(.never)
+            //MARK: - Password
+            SecureField("Password", text: $password)
+                .textInputAutocapitalization(.never)
+                .border(1, .black.opacity(0.5))
+            //MARK: - Login Button
+            Button {
+                //Login 버튼
+            } label: {
+                Text("로그인")
+            }
+            .padding(.top, 20)
+            //MARK: - Move to SignUpView()
+            HStack {
+                Text("아직 계정이 업는 경우")
+                    .foregroundColor(.secondary)
+                Button {
+                    signUpView.toggle()
+                } label: {
+                    Text("회원가입")
+                }
+                .fontWeight(.bold)
+                .foregroundColor(.black)
+            }//HStack
+            .padding(.top,20)
+        }//VStack
+        .padding()
+        .fullScreenCover(isPresented: $signUpView) {
+            SignUpView()
+        }
     }
 }
 
@@ -18,3 +57,15 @@ struct SignInView_Previews: PreviewProvider {
         SignInView()
     }
 }
+
+extension View{
+    func border(_ width: CGFloat, _ color: Color) -> some View{
+        self
+            .padding(.horizontal, 15)
+            .padding(.vertical, 10)
+            .background{
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .stroke(color, lineWidth: width)
+            }
+    }
+}//extension
