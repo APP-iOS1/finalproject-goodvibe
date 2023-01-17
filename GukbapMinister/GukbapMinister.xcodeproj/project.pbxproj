@@ -31,7 +31,6 @@
 		5BDB9AE329757B2000BFD5D9 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE229757B2000BFD5D9 /* CommentViewModel.swift */; };
 		5BDB9AE62975821C00BFD5D9 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */; };
 		63FCF52F29766BEA001712CA /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 63FCF52E29766BEA001712CA /* KakaoSDK */; };
-		63FCF532297671A8001712CA /* KakaoAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCF531297671A8001712CA /* KakaoAuthViewModel.swift */; };
 		63FCF534297677E0001712CA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCF533297677E0001712CA /* MainTabView.swift */; };
 		CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */; };
 /* End PBXBuildFile section */
@@ -59,7 +58,6 @@
 		5BDB9AE4297581C800BFD5D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
 		63FCF53029766CCF001712CA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		63FCF531297671A8001712CA /* KakaoAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthViewModel.swift; sourceTree = "<group>"; };
 		63FCF533297677E0001712CA /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GukbapMinister.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.debug.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.debug.xcconfig"; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 				5BDB9ADE29757AED00BFD5D9 /* StoreViewModel.swift */,
 				5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */,
 				5BDB9AE229757B2000BFD5D9 /* CommentViewModel.swift */,
-				63FCF531297671A8001712CA /* KakaoAuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -323,7 +320,6 @@
 				5BDB9ADF29757AED00BFD5D9 /* StoreViewModel.swift in Sources */,
 				5BDB9AD4297579BA00BFD5D9 /* SignUpView.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
-				63FCF532297671A8001712CA /* KakaoAuthViewModel.swift in Sources */,
 				63FCF534297677E0001712CA /* MainTabView.swift in Sources */,
 				5BDB9AD729757A3B00BFD5D9 /* User.swift in Sources */,
 				5BDB9AC02975760300BFD5D9 /* ExploreView.swift in Sources */,

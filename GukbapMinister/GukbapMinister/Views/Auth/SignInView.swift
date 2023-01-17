@@ -66,8 +66,9 @@ struct SignInView: View {
 }
 
 struct SignInView_Previews: PreviewProvider {
+//    static let userViewModel: UserViewModel()
     static var previews: some View {
-        SignInView()
+        SignInView().environmentObject(UserViewModel())
     }
 }
 
