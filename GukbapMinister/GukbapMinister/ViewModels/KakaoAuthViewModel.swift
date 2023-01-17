@@ -11,6 +11,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFirestore
 
 class KakaoAuthViewModel: ObservableObject {
     
@@ -101,6 +102,12 @@ class KakaoAuthViewModel: ObservableObject {
                         Auth.auth().signIn(withEmail: (user?.kakaoAccount?.email)!, password: "\(String(describing: user?.id))")
                     } else {
                         print("Firebase 사용자 생성 성공")
+                        let authResult = authResult?.user
+                        let currentKakao = user?.kakaoAccount
+                        Firestore.firestore().collection("User").document(authResult?.uid ?? "").setData([
+                            "userEmail" : currentKakao?.email ?? "",
+                            "userNickname" : currentKakao?.profile?.nickname ?? "",
+                        ])
                     }
                 }
                 

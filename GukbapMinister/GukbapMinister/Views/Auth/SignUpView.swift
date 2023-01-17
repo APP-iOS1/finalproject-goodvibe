@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @Environment(\.dismiss) var returnSigninView
+    @Environment(\.dismiss) var returnSigninView 
     
     @State var registerEmailID = ""
     @State var registerPassword = ""
