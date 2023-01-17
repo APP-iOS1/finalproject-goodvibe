@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		049BF93B2976320600D2D044 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93A2976320600D2D044 /* PopupView */; };
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049BF93B2976320600D2D044 /* PopupView in Frameworks */,
 				5BDB9AC5297576EA00BFD5D9 /* FirebaseAuth in Frameworks */,
 				5BDB9ACB297576EA00BFD5D9 /* FirebaseStorage in Frameworks */,
 				5BDB9AC7297576EA00BFD5D9 /* FirebaseFirestore in Frameworks */,
@@ -198,6 +200,7 @@
 				5BDB9AC6297576EA00BFD5D9 /* FirebaseFirestore */,
 				5BDB9AC8297576EA00BFD5D9 /* FirebaseFirestoreSwift */,
 				5BDB9ACA297576EA00BFD5D9 /* FirebaseStorage */,
+				049BF93A2976320600D2D044 /* PopupView */,
 			);
 			productName = GukbapMinister;
 			productReference = 5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */;
@@ -229,6 +232,7 @@
 			mainGroup = 5BDB9AA32975751C00BFD5D9;
 			packageReferences = (
 				5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 5BDB9AAD2975751C00BFD5D9 /* Products */;
 			projectDirPath = "";
@@ -518,6 +522,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -529,6 +541,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		049BF93A2976320600D2D044 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
 		5BDB9AC4297576EA00BFD5D9 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

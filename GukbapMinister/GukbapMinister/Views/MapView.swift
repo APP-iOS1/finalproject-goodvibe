@@ -16,10 +16,10 @@ struct MapView: View {
         ZStack {
             VStack {
                 Button(action: {coordination = (35.1379222, 129.05562775)}) {
-                    Text("Move to Busan")
+                    Text("부산으로 위치 이동")
                 }
                 Button(action: {coordination = (37.413294, 127.269311)}) {
-                    Text("Move to Seoul somewhere")
+                    Text("서울 아무 지역으로 위치 이동")
                 }
                 Spacer()
             }
