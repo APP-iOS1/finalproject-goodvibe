@@ -11,11 +11,11 @@ import PopupView
 import Shimmer
 
 struct CreateReviewView: View {
+    
     @State private var selectedImages: [PhotosPickerItem] = []
     @State private var selectedImageData: [Data] =  []
     @State private var isReviewAdded: Bool = false
     @State private var reviewText: String = ""
-    
     @State var selected = 0
     
     var trimReviewText: String {
@@ -32,7 +32,6 @@ struct CreateReviewView: View {
         }
         return uiImages
     }
-    
     var body: some View {
         NavigationStack {
             VStack{
@@ -51,7 +50,6 @@ struct CreateReviewView: View {
                                 .foregroundColor(self.selected >= i ? .yellow : .gray)
                                 .onTapGesture {
                                     self.selected = i
-                                    
                                 }
                         }
                         Spacer()
@@ -74,6 +72,8 @@ struct CreateReviewView: View {
                                     .foregroundColor(.yellow)
                                     .font(.system(size: 25))
                                     .frame(width:70, height: 40, alignment: .center)
+                                
+                                
                                 
                             }//photoLibrary
                         HStack{
@@ -101,10 +101,7 @@ struct CreateReviewView: View {
                                     .font(.callout)
                                     .fontWeight(.regular)
                             }
-                            
-                            
                         }
-                        
                         .tracking(5)
                         .padding(.bottom,10)
                         .padding(.top,-10)
@@ -135,8 +132,31 @@ struct CreateReviewView: View {
                                     Image(uiImage: image)
                                         .resizable()
                                         .cornerRadius(4)
-                                    // .scaledToFit()
+                                     // .scaledToFit()
                                         .frame(width: 80,height: 80)
+                                    
+                                        .overlay(alignment: .topTrailing) {
+                                            Circle()
+                                                .frame(width: 17, height: 17)
+                                                .overlay {
+                                                    Image(systemName: "xmark")
+                                                        .font(.system(size: 12))
+                                                        .foregroundColor(.white)
+                                                }
+                                           // .offset(x: 5, y: -5)
+                                        }
+//                                        .overlay(alignment: .bottom) {
+//                                            if isMainImage {
+//                                                Text("대표 사진")
+//                                                    .font(.callout)
+//                                                    .fontWeight(.regular)
+//                                                    .frame(maxWidth: .infinity)
+//                                                    .frame(height: 20)
+//                                                    .foregroundColor(Color.white)
+//                                                    .background { Color.black }
+//                                                    .cornerRadius(4)
+//                                            }
+//                                        }
                                 } // if let
                             } // ForEach
                         } // HStack
@@ -145,21 +165,15 @@ struct CreateReviewView: View {
                 .padding(EdgeInsets(top: 30, leading: 20, bottom: 50, trailing: 20))
                 VStack {
                     Section {
-                        
-                        TextField("작성된 리뷰는 장소상세에서 우리 모두가 확인할 수 있습니다.국밥 같은 따듯한 마음을 나눠주세요.", text: $reviewText, axis: .vertical)
+                        TextField("작성된 리뷰는 우리 모두가 확인할 수 있어요. 국밥 같은 따뜻한 마음을 나눠주세요.", text: $reviewText, axis: .vertical)
                             .frame(width: 300, height: 250, alignment: .center)
                             .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                            .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow, lineWidth:1.5))
+                            .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow, lineWidth: 1.5))
                             .multilineTextAlignment(.leading)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
-                        
                             .lineLimit(11...)
-                        
-                        
                     }
-                    
-                    
                     .navigationTitle("농민백암순대")
                     .navigationBarTitleDisplayMode(.inline)
                     
@@ -186,7 +200,6 @@ struct CreateReviewView: View {
                             }
                         }//if
                     }//toolbar
-                    
                 }//VStack
            
                 Spacer()
@@ -213,8 +226,23 @@ struct CreateReviewView: View {
         }//NavigationStack
     }//body
 }//struct CreateReviewView
+
+
+
+
+
+
+
+
+
+
+
+
+
 //struct CreateReviewView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CreateReviewView()
 //    }
 //}
+
+
