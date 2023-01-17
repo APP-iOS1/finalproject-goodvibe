@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import PopupView
+import Shimmer
 
 struct CreateReviewView: View {
     @State private var selectedImages: [PhotosPickerItem] = []
@@ -62,19 +63,54 @@ struct CreateReviewView: View {
                 }
                 .padding(.top,30)
                 HStack {
-                    
-                    PhotosPicker(
-                        selection: $selectedImages,
-                        matching: .images,
-                        photoLibrary: . shared()){
-                            
-                            Image(systemName: "camera")
-                                .foregroundColor(.yellow)
-                                .font(.system(size: 30))
-                                .frame(width:70, height: 70, alignment: .center)
-                            
-                        }//photoLibrary
-                        .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow,lineWidth: 1.5))
+                    VStack(alignment: .center){
+                        PhotosPicker(
+                            selection: $selectedImages,
+                            maxSelectionCount: 5,
+                            matching: .images,
+                            photoLibrary: . shared()){
+                                
+                                Image(systemName: "camera")
+                                    .foregroundColor(.yellow)
+                                    .font(.system(size: 25))
+                                    .frame(width:70, height: 40, alignment: .center)
+                                                                    
+                            }//photoLibrary
+                        HStack{
+                            if selectedImages.count == 0{
+                                Text("\(selectedImages.count)")
+                                    .font(.callout)
+                                    .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
+                                    .fontWeight(.regular)
+                                    .padding(.trailing,-8)
+                                   
+                                Text("/5")
+                                    .font(.callout)
+                                    .fontWeight(.regular)
+                            }
+                            else {
+                                Text("\(selectedImages.count)")
+                                    .font(.callout)
+                                    .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
+                                    .fontWeight(.regular)
+                                    .padding(.trailing,-8)
+                                    .shimmering(
+                                        animation: .easeInOut(duration: 2).repeatCount(20, autoreverses: false).delay(1)
+                                        )
+                                Text("/5")
+                                    .font(.callout)
+                                    .fontWeight(.regular)
+                            }
+                     
+                               
+                        }
+                   
+                        .tracking(5)
+                        .padding(.bottom,10)
+                        .padding(.top,-10)
+                        .padding(.leading,4)
+                    }
+                    .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow,lineWidth: 1.5))
                         .onChange(of: selectedImages) { items in
                             //선택된 이미지 없으면 배열 초기화
                             if items.isEmpty { selectedImageData = [] }
