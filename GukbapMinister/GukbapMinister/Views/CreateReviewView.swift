@@ -60,7 +60,7 @@ struct CreateReviewView: View {
                     Text("\(selected + 1) / \(5)")
                         .font(.system(size: 17))
                         .fontWeight(.semibold)
-                }
+                }//VStack
                 .padding(.top,30)
                 HStack {
                     VStack(alignment: .center){
@@ -74,7 +74,7 @@ struct CreateReviewView: View {
                                     .foregroundColor(.yellow)
                                     .font(.system(size: 25))
                                     .frame(width:70, height: 40, alignment: .center)
-                                                                    
+                                
                             }//photoLibrary
                         HStack{
                             if selectedImages.count == 0{
@@ -83,7 +83,7 @@ struct CreateReviewView: View {
                                     .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
                                     .fontWeight(.regular)
                                     .padding(.trailing,-8)
-                                   
+                                
                                 Text("/5")
                                     .font(.callout)
                                     .fontWeight(.regular)
@@ -96,37 +96,37 @@ struct CreateReviewView: View {
                                     .padding(.trailing,-8)
                                     .shimmering(
                                         animation: .easeInOut(duration: 2).repeatCount(20, autoreverses: false).delay(1)
-                                        )
+                                    )
                                 Text("/5")
                                     .font(.callout)
                                     .fontWeight(.regular)
                             }
-                     
-                               
+                            
+                            
                         }
-                   
+                        
                         .tracking(5)
                         .padding(.bottom,10)
                         .padding(.top,-10)
                         .padding(.leading,4)
                     }
                     .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow,lineWidth: 1.5))
-                        .onChange(of: selectedImages) { items in
-                            //선택된 이미지 없으면 배열 초기화
-                            if items.isEmpty { selectedImageData = [] }
-                            
-                            for item in items {
-                                Task {
-                                    selectedImageData = []
-                                    if let data = try? await
-                                        item.loadTransferable(type: Data.self) {
-                                        selectedImageData.append(data)
-                                        
-                                    }
-                                }//Task
-                            }//for
-                        }//.onChanged
-                        .padding(.leading,7)
+                    .onChange(of: selectedImages) { items in
+                        //선택된 이미지 없으면 배열 초기화
+                        if items.isEmpty { selectedImageData = [] }
+                        
+                        for item in items {
+                            Task {
+                                selectedImageData = []
+                                if let data = try? await
+                                    item.loadTransferable(type: Data.self) {
+                                    selectedImageData.append(data)
+                                    
+                                }
+                            }//Task
+                        }//for
+                    }//.onChanged
+                    .padding(.leading,7)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             // 선택된 이미지 출력.
@@ -145,7 +145,7 @@ struct CreateReviewView: View {
                 .padding(EdgeInsets(top: 30, leading: 20, bottom: 50, trailing: 20))
                 VStack {
                     Section {
-
+                        
                         TextField("작성된 리뷰는 장소상세에서 우리 모두가 확인할 수 있습니다.국밥 같은 따듯한 마음을 나눠주세요.", text: $reviewText, axis: .vertical)
                             .frame(width: 300, height: 250, alignment: .center)
                             .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
@@ -153,16 +153,16 @@ struct CreateReviewView: View {
                             .multilineTextAlignment(.leading)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
-                      
+                        
                             .lineLimit(11...)
-                           
+                        
                         
                     }
                     
                     
                     .navigationTitle("농민백암순대")
                     .navigationBarTitleDisplayMode(.inline)
-                  
+                    
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("취소") {
@@ -188,29 +188,31 @@ struct CreateReviewView: View {
                     }//toolbar
                     
                 }//VStack
+           
                 Spacer()
-                .popup(isPresented: $isReviewAdded) {
-                    HStack {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.white)
-                        Text("리뷰가 작성되었습니다.")
-                            .foregroundColor(.white)
-                            .font(.footnote)
-                            .bold()
-                    }
-                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                    .background(Color.yellow)
-                    .cornerRadius(100)
-                } customize: {
-                    $0
-                        .autohideIn(2)
-                        .type(.floater())
-                        .position(.top)
-                } // popup
-            }
-        }
-    }
-}
+                
+            }//FirstVStack
+            .popup(isPresented: $isReviewAdded) {
+                HStack {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.white)
+                    Text("리뷰가 작성되었습니다.")
+                        .foregroundColor(.white)
+                        .font(.footnote)
+                        .bold()
+                }
+                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                .background(Color.yellow)
+                .cornerRadius(100)
+            } customize: {
+                $0
+                    .autohideIn(2)
+                    .type(.floater())
+                    .position(.top)
+            } // popup
+        }//NavigationStack
+    }//body
+}//struct CreateReviewView
 //struct CreateReviewView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CreateReviewView()
