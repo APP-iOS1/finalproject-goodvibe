@@ -30,6 +30,8 @@
 		5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */; };
 		5BDB9AE329757B2000BFD5D9 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE229757B2000BFD5D9 /* CommentViewModel.swift */; };
 		5BDB9AE62975821C00BFD5D9 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */; };
+		AD05311D2976902000594238 /* MapCategoryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05311C2976902000594238 /* MapCategoryModalView.swift */; };
+		AD05311F2976918E00594238 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05311E2976918E00594238 /* ButtonModifier.swift */; };
 		CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,8 @@
 		5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
 		651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GukbapMinister.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.debug.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.debug.xcconfig"; sourceTree = "<group>"; };
+		AD05311C2976902000594238 /* MapCategoryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryModalView.swift; sourceTree = "<group>"; };
+		AD05311E2976918E00594238 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,9 +136,11 @@
 			children = (
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				5BDB9ABD297575B900BFD5D9 /* MapView.swift */,
+				AD05311C2976902000594238 /* MapCategoryModalView.swift */,
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
+				AD05311E2976918E00594238 /* ButtonModifier.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,10 +318,12 @@
 				5BDB9AD4297579BA00BFD5D9 /* SignUpView.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				5BDB9AD729757A3B00BFD5D9 /* User.swift in Sources */,
+				AD05311D2976902000594238 /* MapCategoryModalView.swift in Sources */,
 				5BDB9AC02975760300BFD5D9 /* ExploreView.swift in Sources */,
 				5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */,
 				5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */,
 				5BDB9ADB29757A8300BFD5D9 /* Comment.swift in Sources */,
+				AD05311F2976918E00594238 /* ButtonModifier.swift in Sources */,
 				5BDB9AE329757B2000BFD5D9 /* CommentViewModel.swift in Sources */,
 				5BDB9AD02975790400BFD5D9 /* MyPageView.swift in Sources */,
 			);
