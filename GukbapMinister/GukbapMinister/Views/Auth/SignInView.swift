@@ -8,29 +8,28 @@
 import SwiftUI
 
 struct SignInView: View {
-    @EnvironmentObject var viewModel: KakaoAuthViewModel
-    @State var emailID: String = ""
-    @State var password: String = ""
+    @EnvironmentObject var viewModel: UserViewModel
     
     @State var signUpView: Bool = false
     
     var body: some View {
         VStack {
             //MARK: - Email
-            TextField("Email", text: $emailID)
+            TextField("Email", text: $viewModel.signInEmailID)
                 .textContentType(.emailAddress)
                 .border(1, .black.opacity(0.5))
                 .textInputAutocapitalization(.never)
             //MARK: - Password
-            SecureField("Password", text: $password)
+            SecureField("Password", text: $viewModel.signInPassword)
                 .textInputAutocapitalization(.never)
                 .border(1, .black.opacity(0.5))
             //MARK: - Login Button
-            HStack{
+            VStack{
                 Button {
                     //Login 버튼
+                    viewModel.signInUser()
                 } label: {
-                    Text("로그인")
+                    Text("이메일 로그인")
                 }
                 Button {
                     viewModel.kakaoSignIn()
@@ -47,7 +46,7 @@ struct SignInView: View {
 
             //MARK: - Move to SignUpView()
             HStack {
-                Text("아직 계정이 업는 경우")
+                Text("아직 계정이 없는 경우")
                     .foregroundColor(.secondary)
                 Button {
                     signUpView.toggle()

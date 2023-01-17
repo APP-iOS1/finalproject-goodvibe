@@ -36,7 +36,7 @@ struct GukbapMinisterApp: App {
               if(AuthApi.isKakaoTalkLoginUrl(url)){
                  _ = AuthController.handleOpenUrl(url: url)
               }
-          }.environmentObject(KakaoAuthViewModel())
+          }.environmentObject(UserViewModel())
       }
     }
   }

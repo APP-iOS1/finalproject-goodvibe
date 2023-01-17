@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var viewModel: KakaoAuthViewModel
+    @EnvironmentObject var viewModel: UserViewModel
     var body: some View {
         switch viewModel.state{
         case .signedIn: MainTabView()
@@ -19,6 +19,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(KakaoAuthViewModel())
+        ContentView().environmentObject(UserViewModel())
     }
 }
