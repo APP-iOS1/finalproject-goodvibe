@@ -58,7 +58,7 @@ struct DetailView: View {
                         .tabViewStyle(.page(indexDisplayMode: .always))
                         
                         //Store.description
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text("수요미식회에서 인정한 선릉역 찐 맛집!")
                                 .lineLimit(10)
                                 .padding(.horizontal, 15)
