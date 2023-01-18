@@ -11,11 +11,13 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: UserViewModel
     var body: some View {
 
-        switch viewModel.state{
-        case .signedIn: MainTabView()
-        case .signedOut: SignInView()
-
-        }
+//        switch viewModel.state{
+//        case .signedIn: MainTabView()
+//        case .signedOut: SignInView()
+//
+//        }
+        
+        SignUpTabView()
     }
 }
 

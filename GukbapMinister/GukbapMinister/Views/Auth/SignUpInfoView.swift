@@ -12,6 +12,9 @@ struct SignUpInfoView: View {
     @State var isAgeRangeSelected: [Bool] = [false, false, false, false, false]
     @State var isPreferenceAreaSelected: [Bool] = [false, false, false]
     @State var preferenceArea: String = ""
+    
+    @Binding var selection: Int
+    
     var body: some View {
         VStack {
             SignUpProcessView(index: 2)
@@ -150,8 +153,9 @@ struct SignUpInfoView: View {
                 }
             }
             .padding()
-            NavigationLink {
+            Button {
                 SignUpGukBabView()
+                self.selection = 2
             } label: {
                 Text("다음 단계로 넘어가기")
                     .foregroundColor(.black)
@@ -165,8 +169,8 @@ struct SignUpInfoView: View {
     }
 }
 
-struct SignUpInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpInfoView()
-    }
-}
+//struct SignUpInfoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignUpInfoView()
+//    }
+//}

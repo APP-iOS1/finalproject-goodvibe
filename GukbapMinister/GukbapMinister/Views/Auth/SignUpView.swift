@@ -10,6 +10,7 @@ import SwiftUI
 struct SignUpView: View {
     @Environment(\.dismiss) var returnSigninView
     @EnvironmentObject var viewModel: UserViewModel
+    @Binding var selection: Int
     
     var body: some View {
         VStack {
@@ -79,8 +80,11 @@ struct SignUpView: View {
             
             //MARK: - Register Button
             VStack {
-                NavigationLink {
-                    SignUpInfoView()
+                Button {
+                    //회원가입 버튼
+                    viewModel.signUpUser()
+                    //
+                    self.selection = 1
                 } label: {
                     Text("회원가입")
                         .fontWeight(.bold)
@@ -89,10 +93,6 @@ struct SignUpView: View {
                         .frame(width: 360, height: 60)
                         .background(.yellow)
                         .cornerRadius(7)
-//                        .onTapGesture {
-//                            //회원가입 버튼
-//                            viewModel.signUpUser()
-//                        }
                 }
             }
             
@@ -116,8 +116,8 @@ struct SignUpView: View {
     }
 }
 
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView().environmentObject(UserViewModel())
-    }
-}
+//struct SignUpView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignUpView().environmentObject(UserViewModel())
+//    }
+//}

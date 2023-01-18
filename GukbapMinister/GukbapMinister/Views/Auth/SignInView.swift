@@ -108,7 +108,7 @@ struct SignInView: View {
         }//VStack
         .padding()
         .fullScreenCover(isPresented: $signUpView) {
-            SignUpView()
+            SignUpTabView()
         }
     }
 }

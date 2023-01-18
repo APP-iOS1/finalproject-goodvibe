@@ -66,8 +66,8 @@ final class UserViewModel: ObservableObject {
                     "userNickname" : signUpNickname,
                 ])
 //                self.state = .signedIn
-            }catch{
-                print("Sign Up Failed")
+            }catch let error {
+                print("Sign Up Failed : \(error)")
             }
         }//Task
     }//registerUser()
