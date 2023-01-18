@@ -43,7 +43,7 @@ struct CreateReviewView: View {
                     }
                     HStack(spacing: 25){
                         Spacer()
-                        ForEach(0..<5){ i in
+                        ForEach(0..<5) { i in
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30)
