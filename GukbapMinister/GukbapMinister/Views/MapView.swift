@@ -9,9 +9,11 @@ import SwiftUI
 
 struct MapView: View {
     // 초기 좌표값 서울시청
-    @State var coordination: (Double, Double) = (37.5666805, 126.9784147)
+    @State var coordination: (Double, Double) = (37.503693, 127.053033)
     @State var searchGukBap : String = ""
     @State private var showModal = false //상태
+    @State var marked : Bool = false // 마크 모달 
+
     
     var body: some View {
         
@@ -66,6 +68,7 @@ struct MapView: View {
                         MapCategoryModalView()
                             .presentationDetents([.medium])
                     }
+
                     
                     Spacer()
                     
@@ -74,22 +77,26 @@ struct MapView: View {
                 Button(action: {coordination = (35.1379222, 129.05562775)}) {
                     Text("부산으로 위치 이동")
                 }
-                Button(action: {coordination = (37.413294, 127.269311)}) {
+                Button(action: {coordination = (37.503693, 127.053033)}) {
                     Text("서울 아무 지역으로 위치 이동")
                 }
                 Spacer()
             }
             .zIndex(1)
             
-            NaverMapView(coordination: coordination)
-                .edgesIgnoringSafeArea(.vertical)
+            NaverMapView(coordination: coordination, marked: $marked)
+                .edgesIgnoringSafeArea(.all)
+                .sheet(isPresented: self.$marked) {
+                    StoreModalView()
+                        .presentationDetents([.height(200)])
+                }
         }
         
     }
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}
+//struct MapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapView(marked: )
+//    }
+//}
