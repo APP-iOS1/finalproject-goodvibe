@@ -70,10 +70,27 @@ struct DetailView: View {
                                     .padding(.vertical, 30)
                                 Divider()
                             }
+
                             .background(.white)
                             
                             
                             //Store.menu
+
+                            .padding(15)
+                            Divider()
+                        }
+                        .background(.white)
+                        
+                        
+                        
+                        NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
+                            .frame(height: 260)
+                            .padding(.vertical, 15)
+                        
+                        
+                        HStack {
+                            Spacer()
+
                             VStack {
                                 VStack(alignment: .leading) {
                                     Text("메뉴")

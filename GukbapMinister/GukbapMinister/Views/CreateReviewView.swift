@@ -47,8 +47,10 @@ struct CreateReviewView: View {
                     }
                     HStack(spacing: 25){
                         Spacer()
+
                         ForEach(0..<5) { i in
                             Image(starStore.selectedStar >= i ? "StarFilled" : "StarEmpty")
+
                                 .resizable()
                                 .frame(width: 30, height: 30)
                                 .onTapGesture {
@@ -57,6 +59,7 @@ struct CreateReviewView: View {
                         }
                         Spacer()
                     }
+
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
                     Text("\(starStore.selectedStar + 1) / \(5)")
                         .font(.system(size: 17))
@@ -86,7 +89,6 @@ struct CreateReviewView: View {
                                     .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
                                     .fontWeight(.regular)
                                     .padding(.trailing,-8)
-                                
                                 Text("/5")
                                     .font(.callout)
                                     .fontWeight(.regular)
@@ -94,7 +96,7 @@ struct CreateReviewView: View {
                             else {
                                 Text("\(selectedImages.count)")
                                     .font(.callout)
-                                    .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
+                                    .foregroundColor(selectedImages.count == 0 ? .gray : .black)
                                     .fontWeight(.regular)
                                     .padding(.trailing,-8)
                                     .shimmering(
@@ -130,40 +132,65 @@ struct CreateReviewView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             // 선택된 이미지 출력.
-                            ForEach(selectedImageData, id: \.self) { imageData in
-                                if let image = UIImage(data: imageData) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .cornerRadius(4)
-                                     // .scaledToFit()
-                                        .frame(width: 80,height: 80)
-                                    
-                                        .overlay(alignment: .topTrailing) {
-                                            Circle()
-                                                .frame(width: 17, height: 17)
-                                                .overlay {
-                                                    Image(systemName: "xmark")
-                                                        .font(.system(size: 12))
-                                                        .foregroundColor(.white)
-                                                }
-                                           // .offset(x: 5, y: -5)
+                          //  ForEach(selectedImageData, id: \.self) { imageData in
+                            ForEach(Array(selectedImageData.enumerated()), id: \.offset) { index, imageData in
+                                    if let image = UIImage(data: imageData) {
+                                        NavigationLink {
+                                            ImageDetailView()
                                         }
-//                                        .overlay(alignment: .bottom) {
-//                                            if isMainImage {
-//                                                Text("대표 사진")
-//                                                    .font(.callout)
-//                                                    .fontWeight(.regular)
-//                                                    .frame(maxWidth: .infinity)
-//                                                    .frame(height: 20)
-//                                                    .foregroundColor(Color.white)
-//                                                    .background { Color.black }
-//                                                    .cornerRadius(4)
-//                                            }
-//                                        }
-                                } // if let
-                            } // ForEach
+                                        label:{
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .cornerRadius(4)
+                                            // .scaledToFit()
+                                                .frame(width: 70,height: 70)
+                                                .overlay(alignment: .topTrailing) {
+                                                    Button(action: {
+                                                        selectedImageData.remove(at:index)
+                                                        selectedImages.remove(at: index)
+                                                        
+                                                    }) {
+                                                        Circle()
+                                                            .frame(width: 17, height: 17)
+                                                            .foregroundColor(.black)
+                                                            .overlay {
+                                                                Image(systemName: "xmark")
+                                                                    .font(.system(size: 12))
+                                                                    .foregroundColor(.white)
+                                                            }
+                                                        
+                                                        
+                                                    }
+                                                    
+                                                }//overlay
+                                        }
+                                       
+                                        
+                                         //.offset(x: 5, y: -5)
+                                        
+                                            .overlay(alignment: .bottom) {
+                                                if (selectedImages.first != nil) {
+                                                    if (selectedImageData.first != nil) {
+                                                        if index == 0 {
+                                                            Text("대표 사진")
+                                                                .font(.system(size:12))
+                                                                .fontWeight(.regular)
+                                                                .frame(maxWidth: .infinity)
+                                                                .frame(height: 20)
+                                                                .foregroundColor(Color.white)
+                                                                .background { Color.black }
+                                                                .cornerRadius(4)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                    } // if let
+                                
+                            } // FirstForEach
+       
                         } // HStack
                     }//ScrollView
+                    .frame(height: 70)
                 } // HStack
                 .padding(EdgeInsets(top: 30, leading: 20, bottom: 50, trailing: 20))
                 VStack {
