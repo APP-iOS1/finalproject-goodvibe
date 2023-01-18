@@ -10,7 +10,7 @@ import SwiftUI
 struct SignUpInfoView: View {
     @StateObject var viewModel: UserViewModel = UserViewModel()
     @State var isGenderSelected: [Bool] = [false, false, false]
-    @State var isAgeRangeSelected: [Bool] = [false, false, false, false, false]
+    @State var isAgeRangeSelected: [Bool] = [false, false, false, false]
     @State var isPreferenceAreaSelected: [Bool] = [false, false, false]
     
     @Binding var selection: Int
@@ -35,6 +35,7 @@ struct SignUpInfoView: View {
                         Button {
                             isGenderSelected[1].toggle()
                             isGenderSelected[2] = false
+                            viewModel.gender = "남자"
                         } label: {
                             Text("남자")
                         }
@@ -42,6 +43,7 @@ struct SignUpInfoView: View {
                         Button {
                             isGenderSelected[2].toggle()
                             isGenderSelected[1] = false
+                            viewModel.gender = "여자"
                         } label: {
                             Text("여자")
                         }
@@ -64,7 +66,7 @@ struct SignUpInfoView: View {
                                 isAgeRangeSelected[1] = false
                                 isAgeRangeSelected[2] = false
                                 isAgeRangeSelected[3] = false
-                                isAgeRangeSelected[4] = false
+                                viewModel.ageRange = 0
                             } label: {
                                 Text("10대")
                             }
@@ -75,22 +77,22 @@ struct SignUpInfoView: View {
                                 isAgeRangeSelected[0] = false
                                 isAgeRangeSelected[2] = false
                                 isAgeRangeSelected[3] = false
-                                isAgeRangeSelected[4] = false
+                                viewModel.ageRange = 1
                             } label: {
-                                Text("20대")
+                                Text("20 ~ 30대")
                             }
-                            .frame(width: 60)
+                            .frame(width: 95)
                             .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[1]))
                             Button {
                                 isAgeRangeSelected[2].toggle()
                                 isAgeRangeSelected[0] = false
                                 isAgeRangeSelected[1] = false
                                 isAgeRangeSelected[3] = false
-                                isAgeRangeSelected[4] = false
+                                viewModel.ageRange = 2
                             } label: {
-                                Text("30대")
+                                Text("40 ~ 50대")
                             }
-                            .frame(width: 60)
+                            .frame(width: 95)
                             .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[2]))
                         }
                         HStack{
@@ -99,23 +101,12 @@ struct SignUpInfoView: View {
                                 isAgeRangeSelected[0] = false
                                 isAgeRangeSelected[1] = false
                                 isAgeRangeSelected[2] = false
-                                isAgeRangeSelected[4] = false
+                                viewModel.ageRange = 3
                             } label: {
-                                Text("40대")
+                                Text("60대 이상")
                             }
-                            .frame(width: 60)
+                            .frame(width: 90)
                             .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[3]))
-                            Button {
-                                isAgeRangeSelected[4].toggle()
-                                isAgeRangeSelected[0] = false
-                                isAgeRangeSelected[1] = false
-                                isAgeRangeSelected[2] = false
-                                isAgeRangeSelected[3] = false
-                            } label: {
-                                Text("50대이상")
-                            }
-                            .frame(width: 65)
-                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[4]))
                         }
                     }
                 }
