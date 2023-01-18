@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StoreModalView: View {
+struct StoreModalView2: View {
     @State private var isHeart : Bool = false
     
 
@@ -16,7 +16,7 @@ struct StoreModalView: View {
     
     VStack {
         HStack{
-            Text("농민백암순대")
+            Text("우가네")
                 .font(.title2)
                 .bold()
                 .padding(.leading, 20)
@@ -24,7 +24,7 @@ struct StoreModalView: View {
         }
         
       HStack {
-        AsyncImage(url: URL(string: "https://d12zq4w4guyljn.cloudfront.net/20201217093530967_photo_4cfe72970c06.jpg")) { image in
+        AsyncImage(url: URL(string: "https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flocal%2FkakaomapPhoto%2Freview%2F3c7f504de60ea04fdff919b38722b977e15f59e8%3Foriginal")) { image in
           image
             .resizable()
             //.scaledToFit()
@@ -37,7 +37,7 @@ struct StoreModalView: View {
 
           VStack{
               HStack(alignment: .top){
-                  Text("서울특별시 강남구 역삼로 3길 20-4")
+                  Text("서울 강남구 선릉로96길 7 1층")
                       .bold()
                   
                   Spacer()
@@ -81,8 +81,8 @@ struct StoreModalView: View {
   }
 }
 
-struct StoreModalView_Previews: PreviewProvider {
+struct StoreModalView2_Previews: PreviewProvider {
   static var previews: some View {
-    StoreModalView()
+    StoreModalView2()
   }
 }
