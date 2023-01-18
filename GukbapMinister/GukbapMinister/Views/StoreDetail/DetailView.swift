@@ -110,8 +110,7 @@ struct DetailView: View {
                         
                         
                         
-                        //네이버맵뷰
-                        NaverMapView(coordination: (37.503693, 127.053033))
+                        NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
                             .frame(height: 260)
                             .padding(.vertical, 15)
                         

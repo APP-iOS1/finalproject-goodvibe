@@ -35,7 +35,7 @@ struct MainTabView: View {
                 }
                 .tag(3)
         }
-        .padding()
+        //.padding()
     }
 }
 

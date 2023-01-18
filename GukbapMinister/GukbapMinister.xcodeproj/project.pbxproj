@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EE6A9D297791BF005616B3 /* StoreModalView.swift */; };
 		049BF93B2976320600D2D044 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93A2976320600D2D044 /* PopupView */; };
-
 		049BF93D2976848D00D2D044 /* CreateReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BF93C2976848D00D2D044 /* CreateReviewView.swift */; };
 		049BF9402977169E00D2D044 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93F2977169E00D2D044 /* Shimmer */; };
-
 		5B01F2E32976840800ACB32F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E22976840800ACB32F /* DetailView.swift */; };
 		5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E42976CD1200ACB32F /* CommentUnit.swift */; };
-
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
@@ -37,19 +35,18 @@
 		5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */; };
 		5BDB9AE329757B2000BFD5D9 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE229757B2000BFD5D9 /* CommentViewModel.swift */; };
 		5BDB9AE62975821C00BFD5D9 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */; };
-
 		63FCF52F29766BEA001712CA /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 63FCF52E29766BEA001712CA /* KakaoSDK */; };
 		63FCF534297677E0001712CA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCF533297677E0001712CA /* MainTabView.swift */; };
 		6F43066A2977778400ADBD2C /* SignUpInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4306692977778400ADBD2C /* SignUpInfoView.swift */; };
 		6F43066C2977779400ADBD2C /* SignUpGukBabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F43066B2977779400ADBD2C /* SignUpGukBabView.swift */; };
-
 		AD05311D2976902000594238 /* MapCategoryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05311C2976902000594238 /* MapCategoryModalView.swift */; };
 		AD05311F2976918E00594238 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05311E2976918E00594238 /* ButtonModifier.swift */; };
-
+		AD57645B2977D95500AA3CFD /* StoreModalView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD57645A2977D95500AA3CFD /* StoreModalView2.swift */; };
 		CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03EE6A9D297791BF005616B3 /* StoreModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModalView.swift; sourceTree = "<group>"; };
 		049BF93C2976848D00D2D044 /* CreateReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewView.swift; sourceTree = "<group>"; };
 		414CB0F993F8EA399091DE32 /* Pods-GukbapMinister.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.release.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.release.xcconfig"; sourceTree = "<group>"; };
 		5B01F2E22976840800ACB32F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -82,6 +79,7 @@
 		8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.debug.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.debug.xcconfig"; sourceTree = "<group>"; };
 		AD05311C2976902000594238 /* MapCategoryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryModalView.swift; sourceTree = "<group>"; };
 		AD05311E2976918E00594238 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
+		AD57645A2977D95500AA3CFD /* StoreModalView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModalView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,15 +169,14 @@
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				5BDB9ABD297575B900BFD5D9 /* MapView.swift */,
 				AD05311C2976902000594238 /* MapCategoryModalView.swift */,
+				03EE6A9D297791BF005616B3 /* StoreModalView.swift */,
+				AD57645A2977D95500AA3CFD /* StoreModalView2.swift */,
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
-
 				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
-
 				AD05311E2976918E00594238 /* ButtonModifier.swift */,
-
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -248,11 +245,8 @@
 				5BDB9AC8297576EA00BFD5D9 /* FirebaseFirestoreSwift */,
 				5BDB9ACA297576EA00BFD5D9 /* FirebaseStorage */,
 				049BF93A2976320600D2D044 /* PopupView */,
-
 				63FCF52E29766BEA001712CA /* KakaoSDK */,
-
 				049BF93F2977169E00D2D044 /* Shimmer */,
-
 			);
 			productName = GukbapMinister;
 			productReference = 5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */;
@@ -285,11 +279,8 @@
 			packageReferences = (
 				5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */,
-
 				63FCF52D29766BEA001712CA /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-
 				049BF93E2977169E00D2D044 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
-
 			);
 			productRefGroup = 5BDB9AAD2975751C00BFD5D9 /* Products */;
 			projectDirPath = "";
@@ -372,12 +363,14 @@
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				63FCF534297677E0001712CA /* MainTabView.swift in Sources */,
 				5BDB9AD729757A3B00BFD5D9 /* User.swift in Sources */,
+				03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */,
 				AD05311D2976902000594238 /* MapCategoryModalView.swift in Sources */,
 				5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */,
 				5B01F2E32976840800ACB32F /* DetailView.swift in Sources */,
 				5BDB9AC02975760300BFD5D9 /* ExploreView.swift in Sources */,
 				5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */,
 				5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */,
+				AD57645B2977D95500AA3CFD /* StoreModalView2.swift in Sources */,
 				6F43066C2977779400ADBD2C /* SignUpGukBabView.swift in Sources */,
 				5BDB9ADB29757A8300BFD5D9 /* Comment.swift in Sources */,
 				AD05311F2976918E00594238 /* ButtonModifier.swift in Sources */,
@@ -517,6 +510,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보를 받아옵니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -547,6 +541,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보를 받아옵니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
