@@ -127,8 +127,11 @@ struct DetailView: View {
                                     //별 재사용 예정
                                     HStack {
                                         ForEach(0..<5) { _ in
-                                            Image(systemName: "star.fill")
-                                                .foregroundColor(.yellow)
+                                            Image("StarEmpty")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width:25, height: 25)
+                                                .padding(.trailing, 2)
                                         }
                                     }
                             }
@@ -142,7 +145,7 @@ struct DetailView: View {
                         VStack(spacing: 0) {
                             ForEach(0..<3) { index in
                                 let imageTest: [String] = .init(repeating: "Test", count: index)
-                                CommentUnit(nickname: "써니\(index)", date: "2023.01.17", starRate: 3.5, comment: "여기 외 않가?", images: imageTest)
+                                CommentUnit(nickname: "써니\(index)", date: "2023.01.17", starRate: 4, comment: "여기 외 않가?", images: imageTest)
                                 if index != 2 {
                                     Divider()
                                 }

@@ -10,45 +10,42 @@ import SwiftUI
 struct CommentUnit: View {
     var nickname: String = "써니"
     var date: String = "2023.01.17"
-    var starRate: Double = 3.5
+    var starRate: Int = 3
     var comment: String = "여기 외 않와? 꼭 가세요"
     var images: [String] = ["Test"]
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(nickname)
                     .font(.headline)
-                    .padding(.bottom, 10)
                 Spacer()
                 Text(date)
                     .font(.caption)
                     .foregroundColor(.gray)
                 
             }
+            .padding(.bottom, 5)
             //별점
             HStack(spacing: 0){
-                ForEach(1..<6) { index in
-                    let indexToDouble = Double(index)
-                    if indexToDouble <= starRate {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                            .font(.caption)
-                            .padding(.trailing, 2)
-                    } else if indexToDouble == starRate + 0.5 {
-                        Image(systemName: "star.leadinghalf.filled")
-                            .foregroundColor(.yellow)
-                            .font(.caption)
+                ForEach(0..<5) { index in
+                    if index + 1 <= starRate {
+                        Image("StarFilled")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:17, height: 17)
                             .padding(.trailing, 2)
                     } else {
-                        Image(systemName: "star")
-                            .foregroundColor(.yellow)
-                            .font(.caption)
+                        Image("StarEmpty")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:17, height: 17)
                             .padding(.trailing, 2)
                     }
                 }
             }
             .padding(.bottom, 15)
+            
             
             Text(comment)
                 .lineLimit(3)

@@ -239,10 +239,10 @@ struct CreateReviewView: View {
 
 
 
-//struct CreateReviewView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CreateReviewView()
-//    }
-//}
+struct CreateReviewView_Previews: PreviewProvider {
+    static var previews: some View {
+        CreateReviewView()
+    }
+}
 
 
