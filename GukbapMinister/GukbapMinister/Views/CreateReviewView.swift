@@ -47,7 +47,7 @@ struct CreateReviewView: View {
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(self.selected >= i ? .yellow : .gray)
+                                .foregroundColor(self.selected >= i ? .yellow : Color("lightGray"))
                                 .onTapGesture {
                                     self.selected = i
                                 }
