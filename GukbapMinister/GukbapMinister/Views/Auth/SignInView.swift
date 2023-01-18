@@ -8,13 +8,126 @@
 import SwiftUI
 
 struct SignInView: View {
+    @EnvironmentObject var viewModel: UserViewModel
+    
+    @State var signUpView: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            //MARK: - App LOGO
+            ZStack {
+                Text("LOGO")
+                Rectangle()
+                    .foregroundColor(.secondary)
+                .frame(width: 200, height: 200)
+            }
+            .padding(.bottom, 20)
+            //MARK: - Email
+            VStack {
+                HStack {
+                    Text("이메일")
+                    Spacer()
+                }
+                TextField("Email", text: $viewModel.signInEmailID)
+                    .textContentType(.emailAddress)
+                    .border(1, .black.opacity(0.5))
+                    .textInputAutocapitalization(.never)
+            } //Email TextField
+            .padding(.bottom, 5)
+            //MARK: - Password
+            VStack {
+                HStack {
+                    Text("비밀번호")
+                    Spacer()
+                }
+                SecureField("Password", text: $viewModel.signInPassword)
+                    .textInputAutocapitalization(.never)
+                    .border(1, .black.opacity(0.5))
+            }
+            .padding(.bottom, 30)
+            //MARK: - Login Button
+            VStack{
+                Button {
+                    //Login 버튼
+                    viewModel.signInUser()
+                } label: {
+                    VStack {
+                        Text("이메일로 계속하기")
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .frame(width: 360, height: 60)
+                            .background(.yellow)
+                            .cornerRadius(7)
+                    }//VStack
+                }
+            }//VStack
+            .padding(.bottom, 30)
+            //MARK: - KAKAO Login Button
+            HStack {
+                Button {
+                    viewModel.kakaoSignIn()
+                } label: {
+                    Text("K")
+                        .frame(width: 50, height: 50)
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .foregroundColor(.black)
+                        .background(.yellow)
+                        .clipShape(Circle())
+                }// KAKAO LOGIN
+                Button {
+                    //NAVER LOGIN 추가 해야함
+                    viewModel.kakaoSignIn()
+                } label: {
+                    Text("N")
+                        .frame(width: 50, height: 50)
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .background(.green)
+                        .clipShape(Circle())
+                }// NAVER LOGIN
+            }
+            
+            //MARK: - Move to SignUpView()
+            Spacer()
+            HStack {
+                Text("아직 회원이 아니신가요?")
+                    .foregroundColor(.secondary)
+                Button {
+                    signUpView.toggle()
+                } label: {
+                    Text("회원가입")
+                }
+                .fontWeight(.bold)
+                .foregroundColor(.black)
+            }//HStack
+            .padding(.top, 10)
+        }//VStack
+        .padding()
+        .fullScreenCover(isPresented: $signUpView) {
+            SignUpTabView()
+        }
     }
 }
 
 struct SignInView_Previews: PreviewProvider {
+    //    static let userViewModel: UserViewModel()
     static var previews: some View {
-        SignInView()
+        SignInView().environmentObject(UserViewModel())
     }
 }
+
+extension View{
+    func border(_ width: CGFloat, _ color: Color) -> some View{
+        self
+            .padding(.horizontal, 15)
+            .padding(.vertical, 10)
+            .background{
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .stroke(color, lineWidth: width)
+            }
+    }
+}//extension
