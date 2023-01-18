@@ -27,7 +27,7 @@ struct GukbapMinisterApp: App {
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        CreateReviewView()
+        ContentView()
       }
     }
   }
