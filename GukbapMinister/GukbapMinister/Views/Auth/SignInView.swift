@@ -8,32 +8,45 @@
 import SwiftUI
 
 struct SignInView: View {
-    @State var emailID: String = ""
-    @State var password: String = ""
+    @EnvironmentObject var viewModel: UserViewModel
     
     @State var signUpView: Bool = false
     
     var body: some View {
         VStack {
             //MARK: - Email
-            TextField("Email", text: $emailID)
+            TextField("Email", text: $viewModel.signInEmailID)
                 .textContentType(.emailAddress)
                 .border(1, .black.opacity(0.5))
                 .textInputAutocapitalization(.never)
             //MARK: - Password
-            SecureField("Password", text: $password)
+            SecureField("Password", text: $viewModel.signInPassword)
                 .textInputAutocapitalization(.never)
                 .border(1, .black.opacity(0.5))
             //MARK: - Login Button
-            Button {
-                //Login 버튼
-            } label: {
-                Text("로그인")
+            VStack{
+                Button {
+                    //Login 버튼
+                    viewModel.signInUser()
+                } label: {
+                    Text("이메일 로그인")
+                }
+                Button {
+                    viewModel.kakaoSignIn()
+                } label: {
+                    Text("카카오로그인")
+                }
+                Button {
+                    viewModel.signOut()
+                } label: {
+                    Text("로그아웃")
+                }
+
             }
-            .padding(.top, 20)
+
             //MARK: - Move to SignUpView()
             HStack {
-                Text("아직 계정이 업는 경우")
+                Text("아직 계정이 없는 경우")
                     .foregroundColor(.secondary)
                 Button {
                     signUpView.toggle()
@@ -53,8 +66,9 @@ struct SignInView: View {
 }
 
 struct SignInView_Previews: PreviewProvider {
+//    static let userViewModel: UserViewModel()
     static var previews: some View {
-        SignInView()
+        SignInView().environmentObject(UserViewModel())
     }
 }
 
