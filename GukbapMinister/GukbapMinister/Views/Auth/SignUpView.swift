@@ -13,7 +13,10 @@ struct SignUpView: View {
     
     var body: some View {
         VStack {
-            Spacer()
+            
+            SignUpProcessView(index: 1)
+            
+            
             HStack {
                 Text("회원가입")
                     .font(.largeTitle)
@@ -45,16 +48,16 @@ struct SignUpView: View {
             }
             .padding(.bottom, 5)
             //MARK: - Password Agin
-            VStack {
-                HStack {
-                    Text("비밀번호 확인")
-                    Spacer()
-                }
-                SecureField("비밀번호 확인", text: $viewModel.signUpPassword)
-                    .textInputAutocapitalization(.never)
-                    .border(1, .black.opacity(0.5))
-            }
-            .padding(.bottom, 5)
+//            VStack {
+//                HStack {
+//                    Text("비밀번호 확인")
+//                    Spacer()
+//                }
+//                SecureField("비밀번호 확인", text: $viewModel.signUpPassword)
+//                    .textInputAutocapitalization(.never)
+//                    .border(1, .black.opacity(0.5))
+//            }
+//            .padding(.bottom, 5)
             //MARK: - User Nickname
             VStack {
                 HStack {
@@ -73,25 +76,29 @@ struct SignUpView: View {
                     .fontWeight(.bold)
                 Spacer()
             }
+            
             //MARK: - Register Button
             VStack {
-                Button {
-                    //회원가입 버튼
-                    viewModel.signUpUser()
+                NavigationLink {
+                    SignUpInfoView()
                 } label: {
-                    VStack {
-                        Text("회원가입")
-                            .fontWeight(.bold)
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .frame(width: 360, height: 60)
-                            .background(.yellow)
-                            .cornerRadius(7)
-                    }
-                }// Button VStack
+                    Text("회원가입")
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .frame(width: 360, height: 60)
+                        .background(.yellow)
+                        .cornerRadius(7)
+//                        .onTapGesture {
+//                            //회원가입 버튼
+//                            viewModel.signUpUser()
+//                        }
+                }
             }
+            
             //MARK: - Move to SignUpView()
             Spacer()
+            
             HStack {
                 Text("이미 계정이 있으신가요?")
                     .foregroundColor(.secondary)

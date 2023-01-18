@@ -65,7 +65,7 @@ final class UserViewModel: ObservableObject {
                     "userEmail" : signUpEmailID,
                     "userNickname" : signUpNickname,
                 ])
-                self.state = .signedIn
+//                self.state = .signedIn
             }catch{
                 print("Sign Up Failed")
             }

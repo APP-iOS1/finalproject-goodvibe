@@ -14,6 +14,7 @@ struct SignUpInfoView: View {
     @State var preferenceArea: String = ""
     var body: some View {
         VStack {
+            SignUpProcessView(index: 2)
             VStack(alignment: .leading) {
                 Text("안녕하세요 [닉네임]님!")
                     .font(.title)
