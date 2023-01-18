@@ -29,7 +29,7 @@ struct MainTabView: View {
                 }
                 .tag(2)
             
-            CreateReviewView()
+            MyPageView()
                 .tabItem {
                     Text("마이페이지")
                 }
