@@ -14,30 +14,73 @@ struct SignUpView: View {
     var body: some View {
         VStack {
             //MARK: - Email
-            TextField("Email", text: $viewModel.signUpEmailID)
-                .textContentType(.emailAddress)
-                .border(1, .black.opacity(0.5))
-                .textInputAutocapitalization(.never)
+            VStack {
+                HStack {
+                    Text("이메일")
+                    Spacer()
+                }
+                TextField("example@gukbab.com", text: $viewModel.signUpEmailID)
+                    .textContentType(.emailAddress)
+                    .border(1, .black.opacity(0.5))
+                    .textInputAutocapitalization(.never)
+            }
             //MARK: - Password
-            SecureField("Password", text: $viewModel.signUpPassword)
-                .textInputAutocapitalization(.never)
-                .border(1, .black.opacity(0.5))
+            VStack {
+                HStack {
+                    Text("비밀번호")
+                    Spacer()
+                }
+                SecureField("영문, 숫자 포함 6자 이상", text: $viewModel.signUpPassword)
+                    .textInputAutocapitalization(.never)
+                    .border(1, .black.opacity(0.5))
+            }
+            //MARK: - Password Agin
+            VStack {
+                HStack {
+                    Text("비밀번호 확인")
+                    Spacer()
+                }
+                SecureField("비밀번호 확인", text: $viewModel.signUpPassword)
+                    .textInputAutocapitalization(.never)
+                    .border(1, .black.opacity(0.5))
+            }
             //MARK: - User Nickname
-            TextField("Nickname", text: $viewModel.signUpNickname)
-                .border(1, .black.opacity(0.5))
-                .textInputAutocapitalization(.never)
+            VStack {
+                HStack {
+                    Text("닉네임")
+                    Spacer()
+                }
+                TextField("프로필 이름", text: $viewModel.signUpNickname)
+                    .border(1, .black.opacity(0.5))
+                    .textInputAutocapitalization(.never)
+            }
+            .padding(.bottom)
+            HStack {
+                Text("국밥부장관의 이용약관과 개인정보 처리방침에 동의합니다.")
+                    .foregroundColor(.black)
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                Spacer()
+            }
             //MARK: - Login Button
             Button {
                 //회원가입 버튼
                 viewModel.signUpUser()
             } label: {
-                Text("회원가입")
+                VStack {
+                    Text("회원가입")
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 150)
+//                        .border(1, .black.opacity(0.5))
+                        .background(Color.accentColor)
+                        .cornerRadius(5)
+                }// Button VStack
             }
             .padding(.top, 20)
             //MARK: - Move to SignUpView()
             HStack {
-                Text("이미 계정이 있는 경우")
-                    .foregroundColor(.secondary)
+                Text("이미 계정이 있으신가요?")
+                    .foregroundColor(.blue)
                 Button {
                     returnSigninView()
                 } label: {
