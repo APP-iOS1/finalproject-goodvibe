@@ -58,12 +58,12 @@ struct SignInView: View {
                             .font(.title3)
                             .foregroundColor(.white)
                             .frame(width: 360, height: 60)
-                            .background(Color.accentColor)
+                            .background(.yellow)
                             .cornerRadius(7)
                     }//VStack
                 }
             }//VStack
-            .padding(.bottom, 50)
+            .padding(.bottom, 30)
             //MARK: - KAKAO Login Button
             HStack {
                 Button {
@@ -78,6 +78,7 @@ struct SignInView: View {
                         .clipShape(Circle())
                 }// KAKAO LOGIN
                 Button {
+                    //NAVER LOGIN 추가 해야함
                     viewModel.kakaoSignIn()
                 } label: {
                     Text("N")
@@ -93,7 +94,7 @@ struct SignInView: View {
             //MARK: - Move to SignUpView()
             Spacer()
             HStack {
-                Text("아직 계정이 없는 경우")
+                Text("아직 회원이 아니신가요?")
                     .foregroundColor(.secondary)
                 Button {
                     signUpView.toggle()
@@ -103,7 +104,7 @@ struct SignInView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.black)
             }//HStack
-            .padding(.top,20)
+            .padding(.top, 10)
         }//VStack
         .padding()
         .fullScreenCover(isPresented: $signUpView) {

@@ -85,7 +85,7 @@ struct SignUpView: View {
                             .font(.title2)
                             .foregroundColor(.white)
                             .frame(width: 360, height: 60)
-                            .background(Color.accentColor)
+                            .background(.yellow)
                             .cornerRadius(7)
                     }
                 }// Button VStack
@@ -94,7 +94,7 @@ struct SignUpView: View {
             Spacer()
             HStack {
                 Text("이미 계정이 있으신가요?")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.secondary)
                 Button {
                     returnSigninView()
                 } label: {
