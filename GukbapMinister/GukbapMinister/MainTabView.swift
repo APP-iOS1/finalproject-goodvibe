@@ -23,7 +23,7 @@ struct MainTabView: View {
                 }
                 .tag(1)
             
-            DetailView()
+            CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
                 }

@@ -28,11 +28,11 @@ struct MapView: View {
     //@StateObject var locationManager = LocationManager()
     
     var body: some View {
-        
-        ZStack {
-
-            VStack {
-                HStack{
+        NavigationStack {
+            ZStack {
+                
+                VStack {
+                    HStack{
                         VStack {
                             HStack {
                                 Image(systemName: "magnifyingglass")
@@ -47,90 +47,92 @@ struct MapView: View {
                                     .stroke(.yellow)
                             }
                         }
+                        
+                        Spacer()
+                        
+                        Button{
+                            // TODO - 검색 확인을 눌렀을 때 검색 실행
+                            
+                        } label: {
+                            Text("확인")
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 65, height: 50)
+                        .background(.yellow)
+                        .cornerRadius(25)
+                    }
+                    .padding(.horizontal, 18)
+                                    
+                    HStack{
+                        Button{
+                            self.showModal = true
+                        } label: {
+                            Text(Image(systemName: "slider.horizontal.3")).foregroundColor(.gray) + Text("필터")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Capsule().fill(Color.white))
+                        .overlay {
+                            Capsule()
+                                .stroke(.yellow)
+                        }
+                        .sheet(isPresented: self.$showModal) {
+                            MapCategoryModalView()
+                                .presentationDetents([.height(335)])
+                        }
+                        
+                        
+                        Spacer()
+                        
+                    }
+                    .padding(.horizontal, 18)
                     
-
-                    Button{
-                        // TODO - 검색 확인을 눌렀을 때 검색 실행
-                        
-                    } label: {
-                        Text("확인")
-                            .foregroundColor(.white)
-                    }
-                    .frame(width: 65, height: 50)
-                    .background(.yellow)
-                    .cornerRadius(25)
-                }
-                
-                
-
-                HStack{
-                    Button{
-                        self.showModal = true
-                    } label: {
-                        Text(Image(systemName: "slider.horizontal.3")).foregroundColor(.gray) + Text("필터")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Capsule().fill(Color.white))
-                    .overlay {
-                        Capsule()
-                            .stroke(.yellow)
-                    }
-                    .padding(.leading, 10)
-                    .sheet(isPresented: self.$showModal) {
-                        MapCategoryModalView()
-                            .presentationDetents([.height(335)])
-                    }
-
-
+                    // 위치를 이동하는 버튼 - 비활성화
+                    //                Button {
+                    //                    locationManager.requestLocation()
+                    //                    //coordination = (35.1379222, 129.05562775)
+                    //                    if let location = locationManager.location {
+                    //                        //Text("Your location: \(location.latitude), \(location.longitude)")
+                    //                        coordination = (location.latitude, location.longitude)
+                    //                    }
+                    //                } label: {
+                    //                    Text("내 위치 이동")
+                    //                }
+                    //                .frame(height: 44)
+                    //                .padding()
+                    //
+                    //
+                    //                Button(action: {coordination = (35.1379222, 129.05562775)}) {
+                    //                    Text("부산으로 위치 이동")
+                    //                }
+                    //
+                    //                Button(action: {coordination = (37.503693, 127.053033)}) {
+                    //                    Text("서울 아무 지역으로 위치 이동")
+                    //                }
                     Spacer()
-
                 }
+                .zIndex(1)
                 
-// 위치를 이동하는 버튼 - 비활성화
-//                Button {
-//                    locationManager.requestLocation()
-//                    //coordination = (35.1379222, 129.05562775)
-//                    if let location = locationManager.location {
-//                        //Text("Your location: \(location.latitude), \(location.longitude)")
-//                        coordination = (location.latitude, location.longitude)
-//                    }
-//                } label: {
-//                    Text("내 위치 이동")
-//                }
-//                .frame(height: 44)
-//                .padding()
-//
-//
-//                Button(action: {coordination = (35.1379222, 129.05562775)}) {
-//                    Text("부산으로 위치 이동")
-//                }
-//
-//                Button(action: {coordination = (37.503693, 127.053033)}) {
-//                    Text("서울 아무 지역으로 위치 이동")
-//                }
-                Spacer()
+                
+                // TODO - 전체화면 꽉 채우기
+                // 요소 하나만 수정하면 구현될 예상
+                NaverMapView(coordination: coordination, marked: $marked, marked2: $marked2)
+                    .edgesIgnoringSafeArea([.top, .horizontal])
+                    .sheet(isPresented: self.$marked) {
+                        NavigationStack {
+                            StoreModalView()
+                        }
+                        .presentationDetents([.height(200)])
+                    }
+                    .sheet(isPresented: self.$marked2) {
+                        StoreModalView2()
+                            .presentationDetents([.height(200)])
+                    }
+                
+                
             }
-            .zIndex(1)
-
-
-            // TODO - 전체화면 꽉 채우기
-            // 요소 하나만 수정하면 구현될 예상
-            NaverMapView(coordination: coordination, marked: $marked, marked2: $marked2)
-                .edgesIgnoringSafeArea(.all)
-                .sheet(isPresented: self.$marked) {
-                    StoreModalView()
-                        .presentationDetents([.height(200)])
-                }
-                .sheet(isPresented: self.$marked2) {
-                    StoreModalView2()
-                        .presentationDetents([.height(200)])
-                }
-
-                        
         }
-
     }
 }
 
@@ -161,8 +163,8 @@ struct MapView: View {
 //}
 
 
-//struct MapView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapView(marked: )
-//    }
-//}
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView()
+    }
+}
