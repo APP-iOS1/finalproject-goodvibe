@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SignUpInfoView: View {
+    @StateObject var viewModel: UserViewModel = UserViewModel()
     @State var isGenderSelected: [Bool] = [false, false, false]
     @State var isAgeRangeSelected: [Bool] = [false, false, false, false, false]
     @State var isPreferenceAreaSelected: [Bool] = [false, false, false]
-    @State var preferenceArea: String = ""
     
     @Binding var selection: Int
     
@@ -127,7 +127,7 @@ struct SignUpInfoView: View {
                             .foregroundColor(.gray)
                             .font(.system(size: 12))
                     }
-                    TextField("선호 지역", text: $preferenceArea)
+                    TextField("선호 지역", text: $viewModel.preferenceArea)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     HStack{
                         Button {
@@ -154,7 +154,9 @@ struct SignUpInfoView: View {
             .padding()
             Button {
                 SignUpGukBabView()
+                viewModel.signUpInfo()
                 self.selection = 3
+
             } label: {
                 Text("다음 단계로 넘어가기")
                     .foregroundColor(.black)
