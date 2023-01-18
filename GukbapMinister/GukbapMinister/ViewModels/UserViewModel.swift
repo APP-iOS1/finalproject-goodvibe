@@ -22,6 +22,9 @@ final class UserViewModel: ObservableObject {
     @Published var signUpPassword: String = ""
     @Published var signUpNickname: String = ""
     @Published var preferenceArea: String = ""
+    @Published var gender: String = ""
+    @Published var ageRange: Int = 0
+    @Published var gukbaps: [String] = []
     //로그인 상태
     enum SignInState{
         case signedIn
@@ -72,11 +75,15 @@ final class UserViewModel: ObservableObject {
             }
         }//Task
     }//registerUser()
+    
+    //MARK: - 성별, 연령대, 선호지역 업데이트
     func signUpInfo(){
         Task{
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
+                    "gender" : gender,
+                    "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,
                 ])
 //                self.state = .signedIn
@@ -85,8 +92,18 @@ final class UserViewModel: ObservableObject {
             }
         }//Task
     }
-    
-    func justLogin(){
+    func signUpGukBap(){
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "gukbaps" : gukbaps,
+                ])
+//                self.state = .signedIn
+            }catch let error {
+                print("Sign Up Failed : \(error)")
+            }
+        }//Task
         self.state = .signedIn
     }
     

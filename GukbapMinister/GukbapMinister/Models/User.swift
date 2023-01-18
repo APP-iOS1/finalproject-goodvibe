@@ -13,6 +13,7 @@ struct User: Identifiable, Hashable, Codable {
     var userNickname: String = ""
     var userEmail: String =  ""
     var preferenceArea: String = ""
-//    var gender: Int = 0
-//    var ageRange: Int = 0
+    var gender: String = ""
+    var ageRange: Int = 0
+    var gukbaps: [String] = []
 }
