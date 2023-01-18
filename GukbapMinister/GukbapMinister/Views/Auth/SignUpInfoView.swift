@@ -15,11 +15,11 @@ struct SignUpInfoView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                    Text("안녕하세요 [닉네임]님!")
-                        .font(.title)
-                        .padding(.top, 70)
-                    Text("나머지 정보를 입력해주세요.")
-                        .font(.title)
+                Text("안녕하세요 [닉네임]님!")
+                    .font(.title)
+                    .padding(.top, 70)
+                Text("나머지 정보를 입력해주세요.")
+                    .font(.title)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -35,14 +35,14 @@ struct SignUpInfoView: View {
                         } label: {
                             Text("남자")
                         }
-                        .modifier(CategoryButtonModifier(color: isGenderSelected[1] ? .yellow : .white))
+                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isGenderSelected[1]))
                         Button {
                             isGenderSelected[2].toggle()
                             isGenderSelected[1] = false
                         } label: {
                             Text("여자")
                         }
-                        .modifier(CategoryButtonModifier(color: isGenderSelected[2] ? .yellow : .white))
+                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isGenderSelected[2]))
                     }
                 }
                 .padding(.vertical)
@@ -66,7 +66,7 @@ struct SignUpInfoView: View {
                                 Text("10대")
                             }
                             .frame(width: 60)
-                            .modifier(CategoryButtonModifier(color: isAgeRangeSelected[0] ? .yellow : .white))
+                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[0]))
                             Button {
                                 isAgeRangeSelected[1].toggle()
                                 isAgeRangeSelected[0] = false
@@ -77,7 +77,7 @@ struct SignUpInfoView: View {
                                 Text("20대")
                             }
                             .frame(width: 60)
-                            .modifier(CategoryButtonModifier(color: isAgeRangeSelected[1] ? .yellow : .white))
+                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[1]))
                             Button {
                                 isAgeRangeSelected[2].toggle()
                                 isAgeRangeSelected[0] = false
@@ -88,7 +88,7 @@ struct SignUpInfoView: View {
                                 Text("30대")
                             }
                             .frame(width: 60)
-                            .modifier(CategoryButtonModifier(color: isAgeRangeSelected[2] ? .yellow : .white))
+                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[2]))
                         }
                         HStack{
                             Button {
@@ -101,7 +101,7 @@ struct SignUpInfoView: View {
                                 Text("40대")
                             }
                             .frame(width: 60)
-                            .modifier(CategoryButtonModifier(color: isAgeRangeSelected[3] ? .yellow : .white))
+                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[3]))
                             Button {
                                 isAgeRangeSelected[4].toggle()
                                 isAgeRangeSelected[0] = false
@@ -112,7 +112,7 @@ struct SignUpInfoView: View {
                                 Text("50대이상")
                             }
                             .frame(width: 65)
-                            .modifier(CategoryButtonModifier(color: isAgeRangeSelected[4] ? .yellow : .white))
+                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[4]))
                         }
                     }
                 }
@@ -132,19 +132,19 @@ struct SignUpInfoView: View {
                         } label: {
                             Text("강남구")
                         }
-                        .modifier(CategoryButtonModifier(color: isPreferenceAreaSelected[0] ? .yellow : .white))
+                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isPreferenceAreaSelected[0]))
                         Button {
                             isPreferenceAreaSelected[1].toggle()
                         } label: {
                             Text("강서구")
                         }
-                        .modifier(CategoryButtonModifier(color: isPreferenceAreaSelected[1] ? .yellow : .white))
+                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isPreferenceAreaSelected[1]))
                         Button {
                             isPreferenceAreaSelected[2].toggle()
                         } label: {
                             Text("부산진구")
                         }
-                        .modifier(CategoryButtonModifier(color: isPreferenceAreaSelected[2] ? .yellow : .white))
+                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isPreferenceAreaSelected[2]))
                     }
                 }
             }
@@ -156,7 +156,8 @@ struct SignUpInfoView: View {
                     .foregroundColor(.black)
             }
             .frame(width: 300, height: 40)
-            .modifier(CategoryButtonModifier(color: .yellow))
+            .modifier(CategoryButtonModifier(isChangedButtonStyle: true))
+            //            .modifier(CategoryButtonModifier(color: .yellow))
             .padding(.vertical)
             Spacer()
         }
