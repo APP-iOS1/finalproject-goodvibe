@@ -16,7 +16,11 @@ struct CreateReviewView: View {
     @State private var selectedImageData: [Data] =  []
     @State private var isReviewAdded: Bool = false
     @State private var reviewText: String = ""
-    @State var selected = 0
+    
+    
+    @ObservedObject var starStore: StarStore
+    var stars: Int
+    
     
     var trimReviewText: String {
         reviewText.trimmingCharacters(in: .whitespaces)
@@ -44,18 +48,17 @@ struct CreateReviewView: View {
                     HStack(spacing: 25){
                         Spacer()
                         ForEach(0..<5) { i in
-                            Image(systemName: "star.fill")
+                            Image(starStore.selectedStar >= i ? "StarFilled" : "StarEmpty")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(self.selected >= i ? .yellow : Color("lightGray"))
                                 .onTapGesture {
-                                    self.selected = i
+                                    starStore.selectedStar = i
                                 }
                         }
                         Spacer()
                     }
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
-                    Text("\(selected + 1) / \(5)")
+                    Text("\(starStore.selectedStar + 1) / \(5)")
                         .font(.system(size: 17))
                         .fontWeight(.semibold)
                 }//VStack
@@ -224,6 +227,10 @@ struct CreateReviewView: View {
                     .position(.top)
             } // popup
         }//NavigationStack
+        .onAppear{
+            starStore.selectedStar = stars
+            print(starStore.selectedStar)
+        }
     }//body
 }//struct CreateReviewView
 
@@ -239,10 +246,10 @@ struct CreateReviewView: View {
 
 
 
-struct CreateReviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateReviewView()
-    }
-}
+//struct CreateReviewView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CreateReviewView(selected: Binding<0>)
+//    }
+//}
 
 

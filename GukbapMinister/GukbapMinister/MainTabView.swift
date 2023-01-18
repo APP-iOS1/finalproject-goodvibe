@@ -13,7 +13,7 @@ struct MainTabView: View {
         TabView(selection: $tabSelection) {
             ExploreView()
                 .tabItem {
-                    Text("둘러보기")
+                    Label("둘러보기", systemImage: "person")
                 }
                 .tag(0)
             
@@ -23,7 +23,7 @@ struct MainTabView: View {
                 }
                 .tag(1)
             
-            CollectionView()
+            DetailView()
                 .tabItem {
                     Text("내가 찜한 곳")
                 }
@@ -35,7 +35,8 @@ struct MainTabView: View {
                 }
                 .tag(3)
         }
-        .padding()
+        .accentColor(.yellow)
+        
     }
 }
 

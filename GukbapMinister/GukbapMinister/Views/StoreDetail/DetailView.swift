@@ -7,12 +7,17 @@
 
 import SwiftUI
 
+class StarStore: ObservableObject {
+    @Published var selectedStar: Int = 0
+}
+
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
-    @State private var selectedStar: Int = 0
+    @ObservedObject var starStore = StarStore()
     
     let colors: [Color] = [.yellow, .green, .red]
     
@@ -127,20 +132,16 @@ struct DetailView: View {
                                     //별 재사용 예정
                                     
                                     HStack {
-                                        ForEach(0..<5) { i in
-                                            NavigationLink {
-                                                CreateReviewView(selected: selectedStar)
-                                            } label: {
-                                                Image(self.selectedStar >= i ? "StarFilled" : "StarEmpty")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 30, height: 30)
-                                                    .onTapGesture {
-                                                        self.selectedStar = i
-                                                    }
-                                            }
+                                        ForEach(0..<5) { index in
+                                                NavigationLink {
+                                                    CreateReviewView(starStore: starStore, stars: index)
+                                                } label: {
+                                                    Image(starStore.selectedStar >= index ? "StarFilled" : "StarEmpty")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 30, height: 30)
+                                                }
                                         }
-                                        
                                     }
                                 }
                                 .padding(.vertical, 30)
