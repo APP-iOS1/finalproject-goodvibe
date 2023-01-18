@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpGukBabView: View {
-    
+    @EnvironmentObject var viewModel: UserViewModel
     @State private var didTap: [Bool] = [false,false,false,false,false,false,false,false,false,false,false,false]
     
     var body: some View {
@@ -118,7 +118,8 @@ struct SignUpGukBabView: View {
             .padding(4)
             
             Button {
-                
+                viewModel.justLogin()
+                print("state: \(viewModel.state)")
             } label: {
                 Text("국밥선호 확인")
                     .font(.title3)
@@ -137,6 +138,6 @@ struct SignUpGukBabView: View {
 
 struct SignUpGukBabView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpGukBabView()
+        SignUpGukBabView().environmentObject(UserViewModel())
     }
 }

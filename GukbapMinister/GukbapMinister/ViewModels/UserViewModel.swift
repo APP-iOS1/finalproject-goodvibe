@@ -21,7 +21,7 @@ final class UserViewModel: ObservableObject {
     @Published var signUpEmailID: String = ""
     @Published var signUpPassword: String = ""
     @Published var signUpNickname: String = ""
-    
+    @Published var preferenceArea: String = ""
     //로그인 상태
     enum SignInState{
         case signedIn
@@ -64,6 +64,7 @@ final class UserViewModel: ObservableObject {
                 try await database.collection("User").document(currentUser.uid).setData([
                     "userEmail" : signUpEmailID,
                     "userNickname" : signUpNickname,
+//                    "preferenceArea" : preferenceArea,
                 ])
 //                self.state = .signedIn
             }catch let error {
@@ -71,6 +72,23 @@ final class UserViewModel: ObservableObject {
             }
         }//Task
     }//registerUser()
+    func signUpInfo(){
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "preferenceArea" : preferenceArea,
+                ])
+//                self.state = .signedIn
+            }catch let error {
+                print("Sign Up Failed : \(error)")
+            }
+        }//Task
+    }
+    
+    func justLogin(){
+        self.state = .signedIn
+    }
     
     //MARK: - KAKAO
     
