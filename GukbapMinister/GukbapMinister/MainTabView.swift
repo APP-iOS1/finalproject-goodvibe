@@ -13,25 +13,25 @@ struct MainTabView: View {
         TabView(selection: $tabSelection) {
             ExploreView()
                 .tabItem {
-                    Label("둘러보기", systemImage: "person")
+                    Label("둘러보기", systemImage: "binoculars.fill")
                 }
                 .tag(0)
             
             MapView()
                 .tabItem {
-                    Text("지도")
+                    Label("지도", systemImage: "map")
                 }
                 .tag(1)
             
             DetailView()
                 .tabItem {
-                    Text("내가 찜한 곳")
+                    Label("내가 찜한 곳", systemImage: "heart.circle")
                 }
                 .tag(2)
             
             MyPageView()
                 .tabItem {
-                    Text("마이페이지")
+                    Label("마이페이지", systemImage: "person")
                 }
                 .tag(3)
         }
