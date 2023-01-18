@@ -14,10 +14,6 @@ struct SignUpView: View {
     
     var body: some View {
         VStack {
-            
-            SignUpProcessView(index: 1)
-            
-            
             HStack {
                 Text("회원가입")
                     .font(.largeTitle)
@@ -84,7 +80,7 @@ struct SignUpView: View {
                     //회원가입 버튼
                     viewModel.signUpUser()
                     //
-                    self.selection = 1
+                    self.selection = 2
                 } label: {
                     Text("회원가입")
                         .fontWeight(.bold)

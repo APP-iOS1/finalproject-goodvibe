@@ -9,19 +9,22 @@ import SwiftUI
 
 struct SignUpTabView: View {
     
-    @State private var selection: Int = 0
+    @State private var selection: Int = 1
     
     var body: some View {
-        
-        TabView(selection: $selection) {
-            SignUpView(selection: $selection)
-                .tag(0)
-            SignUpInfoView(selection: $selection)
-                .tag(1)
-            SignUpGukBabView()
-                .tag(2)
+        VStack {
+            SignUpProcessView(index: selection)
+            TabView(selection: $selection) {
+                SignUpView(selection: $selection)
+                    .tag(1)
+                SignUpInfoView(selection: $selection)
+                    .tag(2)
+                SignUpGukBabView()
+                    .tag(3)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .animation(Animation.easeInOut(duration: 0.5), value: selection)
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
 

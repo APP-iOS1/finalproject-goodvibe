@@ -13,9 +13,7 @@ struct SignUpGukBabView: View {
     
     var body: some View {
         
-        VStack(alignment: .center){
-            
-            SignUpProcessView(index: 3)
+        VStack(alignment: .center) {
             
             Spacer()
             
