@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		049BF93B2976320600D2D044 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93A2976320600D2D044 /* PopupView */; };
+
+		049BF93D2976848D00D2D044 /* CreateReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BF93C2976848D00D2D044 /* CreateReviewView.swift */; };
+		049BF9402977169E00D2D044 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93F2977169E00D2D044 /* Shimmer */; };
+
 		5B01F2E32976840800ACB32F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E22976840800ACB32F /* DetailView.swift */; };
 		5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E42976CD1200ACB32F /* CommentUnit.swift */; };
+
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
@@ -38,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		049BF93C2976848D00D2D044 /* CreateReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewView.swift; sourceTree = "<group>"; };
 		414CB0F993F8EA399091DE32 /* Pods-GukbapMinister.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.release.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.release.xcconfig"; sourceTree = "<group>"; };
 		5B01F2E22976840800ACB32F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		5B01F2E42976CD1200ACB32F /* CommentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUnit.swift; sourceTree = "<group>"; };
@@ -77,6 +83,7 @@
 				5BDB9ACB297576EA00BFD5D9 /* FirebaseStorage in Frameworks */,
 				5BDB9AC7297576EA00BFD5D9 /* FirebaseFirestore in Frameworks */,
 				5BDB9AC9297576EA00BFD5D9 /* FirebaseFirestoreSwift in Frameworks */,
+				049BF9402977169E00D2D044 /* Shimmer in Frameworks */,
 				CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,7 +161,11 @@
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
+
+				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
+
 				AD05311E2976918E00594238 /* ButtonModifier.swift */,
+
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +232,7 @@
 				5BDB9AC8297576EA00BFD5D9 /* FirebaseFirestoreSwift */,
 				5BDB9ACA297576EA00BFD5D9 /* FirebaseStorage */,
 				049BF93A2976320600D2D044 /* PopupView */,
+				049BF93F2977169E00D2D044 /* Shimmer */,
 			);
 			productName = GukbapMinister;
 			productReference = 5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */;
@@ -253,6 +265,7 @@
 			packageReferences = (
 				5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */,
+				049BF93E2977169E00D2D044 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			productRefGroup = 5BDB9AAD2975751C00BFD5D9 /* Products */;
 			projectDirPath = "";
@@ -325,6 +338,7 @@
 			files = (
 				5BDB9AE62975821C00BFD5D9 /* NaverMapView.swift in Sources */,
 				5BDB9ABE297575B900BFD5D9 /* MapView.swift in Sources */,
+				049BF93D2976848D00D2D044 /* CreateReviewView.swift in Sources */,
 				5BDB9AD2297579A900BFD5D9 /* SignInView.swift in Sources */,
 				5BDB9ACD2975788C00BFD5D9 /* CollectionView.swift in Sources */,
 				5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */,
@@ -554,6 +568,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		049BF93E2977169E00D2D044 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -569,6 +591,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
+		};
+		049BF93F2977169E00D2D044 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 049BF93E2977169E00D2D044 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 		5BDB9AC4297576EA00BFD5D9 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
