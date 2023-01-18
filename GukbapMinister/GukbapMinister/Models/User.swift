@@ -12,4 +12,8 @@ struct User: Identifiable, Hashable, Codable {
     var id: String = UUID().uuidString
     var userNickname: String = ""
     var userEmail: String =  ""
+    var preferenceArea: String = ""
+    var gender: String = ""
+    var ageRange: Int = 0
+    var gukbaps: [String] = []
 }

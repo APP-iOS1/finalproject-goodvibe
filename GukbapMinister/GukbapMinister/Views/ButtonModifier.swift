@@ -10,14 +10,14 @@ import SwiftUI
 
 
 struct CategoryButtonModifier: ViewModifier {
-    var color: Color
+    var isChangedButtonStyle: Bool
     
     func body(content: Content) -> some View {
         content
-            .foregroundColor(.gray)
+            .foregroundColor(isChangedButtonStyle ? .white : .black)
             .padding(7.5)
             .padding(.horizontal, 5)
-            .background(color)
+            .background(isChangedButtonStyle ? Color("AccentColor") : .white)
             .cornerRadius(30)
             .overlay{
                 RoundedRectangle(cornerRadius: 30)

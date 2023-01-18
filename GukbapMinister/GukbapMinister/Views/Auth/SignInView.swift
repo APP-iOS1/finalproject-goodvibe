@@ -14,39 +14,87 @@ struct SignInView: View {
     
     var body: some View {
         VStack {
+            Spacer()
+            //MARK: - App LOGO
+            ZStack {
+                Text("LOGO")
+                Rectangle()
+                    .foregroundColor(.secondary)
+                .frame(width: 200, height: 200)
+            }
+            .padding(.bottom, 20)
             //MARK: - Email
-            TextField("Email", text: $viewModel.signInEmailID)
-                .textContentType(.emailAddress)
-                .border(1, .black.opacity(0.5))
-                .textInputAutocapitalization(.never)
+            VStack {
+                HStack {
+                    Text("이메일")
+                    Spacer()
+                }
+                TextField("Email", text: $viewModel.signInEmailID)
+                    .textContentType(.emailAddress)
+                    .border(1, .black.opacity(0.5))
+                    .textInputAutocapitalization(.never)
+            } //Email TextField
+            .padding(.bottom, 5)
             //MARK: - Password
-            SecureField("Password", text: $viewModel.signInPassword)
-                .textInputAutocapitalization(.never)
-                .border(1, .black.opacity(0.5))
+            VStack {
+                HStack {
+                    Text("비밀번호")
+                    Spacer()
+                }
+                SecureField("Password", text: $viewModel.signInPassword)
+                    .textInputAutocapitalization(.never)
+                    .border(1, .black.opacity(0.5))
+            }
+            .padding(.bottom, 30)
             //MARK: - Login Button
             VStack{
                 Button {
                     //Login 버튼
                     viewModel.signInUser()
                 } label: {
-                    Text("이메일 로그인")
+                    VStack {
+                        Text("이메일로 계속하기")
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .frame(width: 360, height: 60)
+                            .background(.yellow)
+                            .cornerRadius(7)
+                    }//VStack
                 }
+            }//VStack
+            .padding(.bottom, 30)
+            //MARK: - KAKAO Login Button
+            HStack {
                 Button {
                     viewModel.kakaoSignIn()
                 } label: {
-                    Text("카카오로그인")
-                }
+                    Text("K")
+                        .frame(width: 50, height: 50)
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .foregroundColor(.black)
+                        .background(.yellow)
+                        .clipShape(Circle())
+                }// KAKAO LOGIN
                 Button {
-                    viewModel.signOut()
+                    //NAVER LOGIN 추가 해야함
+                    viewModel.kakaoSignIn()
                 } label: {
-                    Text("로그아웃")
-                }
-
+                    Text("N")
+                        .frame(width: 50, height: 50)
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .background(.green)
+                        .clipShape(Circle())
+                }// NAVER LOGIN
             }
-
+            
             //MARK: - Move to SignUpView()
+            Spacer()
             HStack {
-                Text("아직 계정이 없는 경우")
+                Text("아직 회원이 아니신가요?")
                     .foregroundColor(.secondary)
                 Button {
                     signUpView.toggle()
@@ -56,17 +104,17 @@ struct SignInView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.black)
             }//HStack
-            .padding(.top,20)
+            .padding(.top, 10)
         }//VStack
         .padding()
         .fullScreenCover(isPresented: $signUpView) {
-            SignUpView()
+            SignUpTabView()
         }
     }
 }
 
 struct SignInView_Previews: PreviewProvider {
-//    static let userViewModel: UserViewModel()
+    //    static let userViewModel: UserViewModel()
     static var previews: some View {
         SignInView().environmentObject(UserViewModel())
     }
