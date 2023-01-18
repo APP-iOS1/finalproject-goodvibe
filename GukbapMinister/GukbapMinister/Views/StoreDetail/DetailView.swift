@@ -70,27 +70,11 @@ struct DetailView: View {
                                     .padding(.vertical, 30)
                                 Divider()
                             }
-
+                            
                             .background(.white)
                             
                             
                             //Store.menu
-
-                            .padding(15)
-                            Divider()
-                        }
-                        .background(.white)
-                        
-                        
-                        
-                        NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
-                            .frame(height: 260)
-                            .padding(.vertical, 15)
-                        
-                        
-                        HStack {
-                            Spacer()
-
                             VStack {
                                 VStack(alignment: .leading) {
                                     Text("메뉴")
@@ -132,24 +116,26 @@ struct DetailView: View {
                             
                             
                             
-                            //네이버맵뷰
-                            NaverMapView(coordination: (37.503693, 127.053033))
+                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
                                 .frame(height: 260)
                                 .padding(.vertical, 15)
                             
                             
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    Text("테디베어님의 후기를 남겨주세요")
-                                        .fontWeight(.bold)
-                                    
+   
+                                
+                                
+                                HStack {
                                     Spacer()
-                                    
-                                    //별 재사용 예정
-                                    
-                                    HStack {
-                                        ForEach(0..<5) { index in
+                                    VStack {
+                                        Text("테디베어님의 후기를 남겨주세요")
+                                            .fontWeight(.bold)
+                                        
+                                        Spacer()
+                                        
+                                        //별 재사용 예정
+                                        
+                                        HStack {
+                                            ForEach(0..<5) { index in
                                                 NavigationLink {
                                                     CreateReviewView(starStore: starStore, stars: index)
                                                 } label: {
@@ -158,65 +144,65 @@ struct DetailView: View {
                                                         .scaledToFit()
                                                         .frame(width: 30, height: 30)
                                                 }
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical, 30)
+                                    
+                                    Spacer()
+                                }
+                                .background(.white)
+                                
+                                
+                                VStack(spacing: 0) {
+                                    ForEach(0..<3) { index in
+                                        let imageTest: [String] = .init(repeating: "Test", count: index)
+                                        CommentUnit(nickname: "써니\(index)", date: "2023.01.17", starRate: 4, comment: "여기 외 않가?", images: imageTest)
+                                        if index != 2 {
+                                            Divider()
                                         }
                                     }
                                 }
-                                .padding(.vertical, 30)
+                                .padding(.vertical, 15)
                                 
-                                Spacer()
+                                
+                                
                             }
-                            .background(.white)
-                            
-                            
-                            VStack(spacing: 0) {
-                                ForEach(0..<3) { index in
-                                    let imageTest: [String] = .init(repeating: "Test", count: index)
-                                    CommentUnit(nickname: "써니\(index)", date: "2023.01.17", starRate: 4, comment: "여기 외 않가?", images: imageTest)
-                                    if index != 2 {
-                                        Divider()
-                                    }
-                                }
-                            }
-                            .padding(.vertical, 15)
-                            
-                            
-                            
+                            .padding(.bottom, 200)
                         }
-                        .padding(.bottom, 200)
                     }
-                }
-                .navigationBarBackButtonHidden(true)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Image(systemName: "arrow.backward")
-                                .tint(.black)
+                    .navigationBarBackButtonHidden(true)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                Image(systemName: "arrow.backward")
+                                    .tint(.black)
+                            }
+                        }
+                        
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                isBookmarked.toggle()
+                            } label: {
+                                Image(systemName: isBookmarked ? "heart.fill" : "heart")
+                                    .tint(.red)
+                            }
                         }
                     }
                     
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            isBookmarked.toggle()
-                        } label: {
-                            Image(systemName: isBookmarked ? "heart.fill" : "heart")
-                                .tint(.red)
-                        }
-                    }
                 }
-                
             }
+            
         }
-        
     }
-}
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        DetailView()
-        
+    
+    struct DetailView_Previews: PreviewProvider {
+        static var previews: some View {
+            
+            DetailView()
+            
+        }
     }
-}
