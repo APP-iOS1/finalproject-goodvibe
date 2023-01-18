@@ -17,7 +17,6 @@ struct SignUpInfoView: View {
     
     var body: some View {
         VStack {
-            SignUpProcessView(index: 2)
             VStack(alignment: .leading) {
                 Text("안녕하세요 [닉네임]님!")
                     .font(.title)
@@ -155,7 +154,7 @@ struct SignUpInfoView: View {
             .padding()
             Button {
                 SignUpGukBabView()
-                self.selection = 2
+                self.selection = 3
             } label: {
                 Text("다음 단계로 넘어가기")
                     .foregroundColor(.black)

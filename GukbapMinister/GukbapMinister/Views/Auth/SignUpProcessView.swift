@@ -48,6 +48,7 @@ struct SignUpProcessView: View {
                 }
         }
         .padding(30)
+        .animation(Animation.easeInOut(duration: 0.5), value: index)
     }
     
 }

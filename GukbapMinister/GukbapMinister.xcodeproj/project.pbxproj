@@ -186,8 +186,8 @@
 				5BDB9AD3297579BA00BFD5D9 /* SignUpView.swift */,
 				6F4306692977778400ADBD2C /* SignUpInfoView.swift */,
 				6F43066B2977779400ADBD2C /* SignUpGukBabView.swift */,
-				6F43066D2977AE7C00ADBD2C /* SignUpProcessView.swift */,
 				147FE7CC2977BFB100E635A1 /* SignUpTabView.swift */,
+				6F43066D2977AE7C00ADBD2C /* SignUpProcessView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
