@@ -123,7 +123,7 @@ struct MapView: View {
                         NavigationStack {
                             StoreModalView()
                         }
-                        .presentationDetents([.height(200)])
+                        .presentationDetents([.height(200), .large])
                     }
                     .sheet(isPresented: self.$marked2) {
                         StoreModalView2()

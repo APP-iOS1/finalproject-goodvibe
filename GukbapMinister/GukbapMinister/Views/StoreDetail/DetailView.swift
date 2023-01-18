@@ -14,71 +14,77 @@ class StarStore: ObservableObject {
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
-    @ObservedObject var starStore = StarStore()
+    @State private var isCreateReviewMode: Bool = false
     
     
     let colors: [Color] = [.yellow, .green, .red]
     let menus: [[String]] = [["국밥", "9,000원"], ["술국", "18,000원"], ["수육", "32,000원"], ["토종순대", "12,000원"]]
     
     var body: some View {
-        GeometryReader { geo in
-            let width: CGFloat = geo.size.width
-            ScrollView {
-                ZStack {
-                    //배경색
-                    Color(uiColor: .systemGray6)
+        NavigationStack {
+            GeometryReader { geo in
+                let width: CGFloat = geo.size.width
+                ScrollView {
+                    ZStack {
+                        //배경색
+                        Color(uiColor: .systemGray6)
+                        
+                        VStack(alignment: .leading, spacing: 0){
+                            //상호명 주소
+                            //Store.storeName, Store.storeAddress
+                            storeNameAndAddress
+                            
+                            //Store.images
+                            storeImages(width)
+                            
+                            //Store.description
+                            storeDescription
+                            
+                            //Store.menu
+                            storeMenu
+                            
+                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
+                                .frame(height: 260)
+                                .padding(.vertical, 15)
+                            
+                            userStarRate
+                            
+                            userReview
+                            
+                        }//VStack
+                        .padding(.bottom, 200)
+                    }//ZStack
+                }//ScrollView
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image(systemName: "arrow.backward")
+                                .tint(.black)
+                        }
+                    }
                     
-                    VStack(alignment: .leading, spacing: 0){
-                        //상호명 주소
-                        //Store.storeName, Store.storeAddress
-                        storeNameAndAddress
-                        
-                        //Store.images
-                        storeImages(width)
-                        
-                        //Store.description
-                        storeDescription
-                        
-                        //Store.menu
-                        storeMenu
-                        
-                        NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
-                            .frame(height: 260)
-                            .padding(.vertical, 15)
-                        
-                        userStarRate
-                        
-                        userReview
-                        
-                    }//VStack
-                    .padding(.bottom, 200)
-                }//ZStack
-            }//ScrollView
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                            .tint(.black)
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            isBookmarked.toggle()
+                        } label: {
+                            Image(systemName: isBookmarked ? "heart.fill" : "heart")
+                                .tint(.red)
+                        }
                     }
                 }
-                
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        isBookmarked.toggle()
-                    } label: {
-                        Image(systemName: isBookmarked ? "heart.fill" : "heart")
-                            .tint(.red)
-                    }
-                }
-            }
-        }//GeometryReader
+            }//GeometryReader
+        }//NavigationStack
+        .sheet(isPresented: $isCreateReviewMode) {
+            CreateReviewView(starStore: starStore)
+        }
     }//body
 }//struct
 
@@ -163,8 +169,9 @@ extension DetailView {
                 
                 HStack {
                     ForEach(0..<5) { index in
-                        NavigationLink {
-                            CreateReviewView(starStore: starStore, stars: index)
+                        Button {
+                            starStore.selectedStar = index
+                            isCreateReviewMode.toggle()
                         } label: {
                             Image(starStore.selectedStar >= index ? "StarFilled" : "StarEmpty")
                                 .resizable()
@@ -197,6 +204,6 @@ extension DetailView {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView()
+        DetailView(starStore: StarStore())
     }
 }
