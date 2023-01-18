@@ -13,6 +13,7 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
 
+@MainActor
 final class UserViewModel: ObservableObject {
     //MARK: - SignIn
     @Published var signInEmailID: String = ""

@@ -12,8 +12,8 @@ struct ContentView: View {
     var body: some View {
 
         switch viewModel.state{
-        case .signedIn: MainTabView()
-        case .signedOut: SignInView()
+        case .signedIn, .signedOut: MainTabView()
+//        case .signedOut: SignInView()
 
         }
     }
@@ -24,3 +24,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView().environmentObject(UserViewModel())
     }
 }
+
