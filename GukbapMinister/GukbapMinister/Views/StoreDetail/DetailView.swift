@@ -13,12 +13,14 @@ class StarStore: ObservableObject {
 
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userViewModel: UserViewModel
+    @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     
     @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
-    @State private var isCreateReviewMode: Bool = false
+    @State private var showingAddingSheet: Bool = false
     
     
     let colors: [Color] = [.yellow, .green, .red]
@@ -82,8 +84,8 @@ struct DetailView: View {
                 }
             }//GeometryReader
         }//NavigationStack
-        .sheet(isPresented: $isCreateReviewMode) {
-            CreateReviewView(starStore: starStore)
+        .sheet(isPresented: $showingAddingSheet) {
+            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet )
         }
     }//body
 }//struct
@@ -171,7 +173,7 @@ extension DetailView {
                     ForEach(0..<5) { index in
                         Button {
                             starStore.selectedStar = index
-                            isCreateReviewMode.toggle()
+                            showingAddingSheet.toggle()
                         } label: {
                             Image(starStore.selectedStar >= index ? "StarFilled" : "StarEmpty")
                                 .resizable()
