@@ -19,7 +19,7 @@ struct CreateReviewView: View {
     
     
     @ObservedObject var starStore: StarStore
-    var stars: Int
+    
     
     
     var trimReviewText: String {
@@ -255,7 +255,7 @@ struct CreateReviewView: View {
             } // popup
         }//NavigationStack
         .onAppear{
-            starStore.selectedStar = stars
+
             print(starStore.selectedStar)
         }
     }//body
