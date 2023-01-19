@@ -13,9 +13,7 @@ struct MainTabView: View {
         TabView(selection: $tabSelection) {
             ExploreView()
                 .tabItem {
-
                     Label("둘러보기", image: "Ddukbaegi.fill")
-
                 }
                 .tag(0)
             
