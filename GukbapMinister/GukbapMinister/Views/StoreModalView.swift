@@ -14,6 +14,7 @@ struct StoreModalView: View {
     
   var body: some View {
     
+
     VStack {
         HStack{
             Text("농민백암순대")
@@ -84,6 +85,7 @@ struct StoreModalView: View {
         
         
     }
+
   }
 }
 
