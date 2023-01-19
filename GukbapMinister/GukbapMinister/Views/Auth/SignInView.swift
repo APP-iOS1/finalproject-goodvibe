@@ -16,10 +16,12 @@ struct SignInView: View {
         VStack {
             Spacer()
             //MARK: - App LOGO
-            ZStack {
-                Text("LOGO")
-                Rectangle()
-                    .foregroundColor(.secondary)
+            VStack {
+//                Text("LOGO")
+//                Rectangle()
+//                    .foregroundColor(.secondary)
+                Image("AppIconSignIn")
+                    .resizable()
                 .frame(width: 200, height: 200)
             }
             .padding(.bottom, 20)

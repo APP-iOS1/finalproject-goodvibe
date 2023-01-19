@@ -13,7 +13,7 @@ struct ContentView: View {
         
         switch viewModel.state{
         case .signedIn, .signedOut: MainTabView()
-//        case .signedOut: SignInView()
+        case .signedOut: SignInView()
             
         }
     }
