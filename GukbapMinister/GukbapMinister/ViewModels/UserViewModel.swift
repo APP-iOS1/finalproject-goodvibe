@@ -26,10 +26,12 @@ final class UserViewModel: ObservableObject {
     @Published var gender: String = ""
     @Published var ageRange: Int = 0
     @Published var gukbaps: [String] = []
+    @Published var selection: Int = 0
     //로그인 상태
     enum SignInState{
         case signedIn
         case signedOut
+        case kakaoSign
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
@@ -126,7 +128,8 @@ final class UserViewModel: ObservableObject {
                         print("kakao token: \(token)")
                         fetchingFirebase()
                     }
-                    self.state = .signedIn
+                    self.state = .kakaoSign
+                    self.selection = 2
                 }
             }
         } else {
@@ -143,7 +146,8 @@ final class UserViewModel: ObservableObject {
                     //do something
                     //                    _ = oauthToken
                     
-                    self.state = .signedIn
+                    self.state = .kakaoSign
+                    self.selection = 2
                 }
             }
         }

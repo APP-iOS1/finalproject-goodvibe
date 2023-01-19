@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpTabView: View {
     
-    @State private var selection: Int = 1
+    @State var selection: Int = 1
     
     var body: some View {
         VStack {
