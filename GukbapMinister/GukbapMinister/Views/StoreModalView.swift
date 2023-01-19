@@ -11,10 +11,7 @@ struct StoreModalView: View {
     @State private var isHeart : Bool = false
     
 
-    
   var body: some View {
-    
-
     VStack {
         HStack{
             Text("농민백암순대")
@@ -80,12 +77,8 @@ struct StoreModalView: View {
                     .foregroundColor(.gray)
                     .opacity(0.2)
             }
-            
         }
-        
-        
     }
-
   }
 }
 

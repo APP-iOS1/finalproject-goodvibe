@@ -13,12 +13,14 @@ class StarStore: ObservableObject {
 
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userViewModel: UserViewModel
+    @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     
     @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
-    @State private var isCreateReviewMode: Bool = false
+    @State private var showingAddingSheet: Bool = false
     
     
     let colors: [Color] = [.yellow, .green, .red]
@@ -50,10 +52,11 @@ struct DetailView: View {
                             
                             //Store.menu
                             storeMenu
-                            
-                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
-                                .frame(height: 260)
-                                .padding(.vertical, 15)
+                 
+                          // refactoring으로 인한 일시 주석처리
+//                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
+//                                .frame(height: 260)
+//                                .padding(.vertical, 15)
                             
                             userStarRate
                             
@@ -86,8 +89,8 @@ struct DetailView: View {
                 }
             }//GeometryReader
         }//NavigationStack
-        .sheet(isPresented: $isCreateReviewMode) {
-            CreateReviewView(starStore: starStore)
+        .sheet(isPresented: $showingAddingSheet) {
+            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet )
         }
     }//body
 }//struct
@@ -187,16 +190,17 @@ extension DetailView {
                 
                 //별 재사용 예정
                 
-                HStack {
+                HStack(spacing: 15) {
                     ForEach(0..<5) { index in
                         Button {
                             starStore.selectedStar = index
-                            isCreateReviewMode.toggle()
+                            showingAddingSheet.toggle()
                         } label: {
-                            Image(starStore.selectedStar >= index ? "StarFilled" : "StarEmpty")
+                            Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 40, height: 40)
+                                
                         }
                     }
                 }
