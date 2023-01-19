@@ -90,6 +90,7 @@ struct SignUpView: View {
                         .background(.yellow)
                         .cornerRadius(7)
                 }
+                .disableWithOpacity(viewModel.signUpEmailID == "" || viewModel.signUpPassword == "" || viewModel.signUpNickname == "")
             }
             
             //MARK: - Move to SignUpView()
@@ -117,3 +118,13 @@ struct SignUpView: View {
 //        SignUpView().environmentObject(UserViewModel())
 //    }
 //}
+
+//MARK: - Extension
+
+extension View{
+    func disableWithOpacity(_ condition: Bool) -> some View{
+        self
+            .disabled(condition)
+            .opacity(condition ? 0.6 : 1)
+    }
+}
