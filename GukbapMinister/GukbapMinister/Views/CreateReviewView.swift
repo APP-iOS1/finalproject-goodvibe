@@ -11,14 +11,18 @@ import PopupView
 import Shimmer
 
 struct CreateReviewView: View {
+    @EnvironmentObject private var userViewModel: UserViewModel
+    @StateObject var reviewViewModel: ReviewViewModel
+    @ObservedObject var starStore: StarStore
     
     @State private var selectedImages: [PhotosPickerItem] = []
     @State private var selectedImageData: [Data] =  []
     @State private var isReviewAdded: Bool = false
     @State private var reviewText: String = ""
     
+    @Binding var showingSheet: Bool
     
-    @ObservedObject var starStore: StarStore
+  
     
     
     
@@ -72,7 +76,6 @@ struct CreateReviewView: View {
                             maxSelectionCount: 5,
                             matching: .images,
                             photoLibrary: . shared()){
-                                
                                 Image(systemName: "camera")
                                     .foregroundColor(.yellow)
                                     .font(.system(size: 25))
@@ -209,19 +212,22 @@ struct CreateReviewView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("취소") {
+                                showingSheet.toggle()
                             }
                         }
                         if trimReviewText.count > 0 {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button("등록") {
                                     Task{
+                                        
+                                        let createdAt = Date().timeIntervalSince1970
+                                        
+                                        let review: Review = Review(id: UUID().uuidString, userId: userViewModel.userInfo.id, reviewText: reviewText, createdAt: createdAt, nickName: userViewModel.userInfo.userNickname,starRating:  starStore.selectedStar)
+                                        
+                                        await reviewViewModel.addReview(review: review, images: images)
+                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                            NavigationLink {
-                                                ExploreView()
-                                            }
-                                        label:{
-                                            ExploreView()
-                                        }
+                                            showingSheet.toggle()
                                         }
                                         isReviewAdded.toggle()
                                     }

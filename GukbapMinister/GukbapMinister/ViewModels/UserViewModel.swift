@@ -26,16 +26,29 @@ final class UserViewModel: ObservableObject {
     @Published var gender: String = ""
     @Published var ageRange: Int = 0
     @Published var gukbaps: [String] = []
+    @Published var selection: Int = 0
     //로그인 상태
     enum SignInState{
         case signedIn
         case signedOut
+        case kakaoSign
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
     @Published var userInfo: User = User()
     
     let database = Firestore.firestore()
+    
+    // MARK: - gukbaps 중복제거
+    func gukbapsDeduplicate(_ gukbapName: String) {
+        if !self.gukbaps.contains(gukbapName) {
+            self.gukbaps.append(gukbapName)
+            print("\(#function) : 배열요소추가성공")
+        } else {
+            self.gukbaps = self.gukbaps.filter{$0 != gukbapName}
+            print("\(#function) : 배열요소중복")
+        }
+    }
     
     //MARK: - Email Login(signIn)
     func signInUser(){
@@ -93,6 +106,7 @@ final class UserViewModel: ObservableObject {
             }
         }//Task
     }
+    //MARK: - 선호 국밥 업데이트
     func signUpGukBap(){
         Task{
             do{
@@ -126,7 +140,8 @@ final class UserViewModel: ObservableObject {
                         print("kakao token: \(token)")
                         fetchingFirebase()
                     }
-                    self.state = .signedIn
+                    self.state = .kakaoSign
+                    self.selection = 2
                 }
             }
         } else {
@@ -143,7 +158,8 @@ final class UserViewModel: ObservableObject {
                     //do something
                     //                    _ = oauthToken
                     
-                    self.state = .signedIn
+                    self.state = .kakaoSign
+                    self.selection = 2
                 }
             }
         }
