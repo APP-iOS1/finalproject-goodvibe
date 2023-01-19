@@ -48,10 +48,11 @@ struct DetailView: View {
                             
                             //Store.menu
                             storeMenu
-                            
-                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
-                                .frame(height: 260)
-                                .padding(.vertical, 15)
+                 
+                          // refactoring으로 인한 일시 주석처리
+//                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
+//                                .frame(height: 260)
+//                                .padding(.vertical, 15)
                             
                             userStarRate
                             
