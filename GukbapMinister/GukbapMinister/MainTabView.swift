@@ -13,7 +13,7 @@ struct MainTabView: View {
         TabView(selection: $tabSelection) {
             ExploreView()
                 .tabItem {
-                    Label("둘러보기", image: "ddukbaegi.fill")
+                    Label("둘러보기", image: "DRdukbaegi.fill")
                 }
                 .tag(0)
             
