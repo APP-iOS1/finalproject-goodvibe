@@ -22,7 +22,7 @@ struct DetailView: View {
     let colors: [Color] = [.yellow, .green, .red]
     
     var body: some View {
-        NavigationStack {
+        
             GeometryReader { geo in
                 let width: CGFloat = geo.size.width
                 
@@ -194,7 +194,7 @@ struct DetailView: View {
                     }
                     
                 }
-            }
+            
             
         }
     }
