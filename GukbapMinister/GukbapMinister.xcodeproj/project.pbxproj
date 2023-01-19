@@ -150,7 +150,6 @@
 				5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */,
 				5BDB9AB12975751C00BFD5D9 /* ContentView.swift */,
 				63FCF533297677E0001712CA /* MainTabView.swift */,
-				5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */,
 				5BDB9ACE297578CE00BFD5D9 /* Views */,
 				5BDB9ADD29757ABD00BFD5D9 /* ViewModels */,
 				5BDB9ADC29757AA200BFD5D9 /* Models */,
@@ -172,18 +171,15 @@
 		5BDB9ACE297578CE00BFD5D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
-				5BDB9ABD297575B900BFD5D9 /* MapView.swift */,
-				AD05311C2976902000594238 /* MapCategoryModalView.swift */,
-				03EE6A9D297791BF005616B3 /* StoreModalView.swift */,
-				AD57645A2977D95500AA3CFD /* StoreModalView2.swift */,
+				5BDB9AD529757A1000BFD5D9 /* Auth */,
+				ADA2675D29793ACF0040FCBB /* Modifier */,
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
+				ADA2675C29793A950040FCBB /* MapView */,
+				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
-				5BDB9AD529757A1000BFD5D9 /* Auth */,
 				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
 				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
-				AD05311E2976918E00594238 /* ButtonModifier.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +215,26 @@
 				5BDB9AE229757B2000BFD5D9 /* ReviewViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		ADA2675C29793A950040FCBB /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				5BDB9AE52975821C00BFD5D9 /* NaverMapView.swift */,
+				5BDB9ABD297575B900BFD5D9 /* MapView.swift */,
+				AD05311C2976902000594238 /* MapCategoryModalView.swift */,
+				03EE6A9D297791BF005616B3 /* StoreModalView.swift */,
+				AD57645A2977D95500AA3CFD /* StoreModalView2.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		ADA2675D29793ACF0040FCBB /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				AD05311E2976918E00594238 /* ButtonModifier.swift */,
+			);
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 		F70E710625D1AB6AB3F6F637 /* Pods */ = {
