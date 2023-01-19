@@ -12,8 +12,8 @@ struct ContentView: View {
     var body: some View {
         
         switch viewModel.state{
-        case .signedIn, .signedOut: MainTabView()
-//        case .signedOut: SignInView()
+        case .signedIn: MainTabView()
+        case .signedOut: SignInView()
             
         }
     }
