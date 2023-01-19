@@ -45,6 +45,7 @@ final class UserViewModel: ObservableObject {
             self.gukbaps.append(gukbapName)
             print("\(#function) : 배열요소추가성공")
         } else {
+            self.gukbaps = self.gukbaps.filter{$0 != gukbapName}
             print("\(#function) : 배열요소중복")
         }
     }
@@ -105,6 +106,7 @@ final class UserViewModel: ObservableObject {
             }
         }//Task
     }
+    //MARK: - 선호 국밥 업데이트
     func signUpGukBap(){
         Task{
             do{
