@@ -15,7 +15,6 @@ struct ContentView: View {
         case .signedIn: MainTabView()
         case .kakaoSign: SignUpTabView(selection: viewModel.selection)
         case .signedOut: SignInView()
-            
         }
     }
 }

@@ -39,6 +39,16 @@ final class UserViewModel: ObservableObject {
     
     let database = Firestore.firestore()
     
+    // MARK: - gukbaps 중복제거
+    func gukbapsDeduplication(_ gukbapName: String) {
+        if !self.gukbaps.contains(gukbapName) {
+            self.gukbaps.append(gukbapName)
+            print("\(#function) : 배열요소추가성공")
+        } else {
+            print("\(#function) : 배열요소중복")
+        }
+    }
+    
     //MARK: - Email Login(signIn)
     func signInUser(){
         Task{
