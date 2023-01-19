@@ -272,11 +272,13 @@ struct MapView: View {
             // 길게 누르는 제스쳐를 했을 때 모달 시트가 보이도록 toggle
             showingAddMarker.toggle()
           }
-          .sheet(isPresented: $showingAddMarker, content: {
-            DetailView()
-              .presentationDetents([.fraction(0.5), .fraction(1)])
-          })
-          .ignoresSafeArea()
+//          .sheet(isPresented: $showingAddMarker, content: {
+//            DetailView()
+//              .presentationDetents([.fraction(0.5), .fraction(1)])
+//          })
+//          .ignoresSafeArea()
+            
+            
           // 위치를 이동하는 버튼 - 비활성화
           //                Button {
           //                    locationManager.requestLocation()
