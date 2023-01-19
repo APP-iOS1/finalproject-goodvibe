@@ -40,7 +40,7 @@ final class UserViewModel: ObservableObject {
     let database = Firestore.firestore()
     
     // MARK: - gukbaps 중복제거
-    func gukbapsDeduplication(_ gukbapName: String) {
+    func gukbapsDeduplicate(_ gukbapName: String) {
         if !self.gukbaps.contains(gukbapName) {
             self.gukbaps.append(gukbapName)
             print("\(#function) : 배열요소추가성공")
