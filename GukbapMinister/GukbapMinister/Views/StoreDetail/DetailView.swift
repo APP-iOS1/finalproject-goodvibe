@@ -24,6 +24,10 @@ struct DetailView: View {
     let colors: [Color] = [.yellow, .green, .red]
     let menus: [[String]] = [["국밥", "9,000원"], ["술국", "18,000원"], ["수육", "32,000원"], ["토종순대", "12,000원"]]
     
+    
+    //lineLimit 관련 변수
+    @State private var isExpanded: Bool = false
+    
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
@@ -125,13 +129,29 @@ extension DetailView {
     
     var storeDescription: some View {
         VStack(alignment: .leading) {
-            Text("수요미식회에서 인정한 선릉역 찐 맛집!")
-                .lineLimit(10)
+           
+            Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> < 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> <수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> <")
+                .lineLimit(isExpanded ? nil : 3)
+                .overlay(
+                    GeometryReader { proxy in
+                        Button(action: {
+                            isExpanded.toggle()
+                        }) {
+                            Text(isExpanded ? "접기" : "더보기")
+                                .font(.caption).bold()
+                                .padding(.leading, 8.0)
+                                .padding(.top, 4.0)
+                                .background(Color.white)
+                        }
+                        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .bottomTrailing)
+                    }
+                )
+//                .lineLimit(10)
                 .padding(.horizontal, 15)
                 .padding(.vertical, 30)
             Divider()
         }
-        .background(.white)
+        .background(Color.red)
     }
     
     var storeMenu: some View {
