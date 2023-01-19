@@ -167,16 +167,17 @@ extension DetailView {
                 
                 //별 재사용 예정
                 
-                HStack {
+                HStack(spacing: 15) {
                     ForEach(0..<5) { index in
                         Button {
                             starStore.selectedStar = index
                             isCreateReviewMode.toggle()
                         } label: {
-                            Image(starStore.selectedStar >= index ? "StarFilled" : "StarEmpty")
+                            Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 40, height: 40)
+                                
                         }
                     }
                 }

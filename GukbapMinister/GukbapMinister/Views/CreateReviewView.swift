@@ -45,16 +45,15 @@ struct CreateReviewView: View {
                         Text("")
                         Spacer()
                     }
-                    HStack(spacing: 25){
+                    HStack(spacing: 15) {
                         Spacer()
 
-                        ForEach(0..<5) { i in
-                            Image(starStore.selectedStar >= i ? "StarFilled" : "StarEmpty")
-
+                        ForEach(0..<5) { index in
+                            Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 40, height: 40)
                                 .onTapGesture {
-                                    starStore.selectedStar = i
+                                    starStore.selectedStar = index
                                 }
                         }
                         Spacer()
