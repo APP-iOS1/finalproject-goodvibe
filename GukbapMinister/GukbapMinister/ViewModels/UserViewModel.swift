@@ -214,6 +214,7 @@ final class UserViewModel: ObservableObject {
                 
                 self.userInfo.userEmail = (user?.kakaoAccount?.email)!
                 self.userInfo.userNickname = (user?.kakaoAccount?.profile?.nickname)!
+                self.signUpNickname = (user?.kakaoAccount?.profile?.nickname)!
 //                self.userInfo.profileImage = (user?.kakaoAccount?.profile?.profileImageUrl)!
                 
                 print("===================")

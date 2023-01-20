@@ -12,6 +12,8 @@ struct SignUpView: View {
     @EnvironmentObject var viewModel: UserViewModel
     @Binding var selection: Int
     @State var signUpPassword: String = ""
+    @State var passwordValidationString: String = ""
+    @State var isPasswordValidation: Bool = false
     
     var body: some View {
         VStack {
@@ -50,10 +52,21 @@ struct SignUpView: View {
                 HStack {
                     Text("비밀번호 확인")
                     Spacer()
+                    Text(passwordValidationString)
+                        .foregroundColor(self.isPasswordValidation ? .green : .red)
                 }
                 SecureField("비밀번호 확인", text: $viewModel.signUpPassword)
                     .textInputAutocapitalization(.never)
                     .border(1, .black.opacity(0.5))
+                    .onChange(of: viewModel.signUpPassword) { newValue in
+                        if self.signUpPassword == newValue {
+                            self.passwordValidationString = "비밀번호가 일치합니다."
+                            self.isPasswordValidation = true
+                        } else {
+                            self.passwordValidationString = "비밀번호가 일치하지 않습니다."
+                            self.isPasswordValidation = false
+                        }
+                    }
             }
             .padding(.bottom, 5)
             //MARK: - User Nickname
