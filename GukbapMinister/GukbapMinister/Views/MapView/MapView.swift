@@ -1,12 +1,48 @@
 import SwiftUI
 import MapKit
+import CoreLocation
+import CoreLocationUI
 
-
+final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+  private let locationManager = CLLocationManager()
+  
+  @Published var location: CLLocationCoordinate2D?
+  @Published var region = MKCoordinateRegion(
+    center: CLLocationCoordinate2D(latitude: 42.0422448, longitude: -102.0079053),
+    span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+  )
+  
+  override init() {
+    super.init()
+    locationManager.delegate = self
+  }
+  
+  func requestLocation() {
+    locationManager.requestLocation()
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.first else { return }
+    
+    DispatchQueue.main.async {
+      self.location = location.coordinate
+      self.region = MKCoordinateRegion(
+        center: location.coordinate,
+        span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+      )
+    }
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    //Handle any errors here...
+    print (error)
+  }
+}
 
 struct MapView: View {
-    @EnvironmentObject private var vm : LocationViewModel
-    
-    
+  @EnvironmentObject private var vm : LocationViewModel
+  
+  
   // 국밥집 검색창에 들어갈 단어
   @State var searchGukBap : String = ""
   // 필터 버튼을 눌렀을 때 동작하는 모달
@@ -16,8 +52,9 @@ struct MapView: View {
   @State private var marked2 : Bool = false
   
   @State private var showingAddMarker = false
-    
-
+  
+  @StateObject var locationManager = LocationManager()
+  
   
   var body: some View {
     NavigationStack {
@@ -75,62 +112,49 @@ struct MapView: View {
             
             Spacer()
             
-          }
-          .padding(.horizontal, 18)
+            
+              LocationButton{
+                locationManager.requestLocation()
+              }
+              .labelStyle(.iconOnly)
+              .font(.callout)
+              .frame(width: 30, height: 30)
+              .cornerRadius(30)
+              .symbolVariant(.fill)
+              .foregroundColor(.white)
+              .offset(x: -10, y: 450)
+            }
           
-            
-            Map(coordinateRegion: $vm.mapRegion,
-                annotationItems: vm.locations,
-                annotationContent: { location in
-                MapAnnotation(coordinate: location.coordinate) {
-                    //print("Place a string : \(location)")
-                    
-                    Image("Ddukbaegi.fill")
-                      .resizable()
-                      .aspectRatio(contentMode: .fit)
-                      .frame(width: 20)
-                      .foregroundColor(.red)
-                        .onTapGesture {
-                            //vm.showNextLocation(location: location)
-                            marked.toggle()
-                            vm.sheetLocation = location
-                        }
-
-                }
-            })
-            
-          // 위치를 이동하는 버튼 - 비활성화
-          //                Button {
-          //                    locationManager.requestLocation()
-          //                    //coordination = (35.1379222, 129.05562775)
-          //                    if let location = locationManager.location {
-          //                        //Text("Your location: \(location.latitude), \(location.longitude)")
-          //                        coordination = (location.latitude, location.longitude)
-          //                    }
-          //                } label: {
-          //                    Text("내 위치 이동")
-          //                }
-          //                .frame(height: 44)
-          //                .padding()
-          //
-          //
-          //                Button(action: {coordination = (35.1379222, 129.05562775)}) {
-          //                    Text("부산으로 위치 이동")
-          //                }
-          //
-          //                Button(action: {coordination = (37.503693, 127.053033)}) {
-          //                    Text("서울 아무 지역으로 위치 이동")
-          //                }
           Spacer()
         }
         .zIndex(1)
-
+        // TODO: 맵 zstack
+        Map(coordinateRegion: $locationManager.region,
+            showsUserLocation: true,
+            annotationItems: vm.locations,
+            annotationContent: { location in
+          MapAnnotation(coordinate: location.coordinate) {
+            //print("Place a string : \(location)")
+            
+            Image("Ddukbaegi.fill")
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(width: 20)
+              .foregroundColor(.red)
+              .onTapGesture {
+                //vm.showNextLocation(location: location)
+                marked.toggle()
+                vm.sheetLocation = location
+              }
+            
+          }
+        }).ignoresSafeArea(edges: .top)
         
       }
     }
     .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
-        StoreModalView(storeLocation: location)
-            .presentationDetents([.height(200)])
+      StoreModalView(storeLocation: location)
+        .presentationDetents([.height(200)])
     }
   }
 }
