@@ -2,17 +2,6 @@ import SwiftUI
 import MapKit
 
 
-//struct StoreLocation: Identifiable {
-//  let id = UUID()
-//  let name: String
-//  let coordinate: CLLocationCoordinate2D
-//}
-
-//extension CLLocationCoordinate2D: Identifiable {
-//  public var id: String {
-//    "\(latitude)-\(longitude)"
-//  }
-//}
 
 struct MapView: View {
     @EnvironmentObject private var vm : LocationViewModel
@@ -28,17 +17,7 @@ struct MapView: View {
   
   @State private var showingAddMarker = false
     
-    
-    
-//  @State private var region = MKCoordinateRegion(
-//    center: CLLocationCoordinate2D(latitude: 37.503693,
-//                                   longitude: 127.053033),
-//    span: MKCoordinateSpan(latitudeDelta: 0.006, longitudeDelta: 0.006))
-  
-//  let annotations = [
-//    StoreLocation(name: "Seoul", coordinate: CLLocationCoordinate2D(latitude: 37.503693, longitude: 127.053033)),
-//    StoreLocation(name: "Seoul2", coordinate: CLLocationCoordinate2D(latitude: 37.506276, longitude: 127.048977))
-//  ]
+
   
   var body: some View {
     NavigationStack {
@@ -119,30 +98,6 @@ struct MapView: View {
 
                 }
             })
-            
-//          Map(coordinateRegion: $region, annotationItems: <#T##_#>) { item in
-//            //                MapMarker(coordinate: $0.coordinate, tint: .purple)
-//            // Custom mapmarker 사용을 위하여 MapMarker를 MapAnnotation으로 대체
-//            MapAnnotation(coordinate: item.coordinate, content: {
-//                Image(systemName: "mappin")
-//                  .resizable()
-//                  .aspectRatio(contentMode: .fit)
-//                  .frame(width: 10)
-//                  .foregroundColor(.red)
-//                  .onTapGesture {
-//                      marked.toggle()
-//                  }
-//
-//            })
-//          }
-//          .gesture(DragGesture())
-//          .onLongPressGesture {
-//            // 길게 누르는 제스쳐를 했을 때 모달 시트가 보이도록 toggle
-//            showingAddMarker.toggle()
-//          }
-
-//          .ignoresSafeArea()
-            
             
           // 위치를 이동하는 버튼 - 비활성화
           //                Button {
