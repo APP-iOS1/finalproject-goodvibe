@@ -9,22 +9,26 @@ import Foundation
 import SwiftUI
 import UIKit
 import FirebaseFirestore
-import MapKit
+import FirebaseFirestoreSwift
 
-struct Store : Identifiable, Equatable{
-    var id: String
+
+struct Store: Codable, Hashable, Identifiable {
+    
+    @DocumentID var id: String?
     var storeName: String
     var storeAddress: String
-    var coordinate: CLLocationCoordinate2D
+    var coordinate: GeoPoint
     var storeImages: [String]
-    var menu: [[String]]
+    var menu: [String : String]
     var description: String
     var countingStar: Double
     
-    // Equatable
     static func == (lhs : Store, rhs: Store) -> Bool{
         lhs.id == rhs.id
     }
+    
+
+
 }
 
 

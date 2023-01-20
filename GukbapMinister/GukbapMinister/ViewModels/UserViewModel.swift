@@ -12,9 +12,10 @@ import KakaoSDKUser
 import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-
+import Firebase
 @MainActor
 final class UserViewModel: ObservableObject {
+    
     //MARK: - SignIn
     @Published var signInEmailID: String = ""
     @Published var signInPassword: String = ""
@@ -27,6 +28,11 @@ final class UserViewModel: ObservableObject {
     @Published var ageRange: Int = 0
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
+    @Published var filterdGukbaps: [String] = []
+    
+
+    @Published var isLoading: Bool = false
+
     //로그인 상태
     enum SignInState{
         case signedIn
@@ -39,6 +45,30 @@ final class UserViewModel: ObservableObject {
     
     let database = Firestore.firestore()
     
+    let nf = NumberFormatter()
+    
+    // MARK: - User 정보 불러오기
+    func fetchUserInfo(uid: String) {
+        let docRef = database.collection("User").document(uid)
+        docRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                
+                let email: String = dataDescription?["userEmail"] as? String ?? ""
+                let nickName: String = dataDescription?["userNickname"] as? String ?? ""
+                let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
+                
+                self.userInfo.id = uid
+                self.userInfo.userEmail = email
+                self.userInfo.userNickname = nickName
+                self.userInfo.ageRange = ageRange
+
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     // MARK: - gukbaps 중복제거
     func gukbapsDeduplicate(_ gukbapName: String) {
         if !self.gukbaps.contains(gukbapName) {
@@ -49,7 +79,50 @@ final class UserViewModel: ObservableObject {
             print("\(#function) : 배열요소중복")
         }
     }
+    //MARK: - 국밥 필터기능
+    func gukbapsFilter(_ filterdGukbapName: String) {
+        if !self.filterdGukbaps.contains(filterdGukbapName) {
+            self.filterdGukbaps.append(filterdGukbapName)
+            print("\(#function) : 배열요소추가성공")
+            Task{
+                do{
+                    let uid = Auth.auth().currentUser?.uid
+                    try await database.collection("User").document(uid ?? "").updateData([
+                        "filterdGukbaps" : filterdGukbaps,
+                    ])
+                }catch let error{
+                    print("국밥 필터링 실패: \(error)")
+                }
+            }
+            if filterdGukbaps.count > 1{
+                filterdGukbaps = []
+                self.filterdGukbaps.append(filterdGukbapName)
+            }
+            print("필터딘 국밥: \(filterdGukbaps)")
+        } else {
+            self.filterdGukbaps = self.filterdGukbaps.filter{$0 != filterdGukbapName}
+            print("\(#function) : 배열요소중복")
     
+    func fetchUserInfo(uid: String) {
+        let docRef = database.collection("User").document(uid)
+         docRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                
+                let email: String = dataDescription?["userEmail"] as? String ?? ""
+                let nickName: String = dataDescription?["userNickname"] as? String ?? ""
+                let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
+                
+                self.userInfo.id = uid
+                self.userInfo.userEmail = email
+                self.userInfo.userNickname = nickName
+                self.userInfo.ageRange = ageRange
+
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
     //MARK: - Email Login(signIn)
     func signInUser(){
         Task{
@@ -58,19 +131,13 @@ final class UserViewModel: ObservableObject {
                 let currentUser = authDataResult.user
                 print("Signed In As User \(currentUser.uid), with Email: \(String(describing: currentUser.email))")
                 self.state = .signedIn
+                fetchUserInfo(uid: currentUser.uid)
+
             }catch{
                 print("Sign In Failed")
             }
         }
     }//signInUser
-    
-    //MARK: - Email LogOut(signOut)
-    func signOutUser() {
-        self.state = .signedIn
-        print("SignInView로 이동 됨")
-        try? Auth.auth().signOut()
-        print("Firebase Auth에서 signOut 됨")
-    }
     
     //MARK: - Email Register(signUp)
     func signUpUser(){
@@ -81,8 +148,10 @@ final class UserViewModel: ObservableObject {
                 try await database.collection("User").document(currentUser.uid).setData([
                     "userEmail" : signUpEmailID,
                     "userNickname" : signUpNickname,
-//                    "preferenceArea" : preferenceArea,
+                    //                    "preferenceArea" : preferenceArea,
                 ])
+                //                self.state = .signedIn
+                
 //                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
@@ -100,7 +169,7 @@ final class UserViewModel: ObservableObject {
                     "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,
                 ])
-//                self.state = .signedIn
+                //                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
@@ -114,14 +183,13 @@ final class UserViewModel: ObservableObject {
                 try await database.collection("User").document(uid ?? "").updateData([
                     "gukbaps" : gukbaps,
                 ])
-//                self.state = .signedIn
+                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
         }//Task
-        self.state = .signedIn
+//        self.state = .signedIn
     }
-    
     //MARK: - KAKAO
     
     //MARK: - Kakao SignIn
@@ -140,8 +208,8 @@ final class UserViewModel: ObservableObject {
                         print("kakao token: \(token)")
                         fetchingFirebase()
                     }
-                    self.state = .kakaoSign
-                    self.selection = 2
+                        self.state = .kakaoSign
+                        self.selection = 2
                 }
             }
         } else {
@@ -157,25 +225,24 @@ final class UserViewModel: ObservableObject {
                     }
                     //do something
                     //                    _ = oauthToken
-                    
-                    self.state = .kakaoSign
-                    self.selection = 2
+                        self.state = .kakaoSign
+                        self.selection = 2
                 }
             }
         }
     }
-    //MARK: - Kakao SignOut
+    //MARK: - 로그아웃
     func signOut() {
         
-//        // MARK: - 구글 로그아웃
-//        GIDSignIn.sharedInstance.signOut()
-//        do {
-//            try Auth.auth().signOut()
-//            state = .signedOut
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
+        //        // MARK: - 구글 로그아웃
+        //        GIDSignIn.sharedInstance.signOut()
+        //        do {
+        //            try Auth.auth().signOut()
+        //            state = .signedOut
+        //        } catch {
+        //            print(error.localizedDescription)
+        //        }
+        //
         // MARK: - 카카오 로그아웃
         UserApi.shared.logout {(error) in
             if let error = error {
@@ -187,6 +254,13 @@ final class UserViewModel: ObservableObject {
                 
             }
         }
+        //MARK: - 이메일 로그아웃
+        //        func signOutUser() {
+        self.state = .signedOut
+        print("SignInView로 이동 됨")
+        try? Auth.auth().signOut()
+        print("Firebase Auth에서 signOut 됨")
+        //        }
     }
     //MARK: - KaKao Auth, Firestore
     func fetchingFirebase(){
@@ -201,6 +275,7 @@ final class UserViewModel: ObservableObject {
                     if let error = error {
                         print("Firebase 사용자 생성 실패: \(error.localizedDescription)")
                         Auth.auth().signIn(withEmail: (user?.kakaoAccount?.email)!, password: "\(String(describing: user?.id))")
+                            self.state = .signedIn
                     } else {
                         print("Firebase 사용자 생성 성공")
                         let authResult = authResult?.user
@@ -214,13 +289,15 @@ final class UserViewModel: ObservableObject {
                 
                 self.userInfo.userEmail = (user?.kakaoAccount?.email)!
                 self.userInfo.userNickname = (user?.kakaoAccount?.profile?.nickname)!
-//                self.userInfo.profileImage = (user?.kakaoAccount?.profile?.profileImageUrl)!
+                self.signUpNickname = (user?.kakaoAccount?.profile?.nickname)!
+                //                self.userInfo.profileImage = (user?.kakaoAccount?.profile?.profileImageUrl)!
                 
                 print("===================")
                 print(self.userInfo.userEmail)
                 print(self.userInfo.userNickname)
-//                print(self.userInfo.profileImage)
+                //                print(self.userInfo.profileImage)
                 print("===================")
+                
             }
         }
     }

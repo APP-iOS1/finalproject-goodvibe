@@ -5,6 +5,7 @@ import CoreLocationUI
 
 
 
+
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     
@@ -38,12 +39,16 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         //Handle any errors here...
         print (error)
+
+
+
     }
 }
 
 
 
 struct MapView: View {
+
     @EnvironmentObject private var vm : LocationViewModel
     
     
@@ -55,10 +60,12 @@ struct MapView: View {
     @State private var marked : Bool = false
     @State private var marked2 : Bool = false
     
+
     @State private var showingAddMarker = false
     
     @StateObject var locationManager = LocationManager()
     
+
     
     var body: some View {
         NavigationStack {
@@ -71,6 +78,17 @@ struct MapView: View {
                                     .foregroundColor(.secondary)
                                     .padding(.leading, 15)
                                 TextField("국밥집 검색",text: $searchGukBap)
+                                    .onTapGesture {
+                                        self.isPresentedSearchView.toggle()
+                                        UIView.setAnimationsEnabled(false)
+                                    }
+                                    .fullScreenCover(isPresented: $isPresentedSearchView) {
+                                        SearchView()
+                                    }
+                                    .onAppear {
+                                        UIView.setAnimationsEnabled(true)
+                                    }
+
                             }
                             .frame(width: 280, height: 50)
                             .background(Capsule().fill(Color.white))
@@ -113,6 +131,7 @@ struct MapView: View {
                             MapCategoryModalView()
                                 .presentationDetents([.height(335)])
                         }
+
                         .padding(.horizontal, 18)
                         .offset(y: -30)
                         
@@ -130,15 +149,17 @@ struct MapView: View {
                         .foregroundColor(.white)
                         .offset(x: 100, y: 450)
                         
+
                         
                         Spacer()
                         
                     }
-                    
+
                     Spacer()
                 }
                 .zIndex(1)
                 
+
                 Map(coordinateRegion: $locationManager.region,
                     showsUserLocation: true,
                     annotationItems: vm.locations,
@@ -158,12 +179,16 @@ struct MapView: View {
                             }
                     }
                 }).ignoresSafeArea(edges: .top)
+
             }
         }
+
         .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
             StoreModalView(storeLocation: location)
                 .presentationDetents([.height(200)])
         }
+
+
     }
 }
 

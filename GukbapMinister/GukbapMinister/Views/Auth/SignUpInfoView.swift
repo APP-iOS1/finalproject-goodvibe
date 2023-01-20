@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpInfoView: View {
-    @StateObject var viewModel: UserViewModel = UserViewModel()
+    @EnvironmentObject var viewModel: UserViewModel
     @State var isGenderSelected: [Bool] = [false, false, false]
     @State var isAgeRangeSelected: [Bool] = [false, false, false, false]
     @State var isPreferenceAreaSelected: [Bool] = [false, false, false]
@@ -18,7 +18,7 @@ struct SignUpInfoView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                Text("안녕하세요 [닉네임]님!")
+                Text("안녕하세요 \(viewModel.signUpNickname)님!")
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 70)

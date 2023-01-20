@@ -17,8 +17,10 @@ struct CreateReviewView: View {
     
     @State private var selectedImages: [PhotosPickerItem] = []
     @State private var selectedImageData: [Data] =  []
+    
     @State private var isReviewAdded: Bool = false
     @State private var reviewText: String = ""
+    @State private var selectedImagesDetail: Bool = false
     
     @Binding var showingSheet: Bool
     
@@ -222,7 +224,12 @@ struct CreateReviewView: View {
                                         
                                         let createdAt = Date().timeIntervalSince1970
                                         
-                                        let review: Review = Review(id: UUID().uuidString, userId: userViewModel.userInfo.id, reviewText: reviewText, createdAt: createdAt, nickName: userViewModel.userInfo.userNickname,starRating:  starStore.selectedStar)
+                                        let review: Review = Review(id: UUID().uuidString,
+                                                                    userId: userViewModel.userInfo.id,
+                                                                    reviewText: reviewText,
+                                                                    createdAt: createdAt,
+                                                                    nickName: userViewModel.userInfo.userNickname,
+                                                                    starRating:  starStore.selectedStar)
                                         
                                         await reviewViewModel.addReview(review: review, images: images)
                                         
@@ -259,10 +266,13 @@ struct CreateReviewView: View {
                     .position(.top)
             } // popup
         }//NavigationStack
-        .onAppear{
-
-            print(starStore.selectedStar)
+        .fullScreenCover(isPresented: $selectedImagesDetail){
+            ImageDetailView()
         }
+        .onDisappear{
+            reviewViewModel.fetchReviews()
+        }
+        
     }//body
 }//struct CreateReviewView
 
