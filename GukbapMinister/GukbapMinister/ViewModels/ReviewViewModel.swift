@@ -32,7 +32,7 @@ class ReviewViewModel: ObservableObject {
     
     func fetchReviews() {
         
-        database.collection("Reviews")
+        database.collection("Review")
             .order(by: "createdAt", descending: true)
             .getDocuments { (snapshot, error) in
                 self.reviews.removeAll()
@@ -79,7 +79,7 @@ class ReviewViewModel: ObservableObject {
                 uploadImage(image: img, name: (review.id + "/" + imgName))
             }
             
-            try await database.collection("Reviews")
+            try await database.collection("Review")
                 .document(review.id)
                 .setData(["userId": review.userId,
                           "reviewText": review.reviewText,
@@ -160,3 +160,4 @@ class ReviewViewModel: ObservableObject {
     }
 }
 
+ 
