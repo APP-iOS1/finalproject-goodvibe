@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import MapKit
 import SwiftUI
-
+import FirebaseFirestore
 //extension CLLocationCoordinate2D: Identifiable {
 //  public var id: String {
 //    "\(latitude)-\(longitude)"
@@ -18,8 +18,8 @@ import SwiftUI
 
 class LocationDummyData {
     static let location : [Store] = [
-        Store(id: "", storeName: "농민백암순대", storeAddress: "서울특별시 강남구 역삼로 3길 20-4", coordinate: CLLocationCoordinate2D(latitude: 37.503693, longitude: 127.053033), storeImages: ["https://d12zq4w4guyljn.cloudfront.net/20201217093530967_photo_4cfe72970c06.jpg"], menu: [[""]], description: "", countingStar: 0.0),
-        Store(id: "", storeName: "우가네", storeAddress: "서울 강남구 선릉로96길 7 1층", coordinate: CLLocationCoordinate2D(latitude: 37.506276, longitude: 127.048977), storeImages: ["https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flocal%2FkakaomapPhoto%2Freview%2F3c7f504de60ea04fdff919b38722b977e15f59e8%3Foriginal"], menu: [[""]], description: "", countingStar: 0.0)
+        Store(id: "", storeName: "농민백암순대", storeAddress: "서울특별시 강남구 역삼로 3길 20-4", coordinate: GeoPoint(latitude: 37.503693, longitude: 127.053033), storeImages: ["https://d12zq4w4guyljn.cloudfront.net/20201217093530967_photo_4cfe72970c06.jpg"], menu: ["":""], description: "", countingStar: 0.0),
+        Store(id: "", storeName: "우가네", storeAddress: "서울 강남구 선릉로96길 7 1층", coordinate: GeoPoint(latitude: 37.506276, longitude: 127.048977), storeImages: ["https://img1.kakaocdn.net/cthumb/local/R0x420/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flocal%2FkakaomapPhoto%2Freview%2F3c7f504de60ea04fdff919b38722b977e15f59e8%3Foriginal"], menu: ["":""], description: "", countingStar: 0.0)
     ]
 }
 
@@ -57,7 +57,7 @@ class LocationViewModel : ObservableObject {
     
     private func updateMapRegion(location : Store) {
         withAnimation(.easeOut) {
-            mapRegion = MKCoordinateRegion(center : location.coordinate, span : mapSpan)
+            mapRegion = MKCoordinateRegion(center : CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span : mapSpan)
         }
     }
     

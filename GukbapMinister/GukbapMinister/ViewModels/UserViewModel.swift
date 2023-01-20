@@ -102,27 +102,11 @@ final class UserViewModel: ObservableObject {
         } else {
             self.filterdGukbaps = self.filterdGukbaps.filter{$0 != filterdGukbapName}
             print("\(#function) : 배열요소중복")
-    
-    func fetchUserInfo(uid: String) {
-        let docRef = database.collection("User").document(uid)
-         docRef.getDocument { document, error in
-            if let document = document, document.exists {
-                let dataDescription = document.data()
-                
-                let email: String = dataDescription?["userEmail"] as? String ?? ""
-                let nickName: String = dataDescription?["userNickname"] as? String ?? ""
-                let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
-                
-                self.userInfo.id = uid
-                self.userInfo.userEmail = email
-                self.userInfo.userNickname = nickName
-                self.userInfo.ageRange = ageRange
-
-            } else {
-                print("Document does not exist")
-            }
         }
+        
     }
+    
+  
     //MARK: - Email Login(signIn)
     func signInUser(){
         Task{

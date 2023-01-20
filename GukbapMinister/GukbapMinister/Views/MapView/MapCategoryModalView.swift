@@ -11,6 +11,8 @@ struct MapCategoryModalView: View {
     @State private var didTap: [Bool] = [false,false,false,false,false,false,false,false,false,false,false,false]
     @EnvironmentObject var viewModel: UserViewModel
     @Binding var showModal: Bool
+    
+    
     var body: some View {
         VStack{
             Capsule()

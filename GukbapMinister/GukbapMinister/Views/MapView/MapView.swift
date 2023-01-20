@@ -57,8 +57,11 @@ struct MapView: View {
     // 필터 버튼을 눌렀을 때 동작하는 모달
     @State private var showModal = false
     // 마커를 클릭했을 때 동작하는 모달
+    @State private var isPresentedSearchView: Bool = false
+    
+    
     @State private var marked : Bool = false
-    @State private var marked2 : Bool = false
+    
     
 
     @State private var showingAddMarker = false
@@ -128,7 +131,7 @@ struct MapView: View {
                                 .stroke(.yellow)
                         }
                         .sheet(isPresented: self.$showModal) {
-                            MapCategoryModalView()
+                            MapCategoryModalView(showModal: $showModal)
                                 .presentationDetents([.height(335)])
                         }
 
@@ -164,7 +167,7 @@ struct MapView: View {
                     showsUserLocation: true,
                     annotationItems: vm.locations,
                     annotationContent: { location in
-                    MapAnnotation(coordinate: location.coordinate) {
+                    MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)) {
                         //print("Place a string : \(location)")
                         
                         Image("Ddukbaegi.fill")
