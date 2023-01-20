@@ -39,6 +39,30 @@ final class UserViewModel: ObservableObject {
     
     let database = Firestore.firestore()
     
+    let nf = NumberFormatter()
+    
+    // MARK: - User 정보 불러오기
+    func fetchUserInfo(uid: String) {
+        let docRef = database.collection("User").document(uid)
+        docRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                
+                let email: String = dataDescription?["userEmail"] as? String ?? ""
+                let nickName: String = dataDescription?["userNickname"] as? String ?? ""
+                let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
+                
+                self.userInfo.id = uid
+                self.userInfo.userEmail = email
+                self.userInfo.userNickname = nickName
+                self.userInfo.ageRange = ageRange
+
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     // MARK: - gukbaps 중복제거
     func gukbapsDeduplicate(_ gukbapName: String) {
         if !self.gukbaps.contains(gukbapName) {
@@ -58,6 +82,7 @@ final class UserViewModel: ObservableObject {
                 let currentUser = authDataResult.user
                 print("Signed In As User \(currentUser.uid), with Email: \(String(describing: currentUser.email))")
                 self.state = .signedIn
+                await fetchUserInfo(uid: currentUser.uid)
             }catch{
                 print("Sign In Failed")
             }
@@ -81,9 +106,9 @@ final class UserViewModel: ObservableObject {
                 try await database.collection("User").document(currentUser.uid).setData([
                     "userEmail" : signUpEmailID,
                     "userNickname" : signUpNickname,
-//                    "preferenceArea" : preferenceArea,
+                    //                    "preferenceArea" : preferenceArea,
                 ])
-//                self.state = .signedIn
+                //                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
@@ -100,7 +125,7 @@ final class UserViewModel: ObservableObject {
                     "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,
                 ])
-//                self.state = .signedIn
+                //                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
@@ -114,7 +139,7 @@ final class UserViewModel: ObservableObject {
                 try await database.collection("User").document(uid ?? "").updateData([
                     "gukbaps" : gukbaps,
                 ])
-//                self.state = .signedIn
+                //                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
@@ -167,15 +192,15 @@ final class UserViewModel: ObservableObject {
     //MARK: - Kakao SignOut
     func signOut() {
         
-//        // MARK: - 구글 로그아웃
-//        GIDSignIn.sharedInstance.signOut()
-//        do {
-//            try Auth.auth().signOut()
-//            state = .signedOut
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
+        //        // MARK: - 구글 로그아웃
+        //        GIDSignIn.sharedInstance.signOut()
+        //        do {
+        //            try Auth.auth().signOut()
+        //            state = .signedOut
+        //        } catch {
+        //            print(error.localizedDescription)
+        //        }
+        //
         // MARK: - 카카오 로그아웃
         UserApi.shared.logout {(error) in
             if let error = error {
@@ -215,12 +240,12 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.userEmail = (user?.kakaoAccount?.email)!
                 self.userInfo.userNickname = (user?.kakaoAccount?.profile?.nickname)!
                 self.signUpNickname = (user?.kakaoAccount?.profile?.nickname)!
-//                self.userInfo.profileImage = (user?.kakaoAccount?.profile?.profileImageUrl)!
+                //                self.userInfo.profileImage = (user?.kakaoAccount?.profile?.profileImageUrl)!
                 
                 print("===================")
                 print(self.userInfo.userEmail)
                 print(self.userInfo.userNickname)
-//                print(self.userInfo.profileImage)
+                //                print(self.userInfo.profileImage)
                 print("===================")
             }
         }
