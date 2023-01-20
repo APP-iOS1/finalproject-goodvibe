@@ -19,11 +19,13 @@ enum ManagementAction {
 
 
 struct TempManagementView: View {
+    @Binding var isOn: Bool
+    
     @ObservedObject var viewModel: StoreViewModel = StoreViewModel()
     
     @State private var menuCount: Int = 1
     @State private var menuName: String = ""
-    @State private var menuPrice: Double = 0.0
+    @State private var menuPrice: String = ""
     
 
     
@@ -33,7 +35,7 @@ struct TempManagementView: View {
     
     let formatter: NumberFormatter = {
             let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
+            formatter.numberStyle = .scientific
             return formatter
         }()
     
@@ -79,7 +81,7 @@ struct TempManagementView: View {
                         Text("가격")
                             .font(.headline)
                         HStack {
-                            TextField("가격 입력", value: $menuPrice, formatter: formatter)
+                            TextField("가격 입력", text: $menuPrice)
                             Text("원")
                         }
                     }
@@ -88,16 +90,16 @@ struct TempManagementView: View {
                 HStack {
                     Spacer()
                     Button {
-                        viewModel.store.menu[self.menuName] = String(self.menuPrice)
+                        viewModel.store.menu[menuName] =  menuPrice + "원"
                         menuName = ""
-                        menuPrice = 0.0
+                        menuPrice = ""
                     } label: {
                         HStack {
                             Image(systemName: "plus.circle")
                             Text("메뉴 추가하기")
                         }
                     }
-                    .disabled(menuName.isEmpty || menuPrice == 0.0)
+                    .disabled(menuName.isEmpty || menuPrice.isEmpty)
                     Spacer()
                 }
             } header: {
@@ -131,9 +133,16 @@ struct TempManagementView: View {
             
         }
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("취소") {
+                    isOn.toggle()
+                }
+            }
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("등록") {
                     viewModel.handleDoneTapped()
+                    isOn.toggle()
                 }
             }
         }
@@ -275,6 +284,6 @@ extension TempManagementView {
 
 struct TempManagementView_Previews: PreviewProvider {
     static var previews: some View {
-        TempManagementView(viewModel: StoreViewModel())
+        TempManagementView(isOn: .constant(true) ,viewModel: StoreViewModel())
     }
 }

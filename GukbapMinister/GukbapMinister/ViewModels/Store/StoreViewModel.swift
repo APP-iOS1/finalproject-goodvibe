@@ -44,32 +44,6 @@ final class StoreViewModel: ObservableObject {
     
     
     
-    //    func addReview(review: Review, images: [UIImage]) async {
-    //        do {
-    //            // create image name list
-    //            var imgNameList: [String] = []
-    //
-    //            // iterate over images
-    //            for img in images {
-    //                let imgName = UUID().uuidString
-    //                imgNameList.append(imgName)
-    //                uploadImage(image: img, name: (review.id + "/" + imgName))
-    //            }
-    //
-    //            try await database.collection("Reviews")
-    //                .document(review.id)
-    //                .setData(["userId": review.userId,
-    //                          "reviewText": review.reviewText,
-    //                          "createdAt": review.createdAt,
-    //                          "image": imgNameList,
-    //                          "nickName": review.nickName
-    //                         ])
-    //            fetchReviews()
-    //
-    //        } catch {
-    //            print(error.localizedDescription)
-    //        }
-    //    }
     
     private func convertToUIImages() {
         if !selectedImageData.isEmpty {
@@ -88,11 +62,8 @@ final class StoreViewModel: ObservableObject {
         for img in convertedImages {
             let imgName = UUID().uuidString
             imgNameList.append(imgName)
+            uploadImage(image: img, name: (store.storeName + "/" + imgName))
             
-            
-            if let id = store.id {
-                uploadImage(image: img, name: (id + "/" + imgName))
-            }
         }
         
         return imgNameList

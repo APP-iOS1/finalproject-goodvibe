@@ -19,7 +19,9 @@ struct MyPageView: View {
                 }
             }
             .sheet(isPresented: $isSheetPresented) {
-                TempManagementView()
+                NavigationStack {
+                    TempManagementView(isOn: $isSheetPresented)
+                }
             }
         }
     }
