@@ -28,6 +28,8 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
+    
+    @Published var isLoading: Bool = false
     //로그인 상태
     enum SignInState{
         case signedIn
@@ -139,12 +141,12 @@ final class UserViewModel: ObservableObject {
                 try await database.collection("User").document(uid ?? "").updateData([
                     "gukbaps" : gukbaps,
                 ])
-                //                self.state = .signedIn
+                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
         }//Task
-        self.state = .signedIn
+//        self.state = .signedIn
     }
     
     //MARK: - KAKAO

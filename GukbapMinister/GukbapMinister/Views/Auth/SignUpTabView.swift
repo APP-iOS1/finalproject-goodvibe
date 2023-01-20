@@ -28,8 +28,8 @@ struct SignUpTabView: View {
     }
 }
 
-struct SignUpTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpTabView()
-    }
-}
+//struct SignUpTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignUpTabView()
+//    }
+//}
