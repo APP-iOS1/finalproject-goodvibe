@@ -67,9 +67,9 @@ final class UserViewModel: ObservableObject {
             }
             if filterdGukbaps.count > 1{
                 filterdGukbaps = []
-                print("필터딘 국밥: \(filterdGukbaps)")
+                self.filterdGukbaps.append(filterdGukbapName)
             }
-            
+            print("필터딘 국밥: \(filterdGukbaps)")
         } else {
             self.filterdGukbaps = self.filterdGukbaps.filter{$0 != filterdGukbapName}
             print("\(#function) : 배열요소중복")
