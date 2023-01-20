@@ -12,7 +12,7 @@ import KakaoSDKUser
 import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-
+import Firebase
 @MainActor
 final class UserViewModel: ObservableObject {
     //MARK: - SignIn
@@ -28,6 +28,7 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
+    
     //로그인 상태
     enum SignInState{
         case signedIn
@@ -89,14 +90,6 @@ final class UserViewModel: ObservableObject {
         }
     }//signInUser
     
-    //MARK: - Email LogOut(signOut)
-    func signOutUser() {
-        self.state = .signedIn
-        print("SignInView로 이동 됨")
-        try? Auth.auth().signOut()
-        print("Firebase Auth에서 signOut 됨")
-    }
-    
     //MARK: - Email Register(signUp)
     func signUpUser(){
         Task{
@@ -146,7 +139,6 @@ final class UserViewModel: ObservableObject {
         }//Task
         self.state = .signedIn
     }
-    
     //MARK: - KAKAO
     
     //MARK: - Kakao SignIn
@@ -165,8 +157,8 @@ final class UserViewModel: ObservableObject {
                         print("kakao token: \(token)")
                         fetchingFirebase()
                     }
-                    self.state = .kakaoSign
-                    self.selection = 2
+                        self.state = .kakaoSign
+                        self.selection = 2
                 }
             }
         } else {
@@ -182,14 +174,13 @@ final class UserViewModel: ObservableObject {
                     }
                     //do something
                     //                    _ = oauthToken
-                    
-                    self.state = .kakaoSign
-                    self.selection = 2
+                        self.state = .kakaoSign
+                        self.selection = 2
                 }
             }
         }
     }
-    //MARK: - Kakao SignOut
+    //MARK: - 로그아웃
     func signOut() {
         
         //        // MARK: - 구글 로그아웃
@@ -212,6 +203,13 @@ final class UserViewModel: ObservableObject {
                 
             }
         }
+        //MARK: - 이메일 로그아웃
+        //        func signOutUser() {
+        self.state = .signedOut
+        print("SignInView로 이동 됨")
+        try? Auth.auth().signOut()
+        print("Firebase Auth에서 signOut 됨")
+        //        }
     }
     //MARK: - KaKao Auth, Firestore
     func fetchingFirebase(){
@@ -226,6 +224,7 @@ final class UserViewModel: ObservableObject {
                     if let error = error {
                         print("Firebase 사용자 생성 실패: \(error.localizedDescription)")
                         Auth.auth().signIn(withEmail: (user?.kakaoAccount?.email)!, password: "\(String(describing: user?.id))")
+                            self.state = .signedIn
                     } else {
                         print("Firebase 사용자 생성 성공")
                         let authResult = authResult?.user
@@ -247,6 +246,7 @@ final class UserViewModel: ObservableObject {
                 print(self.userInfo.userNickname)
                 //                print(self.userInfo.profileImage)
                 print("===================")
+                
             }
         }
     }
