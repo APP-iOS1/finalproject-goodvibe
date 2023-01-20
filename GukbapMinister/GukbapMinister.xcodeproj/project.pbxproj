@@ -118,9 +118,9 @@
 		041FE96F297A387800BE32E7 /* Review */ = {
 			isa = PBXGroup;
 			children = (
+				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
 				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
 				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
-				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
 				ADA2675C29793A950040FCBB /* MapView */,
 			);
 			path = Review;
@@ -207,11 +207,7 @@
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
-
-				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
-				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
 				5B31DBBF297A315000EA0036 /* TempManagementView.swift */,
-
 			);
 			path = Views;
 			sourceTree = "<group>";
