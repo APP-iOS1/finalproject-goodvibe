@@ -35,9 +35,15 @@ struct TempManagementView: View {
     
     let formatter: NumberFormatter = {
             let formatter = NumberFormatter()
-            formatter.numberStyle = .scientific
+            formatter.numberStyle = .decimal
             return formatter
         }()
+    
+    let amountFormatter: NumberFormatter = {
+              let formatter = NumberFormatter()
+              formatter.zeroSymbol = ""
+              return formatter
+         }()
     
     var body: some View {
         Form {
@@ -53,10 +59,12 @@ struct TempManagementView: View {
                 HStack {
                     Text("위도")
                         .font(.headline)
-                    TextField("위도를 입력해 주세요", value: $viewModel.latitude, formatter: formatter)
+                    TextField("위도를 입력해 주세요", text: $viewModel.latitude)
+                        
                     Text("경도")
                         .font(.headline)
-                    TextField("경도를 입력해 주세요", value: $viewModel.longitude, formatter: formatter)
+                    TextField("경도를 입력해 주세요", text: $viewModel.longitude)
+                        
                 }
             } header: {
                 Text("좌표(임시)")

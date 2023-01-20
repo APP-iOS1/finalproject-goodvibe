@@ -15,8 +15,8 @@ import FirebaseStorage
 
 final class StoreViewModel: ObservableObject {
     @Published var store: Store
-    @Published var latitude: Double = 0.0
-    @Published var longitude: Double = 0.0
+    @Published var latitude: String = ""
+    @Published var longitude: String = ""
     
     @Published var selectedImages: [PhotosPickerItem] = []
     @Published var selectedImageData: [Data] =  []
@@ -75,7 +75,7 @@ final class StoreViewModel: ObservableObject {
             self.convertToUIImages()
             self.store.storeImages = makeImageName()
             //위도 경도값을 형변환해서 넣어주기
-            self.store.coordinate = GeoPoint(latitude: self.latitude, longitude: self.longitude)
+            self.store.coordinate = GeoPoint(latitude: Double(self.latitude) ?? 0.0, longitude: Double(self.longitude) ?? 0.0)
             
             let _ = try database.collection("Store")
                 .addDocument(from: self.store)
