@@ -12,14 +12,13 @@ import FirebaseFirestore
 
 struct Store {
     
-var id: String
-var storeName: String
-var storeAddress: String
-var coordinate: GeoPoint
-var storeImages: [String]
-var menu: [[String]]
-var description: String
-var countingStar: Double
-    
-
+    var id: String
+    var storeName: String
+    var storeAddress: String
+    var coordinate: GeoPoint
+    var storeImages: [String]
+    var menu: [[String]]
+    var description: String
+    var countingStar: Double
+    var filterdGukbaps: [String] = []
 }
