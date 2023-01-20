@@ -248,7 +248,7 @@ struct MapView: View {
                 .stroke(.yellow)
             }
             .sheet(isPresented: self.$showModal) {
-              MapCategoryModalView()
+              MapCategoryModalView(showModal: $showModal)
                 .presentationDetents([.height(335)])
             }
             

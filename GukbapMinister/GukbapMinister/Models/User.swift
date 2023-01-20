@@ -16,4 +16,5 @@ struct User: Identifiable, Hashable, Codable {
     var gender: String = ""
     var ageRange: Int = 0
     var gukbaps: [String] = []
+    var filterdGukbaps: [String] = []
 }
