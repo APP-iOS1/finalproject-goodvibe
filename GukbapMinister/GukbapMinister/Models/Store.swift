@@ -23,5 +23,18 @@ struct Store: Codable, Hashable, Identifiable {
     var description: String
     var countingStar: Double
     
+    static func == (lhs : Store, rhs: Store) -> Bool{
+        lhs.id == rhs.id
+    }
+    
+
 
 }
+
+
+
+//struct StoreLocation: Identifiable {
+//  let id = UUID()
+//  let name: String
+//  let coordinate: CLLocationCoordinate2D
+//}
