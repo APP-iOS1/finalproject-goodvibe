@@ -10,11 +10,12 @@ import SwiftUI
 struct StoreModalView: View {
     @State private var isHeart : Bool = false
     
+    var storeLocation : Store
 
   var body: some View {
     VStack {
         HStack{
-            Text("농민백암순대")
+            Text(storeLocation.storeName)
                 .font(.title2)
                 .bold()
                 .padding(.leading, 20)
@@ -25,7 +26,7 @@ struct StoreModalView: View {
             DetailView()
         } label: {
             HStack {
-                AsyncImage(url: URL(string: "https://d12zq4w4guyljn.cloudfront.net/20201217093530967_photo_4cfe72970c06.jpg")) { image in
+                AsyncImage(url: URL(string: storeLocation.storeImages[0])) { image in
                     image
                         .resizable()
                     //.scaledToFit()
@@ -38,7 +39,7 @@ struct StoreModalView: View {
                 
                 VStack{
                     HStack(alignment: .top){
-                        Text("서울특별시 강남구 역삼로 3길 20-4")
+                        Text(storeLocation.storeAddress)
                             .bold()
                         
                         Spacer()
@@ -82,8 +83,8 @@ struct StoreModalView: View {
   }
 }
 
-struct StoreModalView_Previews: PreviewProvider {
-  static var previews: some View {
-    StoreModalView()
-  }
-}
+//struct StoreModalView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    StoreModalView()
+//  }
+//}
