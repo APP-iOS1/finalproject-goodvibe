@@ -263,27 +263,30 @@ extension DetailView {
                     Spacer()
                 }//HStack
                 .padding(.top,-30)
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        ForEach(review.images ?? [], id: \.self) { index in
+                            if let image = reviewViewModel.reviewImage[index] {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(width: 180,height: 160)
+                                    .cornerRadius(10)
+                            }
+                              
+                        }
+                    }
+                 
+                }
+                .padding(.top,-15)
+                .padding(.leading,15)
                HStack{
                     Text("\(review.reviewText)")
                         .font(.footnote)
                         .foregroundColor(.black)
                         .padding()
+                   Spacer()
                 }
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack{
-                            ForEach(review.images ?? [], id: \.self) { index in
-                                if let image = reviewViewModel.reviewImage[index] {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .frame(width: 180,height: 160)
-                                        .cornerRadius(10)
-                                }
-                                  
-                            }
-                        }
-                     
-                    }
-                    .padding()
+                  
              Divider()
             }//VStack
         }
