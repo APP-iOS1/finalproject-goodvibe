@@ -335,6 +335,91 @@ struct MapView: View {
                 
                 
             }
+            
+            Spacer()
+            
+            Button{
+              // TODO - 검색 확인을 눌렀을 때 검색 실행
+              
+            } label: {
+              Text("확인")
+                .foregroundColor(.white)
+            }
+            .frame(width: 65, height: 50)
+            .background(.yellow)
+            .cornerRadius(25)
+          }
+          .padding(.horizontal, 18)
+          
+          HStack{
+            Button{
+              self.showModal = true
+            } label: {
+              Text(Image(systemName: "slider.horizontal.3")).foregroundColor(.gray) + Text("필터")
+                .foregroundColor(.gray)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(Capsule().fill(Color.white))
+            .overlay {
+              Capsule()
+                .stroke(.yellow)
+            }
+            .sheet(isPresented: self.$showModal) {
+              MapCategoryModalView(showModal: $showModal)
+                .presentationDetents([.height(335)])
+            }
+            
+            Spacer()
+            
+          }
+          .padding(.horizontal, 18)
+          
+          Map(coordinateRegion: $region, annotationItems: annotations) { item in
+            //                MapMarker(coordinate: $0.coordinate, tint: .purple)
+            // Custom mapmarker 사용을 위하여 MapMarker를 MapAnnotation으로 대체
+            MapAnnotation(coordinate: item.coordinate, content: {
+              Image("mapMarker")
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .frame(width: 35)
+            })
+          }
+          .gesture(DragGesture())
+          .onLongPressGesture {
+            // 길게 누르는 제스쳐를 했을 때 모달 시트가 보이도록 toggle
+            showingAddMarker.toggle()
+          }
+//          .sheet(isPresented: $showingAddMarker, content: {
+//            DetailView()
+//              .presentationDetents([.fraction(0.5), .fraction(1)])
+//          })
+//          .ignoresSafeArea()
+            
+            
+          // 위치를 이동하는 버튼 - 비활성화
+          //                Button {
+          //                    locationManager.requestLocation()
+          //                    //coordination = (35.1379222, 129.05562775)
+          //                    if let location = locationManager.location {
+          //                        //Text("Your location: \(location.latitude), \(location.longitude)")
+          //                        coordination = (location.latitude, location.longitude)
+          //                    }
+          //                } label: {
+          //                    Text("내 위치 이동")
+          //                }
+          //                .frame(height: 44)
+          //                .padding()
+          //
+          //
+          //                Button(action: {coordination = (35.1379222, 129.05562775)}) {
+          //                    Text("부산으로 위치 이동")
+          //                }
+          //
+          //                Button(action: {coordination = (37.503693, 127.053033)}) {
+          //                    Text("서울 아무 지역으로 위치 이동")
+          //                }
+          Spacer()
         }
     }
 }

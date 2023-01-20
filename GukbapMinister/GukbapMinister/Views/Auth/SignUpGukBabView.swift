@@ -127,7 +127,10 @@ struct SignUpGukBabView: View {
             .padding(4)
             
             Button {
-                viewModel.signUpGukBap()
+                viewModel.isLoading = true
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                    viewModel.signUpGukBap()
+                }
                 print("state: \(viewModel.state)")
             } label: {
                 Text("국밥선호 확인")
@@ -141,7 +144,10 @@ struct SignUpGukBabView: View {
             .padding(30)
             
             Spacer()
-        }
+        }//VStack
+        .overlay(content: {
+            LoadingView(show: $viewModel.isLoading)
+        })
     }
 }
 

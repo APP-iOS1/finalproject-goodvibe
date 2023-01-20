@@ -9,17 +9,19 @@ import Foundation
 import SwiftUI
 import UIKit
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Store {
+
+struct Store: Codable, Hashable, Identifiable {
     
-var id: String
-var storeName: String
-var storeAddress: String
-var coordinate: GeoPoint
-var storeImages: [String]
-var menu: [[String]]
-var description: String
-var countingStar: Double
+    @DocumentID var id: String?
+    var storeName: String
+    var storeAddress: String
+    var coordinate: GeoPoint
+    var storeImages: [String]
+    var menu: [String : String]
+    var description: String
+    var countingStar: Double
     
 
 }
