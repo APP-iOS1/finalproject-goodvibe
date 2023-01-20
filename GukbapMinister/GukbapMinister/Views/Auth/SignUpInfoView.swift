@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpInfoView: View {
-    @StateObject var viewModel: UserViewModel = UserViewModel()
+    @EnvironmentObject var viewModel: UserViewModel
     @State var isGenderSelected: [Bool] = [false, false, false]
     @State var isAgeRangeSelected: [Bool] = [false, false, false, false]
     @State var isPreferenceAreaSelected: [Bool] = [false, false, false]
@@ -18,11 +18,13 @@ struct SignUpInfoView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                Text("안녕하세요 [닉네임]님!")
+                Text("안녕하세요 \(viewModel.signUpNickname)님!")
                     .font(.title)
+                    .fontWeight(.bold)
                     .padding(.top, 70)
                 Text("나머지 정보를 입력해주세요.")
                     .font(.title)
+                    .fontWeight(.bold)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -150,14 +152,17 @@ struct SignUpInfoView: View {
 
             } label: {
                 Text("다음 단계로 넘어가기")
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
             }
-            .frame(width: 300, height: 40)
-            .modifier(CategoryButtonModifier(isChangedButtonStyle: true))
-            //            .modifier(CategoryButtonModifier(color: .yellow))
-            .padding(.vertical)
+            .font(.title3)
+            .fontWeight(.bold)
+            .frame(width: 340, height: 60)
+            .background(Color("AccentColor"))
+            .cornerRadius(5)
+            .padding(.bottom, 180)
             Spacer()
         }
+        
     }
 }
 

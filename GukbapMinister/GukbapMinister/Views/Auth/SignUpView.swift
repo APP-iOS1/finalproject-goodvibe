@@ -11,6 +11,9 @@ struct SignUpView: View {
     @Environment(\.dismiss) var returnSigninView
     @EnvironmentObject var viewModel: UserViewModel
     @Binding var selection: Int
+    @State var signUpPassword: String = ""
+    @State var passwordValidationString: String = ""
+    @State var isPasswordValidation: Bool = false
     
     var body: some View {
         VStack {
@@ -39,22 +42,33 @@ struct SignUpView: View {
                     Text("비밀번호")
                     Spacer()
                 }
-                SecureField("영문, 숫자 포함 6자 이상", text: $viewModel.signUpPassword)
+                SecureField("영문, 숫자 포함 6자 이상", text: $signUpPassword)
                     .textInputAutocapitalization(.never)
                     .border(1, .black.opacity(0.5))
             }
             .padding(.bottom, 5)
             //MARK: - Password Agin
-//            VStack {
-//                HStack {
-//                    Text("비밀번호 확인")
-//                    Spacer()
-//                }
-//                SecureField("비밀번호 확인", text: $viewModel.signUpPassword)
-//                    .textInputAutocapitalization(.never)
-//                    .border(1, .black.opacity(0.5))
-//            }
-//            .padding(.bottom, 5)
+            VStack {
+                HStack {
+                    Text("비밀번호 확인")
+                    Spacer()
+                    Text(passwordValidationString)
+                        .foregroundColor(self.isPasswordValidation ? .green : .red)
+                }
+                SecureField("비밀번호 확인", text: $viewModel.signUpPassword)
+                    .textInputAutocapitalization(.never)
+                    .border(1, .black.opacity(0.5))
+                    .onChange(of: viewModel.signUpPassword) { newValue in
+                        if self.signUpPassword == newValue {
+                            self.passwordValidationString = "비밀번호가 일치합니다."
+                            self.isPasswordValidation = true
+                        } else {
+                            self.passwordValidationString = "비밀번호가 일치하지 않습니다."
+                            self.isPasswordValidation = false
+                        }
+                    }
+            }
+            .padding(.bottom, 5)
             //MARK: - User Nickname
             VStack {
                 HStack {
@@ -90,6 +104,7 @@ struct SignUpView: View {
                         .background(.yellow)
                         .cornerRadius(7)
                 }
+                .disableWithOpacity(viewModel.signUpEmailID == "" || viewModel.signUpPassword == "" || viewModel.signUpNickname == "" || viewModel.signUpPassword != signUpPassword)
             }
             
             //MARK: - Move to SignUpView()
@@ -117,3 +132,13 @@ struct SignUpView: View {
 //        SignUpView().environmentObject(UserViewModel())
 //    }
 //}
+
+//MARK: - Extension
+
+extension View{
+    func disableWithOpacity(_ condition: Bool) -> some View{
+        self
+            .disabled(condition)
+            .opacity(condition ? 0.6 : 1)
+    }
+}

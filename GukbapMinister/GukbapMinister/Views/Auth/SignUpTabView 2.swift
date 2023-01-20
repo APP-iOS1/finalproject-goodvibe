@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpTabView: View {
     
-    @State var selection: Int = 1
+    @State private var selection: Int = 1
     
     var body: some View {
         VStack {
@@ -28,8 +28,8 @@ struct SignUpTabView: View {
     }
 }
 
-//struct SignUpTabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignUpTabView()
-//    }
-//}
+struct SignUpTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpTabView()
+    }
+}

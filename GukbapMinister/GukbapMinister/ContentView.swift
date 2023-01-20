@@ -10,11 +10,10 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var viewModel: UserViewModel
     var body: some View {
-        
         switch viewModel.state{
         case .signedIn, .signedOut: MainTabView()
+        case .kakaoSign: SignUpTabView(selection: viewModel.selection)
 //        case .signedOut: SignInView()
-            
         }
     }
 }
@@ -22,6 +21,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environmentObject(UserViewModel())
+            .environmentObject(LocationViewModel())
     }
 }
 

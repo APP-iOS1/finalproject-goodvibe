@@ -9,17 +9,19 @@ import SwiftUI
 
 struct SignInView: View {
     @EnvironmentObject var viewModel: UserViewModel
-    
+//    @State var isLoading: Bool = false
     @State var signUpView: Bool = false
     
     var body: some View {
         VStack {
             Spacer()
             //MARK: - App LOGO
-            ZStack {
-                Text("LOGO")
-                Rectangle()
-                    .foregroundColor(.secondary)
+            VStack {
+//                Text("LOGO")
+//                Rectangle()
+//                    .foregroundColor(.secondary)
+                Image("AppIconSignIn")
+                    .resizable()
                 .frame(width: 200, height: 200)
             }
             .padding(.bottom, 20)
@@ -50,6 +52,7 @@ struct SignInView: View {
             VStack{
                 Button {
                     //Login 버튼
+                    viewModel.isLoading = true
                     viewModel.signInUser()
                 } label: {
                     VStack {
@@ -107,6 +110,9 @@ struct SignInView: View {
             .padding(.top, 10)
         }//VStack
         .padding()
+        .overlay(content: {
+            LoadingView(show: $viewModel.isLoading)
+        })
         .fullScreenCover(isPresented: $signUpView) {
             SignUpTabView()
         }

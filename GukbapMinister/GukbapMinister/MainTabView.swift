@@ -13,7 +13,7 @@ struct MainTabView: View {
         TabView(selection: $tabSelection) {
             ExploreView()
                 .tabItem {
-                    Label("둘러보기", image: "ddukbaegi.fill")
+                    Label("둘러보기", image: "Ddukbaegi.fill")
                 }
                 .tag(0)
             
@@ -22,8 +22,9 @@ struct MainTabView: View {
                     Label("지도", systemImage: "map")
                 }
                 .tag(1)
+                .environmentObject(LocationViewModel())
             
-            CollectionView()
+            DetailView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
                 }

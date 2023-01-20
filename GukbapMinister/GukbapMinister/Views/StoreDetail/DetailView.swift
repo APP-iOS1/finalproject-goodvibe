@@ -13,16 +13,21 @@ class StarStore: ObservableObject {
 
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userViewModel: UserViewModel
+    @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     
     @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
-    @State private var isCreateReviewMode: Bool = false
-    
+    @State private var showingAddingSheet: Bool = false
     
     let colors: [Color] = [.yellow, .green, .red]
     let menus: [[String]] = [["국밥", "9,000원"], ["술국", "18,000원"], ["수육", "32,000원"], ["토종순대", "12,000원"]]
+    
+    
+    //lineLimit 관련 변수
+    @State private var isExpanded: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -47,13 +52,30 @@ struct DetailView: View {
                             //Store.menu
                             storeMenu
                             
-                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
-                                .frame(height: 260)
-                                .padding(.vertical, 15)
+                            // refactoring으로 인한 일시 주석처리
+                            //                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
+                            //                                .frame(height: 260)
+                            //                                .padding(.vertical, 15)
                             
                             userStarRate
                             
-                            userReview
+                            ForEach(reviewViewModel.reviews) { review in
+                                NavigationLink{
+                                    ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
+                                }label: {
+                                   UserReview(reviewViewModel: reviewViewModel, review: review)
+                    
+                                        .contextMenu{
+                                            Button{
+                                                reviewViewModel.removeReview(review: review)
+                                            }label: {
+                                                Text("삭제")
+                                                Image(systemName: "trash")
+                                            }
+                                        }//contextMenu
+                                }//NavigationLink
+                                
+                            }
                             
                         }//VStack
                         .padding(.bottom, 200)
@@ -82,8 +104,17 @@ struct DetailView: View {
                 }
             }//GeometryReader
         }//NavigationStack
-        .sheet(isPresented: $isCreateReviewMode) {
-            CreateReviewView(starStore: starStore)
+        .fullScreenCover(isPresented: $showingAddingSheet) {
+            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet )
+        }
+        .onAppear{
+            reviewViewModel.fetchReviews()
+        }
+        .onDisappear{
+            reviewViewModel.fetchReviews()
+        }
+        .refreshable {
+            reviewViewModel.fetchReviews()
         }
     }//body
 }//struct
@@ -125,13 +156,29 @@ extension DetailView {
     
     var storeDescription: some View {
         VStack(alignment: .leading) {
-            Text("수요미식회에서 인정한 선릉역 찐 맛집!")
-                .lineLimit(10)
+            
+            Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> < 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> <수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> <")
+                .lineLimit(isExpanded ? nil : 3)
+                .overlay(
+                    GeometryReader { proxy in
+                        Button(action: {
+                            isExpanded.toggle()
+                        }) {
+                            Text(isExpanded ? "접기" : "더보기")
+                                .font(.caption).bold()
+                                .padding(.leading, 8.0)
+                                .padding(.top, 4.0)
+                                .background(Color.white)
+                        }
+                        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .bottomTrailing)
+                    }
+                )
+            //                .lineLimit(10)
                 .padding(.horizontal, 15)
                 .padding(.vertical, 30)
             Divider()
         }
-        .background(.white)
+        .background(Color.red)
     }
     
     var storeMenu: some View {
@@ -140,7 +187,7 @@ extension DetailView {
                 Text("메뉴")
                     .font(.title2.bold())
                     .padding(.bottom)
-
+                
                 ForEach(menus, id: \.self) {menu in
                     HStack{
                         Text(menu[0])
@@ -167,16 +214,17 @@ extension DetailView {
                 
                 //별 재사용 예정
                 
-                HStack {
+                HStack(spacing: 15) {
                     ForEach(0..<5) { index in
                         Button {
                             starStore.selectedStar = index
-                            isCreateReviewMode.toggle()
+                            showingAddingSheet.toggle()
                         } label: {
-                            Image(starStore.selectedStar >= index ? "StarFilled" : "StarEmpty")
+                            Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 40, height: 40)
+                            
                         }
                     }
                 }
@@ -188,22 +236,66 @@ extension DetailView {
         .background(.white)
     }
     
-    var userReview: some View {
-        VStack(spacing: 0) {
-            ForEach(0..<3) { index in
-                let imageTest: [String] = .init(repeating: "Test", count: index)
-                CommentUnit(nickname: "써니\(index)", date: "2023.01.17", starRate: 4, comment: "여기 외 않가?", images: imageTest)
-                if index != 2 {
-                    Divider()
+    struct UserReview:  View {
+        @StateObject var reviewViewModel: ReviewViewModel
+        @ObservedObject var starStore = StarStore()
+        var review: Review
+        var body: some View{
+            VStack{
+                HStack{
+                    Text("\(review.nickName)")
+                        .foregroundColor(.black)
+                        .padding()
+                    Spacer()
+                    Text("\(review.createdDate)")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .padding()
                 }
-            }
+              
+                HStack(spacing: -30){
+                    ForEach(0..<5) { index in
+                        Image(review.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                            .padding()
+                    }
+                    Spacer()
+                }//HStack
+                .padding(.top,-30)
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        ForEach(review.images ?? [], id: \.self) { index in
+                            if let image = reviewViewModel.reviewImage[index] {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(width: 180,height: 160)
+                                    .cornerRadius(10)
+                            }
+                              
+                        }
+                    }
+                 
+                }
+                .padding(.top,-15)
+                .padding(.leading,15)
+               HStack{
+                    Text("\(review.reviewText)")
+                        .font(.footnote)
+                        .foregroundColor(.black)
+                        .padding()
+                   Spacer()
+                }
+                  
+             Divider()
+            }//VStack
         }
-        .padding(.vertical, 15)
     }
+    
 }
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(starStore: StarStore())
-    }
-}
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(starStore: StarStore())
+//    }
+//}

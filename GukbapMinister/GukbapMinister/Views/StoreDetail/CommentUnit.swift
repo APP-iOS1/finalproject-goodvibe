@@ -26,22 +26,13 @@ struct CommentUnit: View {
                 
             }
             .padding(.bottom, 5)
-            //별점
-            HStack(spacing: 0){
+            
+            //깍두기점
+            HStack(spacing: 1){
                 ForEach(0..<5) { index in
-                    if index + 1 <= starRate {
-                        Image("StarFilled")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width:17, height: 17)
-                            .padding(.trailing, 2)
-                    } else {
-                        Image("StarEmpty")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width:17, height: 17)
-                            .padding(.trailing, 2)
-                    }
+                    Image(starRate >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                 }
             }
             .padding(.bottom, 15)
