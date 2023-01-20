@@ -11,9 +11,9 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: UserViewModel
     var body: some View {
         switch viewModel.state{
-        case .signedIn: MainTabView()
+        case .signedIn, .signedOut: MainTabView()
         case .kakaoSign: SignUpTabView(selection: viewModel.selection)
-        case .signedOut: SignInView()
+//        case .signedOut: SignInView()
         }
     }
 }
