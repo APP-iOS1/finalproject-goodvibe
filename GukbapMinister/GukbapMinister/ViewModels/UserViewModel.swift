@@ -45,6 +45,30 @@ final class UserViewModel: ObservableObject {
     
     let database = Firestore.firestore()
     
+    let nf = NumberFormatter()
+    
+    // MARK: - User 정보 불러오기
+    func fetchUserInfo(uid: String) {
+        let docRef = database.collection("User").document(uid)
+        docRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                
+                let email: String = dataDescription?["userEmail"] as? String ?? ""
+                let nickName: String = dataDescription?["userNickname"] as? String ?? ""
+                let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
+                
+                self.userInfo.id = uid
+                self.userInfo.userEmail = email
+                self.userInfo.userNickname = nickName
+                self.userInfo.ageRange = ageRange
+
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     // MARK: - gukbaps 중복제거
     func gukbapsDeduplicate(_ gukbapName: String) {
         if !self.gukbaps.contains(gukbapName) {
