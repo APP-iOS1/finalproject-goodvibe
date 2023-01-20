@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @State private var isSheetPresented: Bool = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                Button {
+                    isSheetPresented.toggle()
+                } label: {
+                    Text("장소 제보하기(임시)")
+                }
+            }
+            .sheet(isPresented: $isSheetPresented) {
+                TempManagementView()
+            }
+        }
     }
 }
 

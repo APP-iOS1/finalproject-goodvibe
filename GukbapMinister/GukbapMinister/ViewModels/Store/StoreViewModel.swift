@@ -6,6 +6,8 @@
 //
 
 import Combine
+import SwiftUI
+import PhotosUI
 
 import Firebase
 import FirebaseFirestore
@@ -13,6 +15,14 @@ import FirebaseStorage
 
 final class StoreViewModel: ObservableObject {
     @Published var store: Store
+    @Published var latitude: Double = 0.0
+    @Published var longitude: Double = 0.0
+    
+    @Published var selectedImages: [PhotosPickerItem] = []
+    @Published var selectedImageData: [Data] =  []
+    @Published var convertedImages: [UIImage] =  []
+    
+    
     @Published var modified = false
     
     private var cancellables = Set<AnyCancellable>()
@@ -33,10 +43,71 @@ final class StoreViewModel: ObservableObject {
     private var storage = Storage.storage()
     
     
-    private func addStoreInfo(_ store: Store) {
+    
+    //    func addReview(review: Review, images: [UIImage]) async {
+    //        do {
+    //            // create image name list
+    //            var imgNameList: [String] = []
+    //
+    //            // iterate over images
+    //            for img in images {
+    //                let imgName = UUID().uuidString
+    //                imgNameList.append(imgName)
+    //                uploadImage(image: img, name: (review.id + "/" + imgName))
+    //            }
+    //
+    //            try await database.collection("Reviews")
+    //                .document(review.id)
+    //                .setData(["userId": review.userId,
+    //                          "reviewText": review.reviewText,
+    //                          "createdAt": review.createdAt,
+    //                          "image": imgNameList,
+    //                          "nickName": review.nickName
+    //                         ])
+    //            fetchReviews()
+    //
+    //        } catch {
+    //            print(error.localizedDescription)
+    //        }
+    //    }
+    
+    private func convertToUIImages() {
+        if !selectedImageData.isEmpty {
+            for imageData in selectedImageData {
+                if let image = UIImage(data: imageData) {
+                    convertedImages.append(image)
+                }
+            }
+        }
+    }
+    
+    private func makeImageName() -> [String] {
+        var imgNameList: [String] = []
+        
+        // iterate over images
+        for img in convertedImages {
+            let imgName = UUID().uuidString
+            imgNameList.append(imgName)
+            
+            
+            if let id = store.id {
+                uploadImage(image: img, name: (id + "/" + imgName))
+            }
+        }
+        
+        return imgNameList
+    }
+    
+    
+    private func addStoreInfo() {
         do {
+            self.convertToUIImages()
+            self.store.storeImages = makeImageName()
+            //위도 경도값을 형변환해서 넣어주기
+            self.store.coordinate = GeoPoint(latitude: self.latitude, longitude: self.longitude)
+            
             let _ = try database.collection("Store")
-                .addDocument(from: store)
+                .addDocument(from: self.store)
         }
         catch {
             print(error)
@@ -75,10 +146,30 @@ final class StoreViewModel: ObservableObject {
             self.updateStoreInfo(self.store)
         }
         else {
-            //위도 경도값을 형변환해서 넣어주기
-            self.store.coordinate = GeoPoint(latitude: 35, longitude: 127)
-            addStoreInfo(self.store)
+            addStoreInfo()
         }
+    }
+    
+    private func uploadImage(image: UIImage, name: String) {
+        let storageRef = storage.reference().child("storeImages/\(name)")
+        let data = image.jpegData(compressionQuality: 0.1)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        // uploda data
+        if let data = data {
+            storageRef.putData(data, metadata: metadata) { (metadata, err) in
+                
+                if let err = err {
+                    print("err when uploading jpg\n\(err)")
+                }
+                
+                if let metadata = metadata {
+                    print("metadata: \(metadata)")
+                }
+            }
+        }
+        
     }
     
     //MARK: UI 핸들러
