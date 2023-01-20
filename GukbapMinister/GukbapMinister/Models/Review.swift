@@ -13,7 +13,7 @@ struct Review: Codable, Identifiable, Hashable {
     var userId: String
     var reviewText: String
     var createdAt: Double
-    var image: [String]?
+    var images: [String]?
     var nickName: String
     var starRating: Int
     
