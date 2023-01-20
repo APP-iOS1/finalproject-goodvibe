@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EE6A9D297791BF005616B3 /* StoreModalView.swift */; };
+		041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE96D297A287000BE32E7 /* ReviewDetailView.swift */; };
 		0488EE592977DD8A00D866B7 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488EE582977DD8A00D866B7 /* ImageDetailView.swift */; };
 		049BF93B2976320600D2D044 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93A2976320600D2D044 /* PopupView */; };
 		049BF93D2976848D00D2D044 /* CreateReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BF93C2976848D00D2D044 /* CreateReviewView.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		03EE6A9D297791BF005616B3 /* StoreModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModalView.swift; sourceTree = "<group>"; };
+		041FE96D297A287000BE32E7 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
 		0488EE582977DD8A00D866B7 /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		049BF93C2976848D00D2D044 /* CreateReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewView.swift; sourceTree = "<group>"; };
 		147FE7CC2977BFB100E635A1 /* SignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTabView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		041FE96F297A387800BE32E7 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
+				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
+				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
+				ADA2675C29793A950040FCBB /* MapView */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		13CB4F71E6746A9AA2165841 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +133,7 @@
 			children = (
 				5B01F2E22976840800ACB32F /* DetailView.swift */,
 				5B01F2E42976CD1200ACB32F /* CommentUnit.swift */,
+				041FE96F297A387800BE32E7 /* Review */,
 			);
 			path = StoreDetail;
 			sourceTree = "<group>";
@@ -174,12 +188,9 @@
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
 				ADA2675D29793ACF0040FCBB /* Modifier */,
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
-				ADA2675C29793A950040FCBB /* MapView */,
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
-				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
-				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -402,6 +413,7 @@
 				6F43066C2977779400ADBD2C /* SignUpGukBabView.swift in Sources */,
 				5BDB9ADB29757A8300BFD5D9 /* Review.swift in Sources */,
 				AD05311F2976918E00594238 /* ButtonModifier.swift in Sources */,
+				041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */,
 				5BDB9AE329757B2000BFD5D9 /* ReviewViewModel.swift in Sources */,
 				5BDB9AD02975790400BFD5D9 /* MyPageView.swift in Sources */,
 			);
