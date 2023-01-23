@@ -40,7 +40,7 @@ class LocationViewModel : ObservableObject {
         }
     }
     
-    @Published var sheetLocation : Store? = nil
+    var sheetLocation : Store? = nil
     
     // MKCoordinateSpan은 우리가 지정해주고자 하는 지역 범위의 폭과 너비를 정해줄 수 있는 struct
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)

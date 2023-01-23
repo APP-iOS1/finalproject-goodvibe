@@ -185,11 +185,15 @@ struct MapView: View {
 
             }
         }
-
-        .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
-            StoreModalView(storeLocation: location)
+        .sheet(isPresented: $marked, content: {
+            StoreModalView(storeLocation: vm.sheetLocation!)
                 .presentationDetents([.height(200)])
-        }
+        })
+
+//        .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
+//            StoreModalView(storeLocation: location)
+//                .presentationDetents([.height(200)])
+//        }
 
 
     }
