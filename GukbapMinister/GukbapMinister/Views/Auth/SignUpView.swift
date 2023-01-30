@@ -15,6 +15,9 @@ struct SignUpView: View {
     @State var passwordValidationString: String = ""
     @State var isPasswordValidation: Bool = false
     
+    @State var userRulesView: Bool = false
+    @State var appRulesView: Bool = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -81,12 +84,21 @@ struct SignUpView: View {
             }
             .padding(.bottom, 30)
             HStack {
-                Text("국밥부장관의 이용약관과 개인정보 처리방침에 동의합니다.")
-                    .foregroundColor(.black)
-                    .font(.footnote)
-                    .fontWeight(.bold)
                 Spacer()
+                Button {
+                    userRulesView.toggle()
+                } label: {
+                    Text("개인정보 처리방침")
+                }
+                Button {
+                    appRulesView.toggle()
+                } label: {
+                    Text(" 약관")
+                }
             }
+            .foregroundColor(.secondary)
+            .font(.footnote)
+            .fontWeight(.bold)
             
             //MARK: - Register Button
             VStack {
@@ -124,6 +136,12 @@ struct SignUpView: View {
             //            .padding(.top,200)
         }//VStack
         .padding()
+        .fullScreenCover(isPresented: $userRulesView) {
+            UserRulesView()
+        }
+        .fullScreenCover(isPresented: $appRulesView) {
+            AppRulesView()
+        }
     }
 }
 
