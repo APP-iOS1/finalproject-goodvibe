@@ -22,6 +22,9 @@ struct DetailView: View {
     @State private var isBookmarked: Bool = false
     @State private var showingAddingSheet: Bool = false
     
+    @State var startOffset: CGFloat = 0
+    @State var scrollViewOffset: CGFloat = 0
+    
     let colors: [Color] = [.yellow, .green, .red]
     let menus: [[String]] = [["국밥", "9,000원"], ["술국", "18,000원"], ["수육", "32,000원"], ["토종순대", "12,000원"]]
     
@@ -63,8 +66,8 @@ struct DetailView: View {
                                 NavigationLink{
                                     ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 }label: {
-                                   UserReview(reviewViewModel: reviewViewModel, review: review)
-                    
+                                    UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, index: 2, review: review)
+                                    
                                         .contextMenu{
                                             Button{
                                                 reviewViewModel.removeReview(review: review)
@@ -75,12 +78,26 @@ struct DetailView: View {
                                         }//contextMenu
                                 }//NavigationLink
                                 
-                            }
+                            }//FirstForEach
                             
                         }//VStack
                         .padding(.bottom, 200)
                     }//ZStack
                 }//ScrollView
+                .overlay(
+                    GeometryReader{ proxy -> Color in
+                        DispatchQueue.main.async {
+                            if startOffset == 0 {
+                                self.startOffset = proxy.frame(in: .global).minY
+                            }
+                            let offset = proxy.frame(in: .global).minY
+                            self .scrollViewOffset = offset - startOffset
+
+                            print("y축 위치 값: \(self.scrollViewOffset)")
+                        }
+                        return Color.clear
+                    })
+                
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -110,9 +127,9 @@ struct DetailView: View {
         .onAppear{
             reviewViewModel.fetchReviews()
         }
-        .onDisappear{
-            reviewViewModel.fetchReviews()
-        }
+//        .onDisappear{
+//            reviewViewModel.fetchReviews()
+//        }
         .refreshable {
             reviewViewModel.fetchReviews()
         }
@@ -236,66 +253,84 @@ extension DetailView {
         .background(.white)
     }
     
-    struct UserReview:  View {
-        @StateObject var reviewViewModel: ReviewViewModel
-        @ObservedObject var starStore = StarStore()
-        var review: Review
-        var body: some View{
-            VStack{
-                HStack{
-                    Text("\(review.nickName)")
-                        .foregroundColor(.black)
-                        .padding()
-                    Spacer()
-                    Text("\(review.createdDate)")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-              
-                HStack(spacing: -30){
-                    ForEach(0..<5) { index in
-                        Image(review.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                            .resizable()
-                            .frame(width: 15, height: 15)
-                            .padding()
-                    }
-                    Spacer()
-                }//HStack
-                .padding(.top,-30)
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack{
-                        ForEach(review.images ?? [], id: \.self) { index in
-                            if let image = reviewViewModel.reviewImage[index] {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .frame(width: 180,height: 160)
-                                    .cornerRadius(10)
-                            }
-                              
-                        }
-                    }
-                 
-                }
-                .padding(.top,-15)
-                .padding(.leading,15)
-               HStack{
-                    Text("\(review.reviewText)")
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding()
-                   Spacer()
-                }
-                  
-             Divider()
-            }//VStack
-        }
-    }
     
 }
 
-//struct DetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailView(starStore: StarStore())
-//    }
-//}
+struct UserReview:  View {
+    @StateObject var reviewViewModel: ReviewViewModel
+    @ObservedObject var starStore = StarStore()
+    @Binding var scrollViewOffset: CGFloat
+    
+    var index: Int
+    var review: Review
+    
+    var body: some View {
+        VStack{
+            HStack{
+                Text("\(review.nickName)")
+                    .foregroundColor(.black)
+                    .padding()
+                Spacer()
+                Text("\(review.createdDate)")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
+            
+            HStack(spacing: -30){
+                ForEach(0..<5) { index in
+                    Image(review.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .padding()
+                }
+                Spacer()
+            }//HStack
+            .padding(.top,-30)
+                                
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
+                                if let image = reviewViewModel.reviewImage[imageData] {
+                                    
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .frame(width: 180,height: 160)
+                                            .cornerRadius(10)
+                                    
+                                            .overlay() {
+                                                if ((review.images?.count ?? 0) > 2)  && index == 1 {
+                                                    
+                                                    RoundedRectangle(cornerRadius: 10)
+                                                        .fill(Color.black.opacity(0.2))
+                                                    
+                                                    let remainImages = (review.images?.count ?? 0) - 2
+                                                    if -scrollViewOffset == 0 {
+                                                        
+                                                        Text("+\(remainImages)")
+                                                            .font(.title)
+                                                            .fontWeight(.heavy)
+                                                            .foregroundColor(.white)
+                                                    }
+                                                }//Second 'if'
+                                            }//overlay
+                                }//if let
+
+                            }// ForEach(review.images)
+                    }
+                }//scrollView
+                .padding(.top,-15)
+                .padding(.leading,15)
+          
+            HStack{
+                Text("\(review.reviewText)")
+                    .font(.footnote)
+                    .foregroundColor(.black)
+                    .padding()
+                Spacer()
+            }
+            
+            Divider()
+        }//VStack
+    }
+}

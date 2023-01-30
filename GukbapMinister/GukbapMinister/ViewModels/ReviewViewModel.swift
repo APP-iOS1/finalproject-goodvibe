@@ -148,7 +148,7 @@ class ReviewViewModel: ObservableObject {
         let ref = storage.reference().child("images/\(reviewId)/\(imageName)")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        ref.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        ref.getData(maxSize: 15 * 1024 * 1024) { data, error in
             if let error = error {
                 print("error while downloading image\n\(error.localizedDescription)")
                 return
