@@ -9,12 +9,29 @@ import SwiftUI
 
 struct ExploreView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+//        ScrollView(.vertical, showsIndicators: false, content: {
+//            VStack{
+//                ForEach(){ storeName in
+//                    StoreView(storeName: storeName)
+//                }
+//
+//
+//            }
+//        })
+    Text("dd")
 
-struct ExploreView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreView()
+       
     }
+    
 }
+//struct StoreView: View{
+//    var storeName: Store
+//
+//    var body: some View{
+//        VStack(spacing: 15) {
+//            HStack{
+//                Text("userNickname")
+//            }
+//        }
+//    }
+//}

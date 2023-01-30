@@ -96,7 +96,6 @@ final class StoreViewModel: ObservableObject {
             catch {
                 print(error)
             }
-            
         }
     }
     
