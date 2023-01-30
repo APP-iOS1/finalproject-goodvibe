@@ -24,7 +24,7 @@ struct CreateReviewView: View {
     
     @Binding var showingSheet: Bool
     
-  
+    
     
     
     
@@ -53,7 +53,7 @@ struct CreateReviewView: View {
                     }
                     HStack(spacing: 15) {
                         Spacer()
-
+                        
                         ForEach(0..<5) { index in
                             Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
                                 .resizable()
@@ -64,7 +64,7 @@ struct CreateReviewView: View {
                         }
                         Spacer()
                     }
-
+                    
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
                     Text("\(starStore.selectedStar + 1) / \(5)")
                         .font(.system(size: 17))
@@ -104,7 +104,7 @@ struct CreateReviewView: View {
                                     .fontWeight(.regular)
                                     .padding(.trailing,-8)
                                     .shimmering(
-                                        animation: .easeInOut(duration: 2).repeatCount(20, autoreverses: false).delay(1)
+                                        animation: .easeInOut(duration: 2).repeatCount(5, autoreverses: false).delay(1)
                                     )
                                 Text("/5")
                                     .font(.callout)
@@ -136,62 +136,65 @@ struct CreateReviewView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             // 선택된 이미지 출력.
-                          //  ForEach(selectedImageData, id: \.self) { imageData in
+                            //  ForEach(selectedImageData, id: \.self) { imageData in
                             ForEach(Array(selectedImageData.enumerated()), id: \.offset) { index, imageData in
-                                    if let image = UIImage(data: imageData) {
-                                        NavigationLink {
-                                            ImageDetailView()
-                                        }
-                                        label:{
-                                            Image(uiImage: image)
-                                                .resizable()
-                                                .cornerRadius(4)
-                                            // .scaledToFit()
-                                                .frame(width: 70,height: 70)
-                                                .overlay(alignment: .topTrailing) {
-                                                    Button(action: {
-                                                        selectedImageData.remove(at:index)
-                                                        selectedImages.remove(at: index)
-                                                        
-                                                    }) {
-                                                        Circle()
-                                                            .frame(width: 17, height: 17)
-                                                            .foregroundColor(.black)
-                                                            .overlay {
-                                                                Image(systemName: "xmark")
-                                                                    .font(.system(size: 12))
-                                                                    .foregroundColor(.white)
-                                                            }
-                                                        
-                                                        
+                                if let image = UIImage(data: imageData) {
+                                    NavigationLink {
+                                        ImageDetailView()
+                                    }
+                                label:{
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .cornerRadius(4)
+                                    // .scaledToFit()
+                                        .frame(width: 70,height: 70)
+                                        .overlay(alignment: .topTrailing) {
+                                            Button(action: {
+                                                selectedImageData.remove(at:index)
+                                                selectedImages.remove(at: index)
+                                                
+                                            }) {
+                                                Circle()
+                                                    .frame(width: 17, height: 17)
+                                                    .foregroundColor(.black)
+                                                    .overlay {
+                                                        Image(systemName: "xmark")
+                                                            .font(.system(size: 12))
+                                                            .foregroundColor(.white)
                                                     }
-                                                    
-                                                }//overlay
-                                        }
-                                       
-                                        
-                                         //.offset(x: 5, y: -5)
-                                        
-                                            .overlay(alignment: .bottom) {
-                                                if (selectedImages.first != nil) {
-                                                    if (selectedImageData.first != nil) {
-                                                        if index == 0 {
-                                                            Text("대표 사진")
-                                                                .font(.system(size:12))
-                                                                .fontWeight(.regular)
-                                                                .frame(maxWidth: .infinity)
-                                                                .frame(height: 20)
-                                                                .foregroundColor(Color.white)
-                                                                .background { Color.black }
-                                                                .cornerRadius(4)
-                                                        }
-                                                    }
-                                                }
+                                                
+                                                
                                             }
-                                    } // if let
+                                            
+                                        }//overlay
+                                }//label
+                                    
+                                    
+                                    //.offset(x: 5, y: -5)
+                                    
+                                .overlay(alignment: .bottom) {
+                                    if (selectedImages.first != nil) {
+                                        if (selectedImageData.first != nil) {
+                                            if index == 0 {
+                                                Text("대표 사진")
+                                                    .font(.system(size:12))
+                                                    .fontWeight(.regular)
+                                                    .frame(maxWidth: .infinity)
+                                                    .frame(height: 20)
+                                                    .foregroundColor(Color.white)
+                                                    .background { Color.black }
+                                                    .cornerRadius(4)
+                                                    .shimmering(
+                                                        animation: .easeInOut(duration: 2).repeatCount(10, autoreverses: false).delay(0.5)
+                                                    )
+                                            }
+                                        }
+                                    }
+                                }
+                                } // if let
                                 
                             } // FirstForEach
-       
+                            
                         } // HStack
                     }//ScrollView
                     .frame(height: 70)
@@ -243,7 +246,7 @@ struct CreateReviewView: View {
                         }//if
                     }//toolbar
                 }//VStack
-           
+                
                 Spacer()
                 
             }//FirstVStack
