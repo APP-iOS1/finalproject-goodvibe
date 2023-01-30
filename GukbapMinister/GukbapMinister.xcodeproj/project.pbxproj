@@ -52,6 +52,7 @@
 		6F7779CF297A5A0A000CF41B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7779CE297A5A0A000CF41B /* LoadingView.swift */; };
 		AD05311D2976902000594238 /* MapCategoryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05311C2976902000594238 /* MapCategoryModalView.swift */; };
 		AD05311F2976918E00594238 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05311E2976918E00594238 /* ButtonModifier.swift */; };
+		AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD16F7B5298796F400733B85 /* CollectionViewModel.swift */; };
 		AD2A3014297A1BA100086F24 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2A3013297A1BA100086F24 /* LocationViewModel.swift */; };
 		CFAB815F4D6526F57BBE7D56 /* Pods_GukbapMinister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */; };
 /* End PBXBuildFile section */
@@ -101,6 +102,7 @@
 		8C81E6A06D470E191D07D075 /* Pods-GukbapMinister.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GukbapMinister.debug.xcconfig"; path = "Target Support Files/Pods-GukbapMinister/Pods-GukbapMinister.debug.xcconfig"; sourceTree = "<group>"; };
 		AD05311C2976902000594238 /* MapCategoryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryModalView.swift; sourceTree = "<group>"; };
 		AD05311E2976918E00594238 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
+		AD16F7B5298796F400733B85 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		AD2A3013297A1BA100086F24 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,13 +218,13 @@
 		5BDB9ACE297578CE00BFD5D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AD16F7B429877CA000733B85 /* CollectionView */,
 				ADA2675C29793A950040FCBB /* MapView */,
 				149CBCED297A270C00F298C7 /* Search */,
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
 				ADA2675D29793ACF0040FCBB /* Modifier */,
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
-				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
 				5B31DBBF297A315000EA0036 /* TempManagementView.swift */,
 				5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */,
@@ -262,9 +264,18 @@
 				5B31DBBC297A23A700EA0036 /* Store */,
 				5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */,
 				5BDB9AE229757B2000BFD5D9 /* ReviewViewModel.swift */,
+				AD16F7B5298796F400733B85 /* CollectionViewModel.swift */,
 				AD2A3013297A1BA100086F24 /* LocationViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AD16F7B429877CA000733B85 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		ADA2675C29793A950040FCBB /* MapView */ = {
@@ -433,6 +444,7 @@
 				5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */,
 				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
 				147FE7CD2977BFB100E635A1 /* SignUpTabView.swift in Sources */,
+				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
 				5BDB9ADF29757AED00BFD5D9 /* StoresViewModel.swift in Sources */,
 				5BDB9AD4297579BA00BFD5D9 /* SignUpView.swift in Sources */,
