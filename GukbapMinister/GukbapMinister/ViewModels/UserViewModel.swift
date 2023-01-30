@@ -29,10 +29,17 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
+    @Published var logStatus: Bool = false {
+        didSet{
+            UserDefaults.standard.set(logStatus, forKey: "logStatus")
+        }
+    }
+    init(){
+        self.logStatus = UserDefaults.standard.bool(forKey: "logStatus")
+    }
     
-
     @Published var isLoading: Bool = false
-
+    
     //로그인 상태
     enum SignInState{
         case signedIn
@@ -62,7 +69,7 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.userEmail = email
                 self.userInfo.userNickname = nickName
                 self.userInfo.ageRange = ageRange
-
+                
             } else {
                 print("Document does not exist")
             }
@@ -106,7 +113,7 @@ final class UserViewModel: ObservableObject {
         
     }
     
-  
+    
     //MARK: - Email Login(signIn)
     func signInUser(){
         Task{
@@ -116,7 +123,7 @@ final class UserViewModel: ObservableObject {
                 print("Signed In As User \(currentUser.uid), with Email: \(String(describing: currentUser.email))")
                 self.state = .signedIn
                 fetchUserInfo(uid: currentUser.uid)
-
+                logStatus = true
             }catch{
                 print("Sign In Failed")
             }
@@ -136,7 +143,6 @@ final class UserViewModel: ObservableObject {
                 ])
                 //                self.state = .signedIn
                 
-//                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
@@ -168,11 +174,12 @@ final class UserViewModel: ObservableObject {
                     "gukbaps" : gukbaps,
                 ])
                 self.state = .signedIn
+                logStatus = true
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
         }//Task
-//        self.state = .signedIn
+        //        self.state = .signedIn
     }
     //MARK: - KAKAO
     
@@ -192,8 +199,9 @@ final class UserViewModel: ObservableObject {
                         print("kakao token: \(token)")
                         fetchingFirebase()
                     }
-                        self.state = .kakaoSign
-                        self.selection = 2
+                    self.state = .kakaoSign
+                    self.selection = 2
+                    logStatus = true
                 }
             }
         } else {
@@ -209,8 +217,9 @@ final class UserViewModel: ObservableObject {
                     }
                     //do something
                     //                    _ = oauthToken
-                        self.state = .kakaoSign
-                        self.selection = 2
+                    self.state = .kakaoSign
+                    self.selection = 2
+                    logStatus = true
                 }
             }
         }
@@ -235,7 +244,7 @@ final class UserViewModel: ObservableObject {
             else {
                 print("logout() success.")
                 self.state = .signedOut
-                
+                self.logStatus = false
             }
         }
         //MARK: - 이메일 로그아웃
@@ -244,6 +253,8 @@ final class UserViewModel: ObservableObject {
         print("SignInView로 이동 됨")
         try? Auth.auth().signOut()
         print("Firebase Auth에서 signOut 됨")
+        logStatus = false
+        print("UserDefaults 로그아웃 됨")
         //        }
     }
     //MARK: - KaKao Auth, Firestore
@@ -259,7 +270,7 @@ final class UserViewModel: ObservableObject {
                     if let error = error {
                         print("Firebase 사용자 생성 실패: \(error.localizedDescription)")
                         Auth.auth().signIn(withEmail: (user?.kakaoAccount?.email)!, password: "\(String(describing: user?.id))")
-                            self.state = .signedIn
+                        self.state = .signedIn
                     } else {
                         print("Firebase 사용자 생성 성공")
                         let authResult = authResult?.user
