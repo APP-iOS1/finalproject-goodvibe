@@ -9,8 +9,8 @@ import CoreLocationUI
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     
-    @Published var location: CLLocationCoordinate2D?
-    @Published var region = MKCoordinateRegion(
+     var location: CLLocationCoordinate2D?
+     var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 42.0422448, longitude: -102.0079053),
         span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
     )
@@ -185,11 +185,15 @@ struct MapView: View {
 
             }
         }
-
-        .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
-            StoreModalView(storeLocation: location)
+        .sheet(isPresented: $marked, content: {
+            StoreModalView(storeLocation: vm.sheetLocation!)
                 .presentationDetents([.height(200)])
-        }
+        })
+
+//        .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
+//            StoreModalView(storeLocation: location)
+//                .presentationDetents([.height(200)])
+//        }
 
 
     }
