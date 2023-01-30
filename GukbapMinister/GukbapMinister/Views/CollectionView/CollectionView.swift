@@ -9,14 +9,23 @@ import SwiftUI
 
 struct CollectionView: View {
     @EnvironmentObject private var testVM : LocationViewModel
+    @EnvironmentObject private var userVM: UserViewModel
     
+    @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
     
     var body: some View {
         NavigationStack{
             ScrollView{
-                ForEach(testVM.locations, id: \.self) { testData in
-                    cell(cellData: testData)
+                ForEach(collectionVM.stores, id: \.self) { store in
+                    cell(collectionVM: collectionVM, cellData: store)
                         .zIndex(1)
+                        .contextMenu {
+                            Button {
+                                collectionVM.removeLikedStore(userId: userVM.userInfo.id, store: store)
+                            } label: {
+                                Text("삭제")
+                            }
+                            }
                     Divider()
                 }
             }
@@ -25,12 +34,22 @@ struct CollectionView: View {
             .navigationBarTitleDisplayMode(.inline)
             
         }
+        .onAppear {
+           
+               collectionVM.fetchLikedStore(userId: userVM.userInfo.id)
+            
+        }
+        .refreshable {
+            collectionVM.fetchLikedStore(userId: userVM.userInfo.id)
+        }
         
     }
 }
 
 struct cell : View {
-    @State private var isHeart : Bool = false
+    @EnvironmentObject private var userVM: UserViewModel
+    
+    var collectionVM: CollectionViewModel
     
     var cellData : Store
     
@@ -43,16 +62,16 @@ struct cell : View {
             } label: {
                 HStack (alignment: .center){
                     
-                    AsyncImage(url: URL(string: cellData.storeImages[0])) { image in
-                        image
-                            .resizable()
-                        //.scaledToFit()
-                    } placeholder: {
-                        Color.gray.opacity(0.1)
-                    }
-                    .frame(width: 90, height: 90)
-                    .cornerRadius(6)
-                    .padding(.leading, 20)
+//                    AsyncImage(url: URL(string: cellData.storeImages[0])) { image in
+//                        image
+//                            .resizable()
+//                        //.scaledToFit()
+//                    } placeholder: {
+//                        Color.gray.opacity(0.1)
+//                    }
+//                    .frame(width: 90, height: 90)
+//                    .cornerRadius(6)
+//                    .padding(.leading, 20)
                     
                     
                     
@@ -66,12 +85,13 @@ struct cell : View {
                             Spacer()
                             
                             Button{
-                                isHeart.toggle()
+                                collectionVM.isHeart.toggle()
                                 // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
                                 // append(cellData.sotreId)
+                                collectionVM.manageHeart(userId: userVM.userInfo.id, store: cellData)
                                 
                             } label: {
-                                Image(systemName: isHeart ? "heart.fill" : "heart")
+                                Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
                                     .foregroundColor(.red)
                             }
                             .padding(.trailing, 25)
@@ -103,14 +123,15 @@ struct cell : View {
                         }
                         .frame(width: 300, height: 40)
                         .padding(.bottom, -5)
-                        
-                        
                     }
                     
                 }
                 .padding(.vertical, 5)
                 .padding(.horizontal, 5)
             }
+        }
+        .onAppear {
+            collectionVM.isHeart = true
         }
     }
 }
