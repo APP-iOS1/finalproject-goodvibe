@@ -24,11 +24,12 @@ struct MainTabView: View {
                 .tag(1)
                 .environmentObject(LocationViewModel())
             
-            DetailView()
+            CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
                 }
                 .tag(2)
+                .environmentObject(LocationViewModel())
             
             MyPageView()
                 .tabItem {

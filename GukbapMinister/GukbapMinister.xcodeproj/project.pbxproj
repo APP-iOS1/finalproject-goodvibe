@@ -212,13 +212,13 @@
 		5BDB9ACE297578CE00BFD5D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AD16F7B429877CA000733B85 /* CollectionView */,
 				ADA2675C29793A950040FCBB /* MapView */,
 				149CBCED297A270C00F298C7 /* Search */,
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
 				ADA2675D29793ACF0040FCBB /* Modifier */,
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
-				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
 				5B31DBBF297A315000EA0036 /* TempManagementView.swift */,
 				5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */,
@@ -259,6 +259,14 @@
 				AD2A3013297A1BA100086F24 /* LocationViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AD16F7B429877CA000733B85 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		ADA2675C29793A950040FCBB /* MapView */ = {
