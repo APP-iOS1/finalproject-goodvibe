@@ -103,9 +103,9 @@ struct CreateReviewView: View {
                                     .foregroundColor(selectedImages.count == 0 ? .gray : .black)
                                     .fontWeight(.regular)
                                     .padding(.trailing,-8)
-                                    .shimmering(
-                                        animation: .easeInOut(duration: 2).repeatCount(5, autoreverses: false).delay(1)
-                                    )
+                                //                                    .shimmering(
+                                //                                        animation: .easeInOut(duration: 2).repeatCount(5, autoreverses: false).delay(1)
+                                //                                    )
                                 Text("/5")
                                     .font(.callout)
                                     .fontWeight(.regular)
@@ -185,7 +185,7 @@ struct CreateReviewView: View {
                                                     .background { Color.black }
                                                     .cornerRadius(4)
                                                     .shimmering(
-                                                        animation: .easeInOut(duration: 2).repeatCount(10, autoreverses: false).delay(0.5)
+                                                        animation: .easeInOut(duration: 2).repeatCount(3, autoreverses: false).delay(0.5)
                                                     )
                                             }
                                         }
@@ -203,26 +203,36 @@ struct CreateReviewView: View {
                 VStack {
                     Section {
                         TextField("작성된 리뷰는 우리 모두가 확인할 수 있어요. 국밥 같은 따뜻한 마음을 나눠주세요.", text: $reviewText, axis: .vertical)
+                            .keyboardType(.default)
+                        
                             .frame(width: 300, height: 250, alignment: .center)
-                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                            .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow, lineWidth: 1.5))
+                            .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
+                            .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.white, lineWidth: 1.5))
                             .multilineTextAlignment(.leading)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                             .lineLimit(11...)
                     }
+                    .background(Color.white) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
+                    .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
+                        endEditing()
+                    } // onTapGesture
                     .navigationTitle("농민백암순대")
                     .navigationBarTitleDisplayMode(.inline)
                     
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            Button("취소") {
+                            Button(action: {
                                 showingSheet.toggle()
+                            }) {
+                                Image(systemName: "delete.backward")
+                                    .foregroundColor(Color.black)
+                                
                             }
                         }
                         if trimReviewText.count > 0 {
                             ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("등록") {
+                                Button(action:{
                                     Task{
                                         
                                         let createdAt = Date().timeIntervalSince1970
@@ -241,6 +251,10 @@ struct CreateReviewView: View {
                                         }
                                         isReviewAdded.toggle()
                                     }
+                                }) {
+                                    Image(systemName: "plus")
+                                        .foregroundColor(Color.black)
+           
                                 }
                             }
                         }//if
@@ -250,6 +264,8 @@ struct CreateReviewView: View {
                 Spacer()
                 
             }//FirstVStack
+            .ignoresSafeArea(.keyboard)
+            
             .popup(isPresented: $isReviewAdded) {
                 HStack {
                     Image(systemName: "checkmark")
@@ -269,6 +285,7 @@ struct CreateReviewView: View {
                     .position(.top)
             } // popup
         }//NavigationStack
+        .ignoresSafeArea(.keyboard)
         .fullScreenCover(isPresented: $selectedImagesDetail){
             ImageDetailView()
         }
@@ -276,11 +293,17 @@ struct CreateReviewView: View {
             reviewViewModel.fetchReviews()
         }
         
-    }//body
+    }//body .ignoresSafeArea(.keyboard)
+    
 }//struct CreateReviewView
 
 
 
+extension View {
+    func endEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 
 
