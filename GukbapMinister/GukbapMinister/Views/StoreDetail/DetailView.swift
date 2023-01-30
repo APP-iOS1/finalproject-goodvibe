@@ -37,6 +37,7 @@ struct DetailView: View {
         NavigationStack {
             GeometryReader { geo in
                 let width: CGFloat = geo.size.width
+              
                 ScrollView {
                     ZStack {
                         //배경색
