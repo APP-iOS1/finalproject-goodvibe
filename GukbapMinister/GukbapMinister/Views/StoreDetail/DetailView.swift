@@ -41,7 +41,7 @@ struct DetailView: View {
                 ScrollView {
                     ZStack {
                         //배경색
-                        Color(uiColor: .systemGray6)
+                        Color(uiColor: .white)
                         
                         VStack(alignment: .leading, spacing: 0){
                             //상호명 주소
@@ -83,7 +83,7 @@ struct DetailView: View {
                             }//FirstForEach
                             
                         }//VStack
-                        .padding(.bottom, 200)
+                       // .padding(.bottom, 200)
                     }//ZStack
                 }//ScrollView
                 .overlay(

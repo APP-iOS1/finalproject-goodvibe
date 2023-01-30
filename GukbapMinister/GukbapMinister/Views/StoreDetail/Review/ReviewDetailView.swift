@@ -24,15 +24,12 @@ struct ReviewDetailView: View {
                                 Image(uiImage: image)
                                     .resizable()
                                    // .scaledToFit()
-                                 
                             }
                         }//ForEach
-                    
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode:.always))
                 .frame(width: UIScreen.main.bounds.width)
             }
-
             VStack{
                 Text(selectedtedReview.createdDate)
                     .fontWeight(.light)

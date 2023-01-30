@@ -8,13 +8,35 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
+    @EnvironmentObject var userViewModel: UserViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.vertical, showsIndicators: false, content: {
+            VStack{
+                ForEach(storesViewModel.stores){ store2 in
+                    NavigationLink{
+                        DetailView()
+                    } label:{
+                        StoreView(store2: store2)
+                    }
+                    
+                    
+                }//ForEach
+            }
+        })
     }
 }
 
-struct ExploreView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreView()
+struct StoreView: View{
+    var store2: Store
+    
+    var body: some View{
+        VStack(spacing: 15) {
+            HStack{
+                Text("\(store2.storeName)")
+                Text("\(store2.storeAddress)")
+                Text("\(store2.description)")
+            }
+        }
     }
 }
