@@ -131,7 +131,7 @@ struct SignUpGukBabView: View {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
                     viewModel.signUpGukBap()
                 }
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 7){
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
                     viewModel.isLoading = false
                 }
                 print("state: \(viewModel.state)")
