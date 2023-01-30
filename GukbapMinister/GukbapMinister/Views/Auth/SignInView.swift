@@ -54,7 +54,7 @@ struct SignInView: View {
                     //Login 버튼
                     viewModel.isLoading = true
                     viewModel.signInUser()
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 7){
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
                         viewModel.isLoading = false
                     }
                 } label: {
