@@ -131,6 +131,9 @@ struct SignUpGukBabView: View {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
                     viewModel.signUpGukBap()
                 }
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                    viewModel.isLoading = false
+                }
                 print("state: \(viewModel.state)")
             } label: {
                 Text("국밥선호 확인")

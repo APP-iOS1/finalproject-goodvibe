@@ -9,35 +9,45 @@ import SwiftUI
 
 struct MyPageView: View {
     @EnvironmentObject var viewModel: UserViewModel
-
-        
-
+    
+    
+    
     @State private var isSheetPresented: Bool = false
     var body: some View {
-            NavigationStack {
-                List {
-                    Button {
-                    viewModel.signOut()
-                    } label: {
-                        Text("로그아웃")
+        NavigationStack {
+            List {
+                Button {
+                    viewModel.isLoading = true
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                        viewModel.signOut()
                     }
-                    Button {
-                        isSheetPresented.toggle()
-                    } label: {
-                        Text("장소 제보하기(임시)")
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                        viewModel.isLoading = false
                     }
-            }
-            .sheet(isPresented: $isSheetPresented) {
-                NavigationStack {
-                    TempManagementView(isOn: $isSheetPresented)
+                } label: {
+                    Text("로그아웃")
                 }
+                Button {
+                    isSheetPresented.toggle()
+                } label: {
+                    Text("장소 제보하기(임시)")
+                }
+            }
+        }
+        .overlay(content: {
+            LoadingView(show: $viewModel.isLoading)
+        })
+        .sheet(isPresented: $isSheetPresented) {
+            NavigationStack {
+                TempManagementView(isOn: $isSheetPresented)
             }
         }
     }
 }
 
-struct MyPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPageView()
-    }
-}
+// >>>>>>>>>>필독<<<<<<<<<< 프리뷰 써야하면 37번째 줄 .overlay부분 주석 시키기!!!!!! 문의->서현
+//struct MyPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MyPageView()
+//    }
+//}
