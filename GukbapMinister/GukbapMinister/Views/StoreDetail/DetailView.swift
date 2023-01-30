@@ -21,9 +21,10 @@ struct DetailView: View {
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
     @State private var showingAddingSheet: Bool = false
+    @State private var ggakdugiCount: Int = 0
     
     let colors: [Color] = [.yellow, .green, .red]
-    let menus: [[String]] = [["국밥", "9,000원"], ["술국", "18,000원"], ["수육", "32,000원"], ["토종순대", "12,000원"]]
+    let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
     
     
     //lineLimit 관련 변수
@@ -188,11 +189,11 @@ extension DetailView {
                     .font(.title2.bold())
                     .padding(.bottom)
                 
-                ForEach(menus, id: \.self) {menu in
+                ForEach(menus.sorted(by: >), id: \.key) {menu, price in
                     HStack{
-                        Text(menu[0])
+                        Text(menu)
                         Spacer()
-                        Text(menu[1])
+                        Text(price)
                     }
                     .padding(.bottom, 5)
                 }
@@ -214,19 +215,9 @@ extension DetailView {
                 
                 //별 재사용 예정
                 
-                HStack(spacing: 15) {
-                    ForEach(0..<5) { index in
-                        Button {
-                            starStore.selectedStar = index
-                            showingAddingSheet.toggle()
-                        } label: {
-                            Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40)
-                            
-                        }
-                    }
+                GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
+                    starStore.selectedStar = ggakdugi
+                    showingAddingSheet.toggle()
                 }
             }
             .padding(.vertical, 30)
@@ -293,6 +284,10 @@ extension DetailView {
     }
     
 }
+
+
+
+
 
 //struct DetailView_Previews: PreviewProvider {
 //    static var previews: some View {
