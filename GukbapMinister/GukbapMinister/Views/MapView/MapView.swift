@@ -6,18 +6,49 @@ import CoreLocationUI
 
 
 
+
 final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     
-    @Published var location: CLLocationCoordinate2D?
+    var location: CLLocationCoordinate2D?
+
     @Published var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 42.0422448, longitude: -102.0079053),
+        center: CLLocationCoordinate2D(latitude: 37.504887, longitude: 127.048811),
         span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
     )
     
     override init() {
         super.init()
         locationManager.delegate = self
+    }
+    
+    func checkIfLocationServicesIsEnabled(){
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+        } else {
+            print("no permission")
+        }
+    }
+    // 언제 불러야 하는가?
+    private func checkLocationAuthorization() {
+        switch locationManager.authorizationStatus {
+            
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            print("Your location is restricted")
+        case .denied:
+            print("Your have denied")
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization() //여기서!2
     }
     
     func requestLocation() {
@@ -39,9 +70,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         //Handle any errors here...
         print (error)
-
-
-
+        
+        
+        
     }
 }
 
@@ -185,11 +216,15 @@ struct MapView: View {
 
             }
         }
-
-        .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
-            StoreModalView(storeLocation: location)
+        .sheet(isPresented: $marked, content: {
+            StoreModalView(storeLocation: vm.sheetLocation!)
                 .presentationDetents([.height(200)])
-        }
+        })
+
+//        .sheet(item: $vm.sheetLocation, onDismiss : nil) { location in
+//            StoreModalView(storeLocation: location)
+//                .presentationDetents([.height(200)])
+//        }
 
 
     }

@@ -41,6 +41,7 @@
 		5BDB9ADF29757AED00BFD5D9 /* StoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9ADE29757AED00BFD5D9 /* StoresViewModel.swift */; };
 		5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */; };
 		5BDB9AE329757B2000BFD5D9 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE229757B2000BFD5D9 /* ReviewViewModel.swift */; };
+		5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */; };
 		63FCF52F29766BEA001712CA /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 63FCF52E29766BEA001712CA /* KakaoSDK */; };
 		63FCF534297677E0001712CA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCF533297677E0001712CA /* MainTabView.swift */; };
 		6F43066A2977778400ADBD2C /* SignUpInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4306692977778400ADBD2C /* SignUpInfoView.swift */; };
@@ -85,6 +86,7 @@
 		5BDB9AE029757B1000BFD5D9 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		5BDB9AE229757B2000BFD5D9 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		5BDB9AE4297581C800BFD5D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GgakdugiRatingWide.swift; sourceTree = "<group>"; };
 		63FCF53029766CCF001712CA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		63FCF533297677E0001712CA /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		651A34301C8D9287AC574128 /* Pods_GukbapMinister.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GukbapMinister.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +221,7 @@
 				5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
 				5B31DBBF297A315000EA0036 /* TempManagementView.swift */,
+				5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				5BDB9AD2297579A900BFD5D9 /* SignInView.swift in Sources */,
 				5BDB9ACD2975788C00BFD5D9 /* CollectionView.swift in Sources */,
 				5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */,
+				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
 				147FE7CD2977BFB100E635A1 /* SignUpTabView.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
 				5BDB9ADF29757AED00BFD5D9 /* StoresViewModel.swift in Sources */,

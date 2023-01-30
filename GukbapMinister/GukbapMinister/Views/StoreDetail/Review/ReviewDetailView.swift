@@ -10,7 +10,10 @@ import SwiftUI
 struct ReviewDetailView: View {
     @StateObject var reviewViewModel: ReviewViewModel
     let selectedtedReview: Review
-
+//
+//    init(){
+//        UIScrollView.appearance().bounces = false
+//    }
     var body: some View {
         VStack{
             if let images = selectedtedReview.images{
@@ -27,7 +30,6 @@ struct ReviewDetailView: View {
                     
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode:.always))
-
                 .frame(width: UIScreen.main.bounds.width)
             }
 
