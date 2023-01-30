@@ -67,6 +67,9 @@ struct cell : View {
                             
                             Button{
                                 isHeart.toggle()
+                                // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
+                                // append(cellData.sotreId)
+                                
                             } label: {
                                 Image(systemName: isHeart ? "heart.fill" : "heart")
                                     .foregroundColor(.red)
