@@ -49,6 +49,9 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 struct MapUIView: UIViewRepresentable {
     // Model with test data
     let landmarks = LandmarkAnnotation.requestMockData()
+    
+    @Binding var stores: [Store]
+    
     /**
      - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
      */
@@ -99,11 +102,11 @@ class LandmarkAnnotation: NSObject, MKAnnotation {
 }
 
 
-struct MapUIViewRepresentable_Previews: PreviewProvider {
-    static var previews: some View {
-        MapUIView()
-    }
-}
+//struct MapUIViewRepresentable_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapUIView()
+//    }
+//}
 
 extension MKMapRect {
     static let seoul =

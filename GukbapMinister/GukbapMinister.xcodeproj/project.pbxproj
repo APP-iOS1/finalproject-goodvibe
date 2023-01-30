@@ -160,6 +160,16 @@
 			path = StoreDetail;
 			sourceTree = "<group>";
 		};
+		5B11C4852987FC84003253C5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0392B377298784D900C510E5 /* MapView+Search.swift */,
+				0392B37929878E8200C510E5 /* MapView+FilterButton.swift */,
+				0392B37B298794B800C510E5 /* MapView+LocationButton.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5B31DBBC297A23A700EA0036 /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,9 +294,7 @@
 				0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */,
 				AD05311C2976902000594238 /* MapCategoryModalView.swift */,
 				03EE6A9D297791BF005616B3 /* StoreModalView.swift */,
-				0392B377298784D900C510E5 /* MapView+Search.swift */,
-				0392B37929878E8200C510E5 /* MapView+FilterButton.swift */,
-				0392B37B298794B800C510E5 /* MapView+LocationButton.swift */,
+				5B11C4852987FC84003253C5 /* Extensions */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
