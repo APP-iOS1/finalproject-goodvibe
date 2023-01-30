@@ -5,7 +5,7 @@ import CoreLocationUI
 
 struct MapView: View {
     // Command + F -> replace: changes searched word in the file
-    @EnvironmentObject private var locationViewModel : LocationViewModel
+    @EnvironmentObject private var locationViewModel: LocationViewModel
     @StateObject var locationManager = LocationManager()
     // 필터 버튼을 눌렀을 때 동작하는 모달
     @State var showModal = false
@@ -38,21 +38,22 @@ struct MapView: View {
                     }
                     .zIndex(1)
                     
-                    Map(coordinateRegion: $locationManager.region,
-                        showsUserLocation: true,
-                        annotationItems: locationViewModel.locations,
-                        annotationContent: { location in
-                        MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)) {
-                            //print("Place a string : \(location)")
-                            
-                            LocationMapAnnotationView()
-                                .onTapGesture {
-                                    //locationViewModel.showNextLocation(location: location)
-                                    marked.toggle()
-                                    locationViewModel.sheetLocation = location
-                                }
-                        }
-                    })
+//                    Map(coordinateRegion: $locationManager.region,
+//                        showsUserLocation: true,
+//                        annotationItems: locationViewModel.locations,
+//                        annotationContent: { location in
+//                        MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)) {
+//                            //print("Place a string : \(location)")
+//
+//                            LocationMapAnnotationView()
+//                                .onTapGesture {
+//                                    //locationViewModel.showNextLocation(location: location)
+//                                    marked.toggle()
+//                                    locationViewModel.sheetLocation = location
+//                                }
+//                        }
+//                    })
+                  MapUIView(stores: $locationViewModel.locations)
                     .ignoresSafeArea(edges: .top)
                 }
             }
