@@ -18,57 +18,49 @@ struct ExploreView: View {
     @State private var selectedIndex: Int = 0
     
     var body: some View {
-        NavigationStack {
-        ScrollView(.vertical, showsIndicators: false, content: {
-            VStack{
-                
-            
+        
+            ScrollView {
                 VStack{
-                    HStack{
-                        search
-                            .padding(.horizontal,18)
-                    } .frame(width: 280, height: 50)
-                 
+                   search
+                    
+                    HStack {
+                        SegmentedPicker(
+                            titles,
+                            selectedIndex: Binding(
+                                get: { selectedIndex },
+                                set: { selectedIndex = $0 ?? 0 }),
+                            content: { item, isSelected in
+                                Text(item)
+                                    .foregroundColor(isSelected ? Color.black : Color.gray )
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                
+                            },
+                            selection: {
+                                VStack(spacing: 0) {
+                                    Spacer()
+                                    Rectangle()
+                                        .fill(Color.black)
+                                        .frame(height: 1)
+                                }
+                            })
+                        
+                        .animation(.easeInOut(duration:0.3))
+                    }
+                    .frame(height: 70)
                     ForEach(storesViewModel.stores){ store2 in
                         NavigationLink{
                             DetailView()
                         } label:{
                             StoreView(storesViewModel: StoreViewModel(), store2: store2)
-                            
-                       
+                        }
                     }
+                    //ForEach
                 }
-                }//search VStack
-               
+                //VStack
                 
-                HStack {
-                    SegmentedPicker(
-                        titles,
-                        selectedIndex: Binding(
-                            get: { selectedIndex },
-                            set: { selectedIndex = $0 ?? 0 }),
-                        content: { item, isSelected in
-                            Text(item)
-                                .foregroundColor(isSelected ? Color.black : Color.gray )
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                           
-                        },
-                        selection: {
-                            VStack(spacing: 0) {
-                                Spacer()
-                                Rectangle()
-                                    .fill(Color.black)
-                                    .frame(height: 1)
-                            }
-                        })
-                    
-                    .animation(.easeInOut(duration:0.3))
-                }
             }
-        })
-    }
-    }
+        }
 }//ExploreView
 
 
@@ -102,6 +94,7 @@ extension ExploreView {
           }
         }
       }
+      .padding(.horizontal,18)
     }
 }
 
