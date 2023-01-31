@@ -18,6 +18,7 @@ struct ExploreView: View {
     @State private var selectedIndex: Int = 0
     
     var body: some View {
+
         
             ScrollView {
                 VStack{
@@ -59,6 +60,7 @@ struct ExploreView: View {
                 }
                 //VStack
                 
+
             }
         }
 }//ExploreView
@@ -98,22 +100,3 @@ extension ExploreView {
     }
 }
 
-
-
-struct StoreView: View{
-    @StateObject var storesViewModel: StoreViewModel
-    
-    var store2: Store
-    
-    var body: some View{
-        VStack(spacing: 15) {
-            HStack{
-                Text("\(store2.storeName)")
-                Text("\(store2.storeAddress)")
-                Text("\(store2.description)")
-                Text("hello world")
-               
-            }
-        }
-    }
-}
