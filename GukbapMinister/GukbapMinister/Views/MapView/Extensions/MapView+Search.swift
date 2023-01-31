@@ -36,18 +36,6 @@ extension MapView {
               .stroke(.yellow)
           }
         }
-        
-        Spacer()
-        
-        Button{
-          // TODO - 검색 확인을 눌렀을 때 검색 실행
-        } label: {
-          Text("확인")
-            .foregroundColor(.white)
-        }
-        .frame(width: 65, height: 50)
-        .background(.yellow)
-        .cornerRadius(25)
       }
     }
 }
