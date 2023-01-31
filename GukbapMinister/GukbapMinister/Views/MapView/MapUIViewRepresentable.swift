@@ -43,6 +43,10 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
       // Your custom image icon
       annotationView.image = uiImage
     }
+      
+      if annotationView.isSelected {
+          
+      }
     
     return annotationView
   }
@@ -53,24 +57,18 @@ struct MapUIView: UIViewRepresentable {
   // Model with test data
   //    let landmarks = LandmarkAnnotation.requestMockData()
   
-  @Binding var stores: [Store]
+  @Binding var storeAnnotations: [StoreAnnotation]
   @Binding var region: MKCoordinateRegion
   @Binding var isSelected: Bool
-  @Binding var selectedStore: Store
-  var storeAnnotations: [StoreAnnotation] {
-    stores.map { store in
-      StoreAnnotation(title: store.storeName,
-                      subtitle: store.storeAddress,
-                      // coordinate이 CLLocation2D 타입이기 때문에 바로 .init으로 초기화 가능
-                      coordinate: .init(latitude: store.coordinate.latitude, longitude: store.coordinate.longitude))
-    }
-  }
-  
-  var selectedStoreAnnotation: StoreAnnotation {
-    StoreAnnotation.init(title: selectedStore.storeName,
-                         subtitle: selectedStore.storeAddress,
-                         coordinate: .init(latitude: selectedStore.coordinate.latitude, longitude: selectedStore.coordinate.longitude))
-  }
+
+    
+  // selectedStore를 ObservableObject 에 올려서 여기서 값을 바꾸어도 상위뷰의 값이 업데이트가 되게하자.
+    // 1. 뷰모델을 만들자
+    // 2. mapView 함수에서 마커를 클릭했을 때 동작을 제어하자
+    
+    
+    
+
   /**
    - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
    */
@@ -96,7 +94,7 @@ struct MapUIView: UIViewRepresentable {
     view.delegate = context.coordinator
     // Passing model array here
     view.addAnnotations(storeAnnotations)
-    view.selectAnnotation(selectedStoreAnnotation, animated: true)
+    
   }
   
   func makeCoordinator() -> MapViewCoordinator{
@@ -104,43 +102,3 @@ struct MapUIView: UIViewRepresentable {
   }
 }
 
-// MKAnnotation에 title과 subtitle이 존재
-// The string containing the annotation’s title and subtitle.
-class StoreAnnotation: NSObject, MKAnnotation {
-  let title: String?
-  let subtitle: String?
-  let coordinate: CLLocationCoordinate2D
-  
-  init(title: String?,
-       subtitle: String?,
-       coordinate: CLLocationCoordinate2D) {
-    self.title = title
-    self.subtitle = subtitle
-    self.coordinate = coordinate
-  }
-  
-  //    static func requestMockData() -> [StoreAnnotation] {
-  //        return [LandmarkAnnotation(title: "테스트", subtitle: "테스트", coordinate: .init(latitude: 12.9716, longitude: 77.5946))]
-  //    }
-}
-
-
-//struct MapUIViewRepresentable_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapUIView()
-//    }
-//}
-
-extension MKMapRect {
-  static let seoul =
-  MKMapRect(origin: .init(x: 228718441.06904224,
-                          y: 103649825.48263545),
-            size: .init(width: 362917.52856230736,
-                        height: 655652.5325171798))
-  
-  static let korea =
-  MKMapRect(origin: .init(x: 227328883.2,
-                          y: 101698704.0),
-            size: .init(width: 5548101.7,
-                        height: 8032702.8))
-}

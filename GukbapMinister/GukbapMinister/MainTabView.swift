@@ -22,14 +22,14 @@ struct MainTabView: View {
                     Label("지도", systemImage: "map")
                 }
                 .tag(1)
-                .environmentObject(LocationViewModel())
+                .environmentObject(MapViewModel())
             
             CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
                 }
                 .tag(2)
-                .environmentObject(LocationViewModel())
+                .environmentObject(MapViewModel())
             
             MyPageView()
                 .tabItem {

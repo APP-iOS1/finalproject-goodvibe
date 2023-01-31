@@ -13,7 +13,7 @@ extension MapView {
   var filterButton: some View {
     HStack{
       Button{
-        self.showModal = true
+        self.showingFilterModal = true
       } label: {
         Text(Image(systemName: "slider.horizontal.3")).foregroundColor(.gray) + Text("필터")
           .foregroundColor(.gray)
@@ -25,8 +25,8 @@ extension MapView {
         Capsule()
           .stroke(.yellow)
       }
-      .sheet(isPresented: self.$showModal) {
-        MapCategoryModalView(showModal: $showModal)
+      .sheet(isPresented: self.$showingFilterModal) {
+        MapCategoryModalView(showModal: $showingFilterModal)
           .presentationDetents([.height(335)])
       }
       .padding(.horizontal, 18)

@@ -16,12 +16,12 @@ extension MapView {
             Image(systemName: "magnifyingglass")
               .foregroundColor(.secondary)
               .padding(.leading, 15)
-            TextField("국밥집 검색",text: $searchGukBap)
+            TextField("국밥집 검색",text: $searchString)
               .onTapGesture {
-                self.isPresentedSearchView.toggle()
+                self.showingSearchView.toggle()
                 UIView.setAnimationsEnabled(false)
               }
-              .fullScreenCover(isPresented: $isPresentedSearchView) {
+              .fullScreenCover(isPresented: $showingSearchView) {
                 SearchView()
               }
               .onAppear {
