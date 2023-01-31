@@ -53,7 +53,7 @@ struct ExploreView: View {
                         NavigationLink{
                             DetailView()
                         } label:{
-                            StoreView(storesViewModel: StoreViewModel(), store2: store2)
+                            StoreView()
                         }
                     }
                     //ForEach
