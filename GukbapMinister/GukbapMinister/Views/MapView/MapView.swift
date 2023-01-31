@@ -53,7 +53,7 @@ struct MapView: View {
 //                                }
 //                        }
 //                    })
-                  MapUIView(stores: $locationViewModel.locations)
+                  MapUIView(stores: $locationViewModel.locations, region: $locationManager.region, isSelected: $marked)
                     .ignoresSafeArea(edges: .top)
                 }
             }
@@ -63,7 +63,6 @@ struct MapView: View {
             })
         }
     }
-    
 }
 
 struct MapView_Previews: PreviewProvider {

@@ -9,14 +9,16 @@ import SwiftUI
 import UIKit
 import MapKit
 
-
-
-
+// SwiftUI와 UIRepresentable 이 상호작용하도록 도와주는 것
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
   var mapViewController: MapUIView
   
   init(_ control: MapUIView) {
     self.mapViewController = control
+  }
+  
+  func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+//    mapViewController.region = mapView.region
   }
   
   /**
@@ -46,11 +48,15 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
   }
 }
 
+// View라고 생각하면 됨
 struct MapUIView: UIViewRepresentable {
   // Model with test data
   //    let landmarks = LandmarkAnnotation.requestMockData()
   
   @Binding var stores: [Store]
+  @Binding var region: MKCoordinateRegion
+  @Binding var isSelected: Bool
+  @Binding var selectedStore: Store
   var storeAnnotations: [StoreAnnotation] {
     stores.map { store in
       StoreAnnotation(title: store.storeName,
@@ -60,13 +66,19 @@ struct MapUIView: UIViewRepresentable {
     }
   }
   
+  var selectedStoreAnnotation: StoreAnnotation {
+    StoreAnnotation.init(title: selectedStore.storeName,
+                         subtitle: selectedStore.storeAddress,
+                         coordinate: .init(latitude: selectedStore.coordinate.latitude, longitude: selectedStore.coordinate.longitude))
+  }
   /**
    - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
    */
-  func makeUIView(context: Context) -> MKMapView{
+  func makeUIView(context: Context) -> MKMapView {
     let maps = MKMapView(frame: .zero)
     // 맵의 초기 지역 MKMapRect로 설정
-    maps.visibleMapRect = .seoul
+//    maps.visibleMapRect = .seoul
+    maps.setRegion(region, animated: true)
     
     // 맵이 보이는 범위를 제한하기
     //         maps.cameraBoundary = MKMapView.CameraBoundary(mapRect: .korea)
@@ -84,6 +96,7 @@ struct MapUIView: UIViewRepresentable {
     view.delegate = context.coordinator
     // Passing model array here
     view.addAnnotations(storeAnnotations)
+    view.selectAnnotation(selectedStoreAnnotation, animated: true)
   }
   
   func makeCoordinator() -> MapViewCoordinator{
