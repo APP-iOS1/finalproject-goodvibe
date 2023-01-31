@@ -223,7 +223,7 @@ struct CreateReviewView: View {
                                 Button(action: {
                                     showingSheet.toggle()
                                 }) {
-                                    Image(systemName: "delete.backward")
+                                    Image(systemName: "xmark")
                                         .foregroundColor(Color.black)
                                     
                                 }
