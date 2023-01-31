@@ -31,7 +31,7 @@ struct MainTabView: View {
                 .tag(2)
                 .environmentObject(MapViewModel())
             
-            MyPageView()
+            DetailView()
                 .tabItem {
                     Label("마이페이지", systemImage: "person")
                 }
