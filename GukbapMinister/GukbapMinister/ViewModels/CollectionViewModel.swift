@@ -11,6 +11,7 @@ import Firebase
 import UIKit
 import CoreLocation
 import MapKit
+import FirebaseStorage
 
 class CollectionViewModel : ObservableObject {
     
@@ -18,12 +19,15 @@ class CollectionViewModel : ObservableObject {
     // 필요한 것 : 현재사용자의 id
     @Published var isHeart: Bool = false
     @Published var stores: [Store] = []
+    @Published var storeImages: [String : UIImage] = [:] 
     
     let database = Firestore.firestore()
+    let storage = Storage.storage()
     
     // MARK: - 찜한 가게 목록 불러오기
     func fetchLikedStore(userId: String) {
-        let ref = database.collection("User").document("1RApyKEYMJNqLz75ObW8S06SuJx1").collection("LikedStore")
+        print("userID : \(userId)")
+        let ref = database.collection("User").document("\(userId)").collection("LikedStore")
         
         ref.getDocuments { snapShot, error in
             
@@ -42,6 +46,12 @@ class CollectionViewModel : ObservableObject {
                     let description: String = docData["description"] as? String ?? ""
                     let countingStar: Double = docData["countingStar"] as? Double ?? 0
                     
+                    print("\(#function) : \(storeName) \\\\ \(storeImages)")
+                    
+                    for imageName in storeImages {
+                        self.fetchImages(storeId: storeName, imageName: imageName)
+                    }
+                    
                     let store: Store = Store(id: id,
                                              storeName: storeName,
                                              storeAddress: storeAddress,
@@ -59,7 +69,7 @@ class CollectionViewModel : ObservableObject {
     
     // MARK: - 찜한 가게 삭제 후 갱신
     func removeLikedStore(userId: String, store: Store) {
-        let ref = database.collection("User").document("1RApyKEYMJNqLz75ObW8S06SuJx1").collection("LikedStore").document(store.id ?? "")
+        let ref = database.collection("User").document(userId).collection("LikedStore").document(store.id ?? "")
         
         ref.delete()
         
@@ -68,8 +78,8 @@ class CollectionViewModel : ObservableObject {
     
     // MARK: - 찜한 가게 추가/삭제
     func manageHeart(userId: String, store: Store) {
-        
-        let ref = database.collection("User").document("1RApyKEYMJNqLz75ObW8S06SuJx1").collection("LikedStore").document(store.id ?? "")
+        print("\(#function) : \(userId)")
+        let ref = database.collection("User").document(userId).collection("LikedStore").document(store.id ?? "")
         
         if isHeart {
             ref.setData([
@@ -87,6 +97,24 @@ class CollectionViewModel : ObservableObject {
             ref.delete()
             print("\(self.isHeart)")
             print("\(#function) : 찜한 가게 삭제")
+        }
+    }
+    
+    // MARK: - Storage에서 이미지 다운로드
+    func fetchImages(storeId: String, imageName: String) {
+        print("이미지 패치 함수 실행됨")
+        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
+            if let error = error {
+                print("error while downloading image\n\(error.localizedDescription)")
+                return
+            } else {
+                let image = UIImage(data: data!)
+                self.storeImages[imageName] = image
+                print("\(#function) : \(self.storeImages)")
+            }
         }
     }
 }

@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct CollectionView: View {
     @EnvironmentObject private var testVM : MapViewModel
     @EnvironmentObject private var userVM: UserViewModel
     
     @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
+    
+    let currentUser = Auth.auth().currentUser
     
     var body: some View {
         NavigationStack{
@@ -21,7 +24,7 @@ struct CollectionView: View {
                         .zIndex(1)
                         .contextMenu {
                             Button {
-                                collectionVM.removeLikedStore(userId: userVM.userInfo.id, store: store)
+                                collectionVM.removeLikedStore(userId: currentUser?.uid ?? "", store: store)
                             } label: {
                                 Text("삭제")
                             }
@@ -36,11 +39,11 @@ struct CollectionView: View {
         }
         .onAppear {
            
-               collectionVM.fetchLikedStore(userId: userVM.userInfo.id)
+            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             
         }
         .refreshable {
-            collectionVM.fetchLikedStore(userId: userVM.userInfo.id)
+            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
         }
         
     }
@@ -50,8 +53,9 @@ struct cell : View {
     @EnvironmentObject private var userVM: UserViewModel
     
     var collectionVM: CollectionViewModel
-    
     var cellData : Store
+    
+    let currentUser = Auth.auth().currentUser
     
     var body: some View {
         
@@ -73,8 +77,11 @@ struct cell : View {
 //                    .cornerRadius(6)
 //                    .padding(.leading, 20)
                     
-                    
-                    
+                    Image(uiImage: collectionVM.storeImages[cellData.storeImages.first ?? ""] ?? UIImage())
+                        .resizable()
+                        .frame(width: 90, height: 90)
+                        .cornerRadius(6)
+                        .padding(.leading, 20)
                     
                     VStack(alignment: .leading, spacing: 1){
                         HStack{
@@ -88,7 +95,7 @@ struct cell : View {
                                 collectionVM.isHeart.toggle()
                                 // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
                                 // append(cellData.sotreId)
-                                collectionVM.manageHeart(userId: userVM.userInfo.id, store: cellData)
+                                collectionVM.manageHeart(userId: currentUser?.uid ?? "", store: cellData)
                                 
                             } label: {
                                 Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
@@ -132,6 +139,7 @@ struct cell : View {
         }
         .onAppear {
             collectionVM.isHeart = true
+            print("\(#function) : \(cellData.storeImages.first ?? "")")
         }
     }
 }
