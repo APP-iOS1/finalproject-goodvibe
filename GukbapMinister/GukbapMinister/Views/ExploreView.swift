@@ -13,30 +13,14 @@ struct ExploreView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
             VStack{
-                ForEach(storesViewModel.stores){ store2 in
+                ForEach(storesViewModel.stores){ storeList in
                     NavigationLink{
                         DetailView()
                     } label:{
-                        StoreView(store2: store2)
+                        StoreView()
                     }
-                    
-                    
                 }//ForEach
             }
         })
-    }
-}
-
-struct StoreView: View{
-    var store2: Store
-    
-    var body: some View{
-        VStack(spacing: 15) {
-            HStack{
-                Text("\(store2.storeName)")
-                Text("\(store2.storeAddress)")
-                Text("\(store2.description)")
-            }
-        }
     }
 }
