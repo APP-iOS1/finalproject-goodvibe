@@ -18,10 +18,10 @@ extension MapView {
               .padding(.leading, 15)
             TextField("국밥집 검색",text: $searchString)
               .onTapGesture {
-                self.showingSearchView.toggle()
+                self.isShowingSearchView.toggle()
                 UIView.setAnimationsEnabled(false)
               }
-              .fullScreenCover(isPresented: $showingSearchView) {
+              .fullScreenCover(isPresented: $isShowingSearchView) {
                 SearchView()
               }
               .onAppear {
