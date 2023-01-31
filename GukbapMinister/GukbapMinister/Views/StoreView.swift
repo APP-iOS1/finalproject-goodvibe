@@ -12,7 +12,6 @@ struct StoreView: View{
     
     var body: some View{
         ZStack {
-
             HStack{
                 Image("ExampleImage")
                     .resizable()
