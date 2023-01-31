@@ -11,42 +11,63 @@ struct StoreView: View{
     //    var storeList: Store
     
     var body: some View{
-//        VStack {
+        ZStack {
+
+            HStack{
+                Image("ExampleImage")
+                    .resizable()
+                    .frame(width: 500, height: 700)
+                    .ignoresSafeArea()
+                    .offset(y: -250)
+            }//HStack
+            HStack{
+                Image(systemName: "heart.circle")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(.white)
+                    .offset(x: 150, y: -350)
+            }
             ZStack {
-                HStack{
-                    Image(systemName: "heart.circle")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .offset(x: 150, y: -300)
-                }
-                HStack{
-                    Rectangle() //storeImages 부분
-                        .fill(.secondary)
-                        .frame(width: 500, height: 500)
-                        .ignoresSafeArea()
-                        .offset(y: -250)
-                }//HStack
+                Color(.black)
+                    .ignoresSafeArea()
+                    .offset(y: 475)
                 VStack{
                     HStack {
-                        Text("storeList.storeName")
+                        Text("국밥부장관 12호점")
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .font(.title)
+                        Spacer()
+                    }
+                    .padding(.bottom, 25)
+                    HStack {
+                        Text("서울특별시 중구 세종대로 110")
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .padding(.bottom, 20)
+                    HStack {
+                        Text("한번 맛보면 절대 헤어나오지 못하는 담백한 국밥")
+                            .font(.title3)
+                            .foregroundColor(.white)
                         Spacer()
                     }
                     .padding(.bottom)
                     HStack {
-                        Text("storeList.storeAddress")
-                        Spacer()
-                    }
-                    .padding(.bottom)
-                    HStack {
-                        Text("storeList.description")
+                        Text("평점 4.9")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("조회수 24150")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
                         Spacer()
                     }
                     .padding(.bottom)
                 }//VStack
-                .offset(y: 80)
+                .offset(y: 255)
                 .padding(70)
-            }//ZStack
-//        }// 가장 바깥 VStack
+            }
+        }//ZStack
     } // var body
 }
 
