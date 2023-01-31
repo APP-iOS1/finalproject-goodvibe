@@ -65,6 +65,7 @@ final class UserViewModel: ObservableObject {
                 let nickName: String = dataDescription?["userNickname"] as? String ?? ""
                 let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
                 
+                
                 self.userInfo.id = uid
                 self.userInfo.userEmail = email
                 self.userInfo.userNickname = nickName
