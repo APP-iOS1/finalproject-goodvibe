@@ -10,6 +10,7 @@ import Foundation
 
 struct User: Identifiable, Hashable, Codable {
     var id: String = UUID().uuidString
+    //var id: String = ""
     var userNickname: String = ""
     var userEmail: String =  ""
     var preferenceArea: String = ""

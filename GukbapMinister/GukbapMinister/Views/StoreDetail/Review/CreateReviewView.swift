@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 import PopupView
 import Shimmer
+import FirebaseAuth
 
 struct CreateReviewView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
@@ -263,7 +264,6 @@ struct CreateReviewView: View {
                     
                 }//FirstVStack
               
-                
                 .popup(isPresented: $isReviewAdded) {
                     HStack {
                         Image(systemName: "checkmark")
@@ -288,7 +288,9 @@ struct CreateReviewView: View {
                 endEditing()
             } // onTapGesture
 //            .ignoresSafeArea(.keyboard, edges: .bottom)
-            
+            .onAppear{
+                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
+            }
             .fullScreenCover(isPresented: $selectedImagesDetail){
                 ImageDetailView()
             }

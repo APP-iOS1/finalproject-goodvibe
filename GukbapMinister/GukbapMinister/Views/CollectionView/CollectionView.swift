@@ -20,7 +20,8 @@ struct CollectionView: View {
         NavigationStack{
             ScrollView{
                 ForEach(collectionVM.stores, id: \.self) { store in
-                    cell(collectionVM: collectionVM, cellData: store)
+                    var imgData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+                    cell(collectionVM: collectionVM, cellData: store, imgData: imgData)
                         .zIndex(1)
                         .contextMenu {
                             Button {
@@ -54,6 +55,8 @@ struct cell : View {
     
     var collectionVM: CollectionViewModel
     var cellData : Store
+    var imgData : UIImage
+    
     
     let currentUser = Auth.auth().currentUser
     
@@ -77,7 +80,7 @@ struct cell : View {
 //                    .cornerRadius(6)
 //                    .padding(.leading, 20)
                     
-                    Image(uiImage: collectionVM.storeImages[cellData.storeImages.first ?? ""] ?? UIImage())
+                    Image(uiImage: imgData)
                         .resizable()
                         .frame(width: 90, height: 90)
                         .cornerRadius(6)
