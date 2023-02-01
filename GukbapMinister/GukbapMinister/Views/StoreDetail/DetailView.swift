@@ -15,7 +15,6 @@ struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
-    
     @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
@@ -63,7 +62,7 @@ struct DetailView: View {
                             //                                .padding(.vertical, 15)
                             
                             userStarRate
-                            
+                          
                             ForEach(reviewViewModel.reviews) { review in
                                 NavigationLink{
                                     ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)

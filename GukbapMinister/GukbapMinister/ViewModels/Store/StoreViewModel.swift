@@ -22,14 +22,20 @@ final class StoreViewModel: ObservableObject {
     @Published var selectedImageData: [Data] =  []
     @Published var convertedImages: [UIImage] =  []
     
+    @Published var storeTitleImage: [String : UIImage] = [:]
     
     @Published var modified = false
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(store: Store = Store(storeName: "", storeAddress: "", coordinate: GeoPoint(latitude: 0, longitude: 0), storeImages: [], menu: [:], description: "", countingStar: 0.0)) {
+    init(store: Store = Store(storeName: "",
+                              storeAddress: "",
+                              coordinate: GeoPoint(latitude: 0, longitude: 0),
+                              storeImages: [],
+                              menu: [:],
+                              description: "",
+                              countingStar: 0.0)) {
         self.store = store
-        
         self.$store
             .dropFirst()
             .sink { [weak self] store in
@@ -63,7 +69,6 @@ final class StoreViewModel: ObservableObject {
             let imgName = UUID().uuidString
             imgNameList.append(imgName)
             uploadImage(image: img, name: (store.storeName + "/" + imgName))
-            
         }
         
         return imgNameList
@@ -141,6 +146,19 @@ final class StoreViewModel: ObservableObject {
             }
         }
         
+        // MARK: - Storage에서 이미지 다운로드
+        func fetchImages(storeId: String, imageName: String) {
+            let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
+            
+            ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
+                if let error = error {
+                    print("error while downloading image\n\(error.localizedDescription)")
+                    return
+                } else {
+                    let image = UIImage(data: data!)
+                    self.storeTitleImage[imageName] = image                }
+            }
+        }
     }
     
     //MARK: UI 핸들러
