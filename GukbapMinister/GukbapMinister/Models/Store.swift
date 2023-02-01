@@ -23,20 +23,19 @@ struct Store: Codable, Hashable, Identifiable {
     var description: String
     var countingStar: Double
     
-//    var foodType: [String]//국밥 타입: ex:순대,돼지국밥
-//    var viewCount: Int// 장소 조회수
+    //    var foodType: [String]//국밥 타입: ex:순대,돼지국밥
+    //    var viewCount: Int// 장소 조회수
     static func == (lhs : Store, rhs: Store) -> Bool{
         lhs.id == rhs.id
     }
     
+    
+    
+}
 
-
+extension Store {
+    static var test: Store = .init(storeName: "test", storeAddress: "test", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "test", countingStar: 0.5)
 }
 
 
 
-//struct StoreLocation: Identifiable {
-//  let id = UUID()
-//  let name: String
-//  let coordinate: CLLocationCoordinate2D
-//}

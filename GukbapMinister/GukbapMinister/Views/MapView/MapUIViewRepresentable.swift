@@ -21,7 +21,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
             mapViewController.region = mapView.region
     }
     
-    /**
+    /*
      - Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
      */
     @MainActor
@@ -35,9 +35,9 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
          
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-
+          
             if let uiImage = renderer.uiImage {
-                // use the rendered image somehow
+                // Use the rendered image somehow
                 // Your custom image icon
                 annotationView?.image = uiImage
             }
@@ -49,13 +49,12 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     }
     
  
-    
+    // 마커를 클릭 했을 때 동작하는 함수
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation as? StoreAnnotation else { return }
         mapViewController.selectedStoreAnnotation = annotation
         mapViewController.isSelected = true
     }
-    
     
 }
 
@@ -63,14 +62,13 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 struct MapUIView: UIViewRepresentable {
     // Model with test data
     //    let landmarks = LandmarkAnnotation.requestMockData()
-    
-    @Binding var storeAnnotations: [StoreAnnotation]
     @Binding var region: MKCoordinateRegion
-    @Binding var isSelected: Bool
+    @Binding var storeAnnotations: [StoreAnnotation]
     @Binding var selectedStoreAnnotation: StoreAnnotation
+    @Binding var isSelected: Bool
     
     
-    /**
+    /*
      - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
      */
     func makeUIView(context: Context) -> MKMapView {
@@ -78,7 +76,6 @@ struct MapUIView: UIViewRepresentable {
         // 맵의 초기 지역 MKMapRect로 설정
         //    maps.visibleMapRect = .seoul
         maps.setRegion(region, animated: true)
-        
         maps.showsCompass = true
         maps.showsUserLocation = true
         
