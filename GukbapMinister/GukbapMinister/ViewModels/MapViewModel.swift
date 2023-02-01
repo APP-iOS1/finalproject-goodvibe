@@ -32,6 +32,8 @@ class MapViewModel : ObservableObject {
     
     @Published var storeLocationAnnotations: [StoreAnnotation]
     
+    @Published var isShowingSelectedStore: Bool = false
+    
     // 마커 클릭시 선택된 특정 Store
     var selectedStore : Store? = nil
     
