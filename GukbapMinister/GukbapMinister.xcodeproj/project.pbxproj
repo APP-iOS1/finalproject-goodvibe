@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03133EF3298A50F700A18EBE /* StorePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03133EF2298A50F700A18EBE /* StorePreviewView.swift */; };
 		0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */; };
 		0392B374298782E800C510E5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B373298782E800C510E5 /* LocationManager.swift */; };
 		0392B378298784D900C510E5 /* MapView+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B377298784D900C510E5 /* MapView+Search.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03133EF2298A50F700A18EBE /* StorePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePreviewView.swift; sourceTree = "<group>"; };
 		0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUIViewRepresentable.swift; sourceTree = "<group>"; };
 		0392B373298782E800C510E5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0392B377298784D900C510E5 /* MapView+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+Search.swift"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */,
 				0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */,
 				AD05311C2976902000594238 /* MapCategoryModalView.swift */,
+				03133EF2298A50F700A18EBE /* StorePreviewView.swift */,
 				03EE6A9D297791BF005616B3 /* StoreModalView.swift */,
 				5B11C4852987FC84003253C5 /* Extensions */,
 			);
@@ -456,6 +459,7 @@
 				6F43066A2977778400ADBD2C /* SignUpInfoView.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				AD2A3014297A1BA100086F24 /* MapViewModel.swift in Sources */,
+				03133EF3298A50F700A18EBE /* StorePreviewView.swift in Sources */,
 				63FCF534297677E0001712CA /* MainTabView.swift in Sources */,
 				5BDB9AD729757A3B00BFD5D9 /* User.swift in Sources */,
 				03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */,

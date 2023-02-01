@@ -17,6 +17,10 @@ struct MapView: View {
     // 검색 텍스트필드 클릭했을 때 동작하는 모달
     @State var isShowingSearchView: Bool = false
     
+  @State var selectedDetent: PresentationDetent = .medium
+
+     private let availableDetents: [PresentationDetent] = [.medium, .large]
+  
     var body: some View {
         // 지오메트리 리더가 뷰 안에 선언 되어있기 때문에 뷰 만큼의 너비와 높이를 가져옴
         GeometryReader { geo in
@@ -48,8 +52,9 @@ struct MapView: View {
                 }
             }
             .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
-                StoreModalView(storeLocation: mapViewModel.selectedStore ?? .test)
-                    .presentationDetents([.height(200)])
+              StoreModalView(selectedDetent: $selectedDetent, storeLocation: mapViewModel.selectedStore ?? .test)
+//                    .presentationDetents([.height(200)])
+                    .presentationDetents([.height(200), .large], selection: $selectedDetent)
                 
             })
         }
@@ -64,5 +69,17 @@ struct MapView_Previews: PreviewProvider {
     }
 }
 
-
+// For presenting in a picker
+extension PresentationDetent: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .medium:
+            return "Medium"
+        case .large:
+            return "Large"
+        default:
+            return "n/a"
+        }
+    }
+}
              
