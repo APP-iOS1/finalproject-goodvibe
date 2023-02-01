@@ -11,13 +11,16 @@ import MapKit
 // MKAnnotation에 title과 subtitle이 존재
 // The string containing the annotation’s title and subtitle.
 class StoreAnnotation: NSObject, MKAnnotation {
+  let storeId: String
   let title: String?
   let subtitle: String?
   let coordinate: CLLocationCoordinate2D
   
-  init(title: String?,
+  init(storeId: String,
+       title: String?,
        subtitle: String?,
        coordinate: CLLocationCoordinate2D) {
+    self.storeId = storeId
     self.title = title
     self.subtitle = subtitle
     self.coordinate = coordinate

@@ -31,13 +31,13 @@ struct MainTabView: View {
                 .tag(2)
                 .environmentObject(MapViewModel())
             
-            DetailView()
+            MyPageView()
                 .tabItem {
                     Label("마이페이지", systemImage: "person")
                 }
                 .tag(3)
         }
-        .accentColor(.yellow)
+        .accentColor(.mainColor)
         
 
     }

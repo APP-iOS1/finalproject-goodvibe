@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+//import Combine
 
 import Firebase
 import FirebaseFirestore
@@ -14,7 +14,7 @@ import FirebaseFirestore
 // 스토어의 정보를 모두 가져오는 뷰모델
 final class StoresViewModel: ObservableObject {
     @Published var stores: [Store] = []
-    
+   
     private var database = Firestore.firestore()
     private var listenerRegistration: ListenerRegistration?
     
@@ -43,11 +43,8 @@ final class StoresViewModel: ObservableObject {
                     //FirebaseFireStoreSwift 를 써서 @Document 프로퍼티를 썼더니 가능
                     self.stores = documents.compactMap { queryDocumentSnapshot in
                         try? queryDocumentSnapshot.data(as: Store.self)
-                    }
                 }
+            }
         }
     }
-       
-    
-    
 }

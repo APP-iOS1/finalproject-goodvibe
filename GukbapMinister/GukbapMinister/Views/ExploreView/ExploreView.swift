@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @StateObject var storeViewModel: StoreViewModel = StoreViewModel()
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
+   
     @EnvironmentObject var userViewModel: UserViewModel
     
     @State var searchGukBap : String = ""
     @State var isPresentedSearchView: Bool = false
     
-    let titles: [String] = ["조회수", "별점"]
+    let titles: [String] = ["조회수순", "평점순"]
     @State private var selectedIndex: Int = 0
     
     var body: some View {
 
-        
+        NavigationStack{
             ScrollView {
                 VStack{
-                   search
+                    search
                     
                     HStack {
                         SegmentedPicker(
@@ -35,7 +37,6 @@ struct ExploreView: View {
                                     .foregroundColor(isSelected ? Color.black : Color.gray )
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
-                                
                             },
                             selection: {
                                 VStack(spacing: 0) {
@@ -49,21 +50,32 @@ struct ExploreView: View {
                         .animation(.easeInOut(duration:0.3))
                     }
                     .frame(height: 70)
-                    ForEach(storesViewModel.stores){ store2 in
+                    ForEach(storesViewModel.stores, id: \.self){ store in
                         NavigationLink{
                             DetailView()
                         } label:{
-                            StoreView()
+                            StoreView(store:store, storeViewModel: storeViewModel)
                         }
+                        .padding(.bottom, 10)
                     }
                     //ForEach
                 }
                 //VStack
                 
-
+                
             }
         }
+        .onAppear {
+            storesViewModel.subscribeStores()
+            print("\(storesViewModel.stores)")
+          
+        }
+        .onDisappear {
+            storesViewModel.unsubscribeStores()
+        }
+        }
 }//ExploreView
+    
 
 
 
@@ -88,11 +100,11 @@ extension ExploreView {
               }
             
           }
-          .frame(width: 280, height: 50)
+          .frame(width: Screen.maxWidth - 64, height: 50)
           .background(Capsule().fill(Color.white))
           .overlay {
             Capsule()
-              .stroke(.yellow)
+              .stroke(Color.mainColor)
           }
         }
       }
