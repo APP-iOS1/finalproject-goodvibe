@@ -50,12 +50,13 @@ struct ExploreView: View {
                         .animation(.easeInOut(duration:0.3))
                     }
                     .frame(height: 70)
-                    ForEach(storesViewModel.stores, id: \.self){ store2 in
+                    ForEach(storesViewModel.stores, id: \.self){ store in
                         NavigationLink{
                             DetailView()
                         } label:{
-                            StoreView(store:store2, storeViewModel: storeViewModel)
+                            StoreView(store:store, storeViewModel: storeViewModel)
                         }
+                        .padding(.bottom, 10)
                     }
                     //ForEach
                 }
