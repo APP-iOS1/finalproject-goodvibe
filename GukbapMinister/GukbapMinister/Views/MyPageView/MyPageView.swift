@@ -16,6 +16,16 @@ struct MyPageView: View {
     var body: some View {
         NavigationStack {
             List {
+                
+                NavigationLink{
+                    MyReviewView()
+                        .environmentObject(ReviewViewModel())
+                        .environmentObject(UserViewModel())
+                } label: {
+                    Text("내가 쓴 리뷰보기")
+                }
+                
+                
                 Button {
                     viewModel.isLoading = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
