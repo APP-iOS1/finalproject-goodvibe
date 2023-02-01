@@ -62,10 +62,10 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 struct MapUIView: UIViewRepresentable {
     // Model with test data
     //    let landmarks = LandmarkAnnotation.requestMockData()
-    @Binding var storeAnnotations: [StoreAnnotation]
     @Binding var region: MKCoordinateRegion
-    @Binding var isSelected: Bool
+    @Binding var storeAnnotations: [StoreAnnotation]
     @Binding var selectedStoreAnnotation: StoreAnnotation
+    @Binding var isSelected: Bool
     
     
     /*

@@ -19,69 +19,67 @@ struct SearchView: View {
     @State private var  result: [String] = []
     
     var body: some View {
-        
-         
-                    VStack {
-                        HStack{
-                            Button {
-                                dismiss()
-                            } label: {
-                                Image(systemName: "chevron.backward")
-                                    .foregroundColor(.black)
-                            }
-                            .padding(.leading,-20)
-                            
-                            VStack {
-                                Section{
-                                    HStack {
-                                        Image(systemName: "magnifyingglass")
-                                            .foregroundColor(.secondary)
-                                            .padding(.leading, 15)
-                                        TextField("국밥집 검색",text: $searchGukBap, axis: .horizontal)
-                                            .keyboardType(.default)
-                                           
-                                            .onChange(of: searchGukBap) { name in
-                                                result = gukbapShops.filter{ $0.contains(name) }
-                                            }
-                                    }
-                                }
-                                .frame(width: 280, height: 50)
-                                .background(Capsule().fill(Color.white))
-                                .overlay {
-                                    Capsule()
-                                        .stroke(.yellow)
-                                }
-                            }
-                            .padding(.leading,-8)
-                            
-                            
-//                            Button{
-//                                // TODO - 검색 확인을 눌렀을 때 검색 실행
-//                            } label: {
-//                                Text("확인")
-//                                    .foregroundColor(.white)
-//                            }
-//                            .frame(width: 65, height: 50)
-//                            .background(.yellow)
-//                            .cornerRadius(25)
-                        }
-                        .padding(.horizontal, 18)
-                        VStack {
-                            List {
-                                ForEach(result, id: \.self) { name in
-                                    Text("\(name)")
-                                }
-                                
-                            }
-                            
-                        }
-                    }//First VStack
+        VStack {
+            HStack{
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.black)
+                }
+                .padding(.leading,-20)
                 
-            
+                VStack {
+                    Section{
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.secondary)
+                                .padding(.leading, 15)
+                            TextField("국밥집 검색",text: $searchGukBap, axis: .horizontal)
+                                .keyboardType(.default)
+                            
+                                .onChange(of: searchGukBap) { name in
+                                    result = gukbapShops.filter{ $0.contains(name) }
+                                }
+                        }
+                    }
+                    .frame(width: 280, height: 50)
+                    .background(Capsule().fill(Color.white))
+                    .overlay {
+                        Capsule()
+                            .stroke(.yellow)
+                    }
+                }
+                .padding(.leading,-8)
+                
+                
+                //                            Button{
+                //                                // TODO - 검색 확인을 눌렀을 때 검색 실행
+                //                            } label: {
+                //                                Text("확인")
+                //                                    .foregroundColor(.white)
+                //                            }
+                //                            .frame(width: 65, height: 50)
+                //                            .background(.yellow)
+                //                            .cornerRadius(25)
+            }
+            .padding(.horizontal, 18)
+            VStack {
+                List {
+                    ForEach(result, id: \.self) { name in
+                        Text("\(name)")
+                    }
+                    
+                }
+                
+            }
+        }//First VStack
+        
+        
         
         .onAppear {
-           //키보드 나타나게 하기 & 텍스트 필드 클릭된 상태 유지해야됨( seachView 전 View에서 텍스트필드 클릭한 값이 전달이 되질 않음
-           
+            //키보드 나타나게 하기 & 텍스트 필드 클릭된 상태 유지해야됨( seachView 전 View에서 텍스트필드 클릭한 값이 전달이 되질 않음
+            
         }
         .onDisappear {
             hideKeyboard()
@@ -92,8 +90,8 @@ struct SearchView: View {
         .searchable(text: $searchGukBap)
     }
     
-        
-
+    
+    
 }
 
 

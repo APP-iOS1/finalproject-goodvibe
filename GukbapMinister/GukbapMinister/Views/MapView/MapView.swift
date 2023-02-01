@@ -37,22 +37,19 @@ struct MapView: View {
                     .zIndex(1)
                     
                     MapUIView(
-                        storeAnnotations: $mapViewModel.storeLocationAnnotations,
                         region: $locationManager.region,
-                        isSelected: $mapViewModel.isShowingSelectedStore,
+                        storeAnnotations: $mapViewModel.storeLocationAnnotations,
                         selectedStoreAnnotation:
-                          $mapViewModel.selectedStoreAnnotation
+                            $mapViewModel.selectedStoreAnnotation,
+                        isSelected: $mapViewModel.isShowingSelectedStore
                     )
                     .ignoresSafeArea(edges: .top)
                 }
             }
             .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
-               // StoreModalView(storeLocation: mapViewModel.selectedStore)
-              HStack {
-                Text(mapViewModel.selectedStoreAnnotation.title ?? "석준")
-                Text(mapViewModel.selectedStoreAnnotation.title ?? "석준")
-              }                  .presentationDetents([.height(200)])
-
+                StoreModalView(storeLocation: mapViewModel.selectedStore ?? .test)
+                    .presentationDetents([.height(200)])
+                
             })
         }
     }
@@ -65,3 +62,6 @@ struct MapView_Previews: PreviewProvider {
             .environmentObject(MapViewModel())
     }
 }
+
+
+             
