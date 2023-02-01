@@ -31,6 +31,20 @@ struct DetailView: View {
     
     //lineLimit 관련 변수
     @State private var isExpanded: Bool = false
+//    @State private var truncated: Bool = false
+//    @State private var shrinkText: String
+//
+//    let font: UIFont
+//    let lineLimit: Int
+//
+//    private var moreLessText: String {
+//            if !truncated {
+//                return ""
+//            } else {
+//                return self.isExpanded ? " 접기 " : " 더보기 "
+//            }
+//        }
+
     
     var body: some View {
         NavigationStack {
@@ -172,11 +186,17 @@ extension DetailView {
         
     }
     
+ 
+    
     var storeDescription: some View {
         VStack(alignment: .leading) {
+            Group {
+                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
+                }
+
+            .lineLimit(isExpanded ? nil : 2)
             
-            Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> < 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> <수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다...> <")
-                .lineLimit(isExpanded ? nil : 3)
+            //.overlay가 문제인것을 알겠다.
                 .overlay(
                     GeometryReader { proxy in
                         Button(action: {
@@ -184,19 +204,32 @@ extension DetailView {
                         }) {
                             Text(isExpanded ? "접기" : "더보기")
                                 .font(.caption).bold()
+//                                .background(Color.white)
+                                .foregroundColor(.blue)
                                 .padding(.leading, 8.0)
                                 .padding(.top, 4.0)
-                                .background(Color.white)
                         }
-                        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .bottomTrailing)
+                        .frame(width: proxy.size.width, height: proxy.size.height+15, alignment: .bottomTrailing)
                     }
                 )
-            //                .lineLimit(10)
+            
+//            if truncated {
+//                            Button(action: {
+//                                isExpanded.toggle()
+//                            }, label: {
+//                                HStack {
+//                                    Spacer()
+//                                    Text("")
+//                                }.opacity(0)
+//                            })
+//                        }
+            
+                .lineLimit(10)
                 .padding(.horizontal, 15)
                 .padding(.vertical, 30)
             Divider()
         }
-        .background(Color.red)
+//        .background(Color.red)
     }
     
     var storeMenu: some View {
@@ -332,9 +365,9 @@ struct UserReview:  View {
 
 
 
-//struct DetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailView(starStore: StarStore())
-//    }
-//}
+struct DetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailView(starStore: StarStore())
+    }
+}
 
