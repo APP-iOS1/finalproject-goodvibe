@@ -25,6 +25,16 @@ struct MapView: View {
             
             NavigationStack {
                 ZStack {
+
+                    MapUIView(
+                        region: $locationManager.region,
+                        storeAnnotations: $mapViewModel.storeLocationAnnotations,
+                        selectedStoreAnnotation:
+                            $mapViewModel.selectedStoreAnnotation,
+                        isSelected: $mapViewModel.isShowingSelectedStore
+                    )
+                    .ignoresSafeArea(edges: .top)
+                    
                     VStack {
                         search(width: width, height: height)
                         
@@ -34,16 +44,7 @@ struct MapView: View {
                         
                         Spacer()
                     }
-                    .zIndex(1)
-                    
-                    MapUIView(
-                        region: $locationManager.region,
-                        storeAnnotations: $mapViewModel.storeLocationAnnotations,
-                        selectedStoreAnnotation:
-                            $mapViewModel.selectedStoreAnnotation,
-                        isSelected: $mapViewModel.isShowingSelectedStore
-                    )
-                    .ignoresSafeArea(edges: .top)
+
                 }
             }
             .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {

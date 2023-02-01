@@ -10,28 +10,28 @@
 import SwiftUI
 
 extension MapView {
-  var filterButton: some View {
-    HStack{
-      Button{
-        self.isShowingFilterModal = true
-      } label: {
-        Text(Image(systemName: "slider.horizontal.3")).foregroundColor(.gray) + Text("필터")
-          .foregroundColor(.gray)
-      }
-      .padding(.horizontal, 10)
-      .padding(.vertical, 5)
-      .background(Capsule().fill(Color.white))
-      .overlay {
-        Capsule()
-          .stroke(.yellow)
-      }
-      .sheet(isPresented: self.$isShowingFilterModal) {
-        MapCategoryModalView(showModal: $isShowingFilterModal)
-          .presentationDetents([.height(335)])
-      }
-      .padding(.horizontal, 18)
-      
-      Spacer()
+    var filterButton: some View {
+        HStack{
+            Button{
+                self.isShowingFilterModal = true
+            } label: {
+                Label("필터",systemImage: "slider.horizontal.3")
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 7)
+            }
+            .background(Capsule().fill(Color.white))
+            .overlay {
+                Capsule()
+                    .stroke(.yellow)
+            }
+            
+            Spacer()
+        }
+        .padding(.horizontal, 32)
+        .sheet(isPresented: self.$isShowingFilterModal) {
+            MapCategoryModalView(showModal: $isShowingFilterModal)
+                .presentationDetents([.height(335)])
+        }
     }
-  }
 }
