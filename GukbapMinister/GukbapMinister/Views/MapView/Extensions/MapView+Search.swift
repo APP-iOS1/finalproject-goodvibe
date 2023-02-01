@@ -8,34 +8,34 @@
 import SwiftUI
 
 extension MapView {
-    var search: some View {
-      // Command + Option + 화살표: Folding
-      HStack{
-        VStack {
-          HStack {
-            Image(systemName: "magnifyingglass")
-              .foregroundColor(.secondary)
-              .padding(.leading, 15)
-            TextField("국밥집 검색",text: $searchString)
-              .onTapGesture {
-                self.isShowingSearchView.toggle()
+    func search(width: CGFloat, height: CGFloat) -> some View {
+        // Command + Option + 화살표: Folding
+        HStack{
+            Button {
+                isShowingSearchView.toggle()
                 UIView.setAnimationsEnabled(false)
-              }
-              .fullScreenCover(isPresented: $isShowingSearchView) {
-                SearchView()
-              }
-              .onAppear {
-                UIView.setAnimationsEnabled(true)
-              }
-            
-          }
-          .frame(width: 280, height: 50)
-          .background(Capsule().fill(Color.white))
-          .overlay {
-            Capsule()
-              .stroke(.yellow)
-          }
+            } label: {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .padding(.leading, 15)
+                    Text("국밥집 검색")
+                    Spacer()
+                }
+                .foregroundColor(.secondary)
+                .frame(width: width - 64, height: 50)
+                .background(Capsule().fill(Color.white))
+                .overlay {
+                    Capsule()
+                        .stroke(.yellow)
+                }
+            }
         }
-      }
+        .fullScreenCover(isPresented: $isShowingSearchView) {
+            SearchView()
+                .onAppear {
+                    UIView.setAnimationsEnabled(true)
+                }
+        }
     }
 }
+

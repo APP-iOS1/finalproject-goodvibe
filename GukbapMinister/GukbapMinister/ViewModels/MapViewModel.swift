@@ -29,24 +29,33 @@ class MapViewModel : ObservableObject {
     
     // All loaded locations
     @Published var storeLocations : [Store]
-    
     @Published var storeLocationAnnotations: [StoreAnnotation]
-    
     @Published var isShowingSelectedStore: Bool = false
     
     // 마커 클릭시 선택된 특정 Store
-    var selectedStore : Store? = nil
+    @Published var selectedStore: Store? = nil
+    @Published var selectedStoreAnnotation : StoreAnnotation = .init(storeId: "Did you know?", title: "Seokjun", subtitle: "is", coordinate: .init(latitude: 37.506276, longitude: 127.048977)) {
+        willSet(newVal) {
+            selectedStore = storeLocations.first { store in
+                store.id == newVal.storeId
+            }
+        }
+    }
+    
+    
+    
+    
     
     // MKCoordinateSpan은 우리가 지정해주고자 하는 지역 범위의 폭과 너비를 정해줄 수 있는 struct
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     
-    
     init(storeLocations: [Store] = StoreDummyData.location) {
         self.storeLocations = storeLocations
         self.storeLocationAnnotations = storeLocations.map { store in
-            StoreAnnotation(title: store.storeName,
-                            subtitle: store.storeAddress,
-                            coordinate: .init(latitude: store.coordinate.latitude, longitude: store.coordinate.longitude))
+            StoreAnnotation(  storeId: store.id ?? "Not Found",
+                              title: store.storeName,
+                              subtitle: store.storeAddress,
+                              coordinate: .init(latitude: store.coordinate.latitude, longitude: store.coordinate.longitude))
         }
         
     }

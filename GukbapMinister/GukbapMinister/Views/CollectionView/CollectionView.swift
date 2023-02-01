@@ -147,5 +147,6 @@ struct cell : View {
 struct CollectionView_Previews: PreviewProvider {
     static var previews: some View {
         CollectionView()
+            .environmentObject(UserViewModel())
     }
 }
