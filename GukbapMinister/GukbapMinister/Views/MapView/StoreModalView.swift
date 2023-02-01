@@ -9,12 +9,17 @@ import SwiftUI
 
 struct StoreModalView: View {
   @State private var isHeart : Bool = false
+  @Binding var selectedDetent: PresentationDetent
   
   var storeLocation : Store
   
   var body: some View {
     NavigationStack {
       VStack {
+        Button("test") {
+          selectedDetent = .large
+        }
+        
         HStack{
           Text(storeLocation.storeName)
             .font(.title2)
