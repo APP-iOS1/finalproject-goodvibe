@@ -62,7 +62,9 @@ struct MyPageView: View {
             NavigationStack {
                 TempManagementView(isOn: $isSheetPresented)
             }
+            .tint(.mainColor)
         }
+        .tint(.mainColor)
     }
 }
 

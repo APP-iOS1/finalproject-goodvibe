@@ -55,7 +55,7 @@ struct SearchView: View {
                 .background(Capsule().fill(Color.white))
                 .overlay {
                     Capsule()
-                        .stroke(.yellow)
+                        .stroke(Color.mainColor)
                 }
                 
                 .padding(.leading,-8)
@@ -82,7 +82,7 @@ struct SearchView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .searchable(text: $searchGukBap)
+//        .searchable(text: $searchGukBap)
     }
     
     

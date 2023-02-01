@@ -170,7 +170,7 @@ extension TempManagementView {
                     matching: .images,
                     photoLibrary: . shared()){
                         Image(systemName: "camera")
-                            .foregroundColor(.yellow)
+                            .foregroundColor(.mainColor)
                             .font(.system(size: 25))
                             .frame(width:70, height: 40, alignment: .center)
                         
@@ -181,7 +181,7 @@ extension TempManagementView {
                     if viewModel.selectedImages.count == 0{
                         Text("\(viewModel.selectedImages.count)")
                             .font(.callout)
-                            .foregroundColor(viewModel.selectedImages.count == 0 ? .gray : .yellow)
+                            .foregroundColor(viewModel.selectedImages.count == 0 ? .gray : .mainColor)
                             .fontWeight(.regular)
                             .padding(.trailing,-8)
                         Text("/5")
@@ -207,7 +207,7 @@ extension TempManagementView {
                 .padding(.top,-10)
                 .padding(.leading,4)
             }
-            .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow,lineWidth: 1.5))
+            .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.mainColor,lineWidth: 1.5))
             .onChange(of: viewModel.selectedImages) { items in
                 //선택된 이미지 없으면 배열 초기화
                 if items.isEmpty { viewModel.selectedImageData = [] }

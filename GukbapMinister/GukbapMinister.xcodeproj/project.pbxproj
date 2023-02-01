@@ -33,6 +33,7 @@
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* TempManagementView.swift */; };
 		5BB236CC298A472E00CBC816 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236CB298A472E00CBC816 /* Constants.swift */; };
+		5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D1298A639D00CBC816 /* Ex+Color.swift */; };
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
@@ -96,6 +97,7 @@
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* TempManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempManagementView.swift; sourceTree = "<group>"; };
 		5BB236CB298A472E00CBC816 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5BB236D1298A639D00CBC816 /* Ex+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
 		5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GukbapMinister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GukbapMinisterApp.swift; sourceTree = "<group>"; };
 		5BDB9AB12975751C00BFD5D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				5BB236CE298A4A4500CBC816 /* Constants */,
+				5BB236D1298A639D00CBC816 /* Ex+Color.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */,
 				AD05311D2976902000594238 /* MapCategoryModalView.swift in Sources */,
 				5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */,
+				5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */,
 				5B01F2E32976840800ACB32F /* DetailView.swift in Sources */,
 				5BDB9AC02975760300BFD5D9 /* ExploreView.swift in Sources */,
 				041FE9712988D57500BE32E7 /* SegmentedPicker.swift in Sources */,

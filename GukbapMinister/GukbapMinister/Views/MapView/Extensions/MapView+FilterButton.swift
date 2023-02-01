@@ -23,7 +23,7 @@ extension MapView {
             .background(Capsule().fill(Color.white))
             .overlay {
                 Capsule()
-                    .stroke(.yellow)
+                    .stroke(Color.mainColor)
             }
             
             Spacer()
