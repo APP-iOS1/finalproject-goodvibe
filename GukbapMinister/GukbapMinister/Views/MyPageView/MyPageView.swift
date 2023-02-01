@@ -13,14 +13,14 @@ struct MyPageView: View {
     
     
     @State private var isSheetPresented: Bool = false
+
+                
+                
+    @State private var isUpdateUserInfoPresented: Bool = false
+    
     var body: some View {
         NavigationStack {
             List {
-                Button{
-                    //print(UserViewModel.userInfo.id)
-                } label: {
-                    Text("내 아이디")
-                }
                 NavigationLink{
                     MyReviewView()
                         .environmentObject(ReviewViewModel())
@@ -29,7 +29,17 @@ struct MyPageView: View {
                     Text("내가 쓴 리뷰보기")
                 }
                 
-                
+                Button {
+                    self.isUpdateUserInfoPresented.toggle()
+                } label: {
+                    Text("회원정보수정")
+                }
+                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
+                    UpdateUserInfoView()
+                        .environmentObject(UserViewModel())
+                        
+                }
+
                 Button {
                     viewModel.isLoading = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){

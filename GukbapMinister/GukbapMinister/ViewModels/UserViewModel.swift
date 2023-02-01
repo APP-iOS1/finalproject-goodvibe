@@ -36,6 +36,7 @@ final class UserViewModel: ObservableObject {
     }
     init(){
         self.logStatus = UserDefaults.standard.bool(forKey: "logStatus")
+        self.fetchUserInfo(uid: currentUser?.uid ?? "")
     }
     
     @Published var isLoading: Bool = false
@@ -53,6 +54,7 @@ final class UserViewModel: ObservableObject {
     let database = Firestore.firestore()
     
     let nf = NumberFormatter()
+    let currentUser = Auth.auth().currentUser
     
     // MARK: - User 정보 불러오기
     func fetchUserInfo(uid: String) {
@@ -64,12 +66,16 @@ final class UserViewModel: ObservableObject {
                 let email: String = dataDescription?["userEmail"] as? String ?? ""
                 let nickName: String = dataDescription?["userNickname"] as? String ?? ""
                 let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
+                let gukbaps: [String] = dataDescription?["gukbaps"] as? [String] ?? []
+                let preferenceArea: String = dataDescription?["preferenceArea"] as? String ?? ""
                 
                 
                 self.userInfo.id = uid
                 self.userInfo.userEmail = email
                 self.userInfo.userNickname = nickName
                 self.userInfo.ageRange = ageRange
+                self.userInfo.gukbaps = gukbaps
+                self.userInfo.preferenceArea = preferenceArea
                 
             } else {
                 print("Document does not exist")
