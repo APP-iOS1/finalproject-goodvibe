@@ -36,7 +36,7 @@ final class UserViewModel: ObservableObject {
     }
     init(){
         self.logStatus = UserDefaults.standard.bool(forKey: "logStatus")
-        self.fetchUserInfo(uid: currentUser?.uid ?? "")
+        self.fetchUserInfo(uid: currentUser?.uid)
     }
     
     @Published var isLoading: Bool = false
@@ -57,7 +57,11 @@ final class UserViewModel: ObservableObject {
     let currentUser = Auth.auth().currentUser
     
     // MARK: - User 정보 불러오기
-    func fetchUserInfo(uid: String) {
+    func fetchUserInfo(uid: String?) {
+        guard let uid else {
+            return
+        }
+        
         let docRef = database.collection("User").document(uid)
         docRef.getDocument { document, error in
             if let document = document, document.exists {

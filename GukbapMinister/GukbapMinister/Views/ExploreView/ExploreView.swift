@@ -99,7 +99,7 @@ extension ExploreView {
               }
             
           }
-          .frame(width: 280, height: 50)
+          .frame(width: Screen.maxWidth - 64, height: 50)
           .background(Capsule().fill(Color.white))
           .overlay {
             Capsule()
