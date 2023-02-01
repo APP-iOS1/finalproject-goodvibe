@@ -11,8 +11,6 @@ struct MapView: View {
     
     // 필터 버튼을 눌렀을 때 동작하는
     @State var isShowingFilterModal: Bool = false
-    
-    @State private var selectedStoreAnnotation: StoreAnnotation = StoreAnnotation(title: "Example", subtitle: "Example", coordinate: .init(latitude: 51, longitude: -0.3))
     // 국밥집 검색창에 들어갈 단어
     @State var searchString: String = ""
     
@@ -28,8 +26,7 @@ struct MapView: View {
             NavigationStack {
                 ZStack {
                     VStack {
-                        search
-                            .padding(.horizontal, 18)
+                        search(width: width, height: height)
                         
                         filterButton
                         
@@ -43,15 +40,19 @@ struct MapView: View {
                         storeAnnotations: $mapViewModel.storeLocationAnnotations,
                         region: $locationManager.region,
                         isSelected: $mapViewModel.isShowingSelectedStore,
-                        selectedStoreAnnotation: $selectedStoreAnnotation
+                        selectedStoreAnnotation:
+                          $mapViewModel.selectedStoreAnnotation
                     )
                     .ignoresSafeArea(edges: .top)
                 }
             }
             .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
                // StoreModalView(storeLocation: mapViewModel.selectedStore)
-                Text("test")
-                    .presentationDetents([.height(200)])
+              HStack {
+                Text(mapViewModel.selectedStoreAnnotation.title ?? "석준")
+                Text(mapViewModel.selectedStoreAnnotation.title ?? "석준")
+              }                  .presentationDetents([.height(200)])
+
             })
         }
     }
