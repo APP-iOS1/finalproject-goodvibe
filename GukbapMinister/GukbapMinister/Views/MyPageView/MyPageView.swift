@@ -13,9 +13,22 @@ struct MyPageView: View {
     
     
     @State private var isSheetPresented: Bool = false
+    @State private var isUpdateUserInfoPresented: Bool = false
+    
     var body: some View {
         NavigationStack {
             List {
+                Button {
+                    self.isUpdateUserInfoPresented.toggle()
+                } label: {
+                    Text("회원정보수정")
+                }
+                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
+                    UpdateUserInfoView()
+                        .environmentObject(UserViewModel())
+                        
+                }
+
                 Button {
                     viewModel.isLoading = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
