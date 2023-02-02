@@ -31,7 +31,7 @@ struct StoreModalView: View {
         }
         
         NavigationLink {
-          DetailView()
+            DetailView(store: storeLocation)
 
         } label: {
           HStack {
