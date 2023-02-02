@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @StateObject var storeViewModel: StoreViewModel = StoreViewModel()
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
     
     @EnvironmentObject var userViewModel: UserViewModel
@@ -47,12 +46,12 @@ struct ExploreView: View {
                         .animation(.easeInOut(duration:0.3), value: selectedIndex)
                     }
                     .frame(height: 70)
-                    ForEach(storeViewModel.stores, id: \.self){ store in
-                        let imageData = storeViewModel.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+                    ForEach(storesViewModel.stores, id: \.self){ store in
+                        let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
                         NavigationLink{
                             DetailView(store: store)
                         } label:{
-                            StoreView(store:store, storeViewModel: storeViewModel, imagedata: imageData)
+                            StoreView(store:store, imagedata: imageData)
                         }
                         .padding(.bottom, 10)
                     }
@@ -65,9 +64,7 @@ struct ExploreView: View {
         }
         .onAppear {
             storesViewModel.subscribeStores()
-
-            storeViewModel.fetchStore()
-
+//            storeViewModel.fetchStore()
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()
@@ -78,7 +75,6 @@ struct ExploreView: View {
 
 struct StoreView: View{
     var store :Store
-    var storeViewModel: StoreViewModel
     var imagedata: UIImage
     var body: some View{
         
@@ -132,12 +128,8 @@ struct StoreView: View{
                         Spacer()
                     }
                     .font(.callout)
-                    
-                    
                 }
                 .padding()
-                
-                
             }
             .background {
                 Rectangle()

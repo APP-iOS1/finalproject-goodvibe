@@ -73,7 +73,7 @@ struct MyPageView: View {
         })
         .sheet(isPresented: $isSheetPresented) {
             NavigationStack {
-                TempManagementView(isOn: $isSheetPresented)
+                StoreRegistrationView(isOn: $isSheetPresented)
             }
             .tint(.mainColor)
         }

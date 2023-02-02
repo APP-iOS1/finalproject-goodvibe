@@ -5,16 +5,16 @@
 //  Created by Martin on 2023/01/20.
 //
 
-import Combine
+import Foundation
 import SwiftUI
+import Combine
 import PhotosUI
 
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
-import Foundation
 
-final class StoreViewModel: ObservableObject {
+final class StoreRegistrationViewModel: ObservableObject {
     @Published var store: Store
     @Published var latitude: String = ""
     @Published var longitude: String = ""
@@ -52,47 +52,7 @@ final class StoreViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
     
-    // MARK: - 가게 목록 불러오기
-    func fetchStore() {
-       database.collection("Store")
-            .getDocuments { snapShot, error in
-            
-            self.stores.removeAll()
-            
-            if let snapShot {
-                for document in snapShot.documents {
-                    let id: String = document.documentID
-                    let docData = document.data()
-                    
-                    let storeName: String = docData["storeName"] as? String ?? ""
-                    let storeAddress: String = docData["storeAddress"] as? String ?? ""
-                    let coordinate: GeoPoint = docData["coordinate"] as? GeoPoint ?? GeoPoint(latitude: 0.0, longitude: 0.0)
-                    let storeImages: [String] = docData["storeImages"] as? [String] ?? []
-                    let menu: [String : String] = docData["menu"] as? [String : String] ?? ["":""]
-                    let description: String = docData["description"] as? String ?? ""
-                    let countingStar: Double = docData["countingStar"] as? Double ?? 0
-                    
-                    print("\(#function) : \(storeName) \\\\ \(storeImages)")
-                    
-                    for imageName in storeImages {
-                        self.fetchImages(storeId: storeName, imageName: imageName)
-                    }
-                    
-                    let store: Store = Store(id: id,
-                                             storeName: storeName,
-                                             storeAddress: storeAddress,
-                                             coordinate: coordinate,
-                                             storeImages: storeImages,
-                                             menu: menu,
-                                             description: description,
-                                             countingStar: countingStar,
-                                             foodType: ["순대국밥"])
 
-                    self.stores.append(store)
-                }
-            }
-        }
-    }
     
     private func convertToUIImages() {
         if !selectedImageData.isEmpty {
@@ -106,7 +66,6 @@ final class StoreViewModel: ObservableObject {
     
     private func makeImageName() -> [String] {
         var imgNameList: [String] = []
-        
         // iterate over images
         for img in convertedImages {
             let imgName = UUID().uuidString
