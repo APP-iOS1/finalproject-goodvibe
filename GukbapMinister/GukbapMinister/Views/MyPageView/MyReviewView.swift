@@ -9,28 +9,38 @@ import SwiftUI
 import FirebaseAuth
 
 struct MyReviewView: View {
+    @Environment(\.dismiss) var dismiss
+
     @EnvironmentObject private var reviewVM: ReviewViewModel
     @EnvironmentObject private var userVM: UserViewModel
+    //@StateObject private var storeVM : StoreViewModel
     
     var body: some View {
-        ZStack{
-            
-            Color.gray.opacity(0.2)
-            
+        VStack{
             NavigationStack{
                 ScrollView(showsIndicators: false) {
-                    ForEach(reviewVM.reviews, id: \.self) { review in
-                        if(review.userId == userVM.userInfo.id){
-                            let reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
-                            ReviewCell(reviewData: review, reviewImg: reviewImg)
-                            
+
+                    
+                    
+                    VStack(spacing: 0){
+                        Rectangle()
+                            .frame(width: 400, height: 10)
+                            .foregroundColor(.gray)
+                            .opacity(0.20)
+                        
+                        // review 컬렉션의 유저 아이디와 현재 유저 아이디를 비교하여 같으면 '내가 쓴 리뷰'로 보여준다
+                        ForEach(reviewVM.reviews, id: \.self) { review in
+                            if(review.userId == userVM.userInfo.id){
+                                var reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
+                                ReviewCell(reviewData: review, reviewImg: reviewImg)
+                            }
+
                         }
                     }
                 }
-                //.padding(.top, 10)
+                .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
+                
             }
-            
-            
             .onAppear{
                 userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
                 reviewVM.fetchReviews()
@@ -38,8 +48,14 @@ struct MyReviewView: View {
             .refreshable {
                 reviewVM.fetchReviews()
             }
+            
+            
+            Button {
+                dismiss()
+            } label: {
+                Text("뒤로")
+            }
         }
-        .background(.white)
     }
 }
 
@@ -51,13 +67,17 @@ struct ReviewCell : View {
     
     var body: some View{
         VStack {
-            NavigationLink {
-                DetailView()
-            } label: {
-                VStack {
+//            NavigationLink {
+//                //DetailView()
+//            } label: {
+                VStack{
+                    
+
                     HStack{
                         Text("\(reviewData.nickName)")
                             .foregroundColor(.black)
+                            .font(.caption)
+                            .bold()
                             .padding()
                         Spacer()
                         Text("\(reviewData.createdDate)")
@@ -65,18 +85,21 @@ struct ReviewCell : View {
                             .foregroundColor(.secondary)
                             .padding()
                     }
-                    
-                    HStack(spacing: -30){
-                        ForEach(0..<5) { index in
-                            Image(reviewData.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                                .padding()
-                        }
-                        Spacer()
-                    }//HStack
-                    .padding(.top,-30)
-                    
+                    VStack(alignment: .leading){
+                        Text("\(reviewData.storeName)")
+                            .foregroundColor(.black)
+                            .padding(.leading)
+                        HStack(spacing: -30){
+                            ForEach(0..<5) { index in
+                                Image(reviewData.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                    .padding()
+                            }
+                            Spacer()
+                        }//HStack
+                        .padding(.top,-25)
+                    }
                     if reviewImg != UIImage(){
                         Image(uiImage: reviewImg)
                             .resizable()
@@ -86,7 +109,7 @@ struct ReviewCell : View {
                     }
                     HStack{
                         Text("\(reviewData.reviewText)")
-                            .font(.footnote)
+                            .font(.caption)
                             .foregroundColor(.black)
                             .padding()
                         
@@ -94,16 +117,14 @@ struct ReviewCell : View {
                         
                     }
                     
-                    //                    Rectangle()
-                    //                        .frame(width: 400, height: 10)
-                    //                        .foregroundColor(.gray)
-                    //                        .opacity(0.20)
+                    Divider()
+
+                    
                 }
                 .onAppear {
                     //            collectionVM.isHeart = true
-                    //            print("\(#function) : \(cellData.storeImages.first ?? "")")
                 }
-            }
+           //}
             
         }
         .background(.white)

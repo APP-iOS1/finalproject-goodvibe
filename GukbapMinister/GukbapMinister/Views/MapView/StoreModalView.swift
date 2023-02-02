@@ -16,9 +16,9 @@ struct StoreModalView: View {
   var body: some View {
     NavigationStack {
       VStack {
-        Button("test") {
-          selectedDetent = .large
-        }
+//        Button("test") {
+//          selectedDetent = .large
+//        }
         
         HStack{
           Text(storeLocation.storeName)
@@ -26,10 +26,13 @@ struct StoreModalView: View {
             .bold()
             .padding(.leading, 20)
           Spacer()
+          
+          
         }
         
         NavigationLink {
           DetailView()
+
         } label: {
           HStack {
             AsyncImage(url: URL(string: storeLocation.storeImages[0])) { image in
@@ -42,6 +45,7 @@ struct StoreModalView: View {
             .frame(width: 100, height: 100)
             .cornerRadius(6)
             .padding(.leading, 20)
+            
             
             VStack{
               HStack(alignment: .top){

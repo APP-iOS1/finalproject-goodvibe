@@ -27,5 +27,7 @@ struct Review: Codable, Identifiable, Hashable {
         
         return dateFormatter.string(from: dateCreatedAt)
     }
-    
+ 
+    // 가게이름 추가
+    var storeName: String
 }
