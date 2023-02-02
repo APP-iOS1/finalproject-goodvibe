@@ -58,7 +58,8 @@ class CollectionViewModel : ObservableObject {
                                              storeImages: storeImages,
                                              menu: menu,
                                              description: description,
-                                             countingStar: countingStar)
+                                             countingStar: countingStar,
+                                             foodType: ["순대국밥"])
                     
                     self.stores.append(store)
                 }
