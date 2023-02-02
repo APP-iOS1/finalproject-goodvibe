@@ -34,7 +34,9 @@ final class StoreViewModel: ObservableObject {
                               storeImages: [],
                               menu: [:],
                               description: "",
-                              countingStar: 0.0)) {
+                              countingStar: 0.0,
+                              foodType: ["순대국밥"]
+    )) {
         self.store = store
         self.$store
             .dropFirst()
