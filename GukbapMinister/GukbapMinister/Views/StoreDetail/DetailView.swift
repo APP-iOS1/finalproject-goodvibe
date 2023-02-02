@@ -113,7 +113,7 @@ struct DetailView: View {
                             let offset = proxy.frame(in: .global).minY
                             self .scrollViewOffset = offset - startOffset
 
-                            print("y축 위치 값: \(self.scrollViewOffset)")
+                        //print("y축 위치 값: \(self.scrollViewOffset)")
                         }
                         return Color.clear
                     })
@@ -146,6 +146,7 @@ struct DetailView: View {
         }
         .onAppear{
             reviewViewModel.fetchReviews()
+            print("리뷰 이미지\(reviewViewModel.reviewImage)")
         }
 //        .onDisappear{
 //            reviewViewModel.fetchReviews()

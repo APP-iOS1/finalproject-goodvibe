@@ -10,17 +10,20 @@ import SwiftUI
 struct StoreView: View{
     var store :Store
     var storeViewModel: StoreViewModel
-    
+    var imagedata: UIImage
     var body: some View{
         
             VStack{
                 
-                //                Image(uiImage: storeViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage())
-                Image("ExampleImage")
+//                Image("ExampleImage")
+//                    .resizable()
+//                    .frame(width: 353, height: 250)
+//                    .padding(.top, 25)
+                
+                Image(uiImage: imagedata)
                     .resizable()
                     .frame(width: 353, height: 250)
                     .padding(.top, 25)
-                
                 
                 
                 Image(systemName: "heart")

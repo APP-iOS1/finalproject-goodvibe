@@ -19,6 +19,7 @@ struct MyReviewView: View {
         VStack{
             NavigationStack{
                 ScrollView(showsIndicators: false) {
+
                     
                     
                     VStack(spacing: 0){
@@ -33,6 +34,7 @@ struct MyReviewView: View {
                                 var reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
                                 ReviewCell(reviewData: review, reviewImg: reviewImg)
                             }
+
                         }
                     }
                 }
