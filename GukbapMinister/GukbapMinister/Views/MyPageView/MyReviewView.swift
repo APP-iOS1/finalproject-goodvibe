@@ -21,7 +21,7 @@ struct MyReviewView: View {
                 ScrollView(showsIndicators: false) {
                     ForEach(reviewVM.reviews, id: \.self) { review in
                         if(review.userId == userVM.userInfo.id){
-                            var reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
+                            let reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
                             ReviewCell(reviewData: review, reviewImg: reviewImg)
                             
                         }
