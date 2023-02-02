@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */; };
 		0392B374298782E800C510E5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B373298782E800C510E5 /* LocationManager.swift */; };
-		0392B378298784D900C510E5 /* MapView+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B377298784D900C510E5 /* MapView+Search.swift */; };
 		0392B37A29878E8200C510E5 /* MapView+FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37929878E8200C510E5 /* MapView+FilterButton.swift */; };
 		0392B37C298794B800C510E5 /* MapView+LocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37B298794B800C510E5 /* MapView+LocationButton.swift */; };
 		0392B37E298797E000C510E5 /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */; };
@@ -33,6 +32,7 @@
 		5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* TempManagementView.swift */; };
 		5BB236CC298A472E00CBC816 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236CB298A472E00CBC816 /* Constants.swift */; };
 		5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D1298A639D00CBC816 /* Ex+Color.swift */; };
+		5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */; };
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
@@ -74,7 +74,6 @@
 /* Begin PBXFileReference section */
 		0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUIViewRepresentable.swift; sourceTree = "<group>"; };
 		0392B373298782E800C510E5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		0392B377298784D900C510E5 /* MapView+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+Search.swift"; sourceTree = "<group>"; };
 		0392B37929878E8200C510E5 /* MapView+FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+FilterButton.swift"; sourceTree = "<group>"; };
 		0392B37B298794B800C510E5 /* MapView+LocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+LocationButton.swift"; sourceTree = "<group>"; };
 		0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
@@ -96,6 +95,7 @@
 		5B31DBBF297A315000EA0036 /* TempManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempManagementView.swift; sourceTree = "<group>"; };
 		5BB236CB298A472E00CBC816 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5BB236D1298A639D00CBC816 /* Ex+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
+		5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarButton.swift; sourceTree = "<group>"; };
 		5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GukbapMinister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GukbapMinisterApp.swift; sourceTree = "<group>"; };
 		5BDB9AB12975751C00BFD5D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -166,7 +166,6 @@
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				6F30C6A22988B8E400FF2632 /* StoreView.swift */,
 				041FE9702988D57500BE32E7 /* SegmentedPicker.swift */,
-				041FE9722988DCDE00BE32E7 /* Ex+View.swift */,
 			);
 			path = ExploreView;
 			sourceTree = "<group>";
@@ -175,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				149CBCEE297A273400F298C7 /* SearchView.swift */,
+				5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -192,7 +192,6 @@
 		5B11C4852987FC84003253C5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0392B377298784D900C510E5 /* MapView+Search.swift */,
 				0392B37929878E8200C510E5 /* MapView+FilterButton.swift */,
 				0392B37B298794B800C510E5 /* MapView+LocationButton.swift */,
 				5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */,
@@ -214,7 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				5BB236CE298A4A4500CBC816 /* Constants */,
-				5BB236D1298A639D00CBC816 /* Ex+Color.swift */,
+				5BB236D3298B39FC00CBC816 /* Extensions */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -225,6 +224,15 @@
 				5BB236CB298A472E00CBC816 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		5BB236D3298B39FC00CBC816 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5BB236D1298A639D00CBC816 /* Ex+Color.swift */,
+				041FE9722988DCDE00BE32E7 /* Ex+View.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		5BDB9AA32975751C00BFD5D9 = {
@@ -463,8 +471,8 @@
 				5BDB9ACD2975788C00BFD5D9 /* CollectionView.swift in Sources */,
 				5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */,
 				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
-				0392B378298784D900C510E5 /* MapView+Search.swift in Sources */,
 				0392B374298782E800C510E5 /* LocationManager.swift in Sources */,
+				5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */,
 				147FE7CD2977BFB100E635A1 /* SignUpTabView.swift in Sources */,
 				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,

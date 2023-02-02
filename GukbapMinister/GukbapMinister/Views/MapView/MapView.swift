@@ -45,7 +45,15 @@ struct MapView: View {
             
             Spacer()
           }
-          
+       
+                }
+            }
+            .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
+              StoreModalView(selectedDetent: $selectedDetent, storeLocation: mapViewModel.selectedStore ?? .test)
+//                    .presentationDetents([.height(200)])
+                    .presentationDetents([.height(200), .large], selection: $selectedDetent)
+                
+            })
         }
       }
       .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
