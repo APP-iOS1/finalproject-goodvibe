@@ -1,15 +1,16 @@
 //
-//  MapViewSearch.swift
+//  SearchBarButton.swift
 //  GukbapMinister
 //
-//  Created by TEDDY on 1/30/23.
+//  Created by Martin on 2023/02/02.
 //
 
 import SwiftUI
 
-extension MapView {
-    func search(width: CGFloat, height: CGFloat) -> some View {
-        // Command + Option + 화살표: Folding
+struct SearchBarButton: View {
+    @State var isShowingSearchView: Bool = false
+    
+    var body: some View {
         HStack{
             Button {
                 isShowingSearchView.toggle()
@@ -21,8 +22,8 @@ extension MapView {
                     Text("국밥집 검색")
                     Spacer()
                 }
-                .foregroundColor(.secondary)
-                .frame(width: width - 64, height: 50)
+                .foregroundColor(.gray)
+                .frame(width: Screen.searchBarWidth, height: 50)
                 .background(Capsule().fill(Color.white))
                 .overlay {
                     Capsule()

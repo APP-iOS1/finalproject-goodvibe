@@ -20,7 +20,7 @@ struct CollectionView: View {
         NavigationStack{
             ScrollView{
                 ForEach(collectionVM.stores, id: \.self) { store in
-                    var imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+                    let imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
                     cell(collectionVM: collectionVM, cellData: store, imagedata: imageData)
                         .zIndex(1)
                         .contextMenu {

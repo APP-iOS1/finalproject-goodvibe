@@ -11,13 +11,8 @@ struct MapView: View {
     
     // 필터 버튼을 눌렀을 때 동작하는
     @State var isShowingFilterModal: Bool = false
-    // 국밥집 검색창에 들어갈 단어
-    @State var searchString: String = ""
     
-    // 검색 텍스트필드 클릭했을 때 동작하는 모달
-    @State var isShowingSearchView: Bool = false
-    
-  @State var selectedDetent: PresentationDetent = .medium
+    @State var selectedDetent: PresentationDetent = .medium
 
      private let availableDetents: [PresentationDetent] = [.medium, .large]
   
@@ -40,7 +35,7 @@ struct MapView: View {
                     .ignoresSafeArea(edges: .top)
                     
                     VStack {
-                        search(width: width, height: height)
+                        SearchBarButton()
                         
                         filterButton
                         
