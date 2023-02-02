@@ -45,8 +45,7 @@ class CollectionViewModel : ObservableObject {
                     let menu: [String : String] = docData["menu"] as? [String : String] ?? ["":""]
                     let description: String = docData["description"] as? String ?? ""
                     let countingStar: Double = docData["countingStar"] as? Double ?? 0
-                    
-                    print("\(#function) : \(storeName) \\\\ \(storeImages)")
+              
                     
                     for imageName in storeImages {
                         self.fetchImages(storeId: storeName, imageName: imageName)
@@ -84,7 +83,7 @@ class CollectionViewModel : ObservableObject {
         
         if isHeart {
             ref.setData([
-                "storeId" : store.id,
+                "storeId" : store.id ?? "",
                 "storeName" : store.storeName,
                 "storeAddress" : store.storeAddress,
                 "coordinate" : store.coordinate,
@@ -103,7 +102,6 @@ class CollectionViewModel : ObservableObject {
     
     // MARK: - Storage에서 이미지 다운로드
     func fetchImages(storeId: String, imageName: String) {
-        print("이미지 패치 함수 실행됨")
         let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -114,7 +112,7 @@ class CollectionViewModel : ObservableObject {
             } else {
                 let image = UIImage(data: data!)
                 self.storeImages[imageName] = image
-                print("\(#function) : \(self.storeImages)")
+         
             }
         }
     }

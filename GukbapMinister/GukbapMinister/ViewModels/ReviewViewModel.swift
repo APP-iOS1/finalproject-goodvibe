@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import FirebaseStorage
 import SwiftUI
 import Firebase
-import FirebaseFirestore
+
 
 class ReviewViewModel: ObservableObject {
     @Published var reviews: [Review] = []
@@ -48,7 +49,8 @@ class ReviewViewModel: ObservableObject {
                         let images: [String] = docData["images"] as? [String] ?? []
                         let nickName: String = docData["nickName"] as? String ?? ""
                         let starRating: Int = docData["starRating"] as? Int ?? 0
-                        
+                        let storeName: String = docData["storeName"] as? String ?? ""
+
                         for imageName in images{
                             self.retrieveImages(reviewId: id, imageName: imageName)
                         }
@@ -59,7 +61,9 @@ class ReviewViewModel: ObservableObject {
                                                     createdAt: createdAt,
                                                     images: images,
                                                     nickName: nickName,
-                                                    starRating: starRating )
+                                                    starRating: starRating,
+                                                    storeName: storeName
+                        )
                         
                         self.reviews.append(review)
                         print("reviews배열@@@@@@@ \(self.reviews)")
@@ -86,7 +90,8 @@ class ReviewViewModel: ObservableObject {
                           "createdAt": review.createdAt,
                           "images": imgNameList,
                           "nickName": review.nickName,
-                          "starRating": review.starRating
+                          "starRating": review.starRating,
+                          "storeName" : review.storeName
                          ])
             fetchReviews()
             print("이미지 배열\(imgNameList)")

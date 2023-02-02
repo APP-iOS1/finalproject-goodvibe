@@ -48,10 +48,12 @@ struct ExploreView: View {
                     }
                     .frame(height: 70)
                     ForEach(storesViewModel.stores, id: \.self){ store in
+                        let imageData = storeViewModel.storeImages[store.storeImages.first ?? ""] ?? UIImage()
                         NavigationLink{
-                            DetailView()
+                            DetailView(store: store)
                         } label:{
-                            StoreView(store:store, storeViewModel: storeViewModel)
+                         
+                            StoreView(store:store, storeViewModel: storeViewModel, imagedata: imageData)
                         }
                         .padding(.bottom, 10)
                     }
@@ -64,8 +66,9 @@ struct ExploreView: View {
         }
         .onAppear {
             storesViewModel.subscribeStores()
-            print("\(storesViewModel.stores)")
-            
+
+            storeViewModel.fetchStore()
+
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()
