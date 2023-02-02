@@ -63,7 +63,7 @@ struct cell : View {
         
         VStack {
             NavigationLink {
-                DetailView()
+                DetailView(store : cellData)
             } label: {
                 HStack (alignment: .center){
                     
