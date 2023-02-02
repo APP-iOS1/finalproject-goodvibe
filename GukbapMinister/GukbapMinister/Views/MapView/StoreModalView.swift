@@ -29,7 +29,7 @@ struct StoreModalView: View {
         }
         
         NavigationLink {
-          DetailView()
+            DetailView(store: storeLocation)
         } label: {
           HStack {
             AsyncImage(url: URL(string: storeLocation.storeImages[0])) { image in

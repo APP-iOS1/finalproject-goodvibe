@@ -49,7 +49,7 @@ struct ExploreView: View {
                     .frame(height: 70)
                     ForEach(storesViewModel.stores, id: \.self){ store in
                         NavigationLink{
-                            DetailView()
+                            DetailView(store: store)
                         } label:{
                             StoreView(store:store, storeViewModel: storeViewModel)
                         }
