@@ -26,7 +26,7 @@ struct CreateReviewView: View {
     @Binding var showingSheet: Bool
     
     
-    
+    var store : Store
     
     
     var trimReviewText: String {
@@ -216,7 +216,7 @@ struct CreateReviewView: View {
                                 .lineLimit(11...)
                         }
                         
-                        .navigationTitle("농민백암순대")
+                        .navigationTitle(store.storeName)
                         .navigationBarTitleDisplayMode(.inline)
                         
                         .toolbar {
@@ -241,7 +241,8 @@ struct CreateReviewView: View {
                                                                         reviewText: reviewText,
                                                                         createdAt: createdAt,
                                                                         nickName: userViewModel.userInfo.userNickname,
-                                                                        starRating:  starStore.selectedStar)
+                                                                        starRating:  starStore.selectedStar,
+                                                                        storeName: store.storeName)
                                             
                                             await reviewViewModel.addReview(review: review, images: images)
                                             

@@ -16,6 +16,7 @@ struct DetailView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @ObservedObject var starStore = StarStore()
+    //@StateObject private var storeViewModel : StoreViewModel
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
@@ -26,7 +27,7 @@ struct DetailView: View {
     @State var scrollViewOffset: CGFloat = 0
     
     let colors: [Color] = [.yellow, .green, .red]
-    let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
+    //let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
     
     
     //lineLimit 관련 변수
@@ -45,6 +46,9 @@ struct DetailView: View {
 //            }
 //        }
 
+    
+    var store : Store
+    
     
     var body: some View {
         NavigationStack {
@@ -81,18 +85,19 @@ struct DetailView: View {
                                 NavigationLink{
                                     ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 }label: {
-                                    UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, index: 2, review: review)
-                                    
-                                        .contextMenu{
-                                            Button{
-                                                reviewViewModel.removeReview(review: review)
-                                            }label: {
-                                                Text("삭제")
-                                                Image(systemName: "trash")
-                                            }
-                                        }//contextMenu
-                                }//NavigationLink
-                                
+                                    if (review.storeName == store.storeName){
+                                        UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, index: 2, review: review)
+                                        
+                                            .contextMenu{
+                                                Button{
+                                                    reviewViewModel.removeReview(review: review)
+                                                }label: {
+                                                    Text("삭제")
+                                                    Image(systemName: "trash")
+                                                }
+                                            }//contextMenu
+                                    }//NavigationLink
+                                }
                             }//FirstForEach
                             
                         }//VStack
@@ -108,7 +113,7 @@ struct DetailView: View {
                             let offset = proxy.frame(in: .global).minY
                             self .scrollViewOffset = offset - startOffset
 
-                            print("y축 위치 값: \(self.scrollViewOffset)")
+                        //print("y축 위치 값: \(self.scrollViewOffset)")
                         }
                         return Color.clear
                     })
@@ -137,10 +142,11 @@ struct DetailView: View {
             }//GeometryReader
         }//NavigationStack
         .fullScreenCover(isPresented: $showingAddingSheet) {
-            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet )
+            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet, store: store )
         }
         .onAppear{
             reviewViewModel.fetchReviews()
+            print("리뷰 이미지\(reviewViewModel.reviewImage)")
         }
 //        .onDisappear{
 //            reviewViewModel.fetchReviews()
@@ -157,10 +163,10 @@ extension DetailView {
         //Store.storeName, Store.storeAddress
         HStack {
             VStack(alignment: .leading){
-                Text("농민백암순대")
+                Text(store.storeName)
                     .font(.title.bold())
                     .padding(.bottom, 8)
-                Text("서울 강남구 역삼로3길 20-4")
+                Text(store.storeAddress)
             }
             Spacer()
         }
@@ -191,7 +197,8 @@ extension DetailView {
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
-                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
+//                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
+                Text(store.description)
                 }
 
             .lineLimit(isExpanded ? nil : 2)
@@ -239,7 +246,7 @@ extension DetailView {
                     .font(.title2.bold())
                     .padding(.bottom)
                 
-                ForEach(menus.sorted(by: >), id: \.key) {menu, price in
+                ForEach(/*menus.sorted(by: >)*/store.menu.sorted(by: >), id: \.key) {menu, price in
                     HStack{
                         Text(menu)
                         Spacer()
@@ -365,9 +372,9 @@ struct UserReview:  View {
 
 
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(starStore: StarStore())
-    }
-}
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(starStore: StarStore())
+//    }
+//}
 
