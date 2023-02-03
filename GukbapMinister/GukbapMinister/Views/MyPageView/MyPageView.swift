@@ -25,6 +25,17 @@ struct MyPageView: View {
                     .padding(.top, 20)
                     .padding()
                 
+
+                Button {
+                    self.isUpdateUserInfoPresented.toggle()
+                } label: {
+                    Text("회원정보")
+                }
+                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
+                    UpdateUserInfoView()
+                        .environmentObject(UserViewModel())
+                    
+                }
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.opacity(0.1))
                     .frame(width: UIScreen.main.bounds.width - 30, height: 110)
@@ -66,6 +77,7 @@ struct MyPageView: View {
                         }
                     }
                     .padding()
+
 
                 
                 VStack (alignment: .leading, spacing: 25) {
