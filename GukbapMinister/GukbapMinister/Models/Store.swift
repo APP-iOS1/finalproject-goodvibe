@@ -34,7 +34,7 @@ struct Store: Codable, Hashable, Identifiable {
 }
 
 extension Store {
-    static var test: Store = .init(storeName: "test", storeAddress: "test", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "test", countingStar: 0.5, foodType: ["순대국밥"])
+  static var test: Store = .init(storeName: "name", storeAddress: "address", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "description", countingStar: 0.5, foodType: ["순대국밥"])
 }
 
 
