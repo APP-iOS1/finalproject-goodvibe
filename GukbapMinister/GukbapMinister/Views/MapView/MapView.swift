@@ -46,7 +46,6 @@ struct MapView: View {
             }
            
         }
-        
         .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
             StoreModalView(selectedDetent: $selectedDetent, storeLocation: mapViewModel.selectedStore ?? .test)
             //          .presentationDetents([.height(200)])

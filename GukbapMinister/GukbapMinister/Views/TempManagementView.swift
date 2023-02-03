@@ -18,10 +18,10 @@ enum ManagementAction {
 }
 
 
-struct TempManagementView: View {
+struct StoreRegistrationView: View {
     @Binding var isOn: Bool
     
-    @ObservedObject var viewModel: StoreViewModel = StoreViewModel()
+    @ObservedObject var viewModel: StoreRegistrationViewModel = StoreRegistrationViewModel()
     
     @State private var menuCount: Int = 1
     @State private var menuName: String = ""
@@ -85,6 +85,7 @@ struct TempManagementView: View {
                             .font(.headline)
                         TextField("메뉴이름 입력", text: $menuName )
                     }
+                    
                     VStack(alignment: .leading) {
                         Text("가격")
                             .font(.headline)
@@ -160,7 +161,7 @@ struct TempManagementView: View {
 }
 
 
-extension TempManagementView {
+extension StoreRegistrationView {
     var storeImageUpload: some View {
         HStack {
             VStack(alignment: .center){
@@ -290,8 +291,8 @@ extension TempManagementView {
     }
 }
 
-struct TempManagementView_Previews: PreviewProvider {
+struct StoreRegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        TempManagementView(isOn: .constant(true) ,viewModel: StoreViewModel())
+        StoreRegistrationView(isOn: .constant(true) ,viewModel: StoreRegistrationViewModel())
     }
 }

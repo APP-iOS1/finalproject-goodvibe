@@ -20,27 +20,46 @@ struct UpdateUserInfoView: View {
             VStack {
                 List {
                     Section(content: {
-                        Text("\(userViewModel.userInfo.userNickname)")
-                    }, header: {
-                        HStack {
-                            Text("닉네임")
-                            Spacer()
-                            Button {
-                                
-                            } label: {
-                                Text("수정")
-                            }
+                        NavigationLink {
+                            EditNicknameView()
+                                .environmentObject(userViewModel)
+                        } label: {
+                            Text("\(userViewModel.userInfo.userNickname)")
                         }
+                    }, header: {
+                            Text("닉네임")
+                                .font(.title3)
                     })
                     
-                    Section(header: Text("선호하는 국밥")) {
-                        ForEach(userViewModel.userInfo.gukbaps, id: \.self) { gukbap in
-                            Text("\(gukbap)")
+                    Section(header: Text("선호하는 국밥").font(.title3)) {
+                        NavigationLink {
+                            EditGukbapView()
+                        } label: {
+                            
+                                VStack {
+                                    ForEach(userViewModel.userInfo.gukbaps, id: \.self) { gukbap in
+                                        Text("\(gukbap)")
+                                            .font(.subheadline)
+                                            .lineLimit(1)
+                                            .padding(7.5)
+                                            .padding(.horizontal, 5)
+                                            .cornerRadius(30)
+                                            .overlay{
+                                                RoundedRectangle(cornerRadius: 30)
+                                                    .stroke(.yellow, lineWidth: 1)
+                                            }
+                                    }
+                                }
                         }
+                        .accessibilityHidden(true)
                     }
-                    Section(header: Text("선호하는 지역")) {
-                        Text("\(userViewModel.userInfo.preferenceArea)")
-                        
+                    Section(header: Text("선호하는 지역").font(.title3)) {
+                        NavigationLink {
+                            EditPreferenceAreaView()
+                                .environmentObject(userViewModel)
+                        } label: {
+                            Text("\(userViewModel.userInfo.preferenceArea)")
+                        }
                     }
                 }
                 
@@ -51,8 +70,8 @@ struct UpdateUserInfoView: View {
                 }
                 
             }
-            .navigationTitle("정보수정")
-            .toolbar { EditButton() }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("개인정보")
         }
     }
 }

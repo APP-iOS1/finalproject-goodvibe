@@ -14,7 +14,7 @@ struct SearchView: View {
     
     enum Field: Hashable {
         case searchBar
-      }
+    }
     
     
     @Environment(\.dismiss) var dismiss
