@@ -27,15 +27,15 @@ struct MyPageView: View {
                 }
                 
                 Button {
-                                    self.isUpdateUserInfoPresented.toggle()
-                                } label: {
-                                    Text("회원정보수정")
-                                }
-                                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                                    UpdateUserInfoView()
-                                        .environmentObject(UserViewModel())
-                                        
-                                }
+                    self.isUpdateUserInfoPresented.toggle()
+                } label: {
+                    Text("회원정보")
+                }
+                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
+                    UpdateUserInfoView()
+                        .environmentObject(UserViewModel())
+                    
+                }
                 
                 Button {
                     viewModel.isLoading = true
