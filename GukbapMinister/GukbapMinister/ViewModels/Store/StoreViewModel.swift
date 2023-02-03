@@ -5,15 +5,16 @@
 //  Created by Martin on 2023/01/20.
 //
 
-import Combine
+import Foundation
 import SwiftUI
+import Combine
 import PhotosUI
 
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 
-final class StoreViewModel: ObservableObject {
+final class StoreRegistrationViewModel: ObservableObject {
     @Published var store: Store
     @Published var latitude: String = ""
     @Published var longitude: String = ""
@@ -22,11 +23,15 @@ final class StoreViewModel: ObservableObject {
     @Published var selectedImageData: [Data] =  []
     @Published var convertedImages: [UIImage] =  []
     
-    @Published var storeTitleImage: [String : UIImage] = [:]
+    @Published var stores: [Store] = []
+    @Published var storeImages: [String : UIImage] = [:]
     
     @Published var modified = false
     
     private var cancellables = Set<AnyCancellable>()
+    private var database = Firestore.firestore()
+    private var storage = Storage.storage()
+    
     
     init(store: Store = Store(storeName: "",
                               storeAddress: "",
@@ -34,7 +39,10 @@ final class StoreViewModel: ObservableObject {
                               storeImages: [],
                               menu: [:],
                               description: "",
-                              countingStar: 0.0)) {
+                              countingStar: 0.0,
+                              foodType: ["순대국밥"]
+    )) {
+
         self.store = store
         self.$store
             .dropFirst()
@@ -42,14 +50,9 @@ final class StoreViewModel: ObservableObject {
                 self?.modified = true
             }
             .store(in: &self.cancellables)
-        
     }
     
-    private var database = Firestore.firestore()
-    private var storage = Storage.storage()
-    
-    
-    
+
     
     private func convertToUIImages() {
         if !selectedImageData.isEmpty {
@@ -63,14 +66,12 @@ final class StoreViewModel: ObservableObject {
     
     private func makeImageName() -> [String] {
         var imgNameList: [String] = []
-        
         // iterate over images
         for img in convertedImages {
             let imgName = UUID().uuidString
             imgNameList.append(imgName)
             uploadImage(image: img, name: (store.storeName + "/" + imgName))
         }
-        
         return imgNameList
     }
     
@@ -146,22 +147,25 @@ final class StoreViewModel: ObservableObject {
             }
         }
         
-        // MARK: - Storage에서 이미지 다운로드
-        func fetchImages(storeId: String, imageName: String) {
-            let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
-            
-            ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
-                if let error = error {
-                    print("error while downloading image\n\(error.localizedDescription)")
-                    return
-                } else {
-                    let image = UIImage(data: data!)
-                    self.storeTitleImage[imageName] = image                }
+    }
+    // MARK: - Storage에서 이미지 다운로드
+    func fetchImages(storeId: String, imageName: String) {
+        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
+            if let error = error {
+                print("error while downloading image\n\(error.localizedDescription)")
+                return
+            } else {
+                let image = UIImage(data: data!)
+                self.storeImages[imageName] = image
+         
             }
         }
     }
     
-    //MARK: UI 핸들러
+        // MARK: - UI 핸들러
     
     func handleDoneTapped() {
         self.updateOrAddStoreInfo()
@@ -171,4 +175,5 @@ final class StoreViewModel: ObservableObject {
         self.removeStoreInfo()
     }
     
-}
+ 
+}//StoreViewModel

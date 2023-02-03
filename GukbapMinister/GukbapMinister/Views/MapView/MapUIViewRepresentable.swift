@@ -26,34 +26,44 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
      */
     @MainActor
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "customView"
-        
-        // 스위프트 유아이 뷰를 ImageRenderer를 통해 이미지로 바꿔주는 부분
-        let renderer = ImageRenderer(content: LocationMapAnnotationView())
-        
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-         
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-          
-            if let uiImage = renderer.uiImage {
-                // Use the rendered image somehow
-                // Your custom image icon
-                annotationView?.image = uiImage
+        guard !annotation.isKind(of: MKUserLocation.self) else {
+                // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
+                return nil
             }
-            
-        } else {
-            annotationView?.annotation = annotation
-        }
+        
+        
+        var annotationView: MKAnnotationView?
+        
+        if let annotation = annotation as? StoreAnnotation {
+                annotationView = setUpStoreAnnotationView(for: annotation, on: mapView) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+            }
+        
         return annotationView
     }
-    
  
     // 마커를 클릭 했을 때 동작하는 함수
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation as? StoreAnnotation else { return }
         mapViewController.selectedStoreAnnotation = annotation
         mapViewController.isSelected = true
+    }
+    
+    
+    func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
+        let identifier = "customView"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            let markerImage = UIImage()
+                .getMarkerImage(foodType: annotation.foodType)?
+                .resizeImageTo(size: CGSize(width: 60, height: 60))
+            annotationView?.image =  markerImage
+            
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
     }
     
 }

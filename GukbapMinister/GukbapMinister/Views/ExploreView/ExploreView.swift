@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @StateObject var storeViewModel: StoreViewModel = StoreViewModel()
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
-   
+    
     @EnvironmentObject var userViewModel: UserViewModel
     
-    @State var searchGukBap : String = ""
-    @State var isPresentedSearchView: Bool = false
     
     let titles: [String] = ["조회수순", "평점순"]
     @State private var selectedIndex: Int = 0
     
     var body: some View {
-
+        
         NavigationStack{
             ScrollView {
                 VStack{
-                    search
+                    SearchBarButton()
                     
                     HStack {
                         SegmentedPicker(
@@ -46,15 +43,15 @@ struct ExploreView: View {
                                         .frame(height: 1)
                                 }
                             })
-                        
-                        .animation(.easeInOut(duration:0.3))
+                        .animation(.easeInOut(duration:0.3), value: selectedIndex)
                     }
                     .frame(height: 70)
                     ForEach(storesViewModel.stores, id: \.self){ store in
+                        let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
                         NavigationLink{
-                            DetailView()
+                            DetailView(store: store)
                         } label:{
-                            StoreView(store:store, storeViewModel: storeViewModel)
+                            StoreView(store:store, imagedata: imageData)
                         }
                         .padding(.bottom, 10)
                     }
@@ -67,48 +64,81 @@ struct ExploreView: View {
         }
         .onAppear {
             storesViewModel.subscribeStores()
-            print("\(storesViewModel.stores)")
-          
+//            storeViewModel.fetchStore()
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()
         }
-        }
-}//ExploreView
-    
-
-
-
-extension ExploreView {
-    var search: some View {
-      HStack{
-        VStack {
-          HStack {
-            Image(systemName: "magnifyingglass")
-              .foregroundColor(.secondary)
-              .padding(.leading, 15)
-            TextField("국밥집 검색",text: $searchGukBap)
-              .onTapGesture {
-                self.isPresentedSearchView.toggle()
-                UIView.setAnimationsEnabled(false)
-              }
-              .fullScreenCover(isPresented: $isPresentedSearchView) {
-                SearchView()
-              }
-              .onAppear {
-                UIView.setAnimationsEnabled(true)
-              }
-            
-          }
-          .frame(width: Screen.maxWidth - 64, height: 50)
-          .background(Capsule().fill(Color.white))
-          .overlay {
-            Capsule()
-              .stroke(Color.mainColor)
-          }
-        }
-      }
-      .padding(.horizontal,18)
     }
+}//ExploreView
+
+
+struct StoreView: View{
+    var store :Store
+    var imagedata: UIImage
+    var body: some View{
+        
+            VStack{
+                
+//                Image("ExampleImage")
+//                    .resizable()
+//                    .frame(width: 353, height: 250)
+//                    .padding(.top, 25)
+                
+                Image(uiImage: imagedata)
+                    .resizable()
+                    .frame(width: 353, height: 250)
+                    .padding(.top, 25)
+                
+                
+                Image(systemName: "heart")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.secondary)
+                    .fontWeight(.bold)
+                    .offset(x: 140, y: -235)
+                    .padding(.bottom, -25)
+                
+                
+                VStack{
+                    HStack {
+                        Image(systemName: "mappin")
+                        Text("\(store.storeName)")
+                        
+                            .fontWeight(.bold)
+                            .font(.title2)
+                        Spacer()
+                    }
+                    .padding(.bottom,5)
+                    HStack {
+                        Text("\(store.storeAddress)")
+                        Spacer()
+                    }
+                    .padding(.bottom, 10)
+                    HStack {
+                        Text("\(store.description)")
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+                    .padding(.bottom, 10)
+                    
+                    HStack {
+                        Text("평점 4.9")
+                        Text("조회수 24150")
+                        Spacer()
+                    }
+                    .font(.callout)
+                }
+                .padding()
+            }
+            .background {
+                Rectangle()
+                    .stroke(Color.mainColor)
+            }
+            .padding(10)
+        
+        
+    } // var body
 }
+
 

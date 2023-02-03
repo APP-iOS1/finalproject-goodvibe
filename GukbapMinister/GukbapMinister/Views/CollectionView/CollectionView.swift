@@ -20,7 +20,9 @@ struct CollectionView: View {
         NavigationStack{
             ScrollView{
                 ForEach(collectionVM.stores, id: \.self) { store in
-                    var imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+
+                   let imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+
                     cell(collectionVM: collectionVM, cellData: store, imagedata: imageData)
                         .zIndex(1)
                         .contextMenu {
@@ -41,6 +43,7 @@ struct CollectionView: View {
         .onAppear {
            
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
+            print("\(collectionVM.stores)")
             
         }
         .refreshable {
@@ -63,26 +66,15 @@ struct cell : View {
         
         VStack {
             NavigationLink {
-                DetailView()
+                DetailView(store : cellData)
             } label: {
-                HStack (alignment: .center){
-                    
-//                    AsyncImage(url: URL(string: cellData.storeImages[0])) { image in
-//                        image
-//                            .resizable()
-//                        //.scaledToFit()
-//                    } placeholder: {
-//                        Color.gray.opacity(0.1)
-//                    }
-//                    .frame(width: 90, height: 90)
-//                    .cornerRadius(6)
-//                    .padding(.leading, 20)
-                    
+                HStack (){
+
                     Image(uiImage: imagedata)
                         .resizable()
                         .frame(width: 90, height: 90)
                         .cornerRadius(6)
-                        .padding(.leading, 20)
+                        .padding(.leading,40)
                     
                     VStack(alignment: .leading, spacing: 1){
                         HStack{
@@ -102,20 +94,18 @@ struct cell : View {
                                 Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
                                     .foregroundColor(.red)
                             }
-                            .padding(.trailing, 25)
+                            .padding(.trailing, 40)
                         }
                         
                         Text(cellData.storeAddress)
                             .font(.caption)
                             .bold()
-                        
-                        
-                        
+
                             .padding(.top, 2.5)
                         
                         Spacer()
                         HStack(alignment: .bottom){
-                            Text("별점")
+                            Text("깍두기 지수")
                             
                             HStack(alignment: .center, spacing: 1){
                                 ForEach(0..<5) { index in
@@ -134,13 +124,13 @@ struct cell : View {
                     }
                     
                 }
-                .padding(.vertical, 5)
-                .padding(.horizontal, 5)
+            
             }
         }
+       
         .onAppear {
             collectionVM.isHeart = true
-            print("\(#function) : \(cellData.storeImages.first ?? "")")
+//            print("\(#function) : \(cellData.storeImages.first ?? "")")
         }
     }
 }

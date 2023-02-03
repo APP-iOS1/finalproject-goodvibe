@@ -8,19 +8,12 @@ struct MapView: View {
     @EnvironmentObject private var mapViewModel: MapViewModel
     @StateObject var locationManager = LocationManager()
     
-    
     // 필터 버튼을 눌렀을 때 동작하는
     @State var isShowingFilterModal: Bool = false
-    // 국밥집 검색창에 들어갈 단어
-    @State var searchString: String = ""
     
-    // 검색 텍스트필드 클릭했을 때 동작하는 모달
-    @State var isShowingSearchView: Bool = false
+    @State var selectedDetent: PresentationDetent = .medium
+    private let availableDetents: [PresentationDetent] = [.medium, .large]
     
-  @State var selectedDetent: PresentationDetent = .medium
-
-     private let availableDetents: [PresentationDetent] = [.medium, .large]
-  
     var body: some View {
         // 지오메트리 리더가 뷰 안에 선언 되어있기 때문에 뷰 만큼의 너비와 높이를 가져옴
         GeometryReader { geo in
@@ -29,7 +22,7 @@ struct MapView: View {
             
             NavigationStack {
                 ZStack {
-
+                    
                     MapUIView(
                         region: $locationManager.region,
                         storeAnnotations: $mapViewModel.storeLocationAnnotations,
@@ -40,7 +33,7 @@ struct MapView: View {
                     .ignoresSafeArea(edges: .top)
                     
                     VStack {
-                        search(width: width, height: height)
+                        SearchBarButton()
                         
                         filterButton
                         
@@ -48,17 +41,21 @@ struct MapView: View {
                         
                         Spacer()
                     }
-
+                    
                 }
             }
-            .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
-              StoreModalView(selectedDetent: $selectedDetent, storeLocation: mapViewModel.selectedStore ?? .test)
-//                    .presentationDetents([.height(200)])
-                    .presentationDetents([.height(200), .large], selection: $selectedDetent)
-                
-            })
+           
         }
+        .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
+            StoreModalView(selectedDetent: $selectedDetent, storeLocation: mapViewModel.selectedStore ?? .test)
+            //          .presentationDetents([.height(200)])
+                .presentationDetents([.height(200), .large], selection: $selectedDetent)
+            // Hiding drag indicator
+                .presentationDragIndicator(.hidden)
+            
+        })
     }
+    
 }
 
 struct MapView_Previews: PreviewProvider {
@@ -82,4 +79,4 @@ extension PresentationDetent: CustomStringConvertible {
         }
     }
 }
-             
+
