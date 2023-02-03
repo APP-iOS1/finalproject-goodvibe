@@ -17,11 +17,11 @@ struct CategoryButtonModifier: ViewModifier {
             .foregroundColor(isChangedButtonStyle ? .white : .black)
             .padding(7.5)
             .padding(.horizontal, 5)
-            .background(isChangedButtonStyle ? Color("AccentColor") : .white)
+            .background(isChangedButtonStyle ? Color("MainColor") : .white)
             .cornerRadius(30)
             .overlay{
                 RoundedRectangle(cornerRadius: 30)
-                    .stroke(.yellow, lineWidth: 1)
+                    .stroke(Color.mainColor, lineWidth: 1)
             }
     }
 }
