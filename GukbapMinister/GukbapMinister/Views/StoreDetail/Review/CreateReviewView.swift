@@ -77,7 +77,7 @@ struct CreateReviewView: View {
                         VStack(alignment: .center){
                             PhotosPicker(
                                 selection: $selectedImages,
-                                maxSelectionCount: 5,
+                                maxSelectionCount: 4,
                                 matching: .images,
                                 photoLibrary: . shared()){
                                     Image(systemName: "camera")
@@ -95,7 +95,7 @@ struct CreateReviewView: View {
                                         .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
                                         .fontWeight(.regular)
                                         .padding(.trailing,-8)
-                                    Text("/5")
+                                    Text("/4")
                                         .font(.callout)
                                         .fontWeight(.regular)
                                 }
@@ -108,7 +108,7 @@ struct CreateReviewView: View {
                                     //                                    .shimmering(
                                     //                                        animation: .easeInOut(duration: 2).repeatCount(5, autoreverses: false).delay(1)
                                     //                                    )
-                                    Text("/5")
+                                    Text("/4")
                                         .font(.callout)
                                         .fontWeight(.regular)
                                 }

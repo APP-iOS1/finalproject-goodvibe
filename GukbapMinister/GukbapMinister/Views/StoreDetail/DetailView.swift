@@ -26,27 +26,28 @@ struct DetailView: View {
     
     @State var startOffset: CGFloat = 0
     @State var scrollViewOffset: CGFloat = 0
-    
+    @State private var isReviewImageClicked: Bool = false
+
     let colors: [Color] = [.yellow, .green, .red]
     //let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
     
     
     //lineLimit 관련 변수
     @State private var isExpanded: Bool = false
-//    @State private var truncated: Bool = false
-//    @State private var shrinkText: String
-//
-//    let font: UIFont
-//    let lineLimit: Int
-//
-//    private var moreLessText: String {
-//            if !truncated {
-//                return ""
-//            } else {
-//                return self.isExpanded ? " 접기 " : " 더보기 "
-//            }
-//        }
-
+    //    @State private var truncated: Bool = false
+    //    @State private var shrinkText: String
+    //
+    //    let font: UIFont
+    //    let lineLimit: Int
+    //
+    //    private var moreLessText: String {
+    //            if !truncated {
+    //                return ""
+    //            } else {
+    //                return self.isExpanded ? " 접기 " : " 더보기 "
+    //            }
+    //        }
+    
     
     var store : Store
     
@@ -55,8 +56,8 @@ struct DetailView: View {
         NavigationStack {
             GeometryReader { geo in
                 let width: CGFloat = geo.size.width
-              
-                ScrollView {
+                
+                ScrollView(showsIndicators: false) {
                     ZStack {
                         //배경색
                         Color(uiColor: .white)
@@ -81,13 +82,13 @@ struct DetailView: View {
                             //                                .padding(.vertical, 15)
                             
                             userStarRate
-                          
+                            
                             ForEach(reviewViewModel.reviews) { review in
                                 NavigationLink{
                                     ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 }label: {
                                     if (review.storeName == store.storeName){
-                                        UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, index: 2, review: review)
+                                        UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, index: 3, review: review)
                                         
                                             .contextMenu{
                                                 Button{
@@ -102,7 +103,7 @@ struct DetailView: View {
                             }//FirstForEach
                             
                         }//VStack
-                       // .padding(.bottom, 200)
+                        // .padding(.bottom, 200)
                     }//ZStack
                 }//ScrollView
                 .overlay(
@@ -113,8 +114,8 @@ struct DetailView: View {
                             }
                             let offset = proxy.frame(in: .global).minY
                             self .scrollViewOffset = offset - startOffset
-
-                        //print("y축 위치 값: \(self.scrollViewOffset)")
+                            
+                            //print("y축 위치 값: \(self.scrollViewOffset)")
                         }
                         return Color.clear
                     })
@@ -145,13 +146,14 @@ struct DetailView: View {
         .fullScreenCover(isPresented: $showingAddingSheet) {
             CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet, store: store )
         }
+       
         .onAppear{
             reviewViewModel.fetchReviews()
             print("리뷰 이미지\(reviewViewModel.reviewImage)")
         }
-//        .onDisappear{
-//            reviewViewModel.fetchReviews()
-//        }
+        //        .onDisappear{
+        //            reviewViewModel.fetchReviews()
+        //        }
         .refreshable {
             reviewViewModel.fetchReviews()
         }
@@ -193,51 +195,51 @@ extension DetailView {
         
     }
     
- 
+    
     
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
-//                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
+                //                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
                 Text(store.description)
-                }
-
+            }
+            
             .lineLimit(isExpanded ? nil : 2)
             
             //.overlay가 문제인것을 알겠다.
-                .overlay(
-                    GeometryReader { proxy in
-                        Button(action: {
-                            isExpanded.toggle()
-                        }) {
-                            Text(isExpanded ? "접기" : "더보기")
-                                .font(.caption).bold()
-//                                .background(Color.white)
-                                .foregroundColor(.blue)
-                                .padding(.leading, 8.0)
-                                .padding(.top, 4.0)
-                        }
-                        .frame(width: proxy.size.width, height: proxy.size.height+15, alignment: .bottomTrailing)
+            .overlay(
+                GeometryReader { proxy in
+                    Button(action: {
+                        isExpanded.toggle()
+                    }) {
+                        Text(isExpanded ? "접기" : "더보기")
+                            .font(.caption).bold()
+                        //                                .background(Color.white)
+                            .foregroundColor(.blue)
+                            .padding(.leading, 8.0)
+                            .padding(.top, 4.0)
                     }
-                )
+                    .frame(width: proxy.size.width, height: proxy.size.height+15, alignment: .bottomTrailing)
+                }
+            )
             
-//            if truncated {
-//                            Button(action: {
-//                                isExpanded.toggle()
-//                            }, label: {
-//                                HStack {
-//                                    Spacer()
-//                                    Text("")
-//                                }.opacity(0)
-//                            })
-//                        }
+            //            if truncated {
+            //                            Button(action: {
+            //                                isExpanded.toggle()
+            //                            }, label: {
+            //                                HStack {
+            //                                    Spacer()
+            //                                    Text("")
+            //                                }.opacity(0)
+            //                            })
+            //                        }
             
-                .lineLimit(10)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 30)
+            .lineLimit(10)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 30)
             Divider()
         }
-//        .background(Color.red)
+        //        .background(Color.red)
     }
     
     var storeMenu: some View {
@@ -292,7 +294,7 @@ struct UserReview:  View {
     @StateObject var reviewViewModel: ReviewViewModel
     @ObservedObject var starStore = StarStore()
     @Binding var scrollViewOffset: CGFloat
-    
+    //var columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var index: Int
     var review: Review
     
@@ -301,6 +303,7 @@ struct UserReview:  View {
             HStack{
                 Text("\(review.nickName)")
                     .foregroundColor(.black)
+                    .fontWeight(.semibold)
                     .padding()
                 Spacer()
                 Text("\(review.createdDate)")
@@ -319,63 +322,136 @@ struct UserReview:  View {
                 Spacer()
             }//HStack
             .padding(.top,-30)
+            
+            
+//            LazyVGrid(
+//                columns: columns,
+//                alignment: .center,
+//                spacing:5
+        //)
+            VStack
+            {
+                ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
+                    if let image = reviewViewModel.reviewImage[imageData] {
+                        
+                        if ((review.images?.count ?? 0) == 1) {
+                            
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: Screen.maxWidth - 20, height: 300)
+                                .clipped()
+                                .cornerRadius(5)
+                        }else if (review.images?.count ?? 0) == 2{
+                            
+                            VStack{
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: Screen.maxWidth - 20, height: 145)
+                                    .clipped()
+                                    .cornerRadius(5)
                                 
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack{
-                        ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
-                                if let image = reviewViewModel.reviewImage[imageData] {
+                            }
+                            
+                        }else if (review.images?.count ?? 0) == 3 {
+                                if ((review.images?.count ?? 0) == 3 && (index == 0)) {
                                     
                                         Image(uiImage: image)
                                             .resizable()
-                                            .frame(width: 180,height: 160)
-                                            .cornerRadius(10)
+                                            .scaledToFill()
+                                            .frame(width: (Screen.maxWidth - 20) / 2, height: 145)
+                                            .clipped()
+                                            .cornerRadius(5)
+                                }
+                                   else if ((review.images?.count ?? 0) == 3 && (index == 1)) {
+                                       
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: (Screen.maxWidth - 20) / 2, height: 145)
+                                                .clipped()
+                                                .cornerRadius(5)
+                                        
+                                    }
+                               
+                                else if  ((review.images?.count ?? 0) == 3 && index == 2) {
                                     
-                                            .overlay() {
-                                                if ((review.images?.count ?? 0) > 2)  && index == 1 {
-                                                    
-                                                    RoundedRectangle(cornerRadius: 10)
-                                                        .fill(Color.black.opacity(0.2))
-                                                    
-                                                    let remainImages = (review.images?.count ?? 0) - 2
-                                                    if -scrollViewOffset == 0 {
-                                                        
-                                                        Text("+\(remainImages)")
-                                                            .font(.title)
-                                                            .fontWeight(.heavy)
-                                                            .foregroundColor(.white)
-                                                    }
-                                                }//Second 'if'
-                                            }//overlay
-                                }//if let
-
-                            }// ForEach(review.images)
-                    }
-                }//scrollView
+                                     Image(uiImage: image)
+                                         .resizable()
+                                         .scaledToFill()
+                                         .frame(width: Screen.maxWidth - 20, height: 145)
+                                         .clipped()
+                                         .cornerRadius(5)
+                                 }
+                            }
+                        else if (review.images?.count ?? 0) == 4 {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: (Screen.maxWidth - 20) / 2, height: 145)
+                                .clipped()
+                                .cornerRadius(5)
+                        }
+                                   
+                           
+                        
+                            
+                            
+                            
+                        
+                            
+                            
+                            //                                        Image(uiImage: image)
+                            //                                            .resizable()
+                            //                                            .frame(width: 180,height: 160)
+                            //                                            .cornerRadius(10)
+                            
+                            //                                            .overlay() {
+                            //                                                if ((review.images?.count ?? 0) > 2)  && index == 1 {
+                            //
+                            //                                                    RoundedRectangle(cornerRadius: 10)
+                            //                                                        .fill(Color.black.opacity(0.2))
+                            //
+                            //                                                    let remainImages = (review.images?.count ?? 0) - 2
+                            //                                                    if -scrollViewOffset == 0 {
+                            //
+                            //                                                        Text("+\(remainImages)")
+                            //                                                            .font(.title)
+                            //                                                            .fontWeight(.heavy)
+                            //                                                            .foregroundColor(.white)
+                            //                                                    }
+                            //                                                }//Second 'if'
+                            //                                            }//overlay
+                        }//if let
+                        
+                    }// ForEach(review.images)
+                }
+                
                 .padding(.top,-15)
-                .padding(.leading,15)
-          
-            HStack{
-                Text("\(review.reviewText)")
-                    .font(.footnote)
-                    .foregroundColor(.black)
-                    .padding()
-                Spacer()
-            }
-            
-            Divider()
-        }//VStack
+                
+                
+                HStack{
+                    Text("\(review.reviewText)")
+                        .font(.system(size:17))
+                        .foregroundColor(.black)
+                        .padding()
+                    Spacer()
+                }
+                
+                Divider()
+            }//VStack
+        }
     }
-}
-
-
-
-
-
-
-
-//struct DetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailView(starStore: StarStore())
-//    }
-//}
-
+  
+    
+    
+    
+    
+    
+    //struct DetailView_Previews: PreviewProvider {
+    //    static var previews: some View {
+    //        DetailView(starStore: StarStore())
+    //    }
+    //}
+    
