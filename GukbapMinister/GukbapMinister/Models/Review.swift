@@ -21,7 +21,7 @@ struct Review: Codable, Identifiable, Hashable {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")
         dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd" // "yyyy-MM-dd HH:mm:ss"
         
         let dateCreatedAt = Date(timeIntervalSince1970: createdAt)
         
