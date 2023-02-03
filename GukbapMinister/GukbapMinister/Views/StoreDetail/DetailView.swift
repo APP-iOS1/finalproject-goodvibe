@@ -57,7 +57,9 @@ struct DetailView: View {
             GeometryReader { geo in
                 let width: CGFloat = geo.size.width
                 
+
                 ScrollView(showsIndicators: false) {
+
                     ZStack {
                         //배경색
                         Color(uiColor: .white)
@@ -200,46 +202,54 @@ extension DetailView {
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
-                //                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
-                Text(store.description)
+                Text("test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. 자 모두들 착석해주세요~~~ 조용~ 주목")
+                //                Text(store.description)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             
             .lineLimit(isExpanded ? nil : 2)
             
-            //.overlay가 문제인것을 알겠다.
-            .overlay(
-                GeometryReader { proxy in
-                    Button(action: {
-                        isExpanded.toggle()
-                    }) {
-                        Text(isExpanded ? "접기" : "더보기")
-                            .font(.caption).bold()
-                        //                                .background(Color.white)
-                            .foregroundColor(.blue)
-                            .padding(.leading, 8.0)
-                            .padding(.top, 4.0)
-                    }
-                    .frame(width: proxy.size.width, height: proxy.size.height+15, alignment: .bottomTrailing)
-                }
-            )
             
-            //            if truncated {
-            //                            Button(action: {
-            //                                isExpanded.toggle()
-            //                            }, label: {
-            //                                HStack {
-            //                                    Spacer()
-            //                                    Text("")
-            //                                }.opacity(0)
-            //                            })
-            //                        }
-            
-            .lineLimit(10)
-            .padding(.horizontal, 15)
-            .padding(.vertical, 30)
+            HStack {
+                Spacer()
+                    .overlay(
+                        // 여기가 문제임을 발견 2월3일 라인리밋의 후의 인덱스를 찾아서 잘 늘려주면 된다!
+                        GeometryReader { proxy in
+                            Button(action: {
+                                isExpanded.toggle()
+                            }) {
+                                Text(isExpanded ? "접기" : "더보기")
+                                    .font(.caption).bold()
+                                //                                .background(Color.white)
+                                    .foregroundColor(.blue)
+                                    .padding(.leading, 8.0)
+                                    .padding(.top, 4.0)
+                            }
+                            .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
+                        }
+                    )
+                
+                //            if truncated {
+                //                            Button(action: {
+                //                                isExpanded.toggle()
+                //                            }, label: {
+                //                                HStack {
+                //                                    Spacer()
+                //                                    Text("")
+                //                                }.opacity(0)
+                //                            })
+                //                        }
+                
+                //                                .lineLimit(10)
+                //                .padding(.horizontal, 15)
+                //                .padding(.vertical, 30)
+            }
+            //
             Divider()
         }
-        //        .background(Color.red)
+        .background(Color.red)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 30)
     }
     
     var storeMenu: some View {
@@ -323,6 +333,7 @@ struct UserReview:  View {
             }//HStack
             .padding(.top,-30)
             
+
             
 //            LazyVGrid(
 //                columns: columns,
@@ -423,10 +434,12 @@ struct UserReview:  View {
                             //                                                    }
                             //                                                }//Second 'if'
                             //                                            }//overlay
+
                         }//if let
                         
                     }// ForEach(review.images)
                 }
+
                 
                 .padding(.top,-15)
                 
@@ -442,6 +455,7 @@ struct UserReview:  View {
                 Divider()
             }//VStack
         }
+
     }
   
     

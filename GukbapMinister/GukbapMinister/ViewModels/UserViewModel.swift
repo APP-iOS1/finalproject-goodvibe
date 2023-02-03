@@ -16,6 +16,8 @@ import Firebase
 @MainActor
 final class UserViewModel: ObservableObject {
     
+    @Published var status = ""
+    
     //MARK: - SignIn
     @Published var signInEmailID: String = ""
     @Published var signInPassword: String = ""
@@ -34,6 +36,7 @@ final class UserViewModel: ObservableObject {
             UserDefaults.standard.set(logStatus, forKey: "logStatus")
         }
     }
+    
     init(){
         self.logStatus = UserDefaults.standard.bool(forKey: "logStatus")
         self.fetchUserInfo(uid: currentUser?.uid)
@@ -72,6 +75,7 @@ final class UserViewModel: ObservableObject {
                 let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
                 let gukbaps: [String] = dataDescription?["gukbaps"] as? [String] ?? []
                 let preferenceArea: String = dataDescription?["preferenceArea"] as? String ?? ""
+                let status : String = dataDescription?["status"] as? String ?? ""
                 
                 
                 self.userInfo.id = uid
@@ -80,6 +84,7 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.ageRange = ageRange
                 self.userInfo.gukbaps = gukbaps
                 self.userInfo.preferenceArea = preferenceArea
+                self.userInfo.status = status
                 
             } else {
                 print("Document does not exist")
@@ -166,6 +171,7 @@ final class UserViewModel: ObservableObject {
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
+                    "status" : "일반",
                     "gender" : gender,
                     "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,

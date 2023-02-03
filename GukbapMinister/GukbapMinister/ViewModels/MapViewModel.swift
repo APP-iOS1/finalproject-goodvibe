@@ -31,6 +31,7 @@ class MapViewModel : ObservableObject {
     @Published var storeLocations : [Store]
     @Published var storeLocationAnnotations: [StoreAnnotation]
     @Published var isShowingSelectedStore: Bool = false
+  
     
     // 마커 클릭시 선택된 특정 Store
     @Published var selectedStore: Store? = nil
@@ -41,6 +42,9 @@ class MapViewModel : ObservableObject {
             }
         }
     }
+    
+    // 국밥카테고리
+    @Published var filterdGukbaps: [Gukbaps] = []
     
     
     
