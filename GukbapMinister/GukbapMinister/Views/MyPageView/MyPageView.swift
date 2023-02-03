@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MyPageView: View {
-    @EnvironmentObject var viewModel: UserViewModel
-    
+    @EnvironmentObject var userVM: UserViewModel
     
     
     @State private var isSheetPresented: Bool = false
@@ -19,14 +18,29 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
+            HStack{
+                VStack(alignment: .leading){
+                    Text(userVM.userInfo.userNickname)
+                        .font(.title)
+                        .bold()
+                        .padding()
+
+                    
+                    HStack{
+                        Text("회원등급 :")
+                        
+                        Text(userVM.userInfo.status)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .font(.body)
+                }
+
+                Spacer()
+            }
+            
             List {
-//                NavigationLink{
-//                    MyReviewView()
-//                        .environmentObject(ReviewViewModel())
-//                        .environmentObject(UserViewModel())
-//                } label: {
-//                    Text("내가 쓴 리뷰보기")
-//                }
+
                 
                 Button {
                     self.isMyReviewPresented.toggle()
@@ -51,12 +65,12 @@ struct MyPageView: View {
                 }
                 
                 Button {
-                    viewModel.isLoading = true
+                    userVM.isLoading = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                        viewModel.signOut()
+                        userVM.signOut()
                     }
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                        viewModel.isLoading = false
+                        userVM.isLoading = false
                     }
                 } label: {
                     Text("로그아웃")
@@ -67,9 +81,10 @@ struct MyPageView: View {
                     Text("장소 제보하기(임시)")
                 }
             }
+            .listStyle(.grouped)
         }
         .overlay(content: {
-            LoadingView(show: $viewModel.isLoading)
+            LoadingView(show: $userVM.isLoading)
         })
         .sheet(isPresented: $isSheetPresented) {
             NavigationStack {
