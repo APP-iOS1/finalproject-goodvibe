@@ -14,6 +14,8 @@ struct MapView: View {
     @State var selectedDetent: PresentationDetent = .medium
     private let availableDetents: [PresentationDetent] = [.medium, .large]
     
+
+    
     var body: some View {
         // 지오메트리 리더가 뷰 안에 선언 되어있기 때문에 뷰 만큼의 너비와 높이를 가져옴
         GeometryReader { geo in
@@ -22,7 +24,6 @@ struct MapView: View {
             
             NavigationStack {
                 ZStack {
-                    
                     MapUIView(
                         region: $locationManager.region,
                         storeAnnotations: $mapViewModel.storeLocationAnnotations,
@@ -42,21 +43,57 @@ struct MapView: View {
                         Spacer()
                     }
                     
+                        VStack {
+                            if mapViewModel.isShowingSelectedStore {
+                                Button {
+                                    mapViewModel.isShowingSelectedStore.toggle()
+                                } label: {
+                                    Spacer()
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                }
+                            } else {
+                                Spacer()
+                            }
+
+                            HStack{
+                                StoreModalView()
+                                Button {
+                                    mapViewModel.isShowingSelectedStore.toggle()
+                                } label: {
+                                    Text("Hi")
+                                }
+
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 150)
+                            .background(Color.white)
+                            .padding(30)
+                            .offset(y: mapViewModel.isShowingSelectedStore ? 0 : 400)
+                            .animation(.easeInOut, value: mapViewModel.isShowingSelectedStore)
+//                            .transition(.asymmetric(
+//                                insertion: .move(edge: .top),
+//                                removal: .move(edge: .bottom))
+//                            )
+                        }
+                        
+                    
                 }
             }
-           
         }
+        //        .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
+        //            StoreModalView(selectedDetent: $selectedDetent)
+        //                .presentationDetents([.height(200), .large], selection: $selectedDetent)
+        //                .presentationDragIndicator(.hidden)
+        //
+        //        })
+
         
-        .sheet(isPresented: $mapViewModel.isShowingSelectedStore, content: {
-            StoreModalView(selectedDetent: $selectedDetent, storeLocation: mapViewModel.selectedStore ?? .test)
-            //          .presentationDetents([.height(200)])
-                .presentationDetents([.height(200), .large], selection: $selectedDetent)
-            // Hiding drag indicator
-                .presentationDragIndicator(.hidden)
-            
-        })
     }
-    
+
+
+
+
+
 }
 
 struct MapView_Previews: PreviewProvider {

@@ -30,6 +30,7 @@
 		5B31DBBB297A23A100EA0036 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */; };
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* TempManagementView.swift */; };
+		5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */; };
 		5BB236CC298A472E00CBC816 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236CB298A472E00CBC816 /* Constants.swift */; };
 		5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D1298A639D00CBC816 /* Ex+Color.swift */; };
 		5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */; };
@@ -93,6 +94,7 @@
 		5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* TempManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempManagementView.swift; sourceTree = "<group>"; };
+		5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackDemoView.swift; sourceTree = "<group>"; };
 		5BB236CB298A472E00CBC816 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5BB236D1298A639D00CBC816 /* Ex+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
 		5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarButton.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				5BDB9ABD297575B900BFD5D9 /* MapView.swift */,
+				5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */,
 				0392B373298782E800C510E5 /* LocationManager.swift */,
 				0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */,
 				0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */,
@@ -477,6 +480,7 @@
 				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
 				0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */,
+				5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */,
 				5BDB9ADF29757AED00BFD5D9 /* StoresViewModel.swift in Sources */,
 				5BDB9AD4297579BA00BFD5D9 /* SignUpView.swift in Sources */,
 				6F43066A2977778400ADBD2C /* SignUpInfoView.swift in Sources */,

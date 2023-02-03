@@ -8,31 +8,26 @@
 import SwiftUI
 
 struct StoreModalView: View {
-    @State private var isHeart : Bool = false
-    @Binding var selectedDetent: PresentationDetent
+    @EnvironmentObject private var mapViewModel: MapViewModel
     
-    var storeLocation : Store
+    
+    @State private var isHeart : Bool = false
     
     var body: some View {
+        var store: Store = .test
         NavigationStack {
             VStack {
-                //        Button("test") {
-                //          selectedDetent = .large
-                //        }
-                
                 HStack{
-                    Text(storeLocation.storeName)
+                    Text(store.storeName)
                         .font(.title2)
                         .bold()
                         .padding(.leading, 20)
                     Spacer()
-                    
-                    
                 }
                 
-                NavigationLink(destination: DetailView(store: storeLocation)) {
+                NavigationLink(destination: DetailView(store: store)) {
                     HStack {
-                        AsyncImage(url: URL(string: storeLocation.storeImages[0])) { image in
+                        AsyncImage(url: URL(string: store.storeImages.isEmpty ? "이미지 없음" : store.storeImages[0])) { image in
                             image
                                 .resizable()
                             //.scaledToFit()
@@ -46,7 +41,7 @@ struct StoreModalView: View {
                         
                         VStack{
                             HStack(alignment: .top){
-                                Text(storeLocation.storeAddress)
+                                Text(store.storeAddress)
                                     .bold()
                                 
                                 Spacer()
@@ -61,17 +56,13 @@ struct StoreModalView: View {
                             }
                             .padding(.trailing, 20)
                             .padding(.bottom, 20)
-                            HStack{
-                                Text("별점")
-                                
-                                HStack(spacing: 0) {
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star")).foregroundColor(.yellow)
-                                }
-                                
+                            HStack {
+                                Text("깍두기지수")
+                                Image("Ggakdugi")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width:10, height: 10)
+                                Text("\(store.countingStar)")
                                 Spacer()
                             }
                         }
@@ -85,15 +76,13 @@ struct StoreModalView: View {
                             .foregroundColor(.gray)
                             .opacity(0.2)
                     }
-                }.simultaneousGesture(TapGesture().onEnded{
-                    selectedDetent = .large
-                })
+                }
                 
-
             }
         }
         .onAppear {
-            selectedDetent = .height(200)
+            
+            store = mapViewModel.selectedStore ?? .test
         }
         
     }
