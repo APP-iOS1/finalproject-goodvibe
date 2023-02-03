@@ -85,6 +85,7 @@ struct StoreRegistrationView: View {
                             .font(.headline)
                         TextField("메뉴이름 입력", text: $menuName )
                     }
+                    
                     VStack(alignment: .leading) {
                         Text("가격")
                             .font(.headline)

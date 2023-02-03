@@ -14,6 +14,7 @@ class StarStore: ObservableObject {
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject private var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @ObservedObject var starStore = StarStore()
     //@StateObject private var storeViewModel : StoreViewModel
