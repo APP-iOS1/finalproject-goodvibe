@@ -18,70 +18,116 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
-            HStack{
-                VStack(alignment: .leading){
-                    Text(userVM.userInfo.userNickname)
-                        .font(.title)
-                        .bold()
-                        .padding()
+            
+            VStack(alignment: .leading){
+                Text("마이페이지")
+                    .font(.largeTitle)
+                    .padding(.top, 20)
+                    .padding()
+                
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.gray.opacity(0.1))
+                    .frame(width: UIScreen.main.bounds.width - 30, height: 110)
+                    .cornerRadius(20)
+                    .overlay{
+                        HStack(alignment: .center){
+                            
+                            Circle()
+                                .fill(.gray.opacity(0.2))
+                                .frame(width: 75, height: 75)
+                                .overlay{
+                                    Image("Ddukbaegi.fill")
+                                        .foregroundColor(.accentColor)      // 뚝배기(임시) 계급 색깔 = 브론즈, 실버, 골드
+                                        .font(.largeTitle)
+                                }
+                                .padding(.leading, 20)
 
-                    
-                    HStack{
-                        Text("회원등급 :")
-                        
-                        Text(userVM.userInfo.status)
+                            VStack(alignment: .leading){
+                                HStack{
+                                    Text("\(userVM.userInfo.userNickname)")
+                                        .font(.title3)
+                                    
+                                    Spacer()
+
+                                    Text("\(userVM.userInfo.status)님")
+                                        .font(.body)
+                                        .padding(.trailing, 20)
+                                }
+                                .padding(.leading, 10)
+                                .padding(.bottom, 1)
+                                
+                                HStack{
+                                    Text(userVM.userInfo.userEmail)
+                                        .font(.caption)
+                                        .padding(.leading, 10)
+                                }
+                            }
+                            
+                        }
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom)
-                    .font(.body)
-                }
+                    .padding()
 
-                Spacer()
+                
+                VStack (alignment: .leading, spacing: 25) {
+                    Button {
+                        self.isMyReviewPresented.toggle()
+                    } label: {
+                        HStack{
+                            Image(systemName: "pencil")
+                            Text("내가 쓴 리뷰보기")
+                        }
+                    }
+                    .fullScreenCover(isPresented: $isMyReviewPresented) {
+                        MyReviewView()
+                            .environmentObject(ReviewViewModel())
+                            .environmentObject(UserViewModel())
+                    }
+                    
+                    Button {
+                        self.isUpdateUserInfoPresented.toggle()
+                    } label: {
+                        HStack{
+                            Image(systemName: "gearshape.fill")
+                            Text("회원정보수정")
+                        }
+                    }
+                    .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
+                        UpdateUserInfoView()
+                            .environmentObject(UserViewModel())
+                        
+                    }
+                    
+                    Button {
+                        userVM.isLoading = true
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                            userVM.signOut()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                            userVM.isLoading = false
+                        }
+                    } label: {
+                        HStack{
+                            Image(systemName: "paperplane.fill")
+                            Text("로그아웃")
+                        }
+                    }
+                    Button {
+                        isSheetPresented.toggle()
+                    } label: {
+                        HStack{
+                            Image(systemName: "lock.open.fill")
+                            Text("장소 제보하기(임시)")
+                        }
+                    }
+                }
+                .foregroundColor(.black)
+                .padding()
+                .padding(.top, 5)
+                .font(.title3)
             }
             
-            List {
-
-                
-                Button {
-                    self.isMyReviewPresented.toggle()
-                } label: {
-                    Text("내가 쓴 리뷰보기")
-                }
-                .fullScreenCover(isPresented: $isMyReviewPresented) {
-                    MyReviewView()
-                        .environmentObject(ReviewViewModel())
-                        .environmentObject(UserViewModel())
-                }
-                
-                Button {
-                    self.isUpdateUserInfoPresented.toggle()
-                } label: {
-                    Text("회원정보수정")
-                }
-                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                    UpdateUserInfoView()
-                        .environmentObject(UserViewModel())
-                    
-                }
-                
-                Button {
-                    userVM.isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                        userVM.signOut()
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                        userVM.isLoading = false
-                    }
-                } label: {
-                    Text("로그아웃")
-                }
-                Button {
-                    isSheetPresented.toggle()
-                } label: {
-                    Text("장소 제보하기(임시)")
-                }
-            }
-            .listStyle(.grouped)
+            
+            Spacer()
         }
         .overlay(content: {
             LoadingView(show: $userVM.isLoading)
