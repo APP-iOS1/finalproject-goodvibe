@@ -33,20 +33,20 @@ struct DetailView: View {
     
     //lineLimit 관련 변수
     @State private var isExpanded: Bool = false
-//    @State private var truncated: Bool = false
-//    @State private var shrinkText: String
-//
-//    let font: UIFont
-//    let lineLimit: Int
-//
-//    private var moreLessText: String {
-//            if !truncated {
-//                return ""
-//            } else {
-//                return self.isExpanded ? " 접기 " : " 더보기 "
-//            }
-//        }
-
+    //    @State private var truncated: Bool = false
+    //    @State private var shrinkText: String
+    //
+    //    let font: UIFont
+    //    let lineLimit: Int
+    //
+    //    private var moreLessText: String {
+    //            if !truncated {
+    //                return ""
+    //            } else {
+    //                return self.isExpanded ? " 접기 " : " 더보기 "
+    //            }
+    //        }
+    
     
     var store : Store
     
@@ -55,7 +55,7 @@ struct DetailView: View {
         NavigationStack {
             GeometryReader { geo in
                 let width: CGFloat = geo.size.width
-              
+                
                 ScrollView {
                     ZStack {
                         //배경색
@@ -81,7 +81,7 @@ struct DetailView: View {
                             //                                .padding(.vertical, 15)
                             
                             userStarRate
-                          
+                            
                             ForEach(reviewViewModel.reviews) { review in
                                 NavigationLink{
                                     ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
@@ -102,7 +102,7 @@ struct DetailView: View {
                             }//FirstForEach
                             
                         }//VStack
-                       // .padding(.bottom, 200)
+                        // .padding(.bottom, 200)
                     }//ZStack
                 }//ScrollView
                 .overlay(
@@ -113,8 +113,8 @@ struct DetailView: View {
                             }
                             let offset = proxy.frame(in: .global).minY
                             self .scrollViewOffset = offset - startOffset
-
-                        //print("y축 위치 값: \(self.scrollViewOffset)")
+                            
+                            //print("y축 위치 값: \(self.scrollViewOffset)")
                         }
                         return Color.clear
                     })
@@ -149,9 +149,9 @@ struct DetailView: View {
             reviewViewModel.fetchReviews()
             print("리뷰 이미지\(reviewViewModel.reviewImage)")
         }
-//        .onDisappear{
-//            reviewViewModel.fetchReviews()
-//        }
+        //        .onDisappear{
+        //            reviewViewModel.fetchReviews()
+        //        }
         .refreshable {
             reviewViewModel.fetchReviews()
         }
@@ -193,51 +193,59 @@ extension DetailView {
         
     }
     
- 
+    
     
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
-//                Text("수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? 먹어주시겄어요? 제발제발! 줄은 서지만 기다릴만한 가치가 있는 맛집이입니다. 수요미식회에서 인정한 선릉역 찐 맛집! 이래도 안 먹을 것인지? ")
-                Text(store.description)
-                }
-
+                Text("test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. 자 모두들 착석해주세요~~~ 조용~ 주목")
+                //                Text(store.description)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            
             .lineLimit(isExpanded ? nil : 2)
             
-            //.overlay가 문제인것을 알겠다.
-                .overlay(
-                    GeometryReader { proxy in
-                        Button(action: {
-                            isExpanded.toggle()
-                        }) {
-                            Text(isExpanded ? "접기" : "더보기")
-                                .font(.caption).bold()
-//                                .background(Color.white)
-                                .foregroundColor(.blue)
-                                .padding(.leading, 8.0)
-                                .padding(.top, 4.0)
+            
+            HStack {
+                Spacer()
+                    .overlay(
+                        // 여기가 문제임을 발견 2월3일 라인리밋의 후의 인덱스를 찾아서 잘 늘려주면 된다!
+                        GeometryReader { proxy in
+                            Button(action: {
+                                isExpanded.toggle()
+                            }) {
+                                Text(isExpanded ? "접기" : "더보기")
+                                    .font(.caption).bold()
+                                //                                .background(Color.white)
+                                    .foregroundColor(.blue)
+                                    .padding(.leading, 8.0)
+                                    .padding(.top, 4.0)
+                            }
+                            .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
                         }
-                        .frame(width: proxy.size.width, height: proxy.size.height+15, alignment: .bottomTrailing)
-                    }
-                )
-            
-//            if truncated {
-//                            Button(action: {
-//                                isExpanded.toggle()
-//                            }, label: {
-//                                HStack {
-//                                    Spacer()
-//                                    Text("")
-//                                }.opacity(0)
-//                            })
-//                        }
-            
-                .lineLimit(10)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 30)
+                    )
+                
+                //            if truncated {
+                //                            Button(action: {
+                //                                isExpanded.toggle()
+                //                            }, label: {
+                //                                HStack {
+                //                                    Spacer()
+                //                                    Text("")
+                //                                }.opacity(0)
+                //                            })
+                //                        }
+                
+                //                                .lineLimit(10)
+                //                .padding(.horizontal, 15)
+                //                .padding(.vertical, 30)
+            }
+            //
             Divider()
         }
-//        .background(Color.red)
+        .background(Color.red)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 30)
     }
     
     var storeMenu: some View {
@@ -319,41 +327,41 @@ struct UserReview:  View {
                 Spacer()
             }//HStack
             .padding(.top,-30)
-                                
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack{
-                        ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
-                                if let image = reviewViewModel.reviewImage[imageData] {
-                                    
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .frame(width: 180,height: 160)
-                                            .cornerRadius(10)
-                                    
-                                            .overlay() {
-                                                if ((review.images?.count ?? 0) > 2)  && index == 1 {
-                                                    
-                                                    RoundedRectangle(cornerRadius: 10)
-                                                        .fill(Color.black.opacity(0.2))
-                                                    
-                                                    let remainImages = (review.images?.count ?? 0) - 2
-                                                    if -scrollViewOffset == 0 {
-                                                        
-                                                        Text("+\(remainImages)")
-                                                            .font(.title)
-                                                            .fontWeight(.heavy)
-                                                            .foregroundColor(.white)
-                                                    }
-                                                }//Second 'if'
-                                            }//overlay
-                                }//if let
-
-                            }// ForEach(review.images)
-                    }
-                }//scrollView
-                .padding(.top,-15)
-                .padding(.leading,15)
-          
+            
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack{
+                    ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
+                        if let image = reviewViewModel.reviewImage[imageData] {
+                            
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: 180,height: 160)
+                                .cornerRadius(10)
+                            
+                                .overlay() {
+                                    if ((review.images?.count ?? 0) > 2)  && index == 1 {
+                                        
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.black.opacity(0.2))
+                                        
+                                        let remainImages = (review.images?.count ?? 0) - 2
+                                        if -scrollViewOffset == 0 {
+                                            
+                                            Text("+\(remainImages)")
+                                                .font(.title)
+                                                .fontWeight(.heavy)
+                                                .foregroundColor(.white)
+                                        }
+                                    }//Second 'if'
+                                }//overlay
+                        }//if let
+                        
+                    }// ForEach(review.images)
+                }
+            }//scrollView
+            .padding(.top,-15)
+            .padding(.leading,15)
+            
             HStack{
                 Text("\(review.reviewText)")
                     .font(.footnote)
