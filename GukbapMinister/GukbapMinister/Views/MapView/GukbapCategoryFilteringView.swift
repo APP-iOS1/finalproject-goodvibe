@@ -29,6 +29,9 @@ struct GukbapCategoryFilteringView: View {
     }
     
     @Binding var showModal: Bool
+    @EnvironmentObject var mapViewModel: MapViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     @State private var didTap: [Bool] = Array(repeating: false, count: Gukbaps.allCases.count)
     var mode: Mode = .map
     
@@ -44,33 +47,17 @@ struct GukbapCategoryFilteringView: View {
             .padding(.bottom, 12)
             
             VStack(alignment: .center){
-                buttonsSlicedByRange(0,3)
-                buttonsSlicedByRange(4,6)
-                buttonsSlicedByRange(7,10)
-                buttonsSlicedByRange(11,11)
+                getButtonsSlicedByRange(0,3)
+                getButtonsSlicedByRange(4,6)
+                getButtonsSlicedByRange(7,10)
+                getButtonsSlicedByRange(11,11)
             }
             
             Spacer()
         }
         .toolbar {
-            ToolbarItemGroup(placement: .principal) {
-                VStack {
-                    HStack {
-                        Button {
-                            didTap = Array(repeating: false, count: Gukbaps.allCases.count)
-                            
-                        } label: {
-                            Text("필터해제")
-                        }
-                        Spacer()
-                        Button {
-                            showModal.toggle()
-                        } label: {
-                            Text("저장")
-                        }
-                    }
-                    Divider()
-                }
+            ToolbarItemGroup(placement: mode == .map ? .principal : .bottomBar) {
+                toolbarItemContent
             }
         }
     }
@@ -79,11 +66,11 @@ struct GukbapCategoryFilteringView: View {
 extension GukbapCategoryFilteringView {
     
     @ViewBuilder
-    private func buttonsSlicedByRange(_ start: Int, _ end: Int) -> some View {
+    private func getButtonsSlicedByRange(_ start: Int, _ end: Int) -> some View {
         HStack{
             ForEach(Array(Gukbaps.allCases.enumerated())[start...end], id: \.offset) { index, gukbap in
                 Button{
-                    didTap[index].toggle()
+                    handleFilteredGukbaps(index: index, gukbap: gukbap)
                 } label: {
                     Text(gukbap.rawValue)
                         .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[index]))
@@ -92,6 +79,54 @@ extension GukbapCategoryFilteringView {
         }
         .padding(4)
     }
+    
+    private var toolbarItemContent: some View {
+            VStack {
+                if mode == .myPage {
+                    Divider()
+                }
+                
+                HStack {
+                    Button {
+                        didTap = Array(repeating: false, count: Gukbaps.allCases.count)
+                        switch mode {
+                        case .map: mapViewModel.filterdGukbaps = []
+                        case .myPage: userViewModel.filterdGukbaps = []
+                        }
+                    } label: {
+                        Text("필터해제")
+                    }
+                    Spacer()
+                    Button {
+                        showModal.toggle()
+                    } label: {
+                        Text("확인")
+                    }
+                }
+                
+                if mode == .map {
+                    Divider()
+                }
+                    
+            }
+    }
+}
+
+
+
+extension GukbapCategoryFilteringView {
+    private func handleFilteredGukbaps(index: Int, gukbap: Gukbaps) {
+        didTap[index].toggle()
+        switch mode {
+        case .map:
+            if mapViewModel.filterdGukbaps.contains(gukbap) {
+                mapViewModel.filterdGukbaps.remove(at: mapViewModel.filterdGukbaps.firstIndex(of: gukbap)!)
+            } else {
+                mapViewModel.filterdGukbaps.append(gukbap)
+            }
+        case .myPage: print("아직몰루")
+        }
+    }
 }
 
 struct GukbapCategoryFilteringView_Previews: PreviewProvider {
@@ -99,5 +134,7 @@ struct GukbapCategoryFilteringView_Previews: PreviewProvider {
         NavigationStack {
             GukbapCategoryFilteringView(showModal: .constant(false), mode: .map)
         }
+        .environmentObject(MapViewModel())
+        .environmentObject(UserViewModel())
     }
 }
