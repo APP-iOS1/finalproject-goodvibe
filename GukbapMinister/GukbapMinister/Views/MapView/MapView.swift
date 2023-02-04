@@ -5,7 +5,7 @@ import CoreLocationUI
 
 struct MapView: View {
     // Command + F -> replace: changes searched word in the file
-    @EnvironmentObject private var mapViewModel: MapViewModel
+    @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject var locationManager = LocationManager()
     
     // 필터 버튼을 눌렀을 때 동작하는
@@ -34,8 +34,7 @@ struct MapView: View {
                     
                     VStack {
                         SearchBarButton()
-                        
-                        filterButton
+                        mapFilter
                         
                         locationButton(width: width, height: height)
                         

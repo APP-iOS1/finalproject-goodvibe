@@ -56,7 +56,7 @@ extension SearchView {
             Image(systemName: "chevron.backward")
                 .foregroundColor(.mainColor)
         }
-        .padding(.leading, 15)
+        .padding(.horizontal, 15)
         
     }
     
