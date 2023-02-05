@@ -23,43 +23,30 @@ enum Gukbaps: String, CaseIterable {
     case 평양온반
     case 시레기국밥
     
-    var image: Image {
-        var name: String
+    
+    var imageName: String {
         switch self {
-        case .순대국밥: name = "SDGukbap"
-        case .돼지국밥: name = "PigGukbap"
-        case .내장탕: name = ""
-        case .선지국: name = ""
-        case .소머리국밥: name = "SMRGukbap"
-        case .뼈해장국: name = "BHJGukbap"
-        case .수구레국밥: name = ""
-        case .굴국밥: name = "OysterGukbap"
-        case .콩나물국밥: name = "KNMGukbap"
-        case .설렁탕: name = ""
-        case .평양온반: name = ""
-        case .시레기국밥: name = ""
+        case .순대국밥: return "SDGukbap"
+        case .돼지국밥: return "PigGukbap"
+        case .내장탕: return ""
+        case .선지국: return ""
+        case .소머리국밥: return "SMRGukbap"
+        case .뼈해장국: return "BHJGukbap"
+        case .수구레국밥: return ""
+        case .굴국밥: return "OysterGukbap"
+        case .콩나물국밥: return "KNMGukbap"
+        case .설렁탕: return "SRTGukbap"
+        case .평양온반: return ""
+        case .시레기국밥: return ""
         }
-        return Image(name)
+    }
+    
+    var image: Image {
+        Image(imageName)
     }
     
     var uiImage: UIImage? {
-        var name: String
-        switch self {
-        case .순대국밥: name = "SDGukbap"
-        case .돼지국밥: name = "PigGukbap"
-        case .내장탕: name = ""
-        case .선지국: name = ""
-        case .소머리국밥: name = "SMRGukbap"
-        case .뼈해장국: name = "BHJGukbap"
-        case .수구레국밥: name = ""
-        case .굴국밥: name = "OysterGukbap"
-        case .콩나물국밥: name = "KNMGukbap"
-        case .설렁탕: name = ""
-        case .평양온반: name = ""
-        case .시레기국밥: name = ""
-        }
-        
-        return UIImage(named: name)
+        UIImage(named: imageName)
     }
 
 }

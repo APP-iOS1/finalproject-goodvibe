@@ -85,14 +85,8 @@ extension SearchView {
             }
             
         }
-        .frame(width: Screen.searchBarWidth, height: 50)
-        .background(
-            Capsule().fill(scheme == .light ? Color.white : Color.black))
-        .overlay {
-            Capsule()
-                .stroke(Color.mainColor)
-                
-        }
+        .searchBarStyle(style: .textfield)
+        .padding(.top, 13)
         .padding(.bottom)
     }
     

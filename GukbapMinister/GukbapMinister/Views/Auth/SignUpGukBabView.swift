@@ -31,28 +31,29 @@ struct SignUpGukBabView: View {
                     viewModel.gukbapsDeduplicate("순대국밥")
                 } label: {
                     Text("순대국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[0]))
+                        .categoryCapsule(isChanged: didTap[0])
+                        
                 }
                 Button{
                     self.didTap[1].toggle()
                     viewModel.gukbapsDeduplicate("돼지국밥")
                 } label: {
                     Text("돼지국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[1]))
+                        .categoryCapsule(isChanged: didTap[1])
                 }
                 Button{
                     self.didTap[2].toggle()
                     viewModel.gukbapsDeduplicate("내장탕")
                 } label: {
                     Text("내장탕")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[2]))
+                        .categoryCapsule(isChanged: didTap[2])
                 }
                 Button{
                     self.didTap[3].toggle()
                     viewModel.gukbapsDeduplicate("선지국")
                 } label: {
                     Text("선지국")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[3]))
+                        .categoryCapsule(isChanged: didTap[3])
                 }
             }
             .padding(4)
@@ -63,21 +64,21 @@ struct SignUpGukBabView: View {
                     viewModel.gukbapsDeduplicate("소머리국밥")
                 } label: {
                     Text("소머리국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[4]))
+                        .categoryCapsule(isChanged: didTap[4])
                 }
                 Button{
                     self.didTap[5].toggle()
                     viewModel.gukbapsDeduplicate("뼈해장국")
                 } label: {
                     Text("뼈해장국")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[5]))
+                        .categoryCapsule(isChanged: didTap[5])
                 }
                 Button{
                     self.didTap[6].toggle()
                     viewModel.gukbapsDeduplicate("수구레국밥")
                 } label: {
                     Text("수구레국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[6]))
+                        .categoryCapsule(isChanged: didTap[6])
                 }
             }
             .padding(4)
@@ -89,28 +90,28 @@ struct SignUpGukBabView: View {
                     viewModel.gukbapsDeduplicate("굴국밥")
                 } label: {
                     Text("굴국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[7]))
+                        .categoryCapsule(isChanged: didTap[7])
                 }
                 Button{
                     self.didTap[8].toggle()
                     viewModel.gukbapsDeduplicate("콩나물국밥")
                 } label: {
                     Text("콩나물국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[8]))
+                        .categoryCapsule(isChanged: didTap[8])
                 }
                 Button{
                     self.didTap[9].toggle()
                     viewModel.gukbapsDeduplicate("설렁탕")
                 } label: {
                     Text("설렁탕")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[9]))
+                        .categoryCapsule(isChanged: didTap[9])
                 }
                 Button{
                     self.didTap[10].toggle()
                     viewModel.gukbapsDeduplicate("평양온반")
                 } label: {
                     Text("평양온반")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[10]))
+                        .categoryCapsule(isChanged: didTap[10])
                 }
             }
             .padding(4)
@@ -121,7 +122,7 @@ struct SignUpGukBabView: View {
                     viewModel.gukbapsDeduplicate("시레기국밥")
                 } label: {
                     Text("시레기국밥")
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[11]))
+                        .categoryCapsule(isChanged: didTap[11])
                 }
             }
             .padding(4)

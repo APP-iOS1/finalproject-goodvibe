@@ -14,7 +14,7 @@ extension MapView {
                 filterButton
                 filteredElements
             }
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
         }
         .frame(maxWidth: .infinity)
         .scrollDisabled(mapViewModel.filteredGukbaps.isEmpty)
@@ -23,26 +23,26 @@ extension MapView {
     
     
     private var filterButton: some View {
-        Button{
+        Button {
             self.isShowingFilterModal = true
         } label: {
             Label("필터",systemImage: "slider.horizontal.3")
-                .foregroundColor(isFiltered ? .white : .gray)
+                .foregroundColor(buttonFontColor)
                 .padding(.horizontal, 10)
                 .frame(height: 35)
         }
-        .background{
+        .background {
             Capsule()
-                .fill(isFiltered ? Color.mainColor: Color.white)
+                .fill(buttonBackgroundColor)
         }
         .overlay {
             Capsule()
-                .stroke(Color.mainColor)
+                .stroke(buttonBorderColor)
         }
         .overlay {
             if isFiltered {
                 Image(systemName: "checkmark.circle")
-                    .foregroundColor(.mainColor)
+                    .foregroundColor(buttonFontColor)
                     .background(Circle().fill(.white))
                     .offset(x: -30, y: -15)
             }
@@ -67,13 +67,7 @@ extension MapView {
                         .frame(width:28, height: 28)
                     Text("\(gukbap.rawValue)")
                 }
-                .padding(.horizontal, 10)
-                .frame(height: 35)
-                .background(Capsule().fill(Color.white))
-                .overlay {
-                    Capsule()
-                        .stroke(Color.mainColor)
-                }
+                .categoryCapsule()
             }
         }
         .padding(.trailing, 26)
@@ -82,6 +76,31 @@ extension MapView {
     private var isFiltered: Bool {
         !mapViewModel.filteredGukbaps.isEmpty
     }
+    
+    private var buttonFontColor: Color {
+        switch scheme {
+        case .light: return self.isFiltered ? .white : .gray
+        case .dark:  return self.isFiltered ? .black : .white
+        @unknown default: return self.isFiltered ? .white : .gray
+        }
+    }
+    
+    private var buttonBorderColor: Color {
+        switch scheme {
+        case .light: return .mainColor.opacity(0.5)
+        case .dark:  return .white.opacity(0.5)
+        @unknown default: return .mainColor.opacity(0.5)
+        }
+    }
+    
+    private var buttonBackgroundColor: Color {
+        switch scheme {
+        case .light: return self.isFiltered ? .mainColor : .white
+        case .dark:  return self.isFiltered ? .white : .black
+        @unknown default: return self.isFiltered ? .mainColor : .white
+        }
+    }
+    
 }
 
 

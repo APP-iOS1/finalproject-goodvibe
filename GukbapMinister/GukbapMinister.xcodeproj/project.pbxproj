@@ -32,6 +32,7 @@
 		5B31DBBB297A23A100EA0036 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */; };
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* TempManagementView.swift */; };
+		5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B984029298F90EE003F604B /* SearchBarModifier.swift */; };
 		5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */; };
 		5BA2DB3D298CD57200A33EAB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3C298CD57200A33EAB /* Enums.swift */; };
 		5BA2DB3F298EA12D00A33EAB /* MapView+MapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3E298EA12D00A33EAB /* MapView+MapFilter.swift */; };
@@ -100,6 +101,7 @@
 		5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* TempManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempManagementView.swift; sourceTree = "<group>"; };
+		5B984029298F90EE003F604B /* SearchBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarModifier.swift; sourceTree = "<group>"; };
 		5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackDemoView.swift; sourceTree = "<group>"; };
 		5BA2DB3C298CD57200A33EAB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		5BA2DB3E298EA12D00A33EAB /* MapView+MapFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+MapFilter.swift"; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				AD05311E2976918E00594238 /* ButtonModifier.swift */,
+				5B984029298F90EE003F604B /* SearchBarModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				148CD4F9298CD099006078C7 /* EditNicknameView.swift in Sources */,
 				5BDB9ACD2975788C00BFD5D9 /* CollectionView.swift in Sources */,
 				5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */,
+				5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */,
 				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
 				0392B374298782E800C510E5 /* LocationManager.swift in Sources */,
 				5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */,
