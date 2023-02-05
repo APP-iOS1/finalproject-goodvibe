@@ -51,12 +51,11 @@ struct UpdateUserInfoView: View {
                                     }
                                 }
                         }
-                        .accessibilityHidden(true)
                     }
+                    
                     Section(header: Text("선호하는 지역").font(.title3)) {
                         NavigationLink {
                             EditPreferenceAreaView()
-                                .environmentObject(userViewModel)
                         } label: {
                             Text("\(userViewModel.userInfo.preferenceArea)")
                         }
@@ -72,6 +71,9 @@ struct UpdateUserInfoView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("개인정보")
+        }
+        .onAppear {
+            userViewModel.fetchUpdateUserInfo()
         }
     }
 }
