@@ -31,10 +31,11 @@ struct CategoryFilteringView: View {
             .padding(.bottom, 12)
             
             VStack(alignment: .center){
-                getButtonsInRange(0,3)
-                getButtonsInRange(4,6)
-                getButtonsInRange(7,10)
-                getButtonsInRange(11,11)
+                getButtonsInRange(0,2)
+                getButtonsInRange(3,4)
+                getButtonsInRange(5,7)
+                getButtonsInRange(8,9)
+                getButtonsInRange(10,11)
             }
             
             Spacer()
@@ -59,8 +60,15 @@ extension CategoryFilteringView {
                 Button{
                     handleFilteredGukbaps(index: index, gukbap: gukbap)
                 } label: {
-                    Text(gukbap.rawValue)
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: didTap[index]))
+                    HStack(spacing: 2) {
+                        gukbap.image
+                            .resizable()
+                            .frame(width: 28, height: 28)
+                        
+                        Text(gukbap.rawValue)
+                           
+                    }
+                    .categoryCapsule(isChanged: didTap[index])
                 }
             }
         }
