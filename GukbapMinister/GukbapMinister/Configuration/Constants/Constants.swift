@@ -12,5 +12,5 @@ import SwiftUI
 struct Screen {
     static let maxWidth = UIScreen.main.bounds.width
     static let maxHeight = UIScreen.main.bounds.height
-    static let searchBarWidth = UIScreen.main.bounds.width - 64
+    static let searchBarWidth = UIScreen.main.bounds.width - 32
 }

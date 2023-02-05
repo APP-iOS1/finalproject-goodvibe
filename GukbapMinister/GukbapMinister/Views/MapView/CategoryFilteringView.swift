@@ -7,23 +7,7 @@
 
 import SwiftUI
 
-//enum Gukbaps: String, CaseIterable {
-//    case 순대국밥 = "순대국밥"
-//    case 돼지국밥
-//    case 내장탕
-//    case 선지국
-//    case 소머리국밥
-//    case 뼈해장국
-//    case 굴국밥
-//    case 콩나물국밥
-//    case 설렁탕
-//    case 평양온반
-//    case 시레기국밥
-//}
-
-
-
-struct GukbapCategoryFilteringView: View {
+struct CategoryFilteringView: View {
     enum Mode {
         case map, myPage
     }
@@ -47,10 +31,10 @@ struct GukbapCategoryFilteringView: View {
             .padding(.bottom, 12)
             
             VStack(alignment: .center){
-                getButtonsSlicedByRange(0,3)
-                getButtonsSlicedByRange(4,6)
-                getButtonsSlicedByRange(7,10)
-                getButtonsSlicedByRange(11,11)
+                getButtonsInRange(0,3)
+                getButtonsInRange(4,6)
+                getButtonsInRange(7,10)
+                getButtonsInRange(11,11)
             }
             
             Spacer()
@@ -60,13 +44,16 @@ struct GukbapCategoryFilteringView: View {
                 toolbarItemContent
             }
         }
+        .onAppear {
+            didTap = Gukbaps.allCases.map {mapViewModel.filteredGukbaps.contains($0)}
+        }
     }
 }
 
-extension GukbapCategoryFilteringView {
+extension CategoryFilteringView {
     
     @ViewBuilder
-    private func getButtonsSlicedByRange(_ start: Int, _ end: Int) -> some View {
+    private func getButtonsInRange(_ start: Int, _ end: Int) -> some View {
         HStack{
             ForEach(Array(Gukbaps.allCases.enumerated())[start...end], id: \.offset) { index, gukbap in
                 Button{
@@ -90,7 +77,7 @@ extension GukbapCategoryFilteringView {
                     Button {
                         didTap = Array(repeating: false, count: Gukbaps.allCases.count)
                         switch mode {
-                        case .map: mapViewModel.filterdGukbaps = []
+                        case .map: mapViewModel.filteredGukbaps = []
                         case .myPage: userViewModel.filterdGukbaps = []
                         }
                     } label: {
@@ -114,15 +101,15 @@ extension GukbapCategoryFilteringView {
 
 
 
-extension GukbapCategoryFilteringView {
+extension CategoryFilteringView {
     private func handleFilteredGukbaps(index: Int, gukbap: Gukbaps) {
         didTap[index].toggle()
         switch mode {
         case .map:
-            if mapViewModel.filterdGukbaps.contains(gukbap) {
-                mapViewModel.filterdGukbaps.remove(at: mapViewModel.filterdGukbaps.firstIndex(of: gukbap)!)
+            if mapViewModel.filteredGukbaps.contains(gukbap) {
+                mapViewModel.filteredGukbaps.remove(at: mapViewModel.filteredGukbaps.firstIndex(of: gukbap)!)
             } else {
-                mapViewModel.filterdGukbaps.append(gukbap)
+                mapViewModel.filteredGukbaps.append(gukbap)
             }
         case .myPage: print("아직몰루")
         }
@@ -132,7 +119,7 @@ extension GukbapCategoryFilteringView {
 struct GukbapCategoryFilteringView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            GukbapCategoryFilteringView(showModal: .constant(false), mode: .map)
+            CategoryFilteringView(showModal: .constant(false), mode: .map)
         }
         .environmentObject(MapViewModel())
         .environmentObject(UserViewModel())
