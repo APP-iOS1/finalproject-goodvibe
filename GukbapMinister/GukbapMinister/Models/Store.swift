@@ -24,6 +24,7 @@ struct Store: Codable, Hashable, Identifiable {
     var countingStar: Double
     var foodType: [String] //국밥 타입: ex:순대,돼지국밥
     //    var viewCount: Int// 장소 조회수
+    
     static func == (lhs : Store, rhs: Store) -> Bool{
         lhs.id == rhs.id
     }
@@ -33,7 +34,7 @@ struct Store: Codable, Hashable, Identifiable {
 }
 
 extension Store {
-    static var test: Store = .init(storeName: "test", storeAddress: "test", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "test", countingStar: 0.5, foodType: ["순대국밥"])
+  static var test: Store = .init(storeName: "name", storeAddress: "address", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "description", countingStar: 0.5, foodType: ["순대국밥"])
 }
 
 
