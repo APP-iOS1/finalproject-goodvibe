@@ -58,6 +58,55 @@ final class UserViewModel: ObservableObject {
     
     let nf = NumberFormatter()
     let currentUser = Auth.auth().currentUser
+
+    
+    // MARK: - 개인정보 수정 관련 함수
+    // 1. 사용자 닉네임 수정
+    func updateUserNickname(nickName: String?) {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "userNickname" : nickName ?? userInfo.userNickname,
+                ])
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
+    // 2. 사용자 선호하는 지역 수정
+    func updateUserPreferenceArea(preferenceArea: String) {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "preferenceArea" : preferenceArea ?? userInfo.preferenceArea,
+                ])
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
+    // 업데이트된 사용자 정보 가져오는 함수
+    func fetchUpdateUserInfo() {
+        let uid = Auth.auth().currentUser?.uid
+        database.collection("User").document(uid ?? "")
+            .addSnapshotListener { documentSnapshot, error in
+              guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+              }
+              guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+              }
+              print("Current data: \(data)")
+                self.userInfo.userNickname = data["userNickname"] as? String ?? ""
+                self.userInfo.preferenceArea = data["preferenceArea"] as? String ?? ""
+            }
+    }
     
     // MARK: - User 정보 불러오기
     func fetchUserInfo(uid: String?) {
