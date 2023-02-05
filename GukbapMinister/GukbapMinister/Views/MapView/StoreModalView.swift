@@ -10,6 +10,7 @@ import SwiftUI
 struct StoreModalView: View {
   @EnvironmentObject private var mapViewModel: MapViewModel
   @State private var isHeart : Bool = false
+  
   var store: Store = .test
   
   var body: some View {
@@ -20,6 +21,7 @@ struct StoreModalView: View {
             .font(.title2)
             .bold()
             .padding(.leading, 20)
+          
           Spacer()
         }
         
@@ -31,50 +33,49 @@ struct StoreModalView: View {
             } placeholder: {
               Color.gray.opacity(0.1)
             }
-            .frame(width: 90, height: 90)
+            .frame(width: 100, height: 100)
             .cornerRadius(6)
             .padding(.leading, 20)
             
             VStack{
-              HStack(alignment: .top){
-                Text(store.storeAddress)
-                  .bold()
-                  .padding(.leading, 20)
-                Spacer()
-                
-              }
-              .padding(.trailing, 20)
-              .padding(.bottom, 20)
               HStack {
-                Text("깍두기지수")
                 Image("Ggakdugi")
                   .resizable()
                   .scaledToFill()
                   .frame(width: 20, height: 20)
                 Text("\(store.countingStar)")
+                  .font(.title3)
                 
                 Spacer()
               }
+              
+              HStack(alignment: .top){
+                Text(store.storeAddress)
+                  .bold()
+                  .padding(.leading, 5)
+                
+                Spacer()
+              }
+              .padding(.trailing, 20)
             }
             .padding(.horizontal, 5)
-            
           }
           .background {
-            RoundedRectangle(cornerRadius: 25)
-              .frame(width: 346, height: 103)
-              .foregroundColor(Color.mainColor)
+            Rectangle()
+              .frame(maxWidth: .infinity)
+              .frame(height: 120)
+              .foregroundColor(Color.white)
               .opacity(0.2)
           }
         }
-        
       }
+      //      }.frame().background(.orange)
     }
-    
   }
 }
 
-//struct StoreModalView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    StoreModalView()
-//  }
-//}
+struct StoreModalView_Previews: PreviewProvider {
+  static var previews: some View {
+    StoreModalView()
+  }
+}

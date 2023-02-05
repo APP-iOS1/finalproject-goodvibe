@@ -5,7 +5,7 @@ import CoreLocationUI
 
 struct MapView: View {
   // Command + F -> replace: changes searched word in the file
-  @EnvironmentObject private var mapViewModel: MapViewModel
+  @EnvironmentObject var mapViewModel: MapViewModel
   @StateObject var locationManager = LocationManager()
   // 필터 버튼을 눌렀을 때 동작하는
   @State var isShowingFilterModal: Bool = false
@@ -59,7 +59,6 @@ struct MapView: View {
               }
               
             }
-            .padding(.top, 10)
             .frame(maxWidth: .infinity)
             .frame(height: 150)
             .background(RoundedRectangle(cornerRadius: 25).fill(Color.white))
@@ -75,7 +74,6 @@ struct MapView: View {
       }
     }
   }
-  
 }
 
 struct MapView_Previews: PreviewProvider {
@@ -86,6 +84,4 @@ struct MapView_Previews: PreviewProvider {
   }
 }
 
-
-
-// TODO: 깍두기 지수 바텀 패딩, 주소 깍두기 지수 leading, 깍두기 지수 소수점 버리기 -> 첫번쨰 소수젓 이하 버리기, 갈색 frame 선 일자 혹은 흰색으로 조정, 깍두기 지수라는 말 지우기, 모달이랑 최대한 비슷하게 만들기
+// TODO: ModalView를 시트와 비슷하게 형성하여 사용자 친화적으로 구성
