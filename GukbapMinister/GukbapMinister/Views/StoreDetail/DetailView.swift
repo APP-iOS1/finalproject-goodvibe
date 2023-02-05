@@ -38,19 +38,18 @@ struct DetailView: View {
     @State private var needFoldButton: Bool = true
     @State private var textHeight: CGFloat? = nil
     
-
-
-    var store : Store
     
+    
+    var store : Store
     
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
                 let width: CGFloat = geo.size.width
                 
-
+                
                 ScrollView(showsIndicators: false) {
-
+                    
                     ZStack {
                         //배경색
                         Color(uiColor: .white)
@@ -139,7 +138,7 @@ struct DetailView: View {
         .fullScreenCover(isPresented: $showingAddingSheet) {
             CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet, store: store )
         }
-       
+        
         .onAppear{
             reviewViewModel.fetchReviews()
             print("리뷰 이미지\(reviewViewModel.reviewImage)")
@@ -195,25 +194,25 @@ extension DetailView {
             Group {
                 Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ")
                 //                Text(store.description)
-//                    .fixedSize(horizontal: false, vertical: true)
+                //                    .fixedSize(horizontal: false, vertical: true)
                     .frame(height: textHeight)
                     .background(GeometryReader {geometry in
                         Color.clear.preference(key: SizePreference.self, value: geometry.size)
                     })
             }
-//            .lineLimit(isExpanded ? nil : 2)
+            //            .lineLimit(isExpanded ? nil : 2)
             .onPreferenceChange(SizePreference.self) { textSize in
-                               if self.isFirst == true {
-                                   if textSize.height > 40 {
-                                       self.textHeight = 40
-                                       self.isExpanded = true
-                                       self.isFirst = false
-                                   } else {
-                                       self.needFoldButton = false
-                                   }
-                               }
-                       }
-    
+                if self.isFirst == true {
+                    if textSize.height > 40 {
+                        self.textHeight = 40
+                        self.isExpanded = true
+                        self.isFirst = false
+                    } else {
+                        self.needFoldButton = false
+                    }
+                }
+            }
+            
             HStack {
                 Spacer()
                 if needFoldButton {
@@ -230,31 +229,31 @@ extension DetailView {
                     .padding(.trailing, 8)
                 }
             }
-         
             
-//            HStack {
-//                Spacer()
-//                    .overlay(
-//                        GeometryReader { proxy in
-//                            // store.desceiption 이 한줄일 경우 더보기/접기 버튼 hidden 하는 것 만들어야함.-0205 JS
-//                            if needFoldButton {
-//                                Button(action: {
-//                                    isExpanded.toggle()
-//                                }) {
-//                                    Text(isExpanded ? "접기" : "더보기")
-//                                        .font(.caption).bold()
-//                                        .foregroundColor(.blue)
-//                                        .padding(.leading, 8.0)
-//                                        .padding(.top, 4.0)
-//                                }
-//                                .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
-//
-//                            }
-//
-//                        }
-//                    )
-//
-//            }
+            
+            //            HStack {
+            //                Spacer()
+            //                    .overlay(
+            //                        GeometryReader { proxy in
+            //                            // store.desceiption 이 한줄일 경우 더보기/접기 버튼 hidden 하는 것 만들어야함.-0205 JS
+            //                            if needFoldButton {
+            //                                Button(action: {
+            //                                    isExpanded.toggle()
+            //                                }) {
+            //                                    Text(isExpanded ? "접기" : "더보기")
+            //                                        .font(.caption).bold()
+            //                                        .foregroundColor(.blue)
+            //                                        .padding(.leading, 8.0)
+            //                                        .padding(.top, 4.0)
+            //                                }
+            //                                .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
+            //
+            //                            }
+            //
+            //                        }
+            //                    )
+            //
+            //            }
             
             Divider()
         }
@@ -264,10 +263,10 @@ extension DetailView {
     }
     
     
-fileprivate struct SizePreference: PreferenceKey {
-    static let defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-}
+    fileprivate struct SizePreference: PreferenceKey {
+        static let defaultValue: CGSize = .zero
+        static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
+    }
     
     var storeMenu: some View {
         VStack {
@@ -295,7 +294,7 @@ fileprivate struct SizePreference: PreferenceKey {
         HStack {
             Spacer()
             VStack {
-                Text("테디베어님의 후기를 남겨주세요")
+                Text("\(userViewModel.userInfo.userNickname)님의 리뷰를 작성해주세요.")
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -321,7 +320,6 @@ struct UserReview:  View {
     @StateObject var reviewViewModel: ReviewViewModel
     @ObservedObject var starStore = StarStore()
     @Binding var scrollViewOffset: CGFloat
-    //var columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var review: Review
     
     var body: some View {
@@ -349,50 +347,50 @@ struct UserReview:  View {
             }//HStack
             .padding(.top,-30)
             
-
             
-
+            
+            
             let columns = Array(repeating: GridItem(.flexible(),spacing: -8), count: 2)
             LazyVGrid(columns: columns, alignment: .leading, spacing: 4, content: {
-             
+                
                 ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
-               
+                    
                     if let image = reviewViewModel.reviewImage[imageData] {
-                      
+                        
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: getWidth(index: index), height: getHeight(index: index))
                             .cornerRadius(5)
-                        }//if let
-                        
-                    }// ForEach(review.images)
-           
+                    }//if let
+                    
+                }// ForEach(review.images)
+                
                 
             })
             .padding(.leading,10)
-                .padding(.top,-15)
-                
-                
-                HStack{
-                    Text("\(review.reviewText)")
-                        .font(.system(size:17))
-                        .foregroundColor(.black)
-                        .padding()
-                    Spacer()
-                }
-                
-                Divider()
-            }//VStack
+            .padding(.top,-15)
+            
+            
+            HStack{
+                Text("\(review.reviewText)")
+                    .font(.system(size:17))
+                    .foregroundColor(.black)
+                    .padding()
+                Spacer()
+            }
+            
+            Divider()
+        }//VStack
         
-        }
+    }
     func getWidth(index:Int) -> CGFloat{
         let width = getRect().width - 25
         
         if (review.images?.count ?? 0) % 2 == 0{
             return width / 2
         }
-  
+        
         else{
             if index == (review.images?.count ?? 0) - 1 {
                 return width + 5
@@ -427,9 +425,9 @@ struct UserReview:  View {
             }
         }
     }
-    }
-  
-    
+}
+
+
 
 extension View {
     func getRect()->CGRect{
@@ -437,10 +435,10 @@ extension View {
     }
 }
 
-    
-    //struct DetailView_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        DetailView(starStore: StarStore())
-    //    }
-    //}
-    
+
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(starStore: StarStore())
+//    }
+//}
+

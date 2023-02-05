@@ -25,7 +25,7 @@ struct StoreModalView: View {
           Spacer()
         }
         
-        NavigationLink(destination: DetailView(store: store)) {
+          NavigationLink(destination: DetailView(store: store)) {
           HStack {
             AsyncImage(url: URL(string: store.storeImages.isEmpty ? "이미지 없음" : store.storeImages[0])) { image in
               image
@@ -74,8 +74,8 @@ struct StoreModalView: View {
   }
 }
 
-struct StoreModalView_Previews: PreviewProvider {
-  static var previews: some View {
-    StoreModalView()
-  }
-}
+//struct StoreModalView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    StoreModalView()
+//  }
+//}

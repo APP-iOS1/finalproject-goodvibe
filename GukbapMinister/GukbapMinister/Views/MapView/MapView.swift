@@ -52,8 +52,7 @@ struct MapView: View {
             }
             
             HStack{
-              StoreModalView(store: mapViewModel.selectedStore ?? .test
-              )
+              StoreModalView(store: mapViewModel.selectedStore ?? .test)
               Button {
                 mapViewModel.isShowingSelectedStore.toggle()
               } label: {

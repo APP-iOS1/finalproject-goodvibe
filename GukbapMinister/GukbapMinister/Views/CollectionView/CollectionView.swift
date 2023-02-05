@@ -60,7 +60,7 @@ struct cell : View {
     var cellData : Store
     var imagedata: UIImage
     let currentUser = Auth.auth().currentUser
-    
+
     var body: some View {
         
         
@@ -135,9 +135,9 @@ struct cell : View {
     }
 }
 
-struct CollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionView()
-            .environmentObject(UserViewModel())
-    }
-}
+//struct CollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CollectionView()
+//            .environmentObject(UserViewModel())
+//    }
+//}
