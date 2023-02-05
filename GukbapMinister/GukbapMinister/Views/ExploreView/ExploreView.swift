@@ -9,10 +9,9 @@ import SwiftUI
 
 struct ExploreView: View {
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
-    
+
     @EnvironmentObject var userViewModel: UserViewModel
-    
-    
+        
     let titles: [String] = ["조회수순", "평점순"]
     @State private var selectedIndex: Int = 0
     
@@ -63,8 +62,10 @@ struct ExploreView: View {
             }
         }
         .onAppear {
-            storesViewModel.subscribeStores()
-//            storeViewModel.fetchStore()
+            Task{
+                storesViewModel.subscribeStores()
+                //            storeViewModel.fetchStore()
+            }
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()
