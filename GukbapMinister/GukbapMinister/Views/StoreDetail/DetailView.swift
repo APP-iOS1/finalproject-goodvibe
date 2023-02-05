@@ -55,7 +55,7 @@ struct DetailView: View {
                         //배경색
                         Color(uiColor: .white)
                         
-                        VStack(alignment: .leading, spacing: 0){
+                        VStack{
                             //상호명 주소
                             //Store.storeName, Store.storeAddress
                             storeNameAndAddress
@@ -81,7 +81,7 @@ struct DetailView: View {
                                     ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 }label: {
                                     if (review.storeName == store.storeName){
-                                        UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, index: 3, review: review)
+                                        UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
                                         
                                             .contextMenu{
                                                 Button{
@@ -322,7 +322,6 @@ struct UserReview:  View {
     @ObservedObject var starStore = StarStore()
     @Binding var scrollViewOffset: CGFloat
     //var columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-    var index: Int
     var review: Review
     
     var body: some View {
@@ -352,112 +351,26 @@ struct UserReview:  View {
             
 
             
-//            LazyVGrid(
-//                columns: columns,
-//                alignment: .center,
-//                spacing:5
-        //)
-            VStack
-            {
-                ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
-                    if let image = reviewViewModel.reviewImage[imageData] {
-                        
-                        if ((review.images?.count ?? 0) == 1) {
-                            
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: Screen.maxWidth - 20, height: 300)
-                                .clipped()
-                                .cornerRadius(5)
-                        }else if (review.images?.count ?? 0) == 2{
-                            
-                            VStack{
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: Screen.maxWidth - 20, height: 145)
-                                    .clipped()
-                                    .cornerRadius(5)
-                                
-                            }
-                            
-                        }else if (review.images?.count ?? 0) == 3 {
-                                if ((review.images?.count ?? 0) == 3 && (index == 0)) {
-                                    
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: (Screen.maxWidth - 20) / 2, height: 145)
-                                            .clipped()
-                                            .cornerRadius(5)
-                                }
-                                   else if ((review.images?.count ?? 0) == 3 && (index == 1)) {
-                                       
-                                            Image(uiImage: image)
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: (Screen.maxWidth - 20) / 2, height: 145)
-                                                .clipped()
-                                                .cornerRadius(5)
-                                        
-                                    }
-                               
-                                else if  ((review.images?.count ?? 0) == 3 && index == 2) {
-                                    
-                                     Image(uiImage: image)
-                                         .resizable()
-                                         .scaledToFill()
-                                         .frame(width: Screen.maxWidth - 20, height: 145)
-                                         .clipped()
-                                         .cornerRadius(5)
-                                 }
-                            }
-                        else if (review.images?.count ?? 0) == 4 {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: (Screen.maxWidth - 20) / 2, height: 145)
-                                .clipped()
-                                .cornerRadius(5)
-                        }
-                                   
-                           
-                        
-                            
-                            
-                            
-                        
-                            
-                            
-                            //                                        Image(uiImage: image)
-                            //                                            .resizable()
-                            //                                            .frame(width: 180,height: 160)
-                            //                                            .cornerRadius(10)
-                            
-                            //                                            .overlay() {
-                            //                                                if ((review.images?.count ?? 0) > 2)  && index == 1 {
-                            //
-                            //                                                    RoundedRectangle(cornerRadius: 10)
-                            //                                                        .fill(Color.black.opacity(0.2))
-                            //
-                            //                                                    let remainImages = (review.images?.count ?? 0) - 2
-                            //                                                    if -scrollViewOffset == 0 {
-                            //
-                            //                                                        Text("+\(remainImages)")
-                            //                                                            .font(.title)
-                            //                                                            .fontWeight(.heavy)
-                            //                                                            .foregroundColor(.white)
-                            //                                                    }
-                            //                                                }//Second 'if'
-                            //                                            }//overlay
 
+            let columns = Array(repeating: GridItem(.flexible(),spacing: -8), count: 2)
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 4, content: {
+             
+                ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
+               
+                    if let image = reviewViewModel.reviewImage[imageData] {
+                      
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: getWidth(index: index), height: getHeight(index: index))
+                            .cornerRadius(5)
                         }//if let
                         
                     }// ForEach(review.images)
-                }
-
+           
                 
+            })
+            .padding(.leading,10)
                 .padding(.top,-15)
                 
                 
@@ -471,13 +384,59 @@ struct UserReview:  View {
                 
                 Divider()
             }//VStack
+        
         }
-
+    func getWidth(index:Int) -> CGFloat{
+        let width = getRect().width - 25
+        
+        if (review.images?.count ?? 0) % 2 == 0{
+            return width / 2
+        }
+  
+        else{
+            if index == (review.images?.count ?? 0) - 1 {
+                return width + 5
+            }
+            else{
+                return width / 2
+                
+            }
+        }
+    }
+    func getHeight(index:Int) -> CGFloat{
+        let height = getRect().height - 544
+        
+        if (review.images?.count ?? 0) == 1{
+            return height
+        }
+        else if (review.images?.count ?? 0) == 2 {
+            return height
+        }
+        else if (review.images?.count ?? 0) == 3 {
+            return height / 2
+        }
+        else if (review.images?.count ?? 0) == 4 {
+            return height / 2
+        }
+        else{
+            if index == (review.images?.count ?? 0) - 1 {
+                return height
+            }
+            else{ return height / 2
+                
+            }
+        }
+    }
     }
   
     
 
-    
+extension View {
+    func getRect()->CGRect{
+        return UIScreen.main.bounds
+    }
+}
+
     
     //struct DetailView_Previews: PreviewProvider {
     //    static var previews: some View {
