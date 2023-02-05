@@ -44,7 +44,7 @@ class MapViewModel : ObservableObject {
     }
     
     // 국밥카테고리
-    @Published var filterdGukbaps: [Gukbaps] = []
+    @Published var filteredGukbaps: [Gukbaps] = []
     
     
     

@@ -33,23 +33,16 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                HStack {
-                    backButton()
-                    searchTextField()
-                }
-                .padding(.leading, -8)
-                .padding(.bottom)
-                
+                searchTextField()
                 searchResultList()
-                
-            }//First VStack
+            }
             .onAppear {
                 focusField = .searchBar
                 storesViewModel.subscribeStores()
             }
             .onDisappear {
                 storesViewModel.unsubscribeStores()
-        }
+            }
         }
     }
 }
@@ -63,16 +56,15 @@ extension SearchView {
             Image(systemName: "chevron.backward")
                 .foregroundColor(.mainColor)
         }
-        .padding(.trailing, -20)
-        .offset(x: -12)
+        .padding(.horizontal, 15)
+        
     }
     
     @ViewBuilder
     private func searchTextField() -> some View {
         HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-                .padding(.leading, 15)
+            backButton()
+                  
             TextField("국밥집 검색",text: $searchString, axis: .horizontal)
                 .keyboardType(.default)
                 .textInputAutocapitalization(.never)
@@ -93,11 +85,9 @@ extension SearchView {
             }
             
         }
-        .frame(width: Screen.searchBarWidth, height: 50)
-        .background(Capsule().fill(scheme == .light ? Color.white : Color.black))
-        .overlay {
-            Capsule().stroke(Color.mainColor)
-        }
+        .searchBarStyle(style: .textfield)
+        .padding(.top, 13)
+        .padding(.bottom)
     }
     
     @ViewBuilder

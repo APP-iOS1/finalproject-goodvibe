@@ -14,7 +14,7 @@ class StarStore: ObservableObject {
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userViewModel: UserViewModel
-    @EnvironmentObject private var mapViewModel: MapViewModel
+    @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @ObservedObject var starStore = StarStore()
     //@StateObject private var storeViewModel : StoreViewModel
@@ -33,22 +33,13 @@ struct DetailView: View {
     
     
     //lineLimit 관련 변수
+    @State private var isFirst: Bool = true
     @State private var isExpanded: Bool = false
-    //    @State private var truncated: Bool = false
-    //    @State private var shrinkText: String
-    //
-    //    let font: UIFont
-    //    let lineLimit: Int
-    //
-    //    private var moreLessText: String {
-    //            if !truncated {
-    //                return ""
-    //            } else {
-    //                return self.isExpanded ? " 접기 " : " 더보기 "
-    //            }
-    //        }
+    @State private var needFoldButton: Bool = true
+    @State private var textHeight: CGFloat? = nil
     
-    
+
+
     var store : Store
     
     
@@ -202,55 +193,81 @@ extension DetailView {
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
-                Text("test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. test 입니다. 자 모두들 착석해주세요~~~ 조용~ 주목")
+                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ")
                 //                Text(store.description)
-                    .fixedSize(horizontal: false, vertical: true)
+//                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(height: textHeight)
+                    .background(GeometryReader {geometry in
+                        Color.clear.preference(key: SizePreference.self, value: geometry.size)
+                    })
             }
-            
-            .lineLimit(isExpanded ? nil : 2)
-            
-            
+//            .lineLimit(isExpanded ? nil : 2)
+            .onPreferenceChange(SizePreference.self) { textSize in
+                               if self.isFirst == true {
+                                   if textSize.height > 40 {
+                                       self.textHeight = 40
+                                       self.isExpanded = true
+                                       self.isFirst = false
+                                   } else {
+                                       self.needFoldButton = false
+                                   }
+                               }
+                       }
+    
             HStack {
                 Spacer()
-                    .overlay(
-                        // 여기가 문제임을 발견 2월3일 라인리밋의 후의 인덱스를 찾아서 잘 늘려주면 된다!
-                        GeometryReader { proxy in
-                            Button(action: {
-                                isExpanded.toggle()
-                            }) {
-                                Text(isExpanded ? "접기" : "더보기")
-                                    .font(.caption).bold()
-                                //                                .background(Color.white)
-                                    .foregroundColor(.blue)
-                                    .padding(.leading, 8.0)
-                                    .padding(.top, 4.0)
-                            }
-                            .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
+                if needFoldButton {
+                    Button(action: {
+                        self.isExpanded.toggle()
+                        if self.isExpanded == true {
+                            self.textHeight = 40
+                        } else {
+                            self.textHeight = nil
                         }
-                    )
-                
-                //            if truncated {
-                //                            Button(action: {
-                //                                isExpanded.toggle()
-                //                            }, label: {
-                //                                HStack {
-                //                                    Spacer()
-                //                                    Text("")
-                //                                }.opacity(0)
-                //                            })
-                //                        }
-                
-                //                                .lineLimit(10)
-                //                .padding(.horizontal, 15)
-                //                .padding(.vertical, 30)
+                    }) {
+                        Text(isExpanded ? "더보기" : "접기")
+                    }
+                    .padding(.trailing, 8)
+                }
             }
-            //
+         
+            
+//            HStack {
+//                Spacer()
+//                    .overlay(
+//                        GeometryReader { proxy in
+//                            // store.desceiption 이 한줄일 경우 더보기/접기 버튼 hidden 하는 것 만들어야함.-0205 JS
+//                            if needFoldButton {
+//                                Button(action: {
+//                                    isExpanded.toggle()
+//                                }) {
+//                                    Text(isExpanded ? "접기" : "더보기")
+//                                        .font(.caption).bold()
+//                                        .foregroundColor(.blue)
+//                                        .padding(.leading, 8.0)
+//                                        .padding(.top, 4.0)
+//                                }
+//                                .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
+//
+//                            }
+//
+//                        }
+//                    )
+//
+//            }
+            
             Divider()
         }
         .background(Color.red)
         .padding(.horizontal, 15)
         .padding(.vertical, 30)
     }
+    
+    
+fileprivate struct SizePreference: PreferenceKey {
+    static let defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
+}
     
     var storeMenu: some View {
         VStack {
@@ -413,13 +430,13 @@ struct UserReview:  View {
     }
   
     
+
 extension View {
     func getRect()->CGRect{
         return UIScreen.main.bounds
     }
 }
-    
-    
+
     
     //struct DetailView_Previews: PreviewProvider {
     //    static var previews: some View {

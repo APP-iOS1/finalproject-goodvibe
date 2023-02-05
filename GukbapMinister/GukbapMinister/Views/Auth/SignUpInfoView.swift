@@ -41,7 +41,8 @@ struct SignUpInfoView: View {
                         } label: {
                             Text("남자")
                         }
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isGenderSelected[1]))
+                        .categoryCapsule(isChanged: isGenderSelected[1])
+
                         Button {
                             isGenderSelected[2].toggle()
                             isGenderSelected[1] = false
@@ -49,7 +50,7 @@ struct SignUpInfoView: View {
                         } label: {
                             Text("여자")
                         }
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isGenderSelected[2]))
+                        .categoryCapsule(isChanged: isGenderSelected[2])
                     }
                 }
                 .padding(.vertical)
@@ -73,7 +74,8 @@ struct SignUpInfoView: View {
                                 Text("10대")
                             }
                             .frame(width: 60)
-                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[0]))
+                            .categoryCapsule(isChanged: isAgeRangeSelected[0])
+                            
                             Button {
                                 isAgeRangeSelected[1].toggle()
                                 isAgeRangeSelected[0] = false
@@ -84,7 +86,7 @@ struct SignUpInfoView: View {
                                 Text("20 ~ 30대")
                             }
                             .frame(width: 95)
-                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[1]))
+                            .categoryCapsule(isChanged: isAgeRangeSelected[1])
                             Button {
                                 isAgeRangeSelected[2].toggle()
                                 isAgeRangeSelected[0] = false
@@ -95,7 +97,7 @@ struct SignUpInfoView: View {
                                 Text("40 ~ 50대")
                             }
                             .frame(width: 95)
-                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[2]))
+                            .categoryCapsule(isChanged: isAgeRangeSelected[2])
                         }
                         HStack{
                             Button {
@@ -108,7 +110,7 @@ struct SignUpInfoView: View {
                                 Text("60대 이상")
                             }
                             .frame(width: 90)
-                            .modifier(CategoryButtonModifier(isChangedButtonStyle: isAgeRangeSelected[3]))
+                            .categoryCapsule(isChanged: isAgeRangeSelected[3])
                         }
                     }
                 }
@@ -128,19 +130,20 @@ struct SignUpInfoView: View {
                         } label: {
                             Text("강남구")
                         }
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isPreferenceAreaSelected[0]))
+                        .categoryCapsule(isChanged: isPreferenceAreaSelected[0])
+                       
                         Button {
                             isPreferenceAreaSelected[1].toggle()
                         } label: {
                             Text("강서구")
                         }
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isPreferenceAreaSelected[1]))
+                        .categoryCapsule(isChanged: isPreferenceAreaSelected[1])
                         Button {
                             isPreferenceAreaSelected[2].toggle()
                         } label: {
                             Text("부산진구")
                         }
-                        .modifier(CategoryButtonModifier(isChangedButtonStyle: isPreferenceAreaSelected[2]))
+                        .categoryCapsule(isChanged: isPreferenceAreaSelected[2])
                     }
                 }
             }

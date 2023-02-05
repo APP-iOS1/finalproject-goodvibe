@@ -24,18 +24,7 @@ struct MyPageView: View {
                     .font(.largeTitle)
                     .padding(.top, 20)
                     .padding()
-                
-
-                Button {
-                    self.isUpdateUserInfoPresented.toggle()
-                } label: {
-                    Text("회원정보")
-                }
-                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                    UpdateUserInfoView()
-                        .environmentObject(UserViewModel())
-                    
-                }
+            
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.opacity(0.1))
                     .frame(width: UIScreen.main.bounds.width - 30, height: 110)

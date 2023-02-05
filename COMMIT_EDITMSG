@@ -1,0 +1,20 @@
+[Add, Fix]#93 Gukbaps Enum image, uiImage 프로퍼티 추가, 서치바 폭 조절
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Sat Feb 4 23:09:19 2023 +0900
+#
+# On branch dev-mapCategoryFilter-230204
+# Your branch is ahead of 'origin/dev-mapCategoryFilter-230204' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	modified:   GukbapMinister/GukbapMinister.xcodeproj/project.pbxproj
+#	modified:   GukbapMinister/GukbapMinister.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+#	modified:   GukbapMinister/GukbapMinister/Configuration/Constants/Constants.swift
+#	modified:   GukbapMinister/GukbapMinister/Configuration/Constants/Enums.swift
+#	modified:   GukbapMinister/GukbapMinister/Views/MapView/GukbapCategoryFilteringView.swift
+#	modified:   GukbapMinister/GukbapMinister/Views/MapView/MapUIViewRepresentable.swift
+#	modified:   GukbapMinister/GukbapMinister/Views/Search/SearchView.swift
+#

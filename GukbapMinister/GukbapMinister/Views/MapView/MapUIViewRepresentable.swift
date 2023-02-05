@@ -55,9 +55,13 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            let markerImage = UIImage()
-                .getMarkerImage(foodType: annotation.foodType)?
+//            let markerImage = UIImage()
+//                .getMarkerImage(foodType: annotation.foodType)?
+//                .resizeImageTo(size: CGSize(width: 60, height: 60))
+            let markerImage = Gukbaps(rawValue: annotation.foodType)?
+                .uiImage?
                 .resizeImageTo(size: CGSize(width: 60, height: 60))
+            
             annotationView?.image =  markerImage
             
         } else {
