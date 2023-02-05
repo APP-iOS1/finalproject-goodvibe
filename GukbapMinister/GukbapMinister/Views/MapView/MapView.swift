@@ -87,4 +87,5 @@ struct MapView_Previews: PreviewProvider {
 }
 
 
+
 // TODO: 깍두기 지수 바텀 패딩, 주소 깍두기 지수 leading, 깍두기 지수 소수점 버리기 -> 첫번쨰 소수젓 이하 버리기, 갈색 frame 선 일자 혹은 흰색으로 조정, 깍두기 지수라는 말 지우기, 모달이랑 최대한 비슷하게 만들기
