@@ -30,7 +30,7 @@ struct MapView: View {
           VStack {
             SearchBarButton()
             
-            filterButton
+            mapFilter
             
             locationButton(width: width, height: height)
             

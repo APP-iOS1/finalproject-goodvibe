@@ -8,40 +8,93 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @StateObject var reviewViewModel: ReviewViewModel
     let selectedtedReview: Review
-//
-//    init(){
-//        UIScrollView.appearance().bounces = false
-//    }
+    //
+    //    init(){
+    //        UIScrollView.appearance().bounces = false
+    //    }
     var body: some View {
-        VStack{
-            if let images = selectedtedReview.images{
-                TabView() {
-                   
+        ZStack{
+            Color.black
+                .ignoresSafeArea()
+            VStack{
+                
+                
+                if let images = selectedtedReview.images{
+                 
+                    
+                    
+                    HStack{
+                        Text(selectedtedReview.createdDate)
+                            .fontWeight(.light)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .padding(.top,5)
+                    TabView() {
                         ForEach(images, id: \.self) { imageKey in
                             if let image = reviewViewModel.reviewImage[imageKey] {
+                                
                                 Image(uiImage: image)
                                     .resizable()
-                                   // .scaledToFit()
+                                    .scaledToFit()
                             }
                         }//ForEach
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode:.never))
+                    .frame(width: UIScreen.main.bounds.width)
+                    .padding(.top,-80)
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode:.always))
-                .frame(width: UIScreen.main.bounds.width)
+                VStack{
+                    
+                    Text(selectedtedReview.reviewText)
+                        .font(.title3)
+                    
+                }
+                .foregroundColor(.white)
+                Spacer()
             }
-            VStack{
-                Text(selectedtedReview.createdDate)
-                    .fontWeight(.light)
-                Text(selectedtedReview.reviewText)
-                    .font(.title2)
-                
+        }
+        //.navigationTitle(Text("/\(selectedtedReview.images!.count)"))
+        .navigationBarTitle("Try it!", displayMode: .inline)
+                    .background(NavigationConfigurator { nc in
+                        nc.navigationBar.barTintColor = .blue
+                        nc.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+                    })
+        
+        .navigationBarTitleDisplayMode(.inline)
+        
+        .toolbar(.hidden, for:.tabBar)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "arrow.backward")
+                            .tint(.white)
+                    }
+                }
             }
-            Spacer()
+    }
+       
+}
+struct NavigationConfigurator: UIViewControllerRepresentable {
+    var configure: (UINavigationController) -> Void = { _ in }
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
+        UIViewController()
+    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
+        if let nc = uiViewController.navigationController {
+            self.configure(nc)
         }
     }
-}
 
+}
 //struct ReviewDetailView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ReviewDetailView()
