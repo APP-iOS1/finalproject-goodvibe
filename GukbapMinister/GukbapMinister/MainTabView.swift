@@ -17,6 +17,7 @@ struct MainTabView: View {
                 }
                 .tag(0)
             
+            
             MapView()
                 .tabItem {
                     Label("지도", systemImage: "map")
@@ -28,8 +29,12 @@ struct MainTabView: View {
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
                 }
+                .toolbar(.visible, for: .tabBar)
+                .toolbarBackground(Color.white, for: .tabBar)
                 .tag(2)
                 .environmentObject(MapViewModel())
+                .environmentObject(StoresViewModel())
+            
             
             MyPageView()
                 .tabItem {
@@ -38,7 +43,8 @@ struct MainTabView: View {
                 .tag(3)
         }
         .accentColor(.mainColor)
-        
+
+
 
     }
 }
