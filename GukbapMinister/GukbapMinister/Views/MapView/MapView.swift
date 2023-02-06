@@ -59,7 +59,6 @@ struct MapView: View {
               } label: {
                 Text("")
               }
-              
             }
             .frame(maxWidth: .infinity)
             .frame(height: 150)
