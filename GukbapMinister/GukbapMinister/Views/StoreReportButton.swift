@@ -18,20 +18,23 @@ struct StoreReportButton: View {
             VStack(spacing: 0) {
                 Text("국밥집 제보")
                     .font(.caption.bold())
-                    .foregroundColor(.mainColor)
+                    .foregroundColor(.mainColorLight)
                     .padding(2)
                     .padding(.horizontal, 2)
                     .background {
-                        Capsule().fill(Color.mainColorReversed)
+                        Capsule().fill(Color.mainColorDark)
                     }
                     .padding(.bottom, 4)
-                Image("Ddukbaegi.fill")
-                    .font(.title)
-                    .foregroundColor(.mainColorReversed)
-                    .padding(12)
-                    .background {
-                        Circle().fill(Color.mainColor)
-                }
+                    .padding(.horizontal, -20)
+                
+                Circle()
+                    .fill(Color.mainColor)
+                    .frame(width: 42, height: 42)
+                    .overlay {
+                        Image("Ddukbaegi.fill")
+                            .font(.title3)
+                            .foregroundColor(.mainColorReversed)
+                    }
                 
             }
                 

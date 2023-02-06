@@ -33,9 +33,7 @@ struct MapView: View {
             
             mapFilter
             
-            StoreReportButton()
-              
-            locationButton(width: width, height: height)
+              rightCornerButtons(width: width, height: height)
             
             Spacer()
           }

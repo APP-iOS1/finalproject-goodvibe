@@ -13,4 +13,10 @@ extension Color {
         .init("MainColor")
     static var mainColorReversed: Color =
         .init("MainColorReversed")
+    
+    static var mainColorLight: Color =
+        .init("MainColorLight")
+    
+    static var mainColorDark: Color =
+        .init("MainColorDark")
 }

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */; };
 		0392B374298782E800C510E5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B373298782E800C510E5 /* LocationManager.swift */; };
-		0392B37C298794B800C510E5 /* MapView+LocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37B298794B800C510E5 /* MapView+LocationButton.swift */; };
 		0392B37E298797E000C510E5 /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */; };
 		03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EE6A9D297791BF005616B3 /* StoreModalView.swift */; };
 		041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE96D297A287000BE32E7 /* ReviewDetailView.swift */; };
@@ -29,6 +28,7 @@
 		5B0058442990B78C00564930 /* StoreReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058432990B78C00564930 /* StoreReportView.swift */; };
 		5B0058462990B7BB00564930 /* StoreReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058452990B7BB00564930 /* StoreReportViewModel.swift */; };
 		5B0058482990D84400564930 /* StoreReportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058472990D84400564930 /* StoreReportButton.swift */; };
+		5B00584A2990EB6200564930 /* MapView+RightCornerButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058492990EB6200564930 /* MapView+RightCornerButtons.swift */; };
 		5B01F2E32976840800ACB32F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E22976840800ACB32F /* DetailView.swift */; };
 		5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E42976CD1200ACB32F /* CommentUnit.swift */; };
 		5B138DE02988EB3A004F9187 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */; };
@@ -84,7 +84,6 @@
 /* Begin PBXFileReference section */
 		0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUIViewRepresentable.swift; sourceTree = "<group>"; };
 		0392B373298782E800C510E5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		0392B37B298794B800C510E5 /* MapView+LocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+LocationButton.swift"; sourceTree = "<group>"; };
 		0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
 		03EE6A9D297791BF005616B3 /* StoreModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModalView.swift; sourceTree = "<group>"; };
 		041FE96D297A287000BE32E7 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
@@ -102,6 +101,7 @@
 		5B0058432990B78C00564930 /* StoreReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportView.swift; sourceTree = "<group>"; };
 		5B0058452990B7BB00564930 /* StoreReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportViewModel.swift; sourceTree = "<group>"; };
 		5B0058472990D84400564930 /* StoreReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportButton.swift; sourceTree = "<group>"; };
+		5B0058492990EB6200564930 /* MapView+RightCornerButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+RightCornerButtons.swift"; sourceTree = "<group>"; };
 		5B01F2E22976840800ACB32F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		5B01F2E42976CD1200ACB32F /* CommentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUnit.swift; sourceTree = "<group>"; };
 		5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA2DB3E298EA12D00A33EAB /* MapView+MapFilter.swift */,
-				0392B37B298794B800C510E5 /* MapView+LocationButton.swift */,
+				5B0058492990EB6200564930 /* MapView+RightCornerButtons.swift */,
 				5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */,
 			);
 			path = Extensions;
@@ -505,6 +505,7 @@
 				5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */,
 				5B0058482990D84400564930 /* StoreReportButton.swift in Sources */,
 				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
+				5B00584A2990EB6200564930 /* MapView+RightCornerButtons.swift in Sources */,
 				0392B374298782E800C510E5 /* LocationManager.swift in Sources */,
 				5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */,
 				5B0058442990B78C00564930 /* StoreReportView.swift in Sources */,
@@ -529,7 +530,6 @@
 				5B01F2E32976840800ACB32F /* DetailView.swift in Sources */,
 				5BDB9AC02975760300BFD5D9 /* ExploreView.swift in Sources */,
 				041FE9712988D57500BE32E7 /* SegmentedPicker.swift in Sources */,
-				0392B37C298794B800C510E5 /* MapView+LocationButton.swift in Sources */,
 				5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */,
 				041FE9732988DCDE00BE32E7 /* Ex+View.swift in Sources */,
 				0488EE592977DD8A00D866B7 /* ImageDetailView.swift in Sources */,
