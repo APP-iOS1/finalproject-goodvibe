@@ -11,4 +11,6 @@ import SwiftUI
 extension Color {
     static var mainColor: Color =
         .init("MainColor")
+    static var mainColorReversed: Color =
+        .init("MainColorReversed")
 }

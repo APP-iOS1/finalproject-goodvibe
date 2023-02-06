@@ -25,6 +25,10 @@
 		149CBCEF297A273400F298C7 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CBCEE297A273400F298C7 /* SearchView.swift */; };
 		14A1879D298A601E00B4FE7F /* UpdateUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1879C298A601E00B4FE7F /* UpdateUserInfoView.swift */; };
 		14B1A958298F883E003E58FB /* EditPreferenceAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1A957298F883E003E58FB /* EditPreferenceAreaView.swift */; };
+		5B0058422990B6E700564930 /* StoreReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058412990B6E700564930 /* StoreReport.swift */; };
+		5B0058442990B78C00564930 /* StoreReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058432990B78C00564930 /* StoreReportView.swift */; };
+		5B0058462990B7BB00564930 /* StoreReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058452990B7BB00564930 /* StoreReportViewModel.swift */; };
+		5B0058482990D84400564930 /* StoreReportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058472990D84400564930 /* StoreReportButton.swift */; };
 		5B01F2E32976840800ACB32F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E22976840800ACB32F /* DetailView.swift */; };
 		5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E42976CD1200ACB32F /* CommentUnit.swift */; };
 		5B138DE02988EB3A004F9187 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */; };
@@ -94,6 +98,10 @@
 		149CBCEE297A273400F298C7 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		14A1879C298A601E00B4FE7F /* UpdateUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserInfoView.swift; sourceTree = "<group>"; };
 		14B1A957298F883E003E58FB /* EditPreferenceAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceAreaView.swift; sourceTree = "<group>"; };
+		5B0058412990B6E700564930 /* StoreReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReport.swift; sourceTree = "<group>"; };
+		5B0058432990B78C00564930 /* StoreReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportView.swift; sourceTree = "<group>"; };
+		5B0058452990B7BB00564930 /* StoreReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportViewModel.swift; sourceTree = "<group>"; };
+		5B0058472990D84400564930 /* StoreReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportButton.swift; sourceTree = "<group>"; };
 		5B01F2E22976840800ACB32F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		5B01F2E42976CD1200ACB32F /* CommentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUnit.swift; sourceTree = "<group>"; };
 		5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
@@ -304,6 +312,8 @@
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
 				5B31DBBF297A315000EA0036 /* TempManagementView.swift */,
 				5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */,
+				5B0058432990B78C00564930 /* StoreReportView.swift */,
+				5B0058472990D84400564930 /* StoreReportButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,6 +340,7 @@
 				5BDB9AD629757A3B00BFD5D9 /* User.swift */,
 				5BDB9AD829757A6400BFD5D9 /* Store.swift */,
 				5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */,
+				5B0058412990B6E700564930 /* StoreReport.swift */,
 				5BDB9ADA29757A8300BFD5D9 /* Review.swift */,
 			);
 			path = Models;
@@ -343,6 +354,7 @@
 				5BDB9AE229757B2000BFD5D9 /* ReviewViewModel.swift */,
 				AD16F7B5298796F400733B85 /* CollectionViewModel.swift */,
 				AD2A3013297A1BA100086F24 /* MapViewModel.swift */,
+				5B0058452990B7BB00564930 /* StoreReportViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -491,9 +503,11 @@
 				5BDB9ACD2975788C00BFD5D9 /* CollectionView.swift in Sources */,
 				5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */,
 				5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */,
+				5B0058482990D84400564930 /* StoreReportButton.swift in Sources */,
 				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
 				0392B374298782E800C510E5 /* LocationManager.swift in Sources */,
 				5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */,
+				5B0058442990B78C00564930 /* StoreReportView.swift in Sources */,
 				147FE7CD2977BFB100E635A1 /* SignUpTabView.swift in Sources */,
 				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
@@ -505,6 +519,7 @@
 				14A1879D298A601E00B4FE7F /* UpdateUserInfoView.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				AD2A3014297A1BA100086F24 /* MapViewModel.swift in Sources */,
+				5B0058422990B6E700564930 /* StoreReport.swift in Sources */,
 				63FCF534297677E0001712CA /* MainTabView.swift in Sources */,
 				5BDB9AD729757A3B00BFD5D9 /* User.swift in Sources */,
 				03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */,
@@ -518,6 +533,7 @@
 				5BDB9AE129757B1000BFD5D9 /* UserViewModel.swift in Sources */,
 				041FE9732988DCDE00BE32E7 /* Ex+View.swift in Sources */,
 				0488EE592977DD8A00D866B7 /* ImageDetailView.swift in Sources */,
+				5B0058462990B7BB00564930 /* StoreReportViewModel.swift in Sources */,
 				5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */,
 				148CD4FB298CD317006078C7 /* EditGukbapView.swift in Sources */,
 				5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */,
@@ -666,7 +682,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
