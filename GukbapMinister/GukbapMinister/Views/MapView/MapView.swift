@@ -33,7 +33,7 @@ struct MapView: View {
             
             mapFilter
             
-            locationButton(width: width, height: height)
+              rightCornerButtons(width: width, height: height)
             
             Spacer()
           }
