@@ -17,6 +17,8 @@ import FirebaseStorage
 final class StoresViewModel: ObservableObject {
     @Published var stores: [Store] = []
     @Published var storeTitleImage: [String : UIImage] = [:]
+    @Published var countRan = 0
+
     
     private var database = Firestore.firestore()
     private var storage = Storage.storage()
@@ -32,11 +34,37 @@ final class StoresViewModel: ObservableObject {
         }
     }
     
+    // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
+    func getRandomNumber() {
+        database.collection("Store").getDocuments()
+        {
+            (querySnapshot, err) in
+
+            if let err = err
+            {
+                print("Error getting documents: \(err)");
+            }
+            else
+            {
+                var count = 0
+                for document in querySnapshot!.documents {
+                    count += 1
+                    print("\(document.documentID) => \(document.data())");
+                }
+                self.countRan = Int.random(in: 0..<count)
+            }
+        }
+    }
+    
+    
     //Store정보 구독
     //Store정보가 필요한 뷰에서
     //.onAppear { viewModel.subscribeStores() } 하면 실행됨
     func subscribeStores() {
         if listenerRegistration == nil {
+
+            
+            
             listenerRegistration =  database.collection("Store")
                 .addSnapshotListener { (querySnapshot, error) in
                     guard let documents = querySnapshot?.documents else {

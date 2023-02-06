@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct CollectionView: View {
+    @EnvironmentObject private var storesViewModel: StoresViewModel
+    
     @EnvironmentObject private var testVM : MapViewModel
     @EnvironmentObject private var userVM: UserViewModel
     
@@ -16,38 +18,107 @@ struct CollectionView: View {
     
     let currentUser = Auth.auth().currentUser
     
+    
+    @State var res : [Store] = []
+    
     var body: some View {
         NavigationStack{
-            ScrollView{
-                ForEach(collectionVM.stores, id: \.self) { store in
+            ZStack{
+                
+                // 배경 색
+                Color.gray.opacity(0.2)
+                
+                
+                ScrollView{
+                    if (collectionVM.stores != [] ) {
+                        
+                        VStack{
+                            Rectangle()
+                                .frame(width: UIScreen.main.bounds.width, height: 10)
+                                .foregroundColor(.gray.opacity(0.2))
 
-                   let imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+                            ForEach(collectionVM.stores, id: \.self) { store in
+                                
+                                let imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
+                                
+                                cell(collectionVM: collectionVM, cellData: store, imagedata: imageData)
+                                    .frame(width: UIScreen.main.bounds.width-40, height: 90)
+                                    .padding()
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(.gray.opacity(0.3))
+                                            .frame(width: UIScreen.main.bounds.width - 20, height: 120)
+                                    )
+                                    .padding(.vertical, 10)
+                                
+                                Divider()
+                            }
+                        }
+                        .background(.white)
+                        
+                        
+                    } else{
+                        
+                        VStack{
+                            Spacer()
+                            
+                            VStack{
+                                HStack{
+                                    Text("찜한 가게가 아무 곳도 없네요, 이런 국밥집은 어떠신가요?")
+                                        .font(.caption)
+                                        .bold()
+                                        .padding(.leading)
+                                    Spacer()
+                                }
+                                .padding(.top, 20)
+                                
+                                ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
 
-                    cell(collectionVM: collectionVM, cellData: store, imagedata: imageData)
-                        .zIndex(1)
-                        .contextMenu {
-                            Button {
-                                collectionVM.removeLikedStore(userId: currentUser?.uid ?? "", store: store)
-                            } label: {
-                                Text("삭제")
+                                    if Int(index.description) == storesViewModel.countRan{
+                                        let imageData = collectionVM.storeImages[element.storeImages.first ?? ""] ?? UIImage()
+                                        
+                                        cell(collectionVM: collectionVM, cellData: element, imagedata: imageData)
+                                            .frame(width: UIScreen.main.bounds.width-40, height: 90)
+                                            .padding()
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray.opacity(0.3))
+                                                    .frame(width: UIScreen.main.bounds.width - 20, height: 120)
+                                            )
+                                            .padding(.bottom, 15)
+                                    }
+                                }
                             }
-                            }
-                    Divider()
+                            .frame(width: UIScreen.main.bounds.width, height: 170)
+                            .background(.white)
+                            
+                        }
+                        
+                    }
                 }
+                .toolbarBackground(Color.white, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .navigationTitle("내가 찜한 곳")
+                .navigationBarTitleDisplayMode(.inline)
             }
-            
-            .navigationTitle("내가 찜한 곳")
-            .navigationBarTitleDisplayMode(.inline)
-            
         }
         .onAppear {
-           
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             print("\(collectionVM.stores)")
+            Task{
+                storesViewModel.subscribeStores()
+                // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
+                storesViewModel.getRandomNumber()
+            }
             
         }
         .refreshable {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
+            Task{
+                storesViewModel.subscribeStores()
+                // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
+                storesViewModel.getRandomNumber()
+            }
         }
         
     }
@@ -68,13 +139,12 @@ struct cell : View {
             NavigationLink {
                 DetailView(store : cellData)
             } label: {
-                HStack (){
-
+                HStack{
+                    
                     Image(uiImage: imagedata)
                         .resizable()
                         .frame(width: 90, height: 90)
                         .cornerRadius(6)
-                        .padding(.leading,40)
                     
                     VStack(alignment: .leading, spacing: 1){
                         HStack{
@@ -94,18 +164,18 @@ struct cell : View {
                                 Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
                                     .foregroundColor(.red)
                             }
-                            .padding(.trailing, 40)
+                            .padding(.trailing, 10)
                         }
                         
                         Text(cellData.storeAddress)
                             .font(.caption)
                             .bold()
-
                             .padding(.top, 2.5)
                         
                         Spacer()
+                        
                         HStack(alignment: .bottom){
-                            Text("깍두기 지수")
+                            Text("깍두기 점수")
                             
                             HStack(alignment: .center, spacing: 1){
                                 ForEach(0..<5) { index in
@@ -119,18 +189,18 @@ struct cell : View {
                             Spacer()
                             
                         }
-                        .frame(width: 300, height: 40)
+                        .frame(height: 40)
                         .padding(.bottom, -5)
                     }
-                    
+                    .padding(.leading, 0)
                 }
-            
+                
             }
         }
-       
+        
         .onAppear {
             collectionVM.isHeart = true
-//            print("\(#function) : \(cellData.storeImages.first ?? "")")
+
         }
     }
 }
