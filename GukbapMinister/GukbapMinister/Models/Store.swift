@@ -11,6 +11,15 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+//var numberFormatter: NumberFormatter {
+//  var numberFormatter = NumberFormatter()
+//  numberFormatter.numberStyle = .decimal
+//  numberFormatter.minimumSignificantDigits = 2
+//  numberFormatter.maximumSignificantDigits = 2
+//  
+//  var originalNum = 100.00000
+//  var newNum = numberFormatter.string(from: originalNum as NSNumber)
+//}
 
 struct Store: Codable, Hashable, Identifiable {
   
@@ -28,14 +37,13 @@ struct Store: Codable, Hashable, Identifiable {
   static func == (lhs : Store, rhs: Store) -> Bool{
     lhs.id == rhs.id
   }
-  
-  
-  
 }
 
 extension Store {
   static var test: Store = .init(storeName: "name", storeAddress: "address", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "description", countingStar: 0.5, foodType: ["순대국밥"])
 }
+
+
 
 
 
