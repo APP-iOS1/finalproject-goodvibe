@@ -214,13 +214,31 @@ final class UserViewModel: ObservableObject {
         }//Task
     }//registerUser()
     
+    // MARK: - 이메일 회원탈퇴
+    func deleteUser() {
+        let user = Auth.auth().currentUser
+        let uid = user?.uid
+        
+        // Firebase Authentication 에서 영구 삭제
+        user?.delete { error in
+            if let error = error {
+                print("회원탈퇴실패 : \(error.localizedDescription)")
+            } else {
+                print("회원탈퇴성공")
+                self.state = .signedOut
+            }
+        }
+        // FirebaseStore 에서 해당 유저 영구 삭제
+        database.collection("User").document(uid ?? "").delete()
+    }
+    
     //MARK: - 성별, 연령대, 선호지역 업데이트
     func signUpInfo(){
         Task{
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
-                    "status" : "일반",
+                    "status" : "깍두기",
                     "gender" : gender,
                     "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,
