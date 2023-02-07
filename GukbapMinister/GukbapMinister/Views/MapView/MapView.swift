@@ -33,7 +33,7 @@ struct MapView: View {
             
             mapFilter
             
-              rightCornerButtons(width: width, height: height)
+            rightCornerButtons(width: width, height: height)
             
             Spacer()
           }
@@ -48,7 +48,7 @@ struct MapView: View {
               }
             } else {
               Spacer()
-
+              
             }
             
             HStack{
@@ -60,12 +60,11 @@ struct MapView: View {
                 Text("")
               }
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 150)
-            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white))
+            .frame(width: Screen.searchBarWidth, height: 150)            
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
             .overlay {
-              RoundedRectangle(cornerRadius: 25)
-                .stroke(Color.mainColor)
+              RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.mainColor.opacity(0.5))
             }
             .padding(25)
             .offset(y: mapViewModel.isShowingSelectedStore ? 0 : 400)
@@ -84,5 +83,3 @@ struct MapView_Previews: PreviewProvider {
       .environmentObject(MapViewModel())
   }
 }
-
-// TODO: ModalView를 시트와 비슷하게 형성하여 사용자 친화적으로 구성
