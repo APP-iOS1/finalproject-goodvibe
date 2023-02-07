@@ -10,8 +10,6 @@ import FirebaseAuth
 
 struct CollectionView: View {
     @EnvironmentObject private var storesViewModel: StoresViewModel
-    
-    @EnvironmentObject private var testVM : MapViewModel
     @EnvironmentObject private var userVM: UserViewModel
     
     @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
@@ -101,7 +99,7 @@ struct CollectionView: View {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             print("\(collectionVM.stores)")
             Task{
-                storesViewModel.subscribeStores()
+//                storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
@@ -110,7 +108,7 @@ struct CollectionView: View {
         .refreshable {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             Task{
-                storesViewModel.subscribeStores()
+//                storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }

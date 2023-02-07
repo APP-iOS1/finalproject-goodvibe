@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ExploreView: View {
-    
-    @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
+
+    @EnvironmentObject var storesViewModel: StoresViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var selectedIndex: Int = 0
@@ -193,6 +193,7 @@ struct ExploreView: View {
         }
     } // var body
 }
+
 
 struct StoreView: View{
     var store :Store
