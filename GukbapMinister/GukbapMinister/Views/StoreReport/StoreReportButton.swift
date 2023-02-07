@@ -19,13 +19,12 @@ struct StoreReportButton: View {
                 Text("국밥집 제보")
                     .font(.caption.bold())
                     .foregroundColor(.mainColorLight)
-                    .padding(2)
-                    .padding(.horizontal, 2)
+                    .frame(width: 70, height: 20)
                     .background {
                         Capsule().fill(Color.mainColorDark)
                     }
                     .padding(.bottom, 4)
-                    .padding(.horizontal, -20)
+//                    .padding(.horizontal, -20)
                 
                 Circle()
                     .fill(Color.mainColor)

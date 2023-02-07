@@ -30,7 +30,7 @@ class MapViewModel : ObservableObject {
     // All loaded locations
     @Published var storeLocations : [Store]
     @Published var storeLocationAnnotations: [StoreAnnotation]
-    @Published var isShowingSelectedStore: Bool = false
+//    @Published var isShowingSelectedStore: Bool = false
     
     
     // 마커 클릭시 선택된 특정 Store

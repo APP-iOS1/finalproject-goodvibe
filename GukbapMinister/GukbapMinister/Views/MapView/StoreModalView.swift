@@ -63,6 +63,9 @@ struct StoreModalView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.mainColor.opacity(0.5))
         }
+        .onAppear {
+            print("모달이 나오겠습니다")
+        }
     }
     
     
