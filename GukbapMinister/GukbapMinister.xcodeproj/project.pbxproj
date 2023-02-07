@@ -230,7 +230,6 @@
 				5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */,
 				5BDB9ADE29757AED00BFD5D9 /* StoresViewModel.swift */,
 				5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */,
-				AD2A3013297A1BA100086F24 /* MapViewModel.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -691,7 +690,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-				DEVELOPMENT_TEAM = 6R3M7VGRP2;
+				DEVELOPMENT_TEAM = 4YH8347DW8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;

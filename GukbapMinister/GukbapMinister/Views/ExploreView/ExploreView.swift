@@ -142,7 +142,8 @@ struct ExploreView: View {
                                 .padding(.leading)
                                 .font(.body)
 
-                                Text("국밥부 직원들이 높게 평가한 국밥집을 모아봤어요")                                        .foregroundColor(.gray)
+                                Text("국밥부 직원들이 높게 평가한 국밥집을 모아봤어요")
+                                    .foregroundColor(.gray)
                                     .font(.caption)
                                     .padding(.leading)
                                     .padding(.top, 3)
@@ -201,21 +202,6 @@ struct StoreView: View{
     var body: some View{
         
         VStack{
-            
-            Image(uiImage: imagedata)
-                .resizable()
-                .frame(width: 353, height: 250)
-                .padding(.top, 25)
-            
-            
-            Image(systemName: "heart")
-                .resizable()
-                .frame(width: 25, height: 25)
-                .foregroundColor(.secondary)
-                .fontWeight(.bold)
-                .offset(x: 140, y: -235)
-                .padding(.bottom, -25)
-            
             
             VStack{
                 Image(uiImage: imagedata)
