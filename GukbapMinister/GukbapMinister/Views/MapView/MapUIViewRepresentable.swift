@@ -17,9 +17,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         self.mapViewController = control
     }
     
-    //    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-    //            mapViewController.region = mapView.region
-    //    }
     
     /*
      - Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
@@ -50,7 +47,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         
-        }
+    }
     
     
     func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
@@ -66,6 +63,8 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
             
             annotationView?.image =  markerImage
             
+            //텍스트 추가 시도
+            /*
             let uiText = UITextView(frame: CGRect())
             uiText.text = annotation.title
             uiText.textColor = .black
@@ -73,12 +72,10 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
             uiText.layer.cornerRadius = 10
                                     
             annotationView?.addSubview(uiText)
+             */
             
         }
         
-//        else {
-//            annotationView?.annotation = annotation
-//        }
         
         return annotationView
     }
@@ -116,6 +113,14 @@ struct MapUIView: UIViewRepresentable {
         maps.showsCompass = true
         
         let trackingButton = MKUserTrackingButton(mapView: maps)
+        trackingButton.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        trackingButton.layer.borderColor = UIColor.white.cgColor
+        trackingButton.layer.borderWidth = 1
+        trackingButton.layer.cornerRadius = 5
+        trackingButton.center = CGPoint(x: 120, y: 200)
+        
+        
+        
         maps.addSubview(trackingButton)
         
         // 맵이 보이는 범위를 한국으로 제한하기
@@ -136,6 +141,7 @@ struct MapUIView: UIViewRepresentable {
 //        view.removeAnnotations(view.annotations)
         // Passing model array here
         view.addAnnotations(storeAnnotations)
+        
         
     }
     
