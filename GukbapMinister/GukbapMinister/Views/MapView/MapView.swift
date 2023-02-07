@@ -13,8 +13,8 @@ struct MapView: View {
     
     // 필터 버튼을 눌렀을 때 동작하는
     @State var isShowingFilterModal: Bool = false
-    
-    
+
+
     var body: some View {
         // 지오메트리 리더가 뷰 안에 선언 되어있기 때문에 뷰 만큼의 너비와 높이를 가져옴
         GeometryReader { geo in
@@ -34,14 +34,15 @@ struct MapView: View {
                     
                     VStack {
                         SearchBarButton()
-                        
                         mapFilter
-                        
-                        rightCornerButtons(width: width, height: height)
-                        
                         Spacer()
                     }
                     
+                    StoreReportButton()
+                        .offset(x: width * 0.5 - 35 - 12)
+                    
+                    Text("\(mapViewModel.isShowingSelectedStore ? "true" : "false" )")
+                 
                     VStack {
                         if mapViewModel.isShowingSelectedStore {
                             Button {
@@ -50,8 +51,10 @@ struct MapView: View {
                                 Spacer()
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
+                            .background(.green)
                         } else {
                             Spacer()
+                                .background(.red)
                         }
 
                         StoreModalView(store: mapViewModel.selectedStore ?? .test)
@@ -64,17 +67,17 @@ struct MapView: View {
             }
 
         }
+        
       }
 
 }
 
-struct MapView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        MapView()
-        // Preview will crash without implementing environmentObject here
-            .environmentObject(StoresViewModel())
-            .environmentObject(MapViewModel(storeLocations: [.test]))
-    }
-
-}
+//struct MapView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        MapView(storesViewModel: StoresViewModel())
+//        // Preview will crash without implementing environmentObject here
+//            .environmentObject(MapViewModel(storeLocations: [.test]))
+//    }
+//
+//}
