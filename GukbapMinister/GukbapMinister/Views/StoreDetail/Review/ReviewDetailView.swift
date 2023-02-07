@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @StateObject var reviewViewModel: ReviewViewModel
     let selectedtedReview: Review
+    @Binding var isShowingReviewDetailView : Bool
+
     //
     //    init(){
     //        UIScrollView.appearance().bounces = false
@@ -26,24 +27,20 @@ struct ReviewDetailView: View {
                     
                     
                     if let images = selectedtedReview.images{
-                        
-                        
-                        
-                        HStack{
-                            Text(selectedtedReview.createdDate)
-                                .fontWeight(.light)
-                                .foregroundColor(.white)
-                            
-                        }
-                        .padding(.top,5)
                         TabView() {
+                            
                             ForEach(images, id: \.self) { imageKey in
-                                if let image = reviewViewModel.reviewImage[imageKey] {
-                                    
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFit()
+                                Button(action:{
+                                    isShowingReviewDetailView.toggle()
+                                }){
+                                    if let image = reviewViewModel.reviewImage[imageKey] {
+                                        
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
                                 }
+                            
                             }//ForEach
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode:.never))
@@ -72,7 +69,7 @@ struct ReviewDetailView: View {
                 
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        presentationMode.wrappedValue.dismiss()
+                        isShowingReviewDetailView.toggle()
                     } label: {
                         Image(systemName: "xmark")
                             .tint(.white)

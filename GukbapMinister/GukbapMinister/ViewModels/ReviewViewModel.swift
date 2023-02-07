@@ -30,6 +30,7 @@ class ReviewViewModel: ObservableObject {
     //    var image: [String]?
     //    var nickName: String
     //    var createdDate: String
+    //    var storeName: String
     
     func fetchReviews() {
         

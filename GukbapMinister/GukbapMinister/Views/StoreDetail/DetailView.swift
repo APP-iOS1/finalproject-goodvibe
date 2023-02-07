@@ -132,6 +132,7 @@ struct DetailView: View {
                     }
                 }
             }//GeometryReader
+            .navigationTitle(store.storeName)
         }//NavigationStack
         //가게 이미지만 보는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingStoreImageDetail){
@@ -165,11 +166,12 @@ extension DetailView {
         //Store.storeName, Store.storeAddress
         HStack {
             VStack(alignment: .center){
-                Text(store.storeName)
-                    .font(.title.bold())
-                    .padding(.top, -52)
+
                 // .padding(.bottom, 3)
                 Text(store.storeAddress)
+                    .font(.system(size:15))
+                    .foregroundColor(.secondary)
+                    .padding(.top,-25)
                 
             }
             //                ForEach(mapViewModel.filteredGukbaps, id:\.self) { gukbap in
@@ -343,9 +345,12 @@ struct UserReview:  View {
     @StateObject var reviewViewModel: ReviewViewModel
     @ObservedObject var starStore = StarStore()
     @Binding var scrollViewOffset: CGFloat
-    @State private var showingReportSheet = false
+    @State private var isShowingReportView = false
     @State var selectedReportButton = ""
     @State var reportEnter = false
+    
+    @State private var isshowingReviewDetailView = false
+
     var review: Review
     
     var body: some View {
@@ -356,20 +361,11 @@ struct UserReview:  View {
                     .fontWeight(.semibold)
                     .padding()
                 Spacer()
-                
-                Button(action:{
-                    showingReportSheet.toggle()
-                    print("\(showingReportSheet)")
-                    
-                }){
-                    Text("신고하기")
-                        .font(.system(size:12))
-                    Image(systemName: "chevron.right")
-                        .font(.system(size:7))
-                        .padding(.leading, -8)
-                }
-                .padding()
-                .foregroundColor(.secondary)
+                Text("\(review.createdDate)")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding()
+               
                 
             }
             
@@ -381,11 +377,20 @@ struct UserReview:  View {
                         .padding()
                 }
                 Spacer()
-                Text("\(review.createdDate)")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding()
-                
+              
+                Button(action:{
+                    isShowingReportView.toggle()
+                    print("\(isShowingReportView)")
+                    
+                }){
+                    Text("신고하기")
+                        .font(.system(size:12))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size:7))
+                        .padding(.leading, -8)
+                }
+                .padding()
+                .foregroundColor(.secondary)
             }//HStack
             .padding(.top,-30)
             
@@ -396,9 +401,9 @@ struct UserReview:  View {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 4, content: {
                 
                 ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
-                    NavigationLink{
-                        ReviewDetailView(reviewViewModel: reviewViewModel,selectedtedReview: review)
-                    } label:{
+                    Button(action:{
+                        isshowingReviewDetailView.toggle()
+                    }){
                         if let image = reviewViewModel.reviewImage[imageData] {
                             
                             Image(uiImage: image)
@@ -408,11 +413,9 @@ struct UserReview:  View {
                                 .cornerRadius(5)
                         }//if let
                     }
-                    
-                    
-                    
-                    
-                }// ForEach(review.images)
+
+                }
+                // ForEach(review.images)
                 
                 
             })
@@ -432,8 +435,13 @@ struct UserReview:  View {
             Divider()
         }//VStack
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
-        .fullScreenCover(isPresented: $showingReportSheet) {
-            ReportView(isshowingReportSheet: $showingReportSheet, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter)
+        .fullScreenCover(isPresented: $isShowingReportView) {
+            ReportView(isshowingReportSheet: $isShowingReportView, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter)
+        }
+        //리뷰 이미지 크게 보이는 sheet로 이동
+        .fullScreenCover(isPresented: $isshowingReviewDetailView) {
+            ReviewDetailView(reviewViewModel: reviewViewModel,selectedtedReview: review, isShowingReviewDetailView: $isshowingReviewDetailView)
+            
         }
     }
     func getWidth(index:Int) -> CGFloat{
