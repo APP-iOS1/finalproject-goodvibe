@@ -81,11 +81,6 @@ struct StoreView: View{
         
             VStack{
                 
-//                Image("ExampleImage")
-//                    .resizable()
-//                    .frame(width: 353, height: 250)
-//                    .padding(.top, 25)
-                
                 Image(uiImage: imagedata)
                     .resizable()
                     .frame(width: 353, height: 250)

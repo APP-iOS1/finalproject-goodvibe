@@ -16,18 +16,18 @@ struct DetailView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
+    @StateObject private var storesViewModel: StoresViewModel = StoresViewModel()
     @ObservedObject var starStore = StarStore()
-    //@StateObject private var storeViewModel : StoreViewModel
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
-    @State private var showingAddingSheet: Bool = false
+    @State private var showingCreateRewviewSheet: Bool = false
     @State private var ggakdugiCount: Int = 0
     
     @State var startOffset: CGFloat = 0
     @State var scrollViewOffset: CGFloat = 0
     @State private var isReviewImageClicked: Bool = false
-
+    
     let colors: [Color] = [.yellow, .green, .red]
     //let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
     
@@ -45,7 +45,7 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
-                let width: CGFloat = geo.size.width
+                // let width: CGFloat = geo.size.width
                 
                 
                 ScrollView(showsIndicators: false) {
@@ -55,12 +55,13 @@ struct DetailView: View {
                         Color(uiColor: .white)
                         
                         VStack{
+                            
                             //상호명 주소
                             //Store.storeName, Store.storeAddress
                             storeNameAndAddress
                             
                             //Store.images
-                            storeImages(width)
+                            storeImages
                             
                             //Store.description
                             storeDescription
@@ -76,21 +77,21 @@ struct DetailView: View {
                             userStarRate
                             
                             ForEach(reviewViewModel.reviews) { review in
-                                NavigationLink{
-                                    ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
-                                }label: {
-                                    if (review.storeName == store.storeName){
-                                        UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
-                                        
-                                            .contextMenu{
-                                                Button{
-                                                    reviewViewModel.removeReview(review: review)
-                                                }label: {
-                                                    Text("삭제")
-                                                    Image(systemName: "trash")
-                                                }
-                                            }//contextMenu
-                                    }//NavigationLink
+                                //                                NavigationLink{
+                                //                                    ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
+                                //                                }label: {
+                                if (review.storeName == store.storeName){
+                                    UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
+                                    //
+                                        .contextMenu{
+                                            Button{
+                                                reviewViewModel.removeReview(review: review)
+                                            }label: {
+                                                Text("삭제")
+                                                Image(systemName: "trash")
+                                            }
+                                        }//contextMenu
+                                    //   }//NavigationLink
                                 }
                             }//FirstForEach
                             
@@ -98,19 +99,19 @@ struct DetailView: View {
                         // .padding(.bottom, 200)
                     }//ZStack
                 }//ScrollView
-                .overlay(
-                    GeometryReader{ proxy -> Color in
-                        DispatchQueue.main.async {
-                            if startOffset == 0 {
-                                self.startOffset = proxy.frame(in: .global).minY
-                            }
-                            let offset = proxy.frame(in: .global).minY
-                            self .scrollViewOffset = offset - startOffset
-                            
-                            //print("y축 위치 값: \(self.scrollViewOffset)")
-                        }
-                        return Color.clear
-                    })
+                //                .overlay(
+                //                    GeometryReader{ proxy -> Color in
+                //                        DispatchQueue.main.async {
+                //                            if startOffset == 0 {
+                //                                self.startOffset = proxy.frame(in: .global).minY
+                //                            }
+                //                            let offset = proxy.frame(in: .global).minY
+                //                            self .scrollViewOffset = offset - startOffset
+                //
+                //                            //print("y축 위치 값: \(self.scrollViewOffset)")
+                //                        }
+                //                        return Color.clear
+                //                    })
                 
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
@@ -135,17 +136,22 @@ struct DetailView: View {
                 }
             }//GeometryReader
         }//NavigationStack
-        .fullScreenCover(isPresented: $showingAddingSheet) {
-            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingAddingSheet, store: store )
+        //리뷰 작성하는 sheet로 이동
+        .fullScreenCover(isPresented: $showingCreateRewviewSheet) {
+            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingCreateRewviewSheet, store: store )
         }
-        
+       
         .onAppear{
+            Task{
+                storesViewModel.subscribeStores()
+                print("스토어뷰모델\(storesViewModel.storeTitleImage)")
+                
+            }
             reviewViewModel.fetchReviews()
-            print("리뷰 이미지\(reviewViewModel.reviewImage)")
         }
-        //        .onDisappear{
-        //            reviewViewModel.fetchReviews()
-        //        }
+        .onDisappear {
+            storesViewModel.unsubscribeStores()
+        }
         .refreshable {
             reviewViewModel.fetchReviews()
         }
@@ -157,42 +163,49 @@ extension DetailView {
         //상호명 주소
         //Store.storeName, Store.storeAddress
         HStack {
-            VStack(alignment: .leading){
+            VStack(alignment: .center){
                 Text(store.storeName)
                     .font(.title.bold())
-                    .padding(.bottom, 8)
+                    .padding(.top, -52)
+                // .padding(.bottom, 3)
                 Text(store.storeAddress)
+                
             }
-            Spacer()
+            //                ForEach(mapViewModel.filteredGukbaps, id:\.self) { gukbap in
+            //                    HStack(spacing: 2) {
+            //                        gukbap.image
+            //                            .resizable()
+            //                            .scaledToFill()
+            //                            .frame(width:28, height: 28)
+            //                        Text("\(gukbap.rawValue)")
+            //                    }
+            //                    .categoryCapsule()
+            //                }
+            
         }
         .padding(15)
+        
         .background(.white)
     }
-    
-    func storeImages(_ width: CGFloat) -> some View {
+    var storeImages: some View {
         TabView {
-            ForEach(Array(colors.enumerated()), id: \.offset) { index, color in
-                
-                VStack {
-                    Text("사진\(index + 1)")
-                        .foregroundColor(.white)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: width * 0.8)
-                .background(color)
+            ForEach(storesViewModel.stores, id: \.self){ store in
+                let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
+                Image(uiImage: imageData)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
             }
         }
-        .frame(height:width * 0.8)
+        
+        .frame(height:Screen.maxWidth * 0.8)
         .tabViewStyle(.page(indexDisplayMode: .always))
         
     }
     
-    
-    
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
-                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ")
+                Text("동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세 남산위에 저 소나무 철갑을 두른 듯 바람서리 불변함은 우리 기상일세 무궁화 삼천리 화려강산 대한사람 대한으로 길이보전하세  ")
                 //                Text(store.description)
                 //                    .fixedSize(horizontal: false, vertical: true)
                     .frame(height: textHeight)
@@ -294,7 +307,7 @@ extension DetailView {
         HStack {
             Spacer()
             VStack {
-                Text("\(userViewModel.userInfo.userNickname)님의 리뷰를 작성해주세요.")
+                Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -303,7 +316,7 @@ extension DetailView {
                 
                 GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
                     starStore.selectedStar = ggakdugi
-                    showingAddingSheet.toggle()
+                    showingCreateRewviewSheet.toggle()
                 }
             }
             .padding(.vertical, 30)
@@ -312,14 +325,15 @@ extension DetailView {
         }
         .background(.white)
     }
-    
-    
 }
 
 struct UserReview:  View {
     @StateObject var reviewViewModel: ReviewViewModel
     @ObservedObject var starStore = StarStore()
     @Binding var scrollViewOffset: CGFloat
+    @State private var showingReportSheet = false
+    @State var selectedReportButton = ""
+    @State var show = false
     var review: Review
     
     var body: some View {
@@ -330,10 +344,21 @@ struct UserReview:  View {
                     .fontWeight(.semibold)
                     .padding()
                 Spacer()
-                Text("\(review.createdDate)")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding()
+                
+                Button(action:{
+                    showingReportSheet.toggle()
+                    print("\(showingReportSheet)")
+                    
+                }){
+                    Text("신고하기")
+                        .font(.system(size:12))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size:7))
+                        .padding(.leading, -8)
+                }
+                .padding()
+                .foregroundColor(.secondary)
+                
             }
             
             HStack(spacing: -30){
@@ -344,6 +369,11 @@ struct UserReview:  View {
                         .padding()
                 }
                 Spacer()
+                Text("\(review.createdDate)")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding()
+                
             }//HStack
             .padding(.top,-30)
             
@@ -355,19 +385,28 @@ struct UserReview:  View {
                 
                 ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
                     
-                    if let image = reviewViewModel.reviewImage[imageData] {
-                        
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: getWidth(index: index), height: getHeight(index: index))
-                            .cornerRadius(5)
-                    }//if let
+                    
+                    NavigationLink{
+                        ReviewDetailView(reviewViewModel: reviewViewModel,selectedtedReview: review)
+                    } label:{
+                        if let image = reviewViewModel.reviewImage[imageData] {
+                            
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: getWidth(index: index), height: getHeight(index: index))
+                                .cornerRadius(5)
+                        }//if let
+                    }
+                    
+                    
+                    
                     
                 }// ForEach(review.images)
                 
                 
             })
+            
             .padding(.leading,10)
             .padding(.top,-15)
             
@@ -382,7 +421,10 @@ struct UserReview:  View {
             
             Divider()
         }//VStack
-        
+        //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
+        .fullScreenCover(isPresented: $showingReportSheet) {
+            ReportView(isshowingReportSheet: $showingReportSheet, selectedReportButton: $selectedReportButton, show: $show)
+        }
     }
     func getWidth(index:Int) -> CGFloat{
         let width = getRect().width - 25
