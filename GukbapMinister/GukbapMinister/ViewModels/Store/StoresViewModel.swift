@@ -90,6 +90,7 @@ final class StoresViewModel: ObservableObject {
 //        }
 //    }
     func fetchImages(storeId: String, imageName: String) async throws -> UIImage {
+        print("스토어 아이디: \(storeId)")
         let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
 
         let data = try await ref.data(maxSize: 1 * 1024 * 1024)

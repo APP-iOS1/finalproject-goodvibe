@@ -27,7 +27,6 @@ struct DetailView: View {
     @State var startOffset: CGFloat = 0
     @State var scrollViewOffset: CGFloat = 0
     @State private var isReviewImageClicked: Bool = false
-    
     let colors: [Color] = [.yellow, .green, .red]
     //let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
     
@@ -69,11 +68,6 @@ struct DetailView: View {
                             //Store.menu
                             storeMenu
                             
-                            // refactoring으로 인한 일시 주석처리
-                            //                            NaverMapView(coordination: (37.503693, 127.053033), marked: .constant(false), marked2: .constant(false))
-                            //                                .frame(height: 260)
-                            //                                .padding(.vertical, 15)
-                            
                             userStarRate
                             
                             ForEach(reviewViewModel.reviews) { review in
@@ -81,6 +75,7 @@ struct DetailView: View {
                                 //                                    ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 //                                }label: {
                                 if (review.storeName == store.storeName){
+                                    
                                     UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
                                     //
                                         .contextMenu{
@@ -140,11 +135,12 @@ struct DetailView: View {
         .fullScreenCover(isPresented: $showingCreateRewviewSheet) {
             CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingCreateRewviewSheet, store: store )
         }
-       
+        
         .onAppear{
             Task{
                 storesViewModel.subscribeStores()
                 print("스토어뷰모델\(storesViewModel.storeTitleImage)")
+                
                 
             }
             reviewViewModel.fetchReviews()
@@ -187,21 +183,41 @@ extension DetailView {
         
         .background(.white)
     }
+    //MARK: 가게 이미지
     var storeImages: some View {
+        //        TabView {
+        //            ForEach(storesViewModel.stores, id: \.self){ store in
+        //                    let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
+        //                    Image(uiImage: imageData)
+        //                        .resizable()
+        //                        .aspectRatio(contentMode: .fill)
+        //                }
+        //
+        //            }
         TabView {
-            ForEach(storesViewModel.stores, id: \.self){ store in
-                let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
-                Image(uiImage: imageData)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+
+            ForEach(Array(store.storeImages.enumerated()), id: \.offset){ index, imageData in
+                NavigationLink{
+                    StoreImageDetailView()
+                } label:{
+                    if let image = storesViewModel.storeTitleImage[imageData] {
+                        
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                        
+                        
+                    }
+                    //if let
+                }
+                
             }
-        }
         
+        }
         .frame(height:Screen.maxWidth * 0.8)
         .tabViewStyle(.page(indexDisplayMode: .always))
-        
     }
-    
+    //MARK: 가게 설명
     var storeDescription: some View {
         VStack(alignment: .leading) {
             Group {
@@ -281,6 +297,7 @@ extension DetailView {
         static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
     }
     
+    //MARK: 가게 메뉴정보
     var storeMenu: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -326,7 +343,7 @@ extension DetailView {
         .background(.white)
     }
 }
-
+//MARK: 가게 리뷰
 struct UserReview:  View {
     @StateObject var reviewViewModel: ReviewViewModel
     @ObservedObject var starStore = StarStore()
@@ -384,8 +401,6 @@ struct UserReview:  View {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 4, content: {
                 
                 ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
-                    
-                    
                     NavigationLink{
                         ReviewDetailView(reviewViewModel: reviewViewModel,selectedtedReview: review)
                     } label:{

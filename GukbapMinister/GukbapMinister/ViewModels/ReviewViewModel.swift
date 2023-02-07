@@ -149,7 +149,6 @@ class ReviewViewModel: ObservableObject {
     
     // MARK: - 서버의 Storage에서 이미지를 가져오는 Method
     func retrieveImages(reviewId: String, imageName: String) {
-        print("이미지 패치 함수 실행됨")
         let ref = storage.reference().child("images/\(reviewId)/\(imageName)")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
