@@ -73,7 +73,7 @@ class ReviewViewModel: ObservableObject {
             }
     }
     
-    // MARK: - 서버의 Reviews Collection에 Reviews 객체 하나를 추가하여 업로드하는 Method
+    // MARK: - 서버의 Review Collection에 Review 객체 하나를 추가하여 업로드하는 Method
     func addReview(review: Review, images: [UIImage]) async {
         do {
             var imgNameList: [String] = []
@@ -105,7 +105,7 @@ class ReviewViewModel: ObservableObject {
     
     // MARK: - 서버의 Reviews Collection에서 Reviews 객체 하나를 삭제하는 Method
     func removeReview(review: Review) {
-        database.collection("Reviews")
+        database.collection("Review")
             .document(review.id).delete()
         
         // remove photos from storage
