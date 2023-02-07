@@ -20,7 +20,7 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
-                .environmentObject(MapViewModel(storeLocations: storesViewModel.stores))
+                
                 
             ExploreView()
                 .tabItem {

@@ -65,6 +65,17 @@ class MapViewModel : ObservableObject {
         }
     }
     
+    func setStoreLocationAnnotations() {
+        self.storeLocationAnnotations = storeLocations.map { store in
+            StoreAnnotation(  storeId: store.id ?? "Not Found",
+                              title: store.storeName,
+                              subtitle: store.storeAddress,
+                              foodType: store.foodType.first ?? "순대국밥",
+                              coordinate: .init(latitude: store.coordinate.latitude, longitude: store.coordinate.longitude)
+            )
+        }
+    }
+    
     
     
     

@@ -8,7 +8,7 @@ struct MapView: View {
     @Environment(\.colorScheme) var scheme
     // Command + F -> replace: changes searched word in the file
     @EnvironmentObject var storesViewModel: StoresViewModel
-    @EnvironmentObject var mapViewModel: MapViewModel
+    @StateObject var mapViewModel = MapViewModel(storeLocations: [])
     @StateObject var locationManager = LocationManager()
     
     // 필터 버튼을 눌렀을 때 동작하는
@@ -65,6 +65,14 @@ struct MapView: View {
                 }
             }
 
+        }
+        .onAppear {
+            Task{
+                mapViewModel.storeLocations = storesViewModel.stores
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    mapViewModel.setStoreLocationAnnotations()
+                }
+            }
         }
         
       }
