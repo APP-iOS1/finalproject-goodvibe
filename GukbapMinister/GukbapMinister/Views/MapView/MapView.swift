@@ -13,7 +13,7 @@ struct MapView: View {
     
     // 필터 버튼을 눌렀을 때 동작하는
     @State var isShowingFilterModal: Bool = false
-
+    @State private var isShowingSelectedStore: Bool = false
 
     var body: some View {
         // 지오메트리 리더가 뷰 안에 선언 되어있기 때문에 뷰 만큼의 너비와 높이를 가져옴
@@ -28,7 +28,7 @@ struct MapView: View {
                         storeAnnotations: $mapViewModel.storeLocationAnnotations,
                         selectedStoreAnnotation:
                             $mapViewModel.selectedStoreAnnotation,
-                        isSelected: $mapViewModel.isShowingSelectedStore
+                        isSelected: $isShowingSelectedStore
                     )
                     .ignoresSafeArea(edges: [.top, .horizontal])
                     
@@ -41,26 +41,25 @@ struct MapView: View {
                     StoreReportButton()
                         .offset(x: width * 0.5 - 35 - 12)
                     
-                    Text("\(mapViewModel.isShowingSelectedStore ? "true" : "false" )")
                  
                     VStack {
-                        if mapViewModel.isShowingSelectedStore {
+                        if isShowingSelectedStore {
                             Button {
-                                mapViewModel.isShowingSelectedStore.toggle()
+                                isShowingSelectedStore.toggle()
                             } label: {
                                 Spacer()
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
-                            .background(.green)
+                            
                         } else {
                             Spacer()
-                                .background(.red)
+                                
                         }
 
                         StoreModalView(store: mapViewModel.selectedStore ?? .test)
                         .padding(25)
-                        .offset(y: mapViewModel.isShowingSelectedStore ? 0 : 400)
-                        .animation(.easeInOut, value: mapViewModel.isShowingSelectedStore)
+                        .offset(y: isShowingSelectedStore ? 0 : 400)
+                        .animation(.easeInOut, value: isShowingSelectedStore)
                     }
                     
                 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @State private var tabSelection: Int = 0
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
+    @StateObject var mapViewModel: MapViewModel = MapViewModel(storeLocations: [])
     
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -19,7 +20,10 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
-                .environmentObject(MapViewModel(storeLocations: storesViewModel.stores))
+                .environmentObject(mapViewModel)
+                .onAppear {
+                    mapViewModel.storeLocations = storesViewModel.stores
+                }
             ExploreView()
                 .tabItem {
                     Label("둘러보기", image: "Ddukbaegi.fill")
