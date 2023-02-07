@@ -31,7 +31,7 @@ struct MyReviewView: View {
                         // review 컬렉션의 유저 아이디와 현재 유저 아이디를 비교하여 같으면 '내가 쓴 리뷰'로 보여준다
                         ForEach(reviewVM.reviews, id: \.self) { review in
                             if(review.userId == userVM.userInfo.id){
-                                var reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
+                                let reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
                                 ReviewCell(reviewData: review, reviewImg: reviewImg)
                             }
 
