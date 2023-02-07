@@ -16,19 +16,19 @@ struct StoreModalView: View {
   var body: some View {
     NavigationStack {
       VStack {
-        HStack {
+        HStack() {
           Text(store.storeName)
-            .font(.title2)
+            .font(.title3)
             .bold()
-            .padding(.leading, 20)
+            .padding(.leading, 10)
+            .offset(y: 7)
           
           Spacer()
         }
         
-        Rectangle()
-          .frame(height: 2)
-          .foregroundColor(Color.mainColor)
-          .offset(y: -5)
+        Divider()
+          .frame(width: Screen.searchBarWidth, height: 1)
+          .overlay(Color.mainColor.opacity(0.5))
         
         NavigationLink(destination: DetailView(store: store)) {
           HStack {
@@ -40,8 +40,9 @@ struct StoreModalView: View {
             }
             .frame(width: 90, height: 90)
             .cornerRadius(6)
-            .padding(.leading, 20)
-            
+            .padding(.leading, 10)
+            .padding(.bottom, 15)
+
             VStack{
               HStack(alignment: .top){
                 Text(store.storeAddress)
@@ -53,15 +54,16 @@ struct StoreModalView: View {
                 Spacer()
               }
               .padding(.trailing, 20)
+              
               HStack {
                 Image("Ggakdugi")
                   .resizable()
                   .scaledToFill()
                   .frame(width: 20, height: 20)
-                Text("\(store.countingStar)")
+                Text(store.countingStar, formatter: NumberFormatter())
                   .font(.footnote)
                   .bold()
-                  
+                
                 Spacer()
               }
               .padding(.leading, 5)
