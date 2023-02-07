@@ -16,16 +16,21 @@ struct StoreModalView: View {
   var body: some View {
     NavigationStack {
       VStack {
-        HStack{
+        HStack() {
           Text(store.storeName)
-            .font(.title2)
+            .font(.title3)
             .bold()
-            .padding(.leading, 20)
+            .padding(.leading, 10)
+            .offset(y: 7)
           
           Spacer()
         }
         
-          NavigationLink(destination: DetailView(store: store)) {
+        Divider()
+          .frame(width: Screen.searchBarWidth, height: 1)
+          .overlay(Color.mainColor.opacity(0.5))
+        
+        NavigationLink(destination: DetailView(store: store)) {
           HStack {
             AsyncImage(url: URL(string: store.storeImages.isEmpty ? "이미지 없음" : store.storeImages[0])) { image in
               image
@@ -33,30 +38,35 @@ struct StoreModalView: View {
             } placeholder: {
               Color.gray.opacity(0.1)
             }
-            .frame(width: 100, height: 100)
+            .frame(width: 90, height: 90)
             .cornerRadius(6)
-            .padding(.leading, 20)
-            
+            .padding(.leading, 10)
+            .padding(.bottom, 15)
+
             VStack{
-              HStack {
-                Image("Ggakdugi")
-                  .resizable()
-                  .scaledToFill()
-                  .frame(width: 20, height: 20)
-                Text("\(store.countingStar)")
-                  .font(.title3)
-                
-                Spacer()
-              }
-              
               HStack(alignment: .top){
                 Text(store.storeAddress)
+                  .lineLimit(2)
+                  .multilineTextAlignment(.leading)
                   .bold()
                   .padding(.leading, 5)
                 
                 Spacer()
               }
               .padding(.trailing, 20)
+              
+              HStack {
+                Image("Ggakdugi")
+                  .resizable()
+                  .scaledToFill()
+                  .frame(width: 20, height: 20)
+                Text(store.countingStar, formatter: NumberFormatter())
+                  .font(.footnote)
+                  .bold()
+                
+                Spacer()
+              }
+              .padding(.leading, 5)
             }
             .padding(.horizontal, 5)
           }
@@ -69,7 +79,6 @@ struct StoreModalView: View {
           }
         }
       }
-      //      }.frame().background(.orange)
     }
   }
 }

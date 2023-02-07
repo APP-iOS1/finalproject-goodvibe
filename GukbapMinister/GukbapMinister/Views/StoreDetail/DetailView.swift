@@ -8,6 +8,7 @@
 import SwiftUI
 import Shimmer
 
+import FirebaseAuth
 class StarStore: ObservableObject {
     @Published var selectedStar: Int = 0
 }
@@ -19,6 +20,8 @@ struct DetailView: View {
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @StateObject private var storesViewModel: StoresViewModel = StoresViewModel()
     @ObservedObject var starStore = StarStore()
+    //@StateObject private var storeViewModel : StoreViewModel
+    @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
@@ -30,7 +33,7 @@ struct DetailView: View {
     @State private var isReviewImageClicked: Bool = false
     let colors: [Color] = [.yellow, .green, .red]
     //let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
-    
+    let currentUser = Auth.auth().currentUser
     
     //lineLimit 관련 변수
     @State private var isFirst: Bool = true
@@ -125,9 +128,10 @@ struct DetailView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            isBookmarked.toggle()
+                            collectionViewModel.isHeart.toggle()
+                            collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
                         } label: {
-                            Image(systemName: isBookmarked ? "heart.fill" : "heart")
+                            Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
                                 .tint(.red)
                         }
                     }

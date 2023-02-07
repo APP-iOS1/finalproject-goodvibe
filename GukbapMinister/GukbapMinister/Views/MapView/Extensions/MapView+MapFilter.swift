@@ -104,9 +104,4 @@ extension MapView {
 }
 
 
-struct MapFilter_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-            .environmentObject(MapViewModel())
-    }
-}
+
