@@ -42,7 +42,7 @@ struct StoreModalView: View {
             .cornerRadius(6)
             .padding(.leading, 10)
             .padding(.bottom, 15)
-
+            
             VStack{
               HStack(alignment: .top){
                 Text(store.storeAddress)
