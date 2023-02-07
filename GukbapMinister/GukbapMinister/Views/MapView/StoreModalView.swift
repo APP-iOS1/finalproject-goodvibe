@@ -102,10 +102,12 @@ extension StoreModalView {
                 Rectangle().fill(.gray.opacity(0.1))
                     .frame(width: 90, height: 90)
                     .cornerRadius(6)
+
             }
         }
     }
 }
+
 
 
 

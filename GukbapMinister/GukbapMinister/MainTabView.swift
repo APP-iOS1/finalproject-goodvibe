@@ -13,21 +13,19 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            ExploreView()
-                .tabItem {
-                    Label("둘러보기", image: "Ddukbaegi.fill")
-                }
-                .tag(0)
-                .environmentObject(storesViewModel)
-            
-            
             MapView()
                 .tabItem {
                     Label("지도", systemImage: "map")
                 }
-                .tag(1)
+                .tag(0)
                 .environmentObject(storesViewModel)
                 .environmentObject(MapViewModel(storeLocations: storesViewModel.stores))
+            ExploreView()
+                .tabItem {
+                    Label("둘러보기", image: "Ddukbaegi.fill")
+                }
+                .tag(1)
+                .environmentObject(storesViewModel)
             CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")

@@ -11,16 +11,16 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-func numberFormatter (countingStar: Double) -> NumberFormatter {
- var numberFormatter = NumberFormatter()
- numberFormatter.numberStyle = .decimal
- numberFormatter.minimumSignificantDigits = 2
- numberFormatter.maximumSignificantDigits = 2
-
-  _ = numberFormatter.string(from: countingStar as NSNumber)
-
-  return numberFormatter
- }
+//func numberFormatter (countingStar: Double) -> NumberFormatter {
+// var numberFormatter = NumberFormatter()
+// numberFormatter.numberStyle = .decimal
+// numberFormatter.minimumSignificantDigits = 2
+// numberFormatter.maximumSignificantDigits = 2
+//
+//  _ = numberFormatter.string(from: countingStar as NSNumber)
+//
+//  return numberFormatter
+// }
 
 struct Store: Codable, Hashable, Identifiable {
   
@@ -34,7 +34,7 @@ struct Store: Codable, Hashable, Identifiable {
   var countingStar: Double
   var foodType: [String] //국밥 타입: ex:순대,돼지국밥
   //    var viewCount: Int// 장소 조회수
-
+  
   static func == (lhs : Store, rhs: Store) -> Bool{
     lhs.id == rhs.id
   }

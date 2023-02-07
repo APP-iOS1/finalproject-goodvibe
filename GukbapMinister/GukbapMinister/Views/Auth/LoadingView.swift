@@ -15,7 +15,7 @@ struct LoadingView: View {
             if show{
                 Group{
                     Rectangle()
-                        .fill(.black.opacity(0.25))
+                        .fill(.black.opacity(0.1))
                         .ignoresSafeArea()
                     ProgressView()
                         .padding(15)
@@ -23,7 +23,7 @@ struct LoadingView: View {
                 }//Group
             } //if
         }//ZStack
-        .animation(.easeInOut(duration: 0.25), value: show)
+        .animation(.easeInOut(duration: 0.1), value: show)
     }
 }
 
