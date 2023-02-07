@@ -83,8 +83,8 @@ struct StoreModalView: View {
   }
 }
 
-struct StoreModalView_Previews: PreviewProvider {
-  static var previews: some View {
-    StoreModalView()
-  }
-}
+//struct StoreModalView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    StoreModalView()
+//  }
+//}

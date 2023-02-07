@@ -318,9 +318,9 @@ struct cellRandom : View {
     }
 }
 
-struct CollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionView()
-            .environmentObject(UserViewModel())
-    }
-}
+//struct CollectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CollectionView()
+//            .environmentObject(UserViewModel())
+//    }
+//}

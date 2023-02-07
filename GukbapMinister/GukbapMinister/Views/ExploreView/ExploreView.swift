@@ -200,6 +200,25 @@ struct StoreView: View{
     var imagedata: UIImage
     var body: some View{
         
+<<<<<<< HEAD
+            VStack{
+                
+                Image(uiImage: imagedata)
+                    .resizable()
+                    .frame(width: 353, height: 250)
+                    .padding(.top, 25)
+                
+                
+                Image(systemName: "heart")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.secondary)
+                    .fontWeight(.bold)
+                    .offset(x: 140, y: -235)
+                    .padding(.bottom, -25)
+                
+                
+=======
         VStack{
             Image(uiImage: imagedata)
                 .resizable()
@@ -207,6 +226,7 @@ struct StoreView: View{
                 .frame(width: 185, height: 185)
                 .cornerRadius(10)
 
+>>>>>>> dev
                 VStack{
                     HStack {
                         Image(systemName: "mappin")
