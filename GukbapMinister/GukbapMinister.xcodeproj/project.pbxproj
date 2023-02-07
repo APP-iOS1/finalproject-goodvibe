@@ -11,6 +11,8 @@
 		0392B374298782E800C510E5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B373298782E800C510E5 /* LocationManager.swift */; };
 		0392B37E298797E000C510E5 /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */; };
 		03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EE6A9D297791BF005616B3 /* StoreModalView.swift */; };
+		0400A08E2990CC9400727132 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A08D2990CC9400727132 /* ReportView.swift */; };
+		0400A0902992119500727132 /* StoreImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A08F2992119500727132 /* StoreImageDetailView.swift */; };
 		041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE96D297A287000BE32E7 /* ReviewDetailView.swift */; };
 		041FE9712988D57500BE32E7 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE9702988D57500BE32E7 /* SegmentedPicker.swift */; };
 		041FE9732988DCDE00BE32E7 /* Ex+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE9722988DCDE00BE32E7 /* Ex+View.swift */; };
@@ -86,6 +88,8 @@
 		0392B373298782E800C510E5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
 		03EE6A9D297791BF005616B3 /* StoreModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModalView.swift; sourceTree = "<group>"; };
+		0400A08D2990CC9400727132 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		0400A08F2992119500727132 /* StoreImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreImageDetailView.swift; sourceTree = "<group>"; };
 		041FE96D297A287000BE32E7 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
 		041FE9702988D57500BE32E7 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		041FE9722988DCDE00BE32E7 /* Ex+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+View.swift"; sourceTree = "<group>"; };
@@ -173,9 +177,10 @@
 		041FE96F297A387800BE32E7 /* Review */ = {
 			isa = PBXGroup;
 			children = (
-				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
 				049BF93C2976848D00D2D044 /* CreateReviewView.swift */,
+				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
 				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
+				0400A08D2990CC9400727132 /* ReportView.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 			children = (
 				5B01F2E22976840800ACB32F /* DetailView.swift */,
 				5B01F2E42976CD1200ACB32F /* CommentUnit.swift */,
+				0400A08F2992119500727132 /* StoreImageDetailView.swift */,
 				041FE96F297A387800BE32E7 /* Review */,
 			);
 			path = StoreDetail;
@@ -224,6 +230,7 @@
 				5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */,
 				5BDB9ADE29757AED00BFD5D9 /* StoresViewModel.swift */,
 				5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */,
+				AD2A3013297A1BA100086F24 /* MapViewModel.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -520,6 +527,7 @@
 				14A1879D298A601E00B4FE7F /* UpdateUserInfoView.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				AD2A3014297A1BA100086F24 /* MapViewModel.swift in Sources */,
+				0400A0902992119500727132 /* StoreImageDetailView.swift in Sources */,
 				5B0058422990B6E700564930 /* StoreReport.swift in Sources */,
 				63FCF534297677E0001712CA /* MainTabView.swift in Sources */,
 				5BDB9AD729757A3B00BFD5D9 /* User.swift in Sources */,
@@ -550,6 +558,7 @@
 				5BB236CC298A472E00CBC816 /* Constants.swift in Sources */,
 				041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */,
 				5BDB9AE329757B2000BFD5D9 /* ReviewViewModel.swift in Sources */,
+				0400A08E2990CC9400727132 /* ReportView.swift in Sources */,
 				5BDB9AD02975790400BFD5D9 /* MyPageView.swift in Sources */,
 				5BA2DB3F298EA12D00A33EAB /* MapView+MapFilter.swift in Sources */,
 			);
@@ -699,7 +708,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinister;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinisterr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -715,7 +724,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-				DEVELOPMENT_TEAM = 6R3M7VGRP2;
+				DEVELOPMENT_TEAM = 4YH8347DW8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
@@ -732,7 +741,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinister;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinisterr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

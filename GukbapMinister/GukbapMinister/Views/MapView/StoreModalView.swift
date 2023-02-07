@@ -60,9 +60,10 @@ struct StoreModalView: View {
                   .resizable()
                   .scaledToFill()
                   .frame(width: 20, height: 20)
-                Text("")
-                  .font(.footnote)
-                  .bold()
+                  // 임시 주석
+//                Text(store.countingStar, formatter: NumberFormatter())
+//                  .font(.footnote)
+//                  .bold()
                 
                 Spacer()
               }
@@ -83,8 +84,8 @@ struct StoreModalView: View {
   }
 }
 
-struct StoreModalView_Previews: PreviewProvider {
-  static var previews: some View {
-    StoreModalView()
-  }
-}
+//struct StoreModalView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    StoreModalView()
+//  }
+//}

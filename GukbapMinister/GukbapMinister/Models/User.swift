@@ -18,4 +18,6 @@ struct User: Identifiable, Hashable, Codable {
     var gukbaps: [String] = []
     var filterdGukbaps: [String] = []
     var status : String = ""
+    var reviewCount: Int = 0
+    var storeReportCount: Int = 0
 }

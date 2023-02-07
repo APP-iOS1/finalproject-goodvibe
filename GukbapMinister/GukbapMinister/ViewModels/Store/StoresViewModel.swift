@@ -101,6 +101,8 @@ final class StoresViewModel: ObservableObject {
     }
     
     
+    
+    
     // MARK: - Storage에서 이미지 다운로드
 //    private func fetchImages(storeId: String, imageName: String) {
 //        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
@@ -118,6 +120,7 @@ final class StoresViewModel: ObservableObject {
 //        }
 //    }
     func fetchImages(storeId: String, imageName: String) async throws -> UIImage {
+        print("스토어 아이디: \(storeId)")
         let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
 
         let data = try await ref.data(maxSize: 1 * 1024 * 1024)
