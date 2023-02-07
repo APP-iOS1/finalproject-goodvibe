@@ -200,33 +200,30 @@ struct StoreView: View{
     var imagedata: UIImage
     var body: some View{
         
-<<<<<<< HEAD
-            VStack{
-                
-                Image(uiImage: imagedata)
-                    .resizable()
-                    .frame(width: 353, height: 250)
-                    .padding(.top, 25)
-                
-                
-                Image(systemName: "heart")
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(.secondary)
-                    .fontWeight(.bold)
-                    .offset(x: 140, y: -235)
-                    .padding(.bottom, -25)
-                
-                
-=======
         VStack{
+            
             Image(uiImage: imagedata)
                 .resizable()
-                .scaledToFill()
-                .frame(width: 185, height: 185)
-                .cornerRadius(10)
-
->>>>>>> dev
+                .frame(width: 353, height: 250)
+                .padding(.top, 25)
+            
+            
+            Image(systemName: "heart")
+                .resizable()
+                .frame(width: 25, height: 25)
+                .foregroundColor(.secondary)
+                .fontWeight(.bold)
+                .offset(x: 140, y: -235)
+                .padding(.bottom, -25)
+            
+            
+            VStack{
+                Image(uiImage: imagedata)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 185, height: 185)
+                    .cornerRadius(10)
+                
                 VStack{
                     HStack {
                         Image(systemName: "mappin")
@@ -241,7 +238,7 @@ struct StoreView: View{
                         Text("\(store.storeAddress)")
                             .font(.caption2)
                             .lineLimit(1)
-
+                        
                         Spacer()
                     }
                     .padding(.bottom, 5)
@@ -255,23 +252,23 @@ struct StoreView: View{
                         Spacer()
                     }
                     .padding(.bottom, 5)
-
                     
-//                    HStack {
-//                        Spacer()
-//                        Text("평점 4.9")
-//                        Text("조회수 24150")
-//                    }
-//                    .font(.caption2)
-//                    .padding(.trailing, 5)
+                    
+                    //                    HStack {
+                    //                        Spacer()
+                    //                        Text("평점 4.9")
+                    //                        Text("조회수 24150")
+                    //                    }
+                    //                    .font(.caption2)
+                    //                    .padding(.trailing, 5)
                 }
                 .frame(width: 185)
             } //VStack
             .foregroundColor(.black)
             .frame(width: 200, height: 300)
             .padding(1)
-        
-    } // var body
+            
+        } // var body
+    }
 }
-
 

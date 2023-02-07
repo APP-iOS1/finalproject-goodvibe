@@ -60,9 +60,10 @@ struct StoreModalView: View {
                   .resizable()
                   .scaledToFill()
                   .frame(width: 20, height: 20)
-                Text(store.countingStar, formatter: NumberFormatter())
-                  .font(.footnote)
-                  .bold()
+                  // 임시 주석
+//                Text(store.countingStar, formatter: NumberFormatter())
+//                  .font(.footnote)
+//                  .bold()
                 
                 Spacer()
               }
