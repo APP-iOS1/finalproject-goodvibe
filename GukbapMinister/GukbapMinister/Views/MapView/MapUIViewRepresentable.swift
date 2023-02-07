@@ -17,9 +17,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         self.mapViewController = control
     }
     
-    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-            mapViewController.region = mapView.region
-    }
     
     /*
      - Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
@@ -27,20 +24,20 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     @MainActor
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard !annotation.isKind(of: MKUserLocation.self) else {
-                // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
-                return nil
-            }
+            // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
+            return nil
+        }
         
         
         var annotationView: MKAnnotationView?
         
         if let annotation = annotation as? StoreAnnotation {
-                annotationView = setUpStoreAnnotationView(for: annotation, on: mapView) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-            }
+            annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
+        }
         
         return annotationView
     }
- 
+    
     // 마커를 클릭 했을 때 동작하는 함수
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation as? StoreAnnotation else { return }
@@ -48,25 +45,38 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         mapViewController.isSelected = true
     }
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+    }
+    
     
     func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
-        let identifier = "customView"
+        let identifier = annotation.storeId
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-//            let markerImage = UIImage()
-//                .getMarkerImage(foodType: annotation.foodType)?
-//                .resizeImageTo(size: CGSize(width: 60, height: 60))
+          
             let markerImage = Gukbaps(rawValue: annotation.foodType)?
                 .uiImage?
                 .resizeImageTo(size: CGSize(width: 60, height: 60))
             
             annotationView?.image =  markerImage
             
-        } else {
-            annotationView?.annotation = annotation
+            //텍스트 추가 시도
+            /*
+            let uiText = UITextView(frame: CGRect())
+            uiText.text = annotation.title
+            uiText.textColor = .black
+            uiText.textAlignment = .center
+            uiText.layer.cornerRadius = 10
+                                    
+            annotationView?.addSubview(uiText)
+             */
+            
         }
+        
+        
         return annotationView
     }
     
@@ -81,34 +91,57 @@ struct MapUIView: UIViewRepresentable {
     @Binding var selectedStoreAnnotation: StoreAnnotation
     @Binding var isSelected: Bool
     
+
+    
     
     /*
      - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
      */
     func makeUIView(context: Context) -> MKMapView {
-        let maps = MKMapView(frame: .zero)
-        // 맵의 초기 지역 MKMapRect로 설정
-        //    maps.visibleMapRect = .seoul
-        maps.setRegion(region, animated: true)
-        maps.showsCompass = true
+        let maps = MKMapView(frame: UIScreen.main.bounds)
+        
+        // 맵이 처음 보이는 지역을 서울로 설정
+        maps.visibleMapRect = .seoul
+        
+        // 멥에서 기본적으로 제공하는 요소들의 위치를 조절하기 위한 설정
+        maps.layoutMargins = UIEdgeInsets(top: 140, left: 0, bottom: 36, right: 9)
+        
+        // 유저의 위치를 볼 수있게 설정
         maps.showsUserLocation = true
         
-        // 맵이 보이는 범위를 제한하기
-        //         maps.cameraBoundary = MKMapView.CameraBoundary(mapRect: .korea)
-        //         maps.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(500000))
-        //
+        // 나침반이 보이게 설정
+        maps.showsCompass = true
+        
+        let trackingButton = MKUserTrackingButton(mapView: maps)
+        trackingButton.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        trackingButton.layer.borderColor = UIColor.white.cgColor
+        trackingButton.layer.borderWidth = 1
+        trackingButton.layer.cornerRadius = 5
+        trackingButton.center = CGPoint(x: 120, y: 200)
+        
+        
+        
+        maps.addSubview(trackingButton)
+        
+        // 맵이 보이는 범위를 한국으로 제한하기
+        maps.cameraBoundary = MKMapView.CameraBoundary(mapRect: .korea)
+        
+        // 맵으로 줌아웃 했을 때 최대 고도 설정
+        maps.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(500000))
+        
         
         return maps
     }
     
     
     func updateUIView(_ view: MKMapView, context: Context) {
-        // If you changing the Map Annotation then you have to remove old Annotations
-//        view.removeAnnotations(view.annotations)
         // Assigning delegate
         view.delegate = context.coordinator
+        // If you changing the Map Annotation then you have to remove old Annotations
+//        view.removeAnnotations(view.annotations)
         // Passing model array here
         view.addAnnotations(storeAnnotations)
+        
         
     }
     

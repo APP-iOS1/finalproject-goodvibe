@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
-
+    @EnvironmentObject var storesViewModel: StoresViewModel
     @EnvironmentObject var userViewModel: UserViewModel
         
     let titles: [String] = ["조회수순", "평점순"]
@@ -60,15 +59,6 @@ struct ExploreView: View {
                 
                 
             }
-        }
-        .onAppear {
-            Task{
-                storesViewModel.subscribeStores()
-                //            storeViewModel.fetchStore()
-            }
-        }
-        .onDisappear {
-            storesViewModel.unsubscribeStores()
         }
     }
 }//ExploreView

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var tabSelection: Int = 0
+    @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
+    
     var body: some View {
         TabView(selection: $tabSelection) {
             ExploreView()
@@ -16,6 +18,7 @@ struct MainTabView: View {
                     Label("둘러보기", image: "Ddukbaegi.fill")
                 }
                 .tag(0)
+                .environmentObject(storesViewModel)
             
             
             MapView()
@@ -23,8 +26,8 @@ struct MainTabView: View {
                     Label("지도", systemImage: "map")
                 }
                 .tag(1)
-                .environmentObject(MapViewModel())
-            
+                .environmentObject(storesViewModel)
+                .environmentObject(MapViewModel(storeLocations: storesViewModel.stores))
             CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
@@ -32,8 +35,8 @@ struct MainTabView: View {
                 .toolbar(.visible, for: .tabBar)
                 .toolbarBackground(Color.white, for: .tabBar)
                 .tag(2)
-                .environmentObject(MapViewModel())
-                .environmentObject(StoresViewModel())
+                .environmentObject(storesViewModel)
+                .environmentObject(UserViewModel())
             
             
             MyPageView()
@@ -43,9 +46,15 @@ struct MainTabView: View {
                 .tag(3)
         }
         .accentColor(.mainColor)
-
-
-
+        .onAppear {
+            storesViewModel.subscribeStores()
+        }
+        .onDisappear {
+            storesViewModel.unsubscribeStores()
+        }
+        
+        
+        
     }
 }
 
