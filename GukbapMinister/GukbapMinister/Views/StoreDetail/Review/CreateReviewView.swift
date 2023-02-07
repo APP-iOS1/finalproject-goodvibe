@@ -81,7 +81,7 @@ struct CreateReviewView: View {
                                 matching: .images,
                                 photoLibrary: . shared()){
                                     Image(systemName: "camera")
-                                        .foregroundColor(.yellow)
+                                        .foregroundColor(Color("AccentColor"))
                                         .font(.system(size: 25))
                                         .frame(width:70, height: 40, alignment: .center)
                                     
@@ -92,7 +92,7 @@ struct CreateReviewView: View {
                                 if selectedImages.count == 0{
                                     Text("\(selectedImages.count)")
                                         .font(.callout)
-                                        .foregroundColor(selectedImages.count == 0 ? .gray : .yellow)
+                                        .foregroundColor(selectedImages.count == 0 ? .gray : Color("AccentColor"))
                                         .fontWeight(.regular)
                                         .padding(.trailing,-8)
                                     Text("/4")
@@ -118,7 +118,7 @@ struct CreateReviewView: View {
                             .padding(.top,-10)
                             .padding(.leading,4)
                         }
-                        .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.yellow,lineWidth: 1.5))
+                        .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color("AccentColor"),lineWidth: 1.5))
                         .onChange(of: selectedImages) { items in
                             //선택된 이미지 없으면 배열 초기화
                             if items.isEmpty { selectedImageData = [] }
@@ -253,7 +253,7 @@ struct CreateReviewView: View {
                                         }
                                     }) {
                                         Image(systemName: "plus")
-                                            .foregroundColor(Color.black)
+                                            .foregroundColor(Color("AccentColor"))
                                     }
                                 }
                             }//if
@@ -275,7 +275,7 @@ struct CreateReviewView: View {
                             .bold()
                     }
                     .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                    .background(Color.yellow)
+                    .background(Color("AccentColor"))
                     .cornerRadius(100)
                 } customize: {
                     $0

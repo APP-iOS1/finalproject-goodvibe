@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shimmer
 
 class StarStore: ObservableObject {
     @Published var selectedStar: Int = 0
@@ -39,7 +40,8 @@ struct DetailView: View {
     
     //StoreImageDetailView 전달 변수
     @State private var isshowingStoreImageDetail: Bool = false
-    
+
+
     var store : Store
     
     var body: some View {
@@ -76,17 +78,16 @@ struct DetailView: View {
                                 // 리뷰 섹션 클릭시 뭐할지? 고민중, 우선순위도에서 밀려남                                   ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 //                                }label: {
                                 if (review.storeName == store.storeName){
-                                    
                                     UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
-                                    //
-                                        .contextMenu{
-                                            Button{
-                                                reviewViewModel.removeReview(review: review)
-                                            }label: {
-                                                Text("삭제")
-                                                Image(systemName: "trash")
-                                            }
-                                        }//contextMenu
+                                   
+//                                        .contextMenu{
+//                                            Button{
+//                                                reviewViewModel.removeReview(review: review)
+//                                            }label: {
+//                                                Text("삭제")
+//                                                Image(systemName: "trash")
+//                                            }
+//                                        }//contextMenu
                                     //   }//NavigationLink
                                 }
                                 
@@ -348,24 +349,62 @@ struct UserReview:  View {
     @State private var isShowingReportView = false
     @State var selectedReportButton = ""
     @State var reportEnter = false
-    
+    @EnvironmentObject var userViewModel: UserViewModel
+
     @State private var isshowingReviewDetailView = false
 
+    //리뷰 삭제 알림
+    @State private var isDeleteAlert: Bool = false
+    
     var review: Review
     
     var body: some View {
         VStack{
             HStack{
-                Text("\(review.nickName)")
-                    .foregroundColor(.black)
-                    .fontWeight(.semibold)
-                    .padding()
+                Spacer()
+                if userViewModel.currentUser?.uid ?? ""  == review.userId {
+                    Button {
+                        isDeleteAlert.toggle()
+                       
+                    } label: {
+                        Image(systemName: "trash")
+                            .font(.system(size:20))
+                            .padding(.trailing,15)
+                            .padding(.leading,-10)
+                            .padding(.bottom,-20)
+                    }
+                    .alert(isPresented: $isDeleteAlert) {
+                      Alert(title: Text(""),
+                              message: Text("리뷰를 삭제하시겠습니까?"),
+                              primaryButton: .destructive(Text("확인"),
+                                                          action: {
+                          
+                        }), secondaryButton: .cancel(Text("닫기")))
+                    }
+
+                }
+
+            }
+            
+            HStack{
+                if userViewModel.currentUser?.uid ?? "" == review.userId {
+                    Text("\(review.nickName)")
+                        .shimmering()
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
+                        .padding()
+                }else {
+                    Text("\(review.nickName)")
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
+                        .padding()
+                }
+               
                 Spacer()
                 Text("\(review.createdDate)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
                     .padding()
-               
                 
             }
             
@@ -377,20 +416,24 @@ struct UserReview:  View {
                         .padding()
                 }
                 Spacer()
-              
-                Button(action:{
-                    isShowingReportView.toggle()
-                    print("\(isShowingReportView)")
-                    
-                }){
-                    Text("신고하기")
-                        .font(.system(size:12))
-                    Image(systemName: "chevron.right")
-                        .font(.system(size:7))
-                        .padding(.leading, -8)
+                if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                    Button(action:{
+                        isShowingReportView.toggle()
+                        print("\(isShowingReportView)")
+                        
+                    }){
+                        Text("신고하기")
+                            .font(.system(size:12))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size:7))
+                            .padding(.leading, -8)
+                    }
+                    .padding()
+                    .foregroundColor(.secondary)
+                }else{
+                Text("")
                 }
-                .padding()
-                .foregroundColor(.secondary)
+       
             }//HStack
             .padding(.top,-30)
             
