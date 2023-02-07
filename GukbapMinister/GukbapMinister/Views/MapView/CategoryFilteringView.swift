@@ -129,7 +129,7 @@ struct GukbapCategoryFilteringView_Previews: PreviewProvider {
         NavigationStack {
             CategoryFilteringView(showModal: .constant(false), mode: .map)
         }
-        .environmentObject(MapViewModel())
+        .environmentObject(MapViewModel(storeLocations: []))
         .environmentObject(UserViewModel())
     }
 }
