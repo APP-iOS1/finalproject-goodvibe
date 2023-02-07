@@ -284,13 +284,16 @@ extension DetailView {
                 VStack {
                     Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
                         .fontWeight(.bold)
+                        .padding(.bottom,10)
+                        
                     
-                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
+                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 45, spacing: 15) { ggakdugi in
                         starStore.selectedStar = ggakdugi
                         showingCreateRewviewSheet.toggle()
                     }
                 }
-                .padding(.vertical, 30)
+                .padding(.top, 10)
+                .padding(.bottom, 20)
                 
                 Spacer()
             }
