@@ -37,7 +37,8 @@ struct DetailView: View {
     @State private var needFoldButton: Bool = true
     @State private var textHeight: CGFloat? = nil
     
-    
+    //StoreImageDetailView 전달 변수
+    @State private var isshowingStoreImageDetail: Bool = false
     
     var store : Store
     
@@ -72,7 +73,7 @@ struct DetailView: View {
                             
                             ForEach(reviewViewModel.reviews) { review in
                                 //                                NavigationLink{
-                                //                                    ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
+                                // 리뷰 섹션 클릭시 뭐할지? 고민중, 우선순위도에서 밀려남                                   ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
                                 //                                }label: {
                                 if (review.storeName == store.storeName){
                                     
@@ -88,6 +89,7 @@ struct DetailView: View {
                                         }//contextMenu
                                     //   }//NavigationLink
                                 }
+                                
                             }//FirstForEach
                             
                         }//VStack
@@ -131,6 +133,10 @@ struct DetailView: View {
                 }
             }//GeometryReader
         }//NavigationStack
+        //가게 이미지만 보는 sheet로 이동
+        .fullScreenCover(isPresented: $isshowingStoreImageDetail){
+            StoreImageDetailView(storesViewModel: storesViewModel, isshowingStoreImageDetail: $isshowingStoreImageDetail, store: store)
+        }
         //리뷰 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $showingCreateRewviewSheet) {
             CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingCreateRewviewSheet, store: store )
@@ -139,7 +145,6 @@ struct DetailView: View {
         .onAppear{
             Task{
                 storesViewModel.subscribeStores()
-                print("스토어뷰모델\(storesViewModel.storeTitleImage)")
                 
                 
             }
@@ -185,28 +190,18 @@ extension DetailView {
     }
     //MARK: 가게 이미지
     var storeImages: some View {
-        //        TabView {
-        //            ForEach(storesViewModel.stores, id: \.self){ store in
-        //                    let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
-        //                    Image(uiImage: imageData)
-        //                        .resizable()
-        //                        .aspectRatio(contentMode: .fill)
-        //                }
-        //
-        //            }
         TabView {
 
             ForEach(Array(store.storeImages.enumerated()), id: \.offset){ index, imageData in
-                NavigationLink{
-                    StoreImageDetailView()
-                } label:{
+                Button(action: {
+                    isshowingStoreImageDetail.toggle()
+                }){
                     if let image = storesViewModel.storeTitleImage[imageData] {
                         
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                        
-                        
+ 
                     }
                     //if let
                 }
@@ -350,7 +345,7 @@ struct UserReview:  View {
     @Binding var scrollViewOffset: CGFloat
     @State private var showingReportSheet = false
     @State var selectedReportButton = ""
-    @State var show = false
+    @State var reportEnter = false
     var review: Review
     
     var body: some View {
@@ -438,7 +433,7 @@ struct UserReview:  View {
         }//VStack
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $showingReportSheet) {
-            ReportView(isshowingReportSheet: $showingReportSheet, selectedReportButton: $selectedReportButton, show: $show)
+            ReportView(isshowingReportSheet: $showingReportSheet, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter)
         }
     }
     func getWidth(index:Int) -> CGFloat{

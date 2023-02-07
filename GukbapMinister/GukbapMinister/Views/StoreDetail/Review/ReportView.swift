@@ -10,7 +10,8 @@ import SwiftUI
 struct ReportView: View {
     @Binding var isshowingReportSheet : Bool
     @Binding var selectedReportButton : String
-    @Binding var show : Bool
+    @Binding var reportEnter : Bool
+   
     @State var reportText = ""
 
     var Content = [
@@ -86,7 +87,7 @@ struct ReportView: View {
                     Spacer()
                     
                     Button(action:{
-                        self.show.toggle()
+                        self.reportEnter.toggle()
                     }){
                         Text("신고하기")
                             .font(.subheadline)

@@ -254,7 +254,6 @@ struct CreateReviewView: View {
                                     }) {
                                         Image(systemName: "plus")
                                             .foregroundColor(Color.black)
-                                        
                                     }
                                 }
                             }//if

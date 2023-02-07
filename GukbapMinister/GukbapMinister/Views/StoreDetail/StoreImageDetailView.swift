@@ -8,13 +8,61 @@
 import SwiftUI
 
 struct StoreImageDetailView: View {
+    @StateObject  var storesViewModel: StoresViewModel
+
+    @Binding var isshowingStoreImageDetail : Bool
+    var store : Store
+
     var body: some View {
-        Text("가게 이미지 크게 보이는 뷰 입니다.")
+        NavigationStack{
+            ZStack{
+                Color.black
+                    .ignoresSafeArea()
+                VStack{
+                    TabView {
+
+                        ForEach(Array(store.storeImages.enumerated()), id: \.offset){ index, imageData in
+                            Button(action: {
+                                isshowingStoreImageDetail.toggle()
+                            }){
+                                if let image = storesViewModel.storeTitleImage[imageData] {
+                                    
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+             
+                                }
+                                //if let
+                            }
+                            
+                        }
+                    
+                    }
+                    .offset(y:-30)
+                    .frame(height:Screen.maxWidth * 1)
+                    .tabViewStyle(.page(indexDisplayMode: .always))
+                    
+                }
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            isshowingStoreImageDetail.toggle()
+                        }) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(Color.white)
+                            
+                        }
+                    }
+                }
+            }
+        }//NavigationStack
+       
     }
 }
 
-struct StoreImageDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreImageDetailView()
-    }
-}
+//struct StoreImageDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StoreImageDetailView()
+//    }
+//}
