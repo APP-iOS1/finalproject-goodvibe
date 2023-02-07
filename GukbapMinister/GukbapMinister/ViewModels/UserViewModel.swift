@@ -229,6 +229,7 @@ final class UserViewModel: ObservableObject {
             } else {
                 print("회원탈퇴성공")
                 self.logStatus = false
+                self.state = .signedOut
             }
         }
         // FirebaseStore 에서 해당 유저 영구 삭제
