@@ -42,7 +42,7 @@ struct StoreModalView: View {
             .cornerRadius(6)
             .padding(.leading, 10)
             .padding(.bottom, 15)
-
+            
             VStack{
               HStack(alignment: .top){
                 Text(store.storeAddress)
@@ -60,7 +60,7 @@ struct StoreModalView: View {
                   .resizable()
                   .scaledToFill()
                   .frame(width: 20, height: 20)
-                Text(store.countingStar, formatter: NumberFormatter())
+                Text("")
                   .font(.footnote)
                   .bold()
                 
