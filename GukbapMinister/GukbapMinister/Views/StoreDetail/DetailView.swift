@@ -16,7 +16,7 @@ class StarStore: ObservableObject {
 struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userViewModel: UserViewModel
- //   @EnvironmentObject var mapViewModel: MapViewModel
+    //   @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @StateObject private var storesViewModel: StoresViewModel = StoresViewModel()
     @ObservedObject var starStore = StarStore()
@@ -43,8 +43,8 @@ struct DetailView: View {
     
     //StoreImageDetailView 전달 변수
     @State private var isshowingStoreImageDetail: Bool = false
-
-
+    
+    
     var store : Store
     
     var body: some View {
@@ -82,15 +82,15 @@ struct DetailView: View {
                                 //                                }label: {
                                 if (review.storeName == store.storeName){
                                     UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
-                                   
-//                                        .contextMenu{
-//                                            Button{
-//                                                reviewViewModel.removeReview(review: review)
-//                                            }label: {
-//                                                Text("삭제")
-//                                                Image(systemName: "trash")
-//                                            }
-//                                        }//contextMenu
+                                    
+                                    //                                        .contextMenu{
+                                    //                                            Button{
+                                    //                                                reviewViewModel.removeReview(review: review)
+                                    //                                            }label: {
+                                    //                                                Text("삭제")
+                                    //                                                Image(systemName: "trash")
+                                    //                                            }
+                                    //                                        }//contextMenu
                                     //   }//NavigationLink
                                 }
                                 
@@ -171,7 +171,7 @@ extension DetailView {
         //Store.storeName, Store.storeAddress
         HStack {
             VStack(alignment: .center){
-
+                
                 // .padding(.bottom, 3)
                 Text(store.storeAddress)
                     .font(.system(size:15))
@@ -198,7 +198,7 @@ extension DetailView {
     //MARK: 가게 이미지
     var storeImages: some View {
         TabView {
-
+            
             ForEach(Array(store.storeImages.enumerated()), id: \.offset){ index, imageData in
                 Button(action: {
                     isshowingStoreImageDetail.toggle()
@@ -208,89 +208,44 @@ extension DetailView {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
- 
+                        
                     }
                     //if let
                 }
                 
             }
-        
+            
         }
         .frame(height:Screen.maxWidth * 0.8)
         .tabViewStyle(.page(indexDisplayMode: .always))
     }
     //MARK: 가게 설명
     var storeDescription: some View {
-        VStack(alignment: .leading) {
-            Group {
-                Text("동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세 남산위에 저 소나무 철갑을 두른 듯 바람서리 불변함은 우리 기상일세 무궁화 삼천리 화려강산 대한사람 대한으로 길이보전하세  ")
-                //                Text(store.description)
-                //                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(height: textHeight)
-                    .background(GeometryReader {geometry in
-                        Color.clear.preference(key: SizePreference.self, value: geometry.size)
-                    })
-            }
-            //            .lineLimit(isExpanded ? nil : 2)
-            .onPreferenceChange(SizePreference.self) { textSize in
-                if self.isFirst == true {
-                    if textSize.height > 40 {
-                        self.textHeight = 40
-                        self.isExpanded = true
-                        self.isFirst = false
-                    } else {
-                        self.needFoldButton = false
-                    }
-                }
-            }
-            
-            HStack {
+        
+        VStack{
+            Text(store.description)
+                .font(.system(size:18))
+                .frame(width: Screen.maxWidth - 20, height:textHeight)
+                .lineLimit(isExpanded ? nil : 2)
+            HStack{
                 Spacer()
-                if needFoldButton {
-                    Button(action: {
-                        self.isExpanded.toggle()
-                        if self.isExpanded == true {
-                            self.textHeight = 40
-                        } else {
-                            self.textHeight = nil
+                Button(action: {
+                    isExpanded.toggle()
+                }){
+                    HStack{
+                        if(isExpanded == true) {
+                            Text("접기")
+                            Image(systemName: "chevron.up")
+                            
+                        }else {
+                            Text("더보기")
+                            Image(systemName: "chevron.down")
                         }
-                    }) {
-                        Text(isExpanded ? "더보기" : "접기")
                     }
-                    .padding(.trailing, 8)
                 }
+                Spacer()
             }
-            
-            
-            //            HStack {
-            //                Spacer()
-            //                    .overlay(
-            //                        GeometryReader { proxy in
-            //                            // store.desceiption 이 한줄일 경우 더보기/접기 버튼 hidden 하는 것 만들어야함.-0205 JS
-            //                            if needFoldButton {
-            //                                Button(action: {
-            //                                    isExpanded.toggle()
-            //                                }) {
-            //                                    Text(isExpanded ? "접기" : "더보기")
-            //                                        .font(.caption).bold()
-            //                                        .foregroundColor(.blue)
-            //                                        .padding(.leading, 8.0)
-            //                                        .padding(.top, 4.0)
-            //                                }
-            //                                .frame(width: proxy.size.width, height: proxy.size.height+30, alignment: .bottomTrailing)
-            //
-            //                            }
-            //
-            //                        }
-            //                    )
-            //
-            //            }
-            
-            Divider()
         }
-        .background(Color.red)
-        .padding(.horizontal, 15)
-        .padding(.vertical, 30)
     }
     
     
@@ -323,26 +278,24 @@ extension DetailView {
     }
     
     var userStarRate: some View {
-        HStack {
-            Spacer()
-            VStack {
-                Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
-                    .fontWeight(.bold)
+        VStack {
+            HStack {
+                Spacer()
+                VStack {
+                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
+                        .fontWeight(.bold)
+                    
+                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
+                        starStore.selectedStar = ggakdugi
+                        showingCreateRewviewSheet.toggle()
+                    }
+                }
+                .padding(.vertical, 30)
                 
                 Spacer()
-                
-                //별 재사용 예정
-                
-                GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
-                    starStore.selectedStar = ggakdugi
-                    showingCreateRewviewSheet.toggle()
-                }
             }
-            .padding(.vertical, 30)
-            
-            Spacer()
+            .background(.white)
         }
-        .background(.white)
     }
 }
 //MARK: 가게 리뷰
@@ -354,9 +307,9 @@ struct UserReview:  View {
     @State var selectedReportButton = ""
     @State var reportEnter = false
     @EnvironmentObject var userViewModel: UserViewModel
-
+    
     @State private var isshowingReviewDetailView = false
-
+    
     //리뷰 삭제 알림
     @State private var isDeleteAlert: Bool = false
     
@@ -369,7 +322,7 @@ struct UserReview:  View {
                 if userViewModel.currentUser?.uid ?? ""  == review.userId {
                     Button {
                         isDeleteAlert.toggle()
-                       
+                        
                     } label: {
                         Image(systemName: "trash")
                             .font(.system(size:20))
@@ -378,16 +331,16 @@ struct UserReview:  View {
                             .padding(.bottom,-20)
                     }
                     .alert(isPresented: $isDeleteAlert) {
-                      Alert(title: Text(""),
+                        Alert(title: Text(""),
                               message: Text("리뷰를 삭제하시겠습니까?"),
                               primaryButton: .destructive(Text("확인"),
                                                           action: {
-                          reviewViewModel.removeReview(review: review)
+                            reviewViewModel.removeReview(review: review)
                         }), secondaryButton: .cancel(Text("닫기")))
                     }
-
+                    
                 }
-
+                
             }
             
             HStack{
@@ -403,7 +356,7 @@ struct UserReview:  View {
                         .fontWeight(.semibold)
                         .padding()
                 }
-               
+                
                 Spacer()
                 Text("\(review.createdDate)")
                     .font(.footnote)
@@ -435,9 +388,9 @@ struct UserReview:  View {
                     .padding()
                     .foregroundColor(.secondary)
                 }else{
-                Text("")
+                    Text("")
                 }
-       
+                
             }//HStack
             .padding(.top,-30)
             
@@ -460,7 +413,7 @@ struct UserReview:  View {
                                 .cornerRadius(5)
                         }//if let
                     }
-
+                    
                 }
                 // ForEach(review.images)
                 
