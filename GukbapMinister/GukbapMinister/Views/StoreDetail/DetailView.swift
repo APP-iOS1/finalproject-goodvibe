@@ -246,6 +246,7 @@ extension DetailView {
                 Spacer()
             }
         }
+        .animation(.easeInOut)
     }
     
     
