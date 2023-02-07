@@ -9,129 +9,100 @@ import SwiftUI
 
 struct StoreModalView: View {
     @EnvironmentObject private var storesViewModel: StoresViewModel
-    
-    @State private var isExpanded: Bool = false
-    @State private var isTruncated: Bool = false
-    
     @State private var isHeart : Bool = false
     
     var store: Store = .test
     
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack() {
-                    Text(store.storeName)
-                        .font(.title3)
-                        .bold()
-                        .padding(.leading, 10)
-                        .offset(y: 7)
-                    
-                    Spacer()
-                }
+            VStack(spacing: 0) {
+                storeTitle
+                divider
+                    .padding(.top, 10)
                 
-                Divider()
-                    .frame(width: Screen.searchBarWidth, height: 1)
-                    .overlay(Color.mainColor.opacity(0.5))
-                
-                NavigationLink(destination: DetailView(store: store)) {
-                    HStack {
-                        if let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] {
-                            Image(uiImage: imageData)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 90, height: 90)
-                                .cornerRadius(6)
-                                .padding(.leading, 10)
-                                .padding(.bottom, 15)
-                        } else {
-                            Rectangle().fill(.gray.opacity(0.1))
-                                .frame(width: 90, height: 90)
-                                .cornerRadius(6)
-                                .padding(.leading, 10)
-                                .padding(.bottom, 15)
-                        }
-                        
-                        
-                        VStack{
-                            
-                            HStack(alignment: .top){
+                HStack(alignment: .top) {
+                    imageOrPlaceholder
+                    VStack(alignment: .leading){
+                        Menu {
+                            Button {
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.string = store.storeAddress
+                            } label: {
+                                Label("이 주소 복사하기", systemImage: "doc.on.clipboard")
+                            }
+                            Text(store.storeAddress)
+                        } label: {
+                            HStack {
                                 Text(store.storeAddress)
-                                    .multilineTextAlignment(.leading)
-                                    .bold()
                                     .padding(.leading, 5)
                                     .lineLimit(1)
-                                    .background(GeometryReader { geometry in
-                                        Color.clear.onAppear {
-                                            self.determineTruncation(geometry, text: store.storeAddress)
-                                        }
-                                    })
-                                if isTruncated {
-                                    toggleButton
-                                }
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Image(systemName: "ellipsis.circle")
+                                    
                                 Spacer()
                             }
-                            .padding(.trailing, 20)
-                            .overlay {
-                                if isExpanded {
-                                    Text(store.storeAddress)
-                                        .frame(width: 250)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                        .background {
-                                            Rectangle().fill(.black)
-                                            
-                                        }
-                                        .offset(y: 45)
-                                }
-                            }
-                            
-                            
-                            
-                            HStack {
-                                GgakdugiRatingShort(rate: store.countingStar, size: 20)
-                                Spacer()
-                            }
-                            .padding(.leading, 5)
+                            .font(.subheadline)
                         }
-                        .padding(.horizontal, 5)
+                        .frame(height: 20)
+                        .padding(.top, 10)
+                        Spacer()
+                        GgakdugiRatingShort(rate: store.countingStar, size: 20)
+                        .padding(.leading, 5)
+                        .padding(.bottom, 10)
                     }
-                    .background {
-                        Rectangle()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 120)
-                            .foregroundColor(Color.white)
-                            .opacity(0.2)
-                    }
+                    
                 }
+                .frame(height: 90)
+                .padding(.top, 10)
             }
         }
-    }
-    
-    private func determineTruncation(_ geometry: GeometryProxy, text: String) {
-        // Calculate the bounding box we'd need to render the
-        // text given the width from the GeometryReader.
-        let total = text.boundingRect(
-            with: CGSize(
-                width: geometry.size.width,
-                height: .greatestFiniteMagnitude
-            ),
-            options: .usesLineFragmentOrigin,
-            attributes: [.font: UIFont.systemFont(ofSize: 16)],
-            context: nil
-        )
-        
-        if total.size.height > geometry.size.height {
-            self.isTruncated = true
-        } else {
-            self.isTruncated = false
+        .padding(.horizontal, 15)
+        .frame(width: Screen.searchBarWidth, height: 160)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+        .overlay {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.mainColor.opacity(0.5))
         }
     }
     
-    var toggleButton: some View {
-        Button(action: { self.isExpanded.toggle() }) {
-            Image(systemName: self.isExpanded ? "chevron.up.circle" : "chevron.down.circle")
-                .font(.caption)
-                .offset(y: 5)
+    
+    
+    
+}
+
+extension StoreModalView {
+    
+    var storeTitle: some View {
+        HStack {
+            NavigationLink(destination: DetailView(store: store)) {
+                Text(store.storeName)
+                    .font(.title3)
+                    .bold()
+//                    .offset(y: 7)
+            }
+            Spacer()
+        }
+    }
+    
+    var divider: some View {
+        Divider()
+            .frame(width: Screen.searchBarWidth, height: 1)
+            .overlay(Color.mainColor.opacity(0.5))
+    }
+    
+    var imageOrPlaceholder: some View {
+        NavigationLink(destination: DetailView(store: store)) {
+            if let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] {
+                Image(uiImage: imageData)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 90, height: 90)
+                    .cornerRadius(6)
+            } else {
+                Rectangle().fill(.gray.opacity(0.1))
+                    .frame(width: 90, height: 90)
+                    .cornerRadius(6)
+            }
         }
     }
 }

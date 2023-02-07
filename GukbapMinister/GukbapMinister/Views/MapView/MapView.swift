@@ -19,7 +19,7 @@ struct MapView: View {
         GeometryReader { geo in
             let height = geo.size.height
             let width = geo.size.width
-           
+            
             NavigationStack {
                 ZStack {
                     MapUIView(
@@ -51,29 +51,14 @@ struct MapView: View {
                             }
                         } else {
                             Spacer()
-                            
                         }
-                        
-                        HStack{
-              StoreModalView(store: mapViewModel.selectedStore ?? .test
-              )
-              Button {
-                mapViewModel.isShowingSelectedStore.toggle()
-              } label: {
-                Text("")
-              }
-            }
-            .frame(width: Screen.searchBarWidth, height: 150)            
-            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-            .overlay {
-              RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.mainColor.opacity(0.5))
-            }
-            .padding(25)
-            .offset(y: mapViewModel.isShowingSelectedStore ? 0 : 400)
-            .animation(.easeInOut, value: mapViewModel.isShowingSelectedStore)
-          }
-              
+
+                        StoreModalView(store: mapViewModel.selectedStore ?? .test)
+                        .padding(25)
+                        .offset(y: mapViewModel.isShowingSelectedStore ? 0 : 400)
+                        .animation(.easeInOut, value: mapViewModel.isShowingSelectedStore)
+                    }
+                    
                 }
             }
         }
@@ -87,6 +72,6 @@ struct MapView_Previews: PreviewProvider {
         MapView()
         // Preview will crash without implementing environmentObject here
             .environmentObject(StoresViewModel())
-            .environmentObject(MapViewModel(storeLocations: []))
+            .environmentObject(MapViewModel(storeLocations: [.test]))
     }
 }

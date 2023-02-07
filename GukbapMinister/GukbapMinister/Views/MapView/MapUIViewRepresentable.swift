@@ -40,7 +40,9 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
     // 마커를 클릭 했을 때 동작하는 함수
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let annotation = view.annotation as? StoreAnnotation else { return }
+        guard let annotation = view.annotation as? StoreAnnotation else {
+            return
+        }
         mapViewController.selectedStoreAnnotation = annotation
         mapViewController.isSelected = true
     }
