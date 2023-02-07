@@ -35,7 +35,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         var annotationView: MKAnnotationView?
         
         if let annotation = annotation as? StoreAnnotation {
-            annotationView = setUpStoreAnnotationView(for: annotation, on: mapView) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+            annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
         }
         
         return annotationView
@@ -48,25 +48,38 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         mapViewController.isSelected = true
     }
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+        }
+    
     
     func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
-        let identifier = "customView"
+        let identifier = annotation.storeId
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            //            let markerImage = UIImage()
-            //                .getMarkerImage(foodType: annotation.foodType)?
-            //                .resizeImageTo(size: CGSize(width: 60, height: 60))
+          
             let markerImage = Gukbaps(rawValue: annotation.foodType)?
                 .uiImage?
                 .resizeImageTo(size: CGSize(width: 60, height: 60))
             
             annotationView?.image =  markerImage
             
-        } else {
-            annotationView?.annotation = annotation
+            let uiText = UITextView(frame: CGRect())
+            uiText.text = annotation.title
+            uiText.textColor = .black
+            uiText.textAlignment = .center
+            uiText.layer.cornerRadius = 10
+                                    
+            annotationView?.addSubview(uiText)
+            
         }
+        
+//        else {
+//            annotationView?.annotation = annotation
+//        }
+        
         return annotationView
     }
     
@@ -88,7 +101,7 @@ struct MapUIView: UIViewRepresentable {
      - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
      */
     func makeUIView(context: Context) -> MKMapView {
-        let maps = MKMapView()
+        let maps = MKMapView(frame: UIScreen.main.bounds)
         
         // 맵이 처음 보이는 지역을 서울로 설정
         maps.visibleMapRect = .seoul
@@ -102,6 +115,9 @@ struct MapUIView: UIViewRepresentable {
         // 나침반이 보이게 설정
         maps.showsCompass = true
         
+        let trackingButton = MKUserTrackingButton(mapView: maps)
+        maps.addSubview(trackingButton)
+        
         // 맵이 보이는 범위를 한국으로 제한하기
         maps.cameraBoundary = MKMapView.CameraBoundary(mapRect: .korea)
         
@@ -114,11 +130,10 @@ struct MapUIView: UIViewRepresentable {
     
     
     func updateUIView(_ view: MKMapView, context: Context) {
-        // If you changing the Map Annotation then you have to remove old Annotations
-        //        view.removeAnnotations(view.annotations)
         // Assigning delegate
-        
         view.delegate = context.coordinator
+        // If you changing the Map Annotation then you have to remove old Annotations
+//        view.removeAnnotations(view.annotations)
         // Passing model array here
         view.addAnnotations(storeAnnotations)
         
