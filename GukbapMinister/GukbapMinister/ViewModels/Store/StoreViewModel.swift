@@ -149,22 +149,32 @@ final class StoreRegistrationViewModel: ObservableObject {
         
     }
     // MARK: - Storage에서 이미지 다운로드
-    func fetchImages(storeId: String, imageName: String) {
-        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
-            if let error = error {
-                print("error while downloading image\n\(error.localizedDescription)")
-                return
-            } else {
-                let image = UIImage(data: data!)
-                self.storeImages[imageName] = image
-         
-            }
-        }
-    }
+//    func fetchImages(storeId: String, imageName: String) {
+//        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
+//
+//        ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
+//            if let error = error {
+//                print("error while downloading image\n\(error.localizedDescription)")
+//                return
+//            } else {
+//                let image = UIImage(data: data!)
+//                self.storeImages[imageName] = image
+//
+//            }
+//        }
+//    }
     
+    func fetchImages(storeId: String, imageName: String) async throws -> UIImage {
+        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
+
+        let data = try await ref.data(maxSize: 1 * 1024 * 1024)
+        let image = UIImage(data: data)
+        
+        self.storeImages[imageName] = image
+        
+        return image!
+    }
+
         // MARK: - UI 핸들러
     
     func handleDoneTapped() {

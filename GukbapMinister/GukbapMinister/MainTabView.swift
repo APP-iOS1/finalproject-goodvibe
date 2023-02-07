@@ -9,28 +9,36 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var tabSelection: Int = 0
+    @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
+    @StateObject var mapViewModel: MapViewModel = MapViewModel(storeLocations: [])
+    
     var body: some View {
         TabView(selection: $tabSelection) {
-            ExploreView()
-                .tabItem {
-                    Label("둘러보기", image: "Ddukbaegi.fill")
-                }
-                .tag(0)
-            
             MapView()
                 .tabItem {
                     Label("지도", systemImage: "map")
                 }
+                .tag(0)
+                .environmentObject(storesViewModel)
+                .environmentObject(mapViewModel)
+                .onAppear {
+                    mapViewModel.storeLocations = storesViewModel.stores
+                }
+            ExploreView()
+                .tabItem {
+                    Label("둘러보기", image: "Ddukbaegi.fill")
+                }
                 .tag(1)
-                .environmentObject(MapViewModel())
-            
+                .environmentObject(storesViewModel)
             CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
                 }
+                .toolbar(.visible, for: .tabBar)
+                .toolbarBackground(Color.white, for: .tabBar)
                 .tag(2)
-                .environmentObject(MapViewModel())
-            
+                .environmentObject(storesViewModel)
+                .environmentObject(UserViewModel())
             MyPageView()
                 .tabItem {
                     Label("마이페이지", systemImage: "person")
@@ -38,7 +46,12 @@ struct MainTabView: View {
                 .tag(3)
         }
         .accentColor(.mainColor)
-        
+        .onAppear {
+            storesViewModel.subscribeStores()
+        }
+        .onDisappear {
+            storesViewModel.unsubscribeStores()
+        }
 
     }
 }

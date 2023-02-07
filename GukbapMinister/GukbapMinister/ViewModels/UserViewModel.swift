@@ -49,6 +49,7 @@ final class UserViewModel: ObservableObject {
         case signedIn
         case signedOut
         case kakaoSign
+        case main
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
@@ -58,6 +59,57 @@ final class UserViewModel: ObservableObject {
     
     let nf = NumberFormatter()
     let currentUser = Auth.auth().currentUser
+
+    
+    // MARK: - 개인정보 수정 관련 함수
+    // 1. 사용자 닉네임 수정
+    func updateUserNickname(nickName: String?) {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "userNickname" : nickName ?? userInfo.userNickname,
+                ])
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
+    // 2. 사용자 선호하는 지역 수정
+    func updateUserPreferenceArea(preferenceArea: String) {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "preferenceArea" : preferenceArea ?? userInfo.preferenceArea,
+                ])
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
+    // 업데이트된 사용자 정보 가져오는 함수
+    func fetchUpdateUserInfo() {
+        let uid = Auth.auth().currentUser?.uid
+        database.collection("User").document(uid ?? "")
+            .addSnapshotListener { documentSnapshot, error in
+              guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+              }
+              guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+              }
+              print("Current data: \(data)")
+                self.userInfo.userNickname = data["userNickname"] as? String ?? ""
+                self.userInfo.preferenceArea = data["preferenceArea"] as? String ?? ""
+                self.userInfo.userEmail = data["userEmail"] as? String ?? ""
+                self.userInfo.status = data["status"] as? String ?? ""
+            }
+    }
     
     // MARK: - User 정보 불러오기
     func fetchUserInfo(uid: String?) {
@@ -165,13 +217,32 @@ final class UserViewModel: ObservableObject {
         }//Task
     }//registerUser()
     
+    // MARK: - 이메일 회원탈퇴
+    func deleteUser() {
+        let user = Auth.auth().currentUser
+        let uid = user?.uid
+        
+        // Firebase Authentication 에서 영구 삭제
+        user?.delete { error in
+            if let error = error {
+                print("회원탈퇴실패 : \(error.localizedDescription)")
+            } else {
+                print("회원탈퇴성공")
+                self.logStatus = false
+                self.state = .signedOut
+            }
+        }
+        // FirebaseStore 에서 해당 유저 영구 삭제
+        database.collection("User").document(uid ?? "").delete()
+    }
+    
     //MARK: - 성별, 연령대, 선호지역 업데이트
     func signUpInfo(){
         Task{
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
-                    "status" : "일반",
+                    "status" : "깍두기",
                     "gender" : gender,
                     "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,

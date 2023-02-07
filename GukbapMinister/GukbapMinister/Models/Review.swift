@@ -16,6 +16,7 @@ struct Review: Codable, Identifiable, Hashable {
     var images: [String]?
     var nickName: String
     var starRating: Int
+
     
     var createdDate: String {
         let dateFormatter = DateFormatter()

@@ -16,7 +16,7 @@ struct ContentView: View {
             switch viewModel.state{
             case .signedIn: MainTabView()
             case .kakaoSign: SignUpTabView(selection: viewModel.selection)
-            case .signedOut: SignInView()
+            case .signedOut, .main: SignInView()
             }
         }
     }
@@ -25,7 +25,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environmentObject(UserViewModel())
-            .environmentObject(MapViewModel())
+            
     }
 }
 

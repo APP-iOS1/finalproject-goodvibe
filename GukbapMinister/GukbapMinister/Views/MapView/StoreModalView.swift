@@ -8,99 +8,115 @@
 import SwiftUI
 
 struct StoreModalView: View {
+    @EnvironmentObject private var storesViewModel: StoresViewModel
     @State private var isHeart : Bool = false
-    @Binding var selectedDetent: PresentationDetent
     
-    var storeLocation : Store
+    var store: Store = .test
     
     var body: some View {
         NavigationStack {
-            VStack {
-                //        Button("test") {
-                //          selectedDetent = .large
-                //        }
+            VStack(spacing: 0) {
+                storeTitle
+                divider
+                    .padding(.top, 10)
                 
-                HStack{
-                    Text(storeLocation.storeName)
-                        .font(.title2)
-                        .bold()
-                        .padding(.leading, 20)
-                    Spacer()
-                    
+                HStack(alignment: .top) {
+                    imageOrPlaceholder
+                    VStack(alignment: .leading){
+                        Menu {
+                            Button {
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.string = store.storeAddress
+                            } label: {
+                                Label("이 주소 복사하기", systemImage: "doc.on.clipboard")
+                            }
+                            Text(store.storeAddress)
+                        } label: {
+                            HStack {
+                                Text(store.storeAddress)
+                                    .padding(.leading, 5)
+                                    .lineLimit(1)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Image(systemName: "ellipsis.circle")
+                                    
+                                Spacer()
+                            }
+                            .font(.subheadline)
+                        }
+                        .frame(height: 20)
+                        .padding(.top, 10)
+                        Spacer()
+                        GgakdugiRatingShort(rate: store.countingStar, size: 20)
+                        .padding(.leading, 5)
+                        .padding(.bottom, 10)
+                    }
                     
                 }
-                
-                NavigationLink(destination: DetailView(store: storeLocation)) {
-                    HStack {
-                        AsyncImage(url: URL(string: storeLocation.storeImages[0])) { image in
-                            image
-                                .resizable()
-                            //.scaledToFit()
-                        } placeholder: {
-                            Color.gray.opacity(0.1)
-                        }
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(6)
-                        .padding(.leading, 20)
-                        
-                        
-                        VStack{
-                            HStack(alignment: .top){
-                                Text(storeLocation.storeAddress)
-                                    .bold()
-                                
-                                Spacer()
-                                
-                                Button{
-                                    isHeart.toggle()
-                                } label: {
-                                    Image(systemName: isHeart ? "heart.fill" : "heart")
-                                        .foregroundColor(.red)
-                                }
-                                .padding(.top, 2.5)
-                            }
-                            .padding(.trailing, 20)
-                            .padding(.bottom, 20)
-                            HStack{
-                                Text("별점")
-                                
-                                HStack(spacing: 0) {
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star.fill")).foregroundColor(.yellow)
-                                    Text(Image(systemName: "star")).foregroundColor(.yellow)
-                                }
-                                
-                                Spacer()
-                            }
-                        }
-                        .padding(.horizontal, 5)
-                        
-                        
-                    }
-                    .background {
-                        RoundedRectangle(cornerRadius: 5)
-                            .frame(width: 375, height: 120)
-                            .foregroundColor(.gray)
-                            .opacity(0.2)
-                    }
-                }.simultaneousGesture(TapGesture().onEnded{
-                    selectedDetent = .large
-                })
-                
+                .frame(height: 90)
+                .padding(.top, 10)
+            }
+        }
+        .padding(.horizontal, 15)
+        .frame(width: Screen.searchBarWidth, height: 160)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+        .overlay {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.mainColor.opacity(0.5))
+        }
+        .onAppear {
+            print("모달이 나오겠습니다")
+        }
+    }
+    
+    
+    
+    
+}
+
+extension StoreModalView {
+    
+    var storeTitle: some View {
+        HStack {
+            NavigationLink(destination: DetailView(store: store)) {
+                Text(store.storeName)
+                    .font(.title3)
+                    .bold()
+//                    .offset(y: 7)
+            }
+            Spacer()
+        }
+    }
+    
+    var divider: some View {
+        Divider()
+            .frame(width: Screen.searchBarWidth, height: 1)
+            .overlay(Color.mainColor.opacity(0.5))
+    }
+    
+    var imageOrPlaceholder: some View {
+        NavigationLink(destination: DetailView(store: store)) {
+            if let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] {
+                Image(uiImage: imageData)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 90, height: 90)
+                    .cornerRadius(6)
+            } else {
+                Rectangle().fill(.gray.opacity(0.1))
+                    .frame(width: 90, height: 90)
+                    .cornerRadius(6)
 
             }
         }
-        .onAppear {
-            selectedDetent = .height(200)
-        }
-        
     }
 }
 
-//struct StoreModalView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    StoreModalView()
-//  }
-//}
+
+
+
+struct StoreModalView_Previews: PreviewProvider {
+    static var previews: some View {
+        StoreModalView()
+            .environmentObject(StoresViewModel())
+    }
+}

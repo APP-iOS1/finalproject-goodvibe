@@ -22,15 +22,10 @@ struct SearchBarButton: View {
                     Text("국밥집 검색")
                     Spacer()
                 }
-                .foregroundColor(.gray)
-                .frame(width: Screen.searchBarWidth, height: 50)
-                .background(Capsule().fill(Color.white))
-                .overlay {
-                    Capsule()
-                        .stroke(Color.mainColor)
-                }
+                .searchBarStyle(style: .button)
             }
         }
+        .padding(.top, 13)
         .fullScreenCover(isPresented: $isShowingSearchView) {
             SearchView()
                 .onAppear {

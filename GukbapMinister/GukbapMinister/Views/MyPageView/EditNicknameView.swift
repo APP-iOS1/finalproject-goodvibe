@@ -9,17 +9,18 @@ import SwiftUI
 import FirebaseAuth
 
 
-enum Field: Hashable {
-    case searchBar
+enum NickNameTextField: Hashable {
+    case nickNameTextFieldFocus
   }
 
 struct EditNicknameView: View {
+    @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var nickName: String = ""
     
-    @FocusState private var focusField: Field?
+    @FocusState private var focusField: NickNameTextField?
     
     let currentUser = Auth.auth().currentUser
     
@@ -27,14 +28,15 @@ struct EditNicknameView: View {
         NavigationStack {
             VStack {
                 TextField("\(userViewModel.userInfo.userNickname)", text: $nickName)
-                    .focused($focusField, equals: .searchBar)
+                    .focused($focusField, equals: .nickNameTextFieldFocus)
                     
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("닉네임")
             .toolbar {
                 Button {
-                    
+                    userViewModel.updateUserNickname(nickName: nickName)
+                    dismiss()
                 } label: {
                     Text("완료")
                 }
@@ -42,7 +44,7 @@ struct EditNicknameView: View {
             }
         }
         .onAppear {
-            focusField = .searchBar
+            focusField = .nickNameTextFieldFocus
         }
         .onTapGesture {
             hideKeyboard()

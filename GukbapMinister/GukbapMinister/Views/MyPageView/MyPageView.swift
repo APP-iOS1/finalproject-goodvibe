@@ -14,6 +14,7 @@ struct MyPageView: View {
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
     @State private var isMyReviewPresented: Bool = false
+    @State private var isShowingAlert: Bool = false
 
     
     var body: some View {
@@ -24,18 +25,7 @@ struct MyPageView: View {
                     .font(.largeTitle)
                     .padding(.top, 20)
                     .padding()
-                
-
-                Button {
-                    self.isUpdateUserInfoPresented.toggle()
-                } label: {
-                    Text("회원정보")
-                }
-                .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                    UpdateUserInfoView()
-                        .environmentObject(UserViewModel())
-                    
-                }
+            
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.opacity(0.1))
                     .frame(width: UIScreen.main.bounds.width - 30, height: 110)
@@ -131,6 +121,25 @@ struct MyPageView: View {
                             Text("장소 제보하기(임시)")
                         }
                     }
+                    
+                    Button {
+                        isShowingAlert.toggle()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                        Text("회원탈퇴")
+                            .foregroundColor(.red)
+                    }
+                    .alert("회원탈퇴", isPresented: $isShowingAlert) {
+                        Button("확인", role: .cancel) {
+                            userVM.deleteUser()
+                        }
+                        Button("취소", role: .destructive) {
+                            
+                        }
+                    } message: {
+                        Text("사용자의 정보가 즉시 삭제됩니다. \n 회원탈퇴를 진행하시겠습니까?")
+                    }
+                    
                 }
                 .foregroundColor(.black)
                 .padding()
@@ -140,6 +149,9 @@ struct MyPageView: View {
             
             
             Spacer()
+        }
+        .onAppear {
+            userVM.fetchUpdateUserInfo()
         }
         .overlay(content: {
             LoadingView(show: $userVM.isLoading)
