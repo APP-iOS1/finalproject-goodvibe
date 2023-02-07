@@ -35,11 +35,12 @@
 		5B138DE22988EB66004F9187 /* MKMapRect+Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */; };
 		5B31DBBB297A23A100EA0036 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */; };
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
-		5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* TempManagementView.swift */; };
+		5B31DBC0297A315000EA0036 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */; };
 		5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B984029298F90EE003F604B /* SearchBarModifier.swift */; };
 		5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */; };
 		5BA2DB3D298CD57200A33EAB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3C298CD57200A33EAB /* Enums.swift */; };
 		5BA2DB3F298EA12D00A33EAB /* MapView+MapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3E298EA12D00A33EAB /* MapView+MapFilter.swift */; };
+		5BA829D729922FE200B56B13 /* GgakdugiRatingShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA829D629922FE200B56B13 /* GgakdugiRatingShort.swift */; };
 		5BB236CC298A472E00CBC816 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236CB298A472E00CBC816 /* Constants.swift */; };
 		5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D1298A639D00CBC816 /* Ex+Color.swift */; };
 		5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */; };
@@ -108,11 +109,12 @@
 		5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+Regions.swift"; sourceTree = "<group>"; };
 		5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
-		5B31DBBF297A315000EA0036 /* TempManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempManagementView.swift; sourceTree = "<group>"; };
+		5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
 		5B984029298F90EE003F604B /* SearchBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarModifier.swift; sourceTree = "<group>"; };
 		5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackDemoView.swift; sourceTree = "<group>"; };
 		5BA2DB3C298CD57200A33EAB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		5BA2DB3E298EA12D00A33EAB /* MapView+MapFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView+MapFilter.swift"; sourceTree = "<group>"; };
+		5BA829D629922FE200B56B13 /* GgakdugiRatingShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GgakdugiRatingShort.swift; sourceTree = "<group>"; };
 		5BB236CB298A472E00CBC816 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5BB236D1298A639D00CBC816 /* Ex+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
 		5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarButton.swift; sourceTree = "<group>"; };
@@ -228,6 +230,32 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
+		5BA829D82992325400B56B13 /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */,
+				5BA829D629922FE200B56B13 /* GgakdugiRatingShort.swift */,
+			);
+			path = Rating;
+			sourceTree = "<group>";
+		};
+		5BA829D92992326100B56B13 /* StoreReport */ = {
+			isa = PBXGroup;
+			children = (
+				5B0058432990B78C00564930 /* StoreReportView.swift */,
+				5B0058472990D84400564930 /* StoreReportButton.swift */,
+			);
+			path = StoreReport;
+			sourceTree = "<group>";
+		};
+		5BA829DA2992327200B56B13 /* StoreRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */,
+			);
+			path = StoreRegistration;
+			sourceTree = "<group>";
+		};
 		5BB236CD298A476A00CBC816 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,10 +338,9 @@
 				5BDB9AD529757A1000BFD5D9 /* Auth */,
 				ADA2675D29793ACF0040FCBB /* Modifier */,
 				5B01F2E62976DEEC00ACB32F /* StoreDetail */,
-				5B31DBBF297A315000EA0036 /* TempManagementView.swift */,
-				5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */,
-				5B0058432990B78C00564930 /* StoreReportView.swift */,
-				5B0058472990D84400564930 /* StoreReportButton.swift */,
+				5BA829DA2992327200B56B13 /* StoreRegistration */,
+				5BA829D82992325400B56B13 /* Rating */,
+				5BA829D92992326100B56B13 /* StoreReport */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -511,6 +538,7 @@
 				5B0058442990B78C00564930 /* StoreReportView.swift in Sources */,
 				147FE7CD2977BFB100E635A1 /* SignUpTabView.swift in Sources */,
 				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
+				5BA829D729922FE200B56B13 /* GgakdugiRatingShort.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
 				0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */,
 				5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */,
@@ -536,7 +564,7 @@
 				5B0058462990B7BB00564930 /* StoreReportViewModel.swift in Sources */,
 				5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */,
 				148CD4FB298CD317006078C7 /* EditGukbapView.swift in Sources */,
-				5B31DBC0297A315000EA0036 /* TempManagementView.swift in Sources */,
+				5B31DBC0297A315000EA0036 /* StoreRegistrationView.swift in Sources */,
 				6F43066C2977779400ADBD2C /* SignUpGukBabView.swift in Sources */,
 				0392B37E298797E000C510E5 /* LocationMapAnnotationView.swift in Sources */,
 				5BA2DB3D298CD57200A33EAB /* Enums.swift in Sources */,

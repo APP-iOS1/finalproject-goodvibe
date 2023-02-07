@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StoreModalView: View {
-  @EnvironmentObject private var mapViewModel: MapViewModel
+  @EnvironmentObject private var storesViewModel: StoresViewModel
   @State private var isHeart : Bool = false
   
   var store: Store = .test
@@ -32,16 +32,22 @@ struct StoreModalView: View {
         
         NavigationLink(destination: DetailView(store: store)) {
           HStack {
-            AsyncImage(url: URL(string: store.storeImages.isEmpty ? "이미지 없음" : store.storeImages[0])) { image in
-              image
-                .resizable()
-            } placeholder: {
-              Color.gray.opacity(0.1)
-            }
-            .frame(width: 90, height: 90)
-            .cornerRadius(6)
-            .padding(.leading, 10)
-            .padding(.bottom, 15)
+              if let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] {
+                   Image(uiImage: imageData)
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: 90, height: 90)
+                      .cornerRadius(6)
+                      .padding(.leading, 10)
+                      .padding(.bottom, 15)
+              } else {
+                   Rectangle().fill(.gray.opacity(0.1))
+                      .frame(width: 90, height: 90)
+                      .cornerRadius(6)
+                      .padding(.leading, 10)
+                      .padding(.bottom, 15)
+              }
+            
 
             VStack{
               HStack(alignment: .top){
@@ -56,14 +62,7 @@ struct StoreModalView: View {
               .padding(.trailing, 20)
               
               HStack {
-                Image("Ggakdugi")
-                  .resizable()
-                  .scaledToFill()
-                  .frame(width: 20, height: 20)
-                Text(store.countingStar, formatter: NumberFormatter())
-                  .font(.footnote)
-                  .bold()
-                
+                  GgakdugiRatingShort(rate: store.countingStar, size: 20)
                 Spacer()
               }
               .padding(.leading, 5)
@@ -83,8 +82,11 @@ struct StoreModalView: View {
   }
 }
 
+
+
 struct StoreModalView_Previews: PreviewProvider {
   static var previews: some View {
     StoreModalView()
+          .environmentObject(StoresViewModel())
   }
 }
