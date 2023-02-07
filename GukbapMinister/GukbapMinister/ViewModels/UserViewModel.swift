@@ -49,6 +49,7 @@ final class UserViewModel: ObservableObject {
         case signedIn
         case signedOut
         case kakaoSign
+        case main
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
@@ -105,6 +106,8 @@ final class UserViewModel: ObservableObject {
               print("Current data: \(data)")
                 self.userInfo.userNickname = data["userNickname"] as? String ?? ""
                 self.userInfo.preferenceArea = data["preferenceArea"] as? String ?? ""
+                self.userInfo.userEmail = data["userEmail"] as? String ?? ""
+                self.userInfo.status = data["status"] as? String ?? ""
             }
     }
     
@@ -225,7 +228,7 @@ final class UserViewModel: ObservableObject {
                 print("회원탈퇴실패 : \(error.localizedDescription)")
             } else {
                 print("회원탈퇴성공")
-                self.state = .signedOut
+                self.logStatus = false
             }
         }
         // FirebaseStore 에서 해당 유저 영구 삭제

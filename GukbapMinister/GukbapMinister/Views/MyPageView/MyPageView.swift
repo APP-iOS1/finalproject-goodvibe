@@ -150,6 +150,9 @@ struct MyPageView: View {
             
             Spacer()
         }
+        .onAppear {
+            userVM.fetchUpdateUserInfo()
+        }
         .overlay(content: {
             LoadingView(show: $userVM.isLoading)
         })
