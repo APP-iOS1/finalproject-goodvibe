@@ -78,7 +78,7 @@ struct ReportView: View {
                             .lineLimit(4...)
                             .textFieldStyle(.roundedBorder)
                             .opacity(1)
-                            .animation(.easeInOut)
+                            .animation(.easeInOut, value:reportText )
                             .padding(10)
                         
                         
@@ -112,7 +112,7 @@ struct ReportView: View {
             .navigationTitle("리뷰 신고하기")
             .navigationBarTitleDisplayMode(.inline)
             
-            .animation(.default)
+            .animation(.default,value:selectedReportButton)
             .padding()
 
             .navigationBarBackButtonHidden(true)

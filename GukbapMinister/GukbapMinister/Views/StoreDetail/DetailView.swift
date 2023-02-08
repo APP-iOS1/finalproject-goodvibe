@@ -246,7 +246,7 @@ extension DetailView {
                 Spacer()
             }
         }
-        .animation(.easeInOut)
+        .animation(.easeInOut, value: store.description)
     }
     
     

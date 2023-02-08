@@ -18,7 +18,6 @@ struct MapView: View {
     var body: some View {
         // 지오메트리 리더가 뷰 안에 선언 되어있기 때문에 뷰 만큼의 너비와 높이를 가져옴
         GeometryReader { geo in
-            let height = geo.size.height
             let width = geo.size.width
             
             NavigationStack {
