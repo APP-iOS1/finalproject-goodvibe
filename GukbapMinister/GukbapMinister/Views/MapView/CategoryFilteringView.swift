@@ -13,7 +13,7 @@ struct CategoryFilteringView: View {
     }
     
     @Binding var showModal: Bool
-    @EnvironmentObject var mapViewModel: MapViewModel
+    @ObservedObject var mapViewModel: MapViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var didTap: [Bool] = Array(repeating: false, count: Gukbaps.allCases.count)
@@ -127,7 +127,7 @@ extension CategoryFilteringView {
 struct GukbapCategoryFilteringView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CategoryFilteringView(showModal: .constant(false), mode: .map)
+            CategoryFilteringView(showModal: .constant(false), mapViewModel: MapViewModel(storeLocations: []), mode: .map)
         }
         .environmentObject(MapViewModel(storeLocations: []))
         .environmentObject(UserViewModel())
