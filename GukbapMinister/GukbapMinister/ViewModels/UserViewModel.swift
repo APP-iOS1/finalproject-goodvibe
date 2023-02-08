@@ -31,6 +31,16 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
+    @Published var reviewCount: Int = 0 {
+        didSet {
+            self.updateReviewCount()
+        }
+    }
+    @Published var storeReportCount: Int = 0 {
+        didSet {
+            self.updateStoreReportCount()
+        }
+    }
     @Published var logStatus: Bool = false {
         didSet{
             UserDefaults.standard.set(logStatus, forKey: "logStatus")
@@ -269,6 +279,46 @@ final class UserViewModel: ObservableObject {
         }//Task
         //        self.state = .signedIn
     }
+    
+    // MARK: - 회원등급관련 리뷰수, 제보수 함수
+    // 1. 리뷰수 증가 함수
+    func increaseReviewCount() {
+        self.reviewCount += 1
+        print("\(#function) : 리뷰수 1 증가")
+    }
+    func updateReviewCount() {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "reviewCount" : reviewCount,
+                ])
+                print("\(#function) : 리뷰수 Firestore 업데이트")
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
+    // 2. 제보수 증가 함수
+    func increaseStoreReportCount() {
+        self.storeReportCount += 1
+        print("\(#function) : 국밥집 제보수 1 증가")
+    }
+    func updateStoreReportCount() {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "storeReportCount" : storeReportCount,
+                ])
+                print("\(#function) : 제보수 Firestore 업데이트")
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
     //MARK: - KAKAO
     
     //MARK: - Kakao SignIn
