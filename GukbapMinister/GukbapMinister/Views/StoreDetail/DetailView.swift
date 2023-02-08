@@ -411,11 +411,11 @@ struct UserReview:  View {
                                 Text("삭제")
                                     .fontWeight(.medium)
                                     .font(.system(size:15))
-                                    .foregroundColor(Color("AccentColor"))
+                                    .foregroundColor(Color(.black))
                                     .padding(EdgeInsets(top: 0.5, leading: 5, bottom: 0.5, trailing: 5))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color("AccentColor"), lineWidth: 0.5)
+                                            .stroke(Color(.black), lineWidth: 0.5)
                                     )
                                     .padding(.trailing,15)
                                 

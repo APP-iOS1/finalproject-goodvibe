@@ -6,6 +6,7 @@
 
 
 import SwiftUI
+import PopupView
 
 struct ReportView: View {
     @Binding var isshowingReportSheet : Bool
@@ -64,8 +65,8 @@ struct ReportView: View {
                                         Circle().fill(self.selectedReportButton == index ? Color("AccentColor") : Color.black.opacity(0.2)).frame(width: 18,height: 18)
                                         
                                         if self.selectedReportButton == index {
-                                            Circle().stroke(Color("AccentColor"), lineWidth: 2)
-                                                .frame(width: 20,height: 20)
+                                            Circle().stroke(Color("AccentColor"), lineWidth: 0.1)
+                                                .frame(width: 18,height: 18)
                                         }
                                         
                                     }
@@ -107,7 +108,7 @@ struct ReportView: View {
                     //                    .clipShape(RoundedRectangle(cornerRadius: 5))
                     .clipShape(Capsule())
                     .disabled(self.selectedReportButton != "" ? false : true)
-                    .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
+                 //   .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                     
                 }}
             .navigationTitle("리뷰 신고하기")
@@ -128,7 +129,25 @@ struct ReportView: View {
                                 }
                             }
             }
-        }
+                        .popup(isPresented: $reportEnter) {
+                            HStack {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.white)
+                                Text("신고가 완료되었습니다.")
+                                    .foregroundColor(.white)
+                                    .font(.footnote)
+                                    .bold()
+                            }
+                            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                            .background(Color("AccentColor"))
+                            .cornerRadius(100)
+                        } customize: {
+                            $0
+                                .autohideIn(2)
+                                .type(.floater())
+                                .position(.top)
+                        } // popup
+        }//NavigationStack
         .background(Color.white) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
         .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
             endEditing()

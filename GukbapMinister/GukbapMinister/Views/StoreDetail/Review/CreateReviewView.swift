@@ -265,7 +265,7 @@ struct CreateReviewView: View {
                                             isReviewAdded.toggle()
                                         }
                                     }) {
-                                        Image(systemName: "plus")
+                                        Image(systemName: "checkmark")
                                             .foregroundColor(Color("AccentColor"))
                                     }
                                 }

@@ -14,7 +14,13 @@ import FirebaseAuth
 
 extension StoreReport {
     static var blank =
-    StoreReport(userId: "", storeName: "", storeAddress: "", foodType: [], description: "", isUseful: false)
+    StoreReport(userId: "",
+                storeName: "",
+                storeAddress: "",
+                foodType: [],
+                description: "",
+                isUseful: false
+    )
 }
 
 final class StoreReportViewModel: ObservableObject{
