@@ -34,6 +34,7 @@
 		5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E42976CD1200ACB32F /* CommentUnit.swift */; };
 		5B138DE02988EB3A004F9187 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */; };
 		5B138DE22988EB66004F9187 /* MKMapRect+Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */; };
+		5B24E179299380FC00F746A0 /* ExploreCategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */; };
 		5B31DBBB297A23A100EA0036 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */; };
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */; };
@@ -69,6 +70,7 @@
 		5BDB9AE329757B2000BFD5D9 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AE229757B2000BFD5D9 /* ReviewViewModel.swift */; };
 		5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */; };
 		5BF928D32993644F00DB1445 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF928D22993644F00DB1445 /* RoundedCorners.swift */; };
+		5BF928D6299368C600DB1445 /* ExploreCategoryIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF928D5299368C600DB1445 /* ExploreCategoryIconsView.swift */; };
 		63FCF52F29766BEA001712CA /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 63FCF52E29766BEA001712CA /* KakaoSDK */; };
 		63FCF534297677E0001712CA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCF533297677E0001712CA /* MainTabView.swift */; };
 		6F30C69F29878FAD00FF2632 /* UserRulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F30C69E29878FAD00FF2632 /* UserRulesView.swift */; };
@@ -110,6 +112,7 @@
 		5B01F2E42976CD1200ACB32F /* CommentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUnit.swift; sourceTree = "<group>"; };
 		5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
 		5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+Regions.swift"; sourceTree = "<group>"; };
+		5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCategoryDetailView.swift; sourceTree = "<group>"; };
 		5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 		5BDB9AE4297581C800BFD5D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5BDC6745297D99D800B681EC /* GgakdugiRatingWide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GgakdugiRatingWide.swift; sourceTree = "<group>"; };
 		5BF928D22993644F00DB1445 /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
+		5BF928D5299368C600DB1445 /* ExploreCategoryIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCategoryIconsView.swift; sourceTree = "<group>"; };
 		63FCF53029766CCF001712CA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		63FCF533297677E0001712CA /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		6F30C69E29878FAD00FF2632 /* UserRulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRulesView.swift; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
+				5BF928D5299368C600DB1445 /* ExploreCategoryIconsView.swift */,
+				5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */,
 				041FE9702988D57500BE32E7 /* SegmentedPicker.swift */,
 			);
 			path = ExploreView;
@@ -561,6 +567,7 @@
 				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
 				5BA829D729922FE200B56B13 /* GgakdugiRatingShort.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
+				5BF928D6299368C600DB1445 /* ExploreCategoryIconsView.swift in Sources */,
 				0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */,
 				5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */,
 				5BDB9ADF29757AED00BFD5D9 /* StoresViewModel.swift in Sources */,
@@ -568,6 +575,7 @@
 				6F43066A2977778400ADBD2C /* SignUpInfoView.swift in Sources */,
 				14A1879D298A601E00B4FE7F /* UpdateUserInfoView.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
+				5B24E179299380FC00F746A0 /* ExploreCategoryDetailView.swift in Sources */,
 				AD2A3014297A1BA100086F24 /* MapViewModel.swift in Sources */,
 				0400A0902992119500727132 /* StoreImageDetailView.swift in Sources */,
 				5B0058422990B6E700564930 /* StoreReport.swift in Sources */,
