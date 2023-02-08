@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @Environment(\.colorScheme) var scheme
 
     @EnvironmentObject var storesViewModel: StoresViewModel
     @EnvironmentObject var userViewModel: UserViewModel
@@ -39,10 +40,10 @@ struct ExploreView: View {
         NavigationStack{
             SearchBarButton()
                 .padding(.bottom, 5)
-                .background(.white)
+                .background(scheme == .light ? .white : .black)
             
             ZStack{
-                Color.gray.opacity(0.2)
+                Color.gray.opacity(scheme == .light ? 0.2 : 0)
                 
                 VStack{
 
@@ -70,9 +71,8 @@ struct ExploreView: View {
                                     
                                     
                                     
-                                    Image("sampleCategory")
-                                        .resizable()
-                                        .frame(width: UIScreen.main.bounds.width, height: 185)
+                                    ExploreCategoryIconsView()
+                                        .frame(width: UIScreen.main.bounds.width)
                         }
                         
                         
@@ -120,7 +120,7 @@ struct ExploreView: View {
 
                                 
                             }
-                            .background(.white)
+                            .background(scheme == .light ? .white : .black)
                             
                             
                             
@@ -164,7 +164,7 @@ struct ExploreView: View {
                                     .padding(.leading, 10)
                                 }
                             }
-                            .background(.white)
+                            .background(scheme == .light ? .white : .black)
 
                             
                             

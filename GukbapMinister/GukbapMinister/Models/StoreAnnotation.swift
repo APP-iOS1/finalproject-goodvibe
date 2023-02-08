@@ -14,13 +14,13 @@ class StoreAnnotation: NSObject, MKAnnotation {
     let storeId: String
     let title: String?
     let subtitle: String?
-    let foodType: String
+    let foodType: [String]
     let coordinate: CLLocationCoordinate2D
     
     init(storeId: String,
          title: String?,
          subtitle: String?,
-         foodType: String,
+         foodType: [String],
          coordinate: CLLocationCoordinate2D) {
         self.storeId = storeId
         self.title = title
