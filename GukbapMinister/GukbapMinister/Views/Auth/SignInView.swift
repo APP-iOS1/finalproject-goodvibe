@@ -20,7 +20,7 @@ struct SignInView: View {
 //                Text("LOGO")
 //                Rectangle()
 //                    .foregroundColor(.secondary)
-                Image("AppIconSignIn")
+                Image("AppIcon.noBg")
                     .resizable()
                 .frame(width: 200, height: 200)
             }

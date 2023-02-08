@@ -303,7 +303,7 @@ struct CreateReviewView: View {
             }
             
         }
-        .animation(.easeInOut,value:selectedImageData)
+        .animation(.easeInOut, value:selectedImageData)
      
     }//body
     
