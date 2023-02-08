@@ -6,6 +6,7 @@
 
 
 import SwiftUI
+import PopupView
 
 struct ReportView: View {
     @Binding var isshowingReportSheet : Bool
@@ -64,8 +65,8 @@ struct ReportView: View {
                                         Circle().fill(self.selectedReportButton == index ? Color("AccentColor") : Color.black.opacity(0.2)).frame(width: 18,height: 18)
                                         
                                         if self.selectedReportButton == index {
-                                            Circle().stroke(Color("AccentColor"), lineWidth: 2)
-                                                .frame(width: 25,height: 25)
+                                            Circle().stroke(Color("AccentColor"), lineWidth: 0.1)
+                                                .frame(width: 18,height: 18)
                                         }
                                         
                                     }
@@ -79,7 +80,7 @@ struct ReportView: View {
                             .textFieldStyle(.roundedBorder)
                             .opacity(1)
                             .animation(.easeInOut, value:reportText )
-                            .padding(10)
+                            .padding(20)
                         
                         
                     }
@@ -88,6 +89,7 @@ struct ReportView: View {
                     
                     Button(action:{
                         self.reportEnter.toggle()
+                        print("신고하기 버튼 눌렸음")
                     }){
                         Text("신고하기")
                             .font(.subheadline)
@@ -106,7 +108,7 @@ struct ReportView: View {
                     //                    .clipShape(RoundedRectangle(cornerRadius: 5))
                     .clipShape(Capsule())
                     .disabled(self.selectedReportButton != "" ? false : true)
-                    .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
+                 //   .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                     
                 }}
             .navigationTitle("리뷰 신고하기")
@@ -127,6 +129,28 @@ struct ReportView: View {
                                 }
                             }
             }
+                        .popup(isPresented: $reportEnter) {
+                            HStack {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.white)
+                                Text("신고가 완료되었습니다.")
+                                    .foregroundColor(.white)
+                                    .font(.footnote)
+                                    .bold()
+                            }
+                            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                            .background(Color("AccentColor"))
+                            .cornerRadius(100)
+                        } customize: {
+                            $0
+                                .autohideIn(2)
+                                .type(.floater())
+                                .position(.top)
+                        } // popup
+        }//NavigationStack
+        .background(Color.white) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
+        .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
+            endEditing()
         }
       
         
@@ -135,16 +159,30 @@ struct ReportView: View {
     
     
 }
-
-
+//extension View {
+//    func endEditing() {
+//        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//    }
+//}
 
 
 
 
 //struct ReportView_Previews: PreviewProvider {
+//
 //    @State static var selectedReportButton = ""
-//    @State static var show = false
+//    @State var reportEnter : Bool
+//    @State static var reportText = ""
+//
 //    static var previews: some View {
-//        ReportView( selectedReportButton: self.$selectedReportButton,show: self.$show)
+//        ReportView(isshowingReportSheet: .constant(false), selectedReportButton: $selectedReportButton, reportEnter: .constant(true), reportText: "", Content: [
+//            "음란성, 욕설등 부적절한 내용",
+//            "부적절한 홍보 또는 광고",
+//            "주문과 관련없는 사진 게시",
+//            "개인정보 유출 위험",
+//            "리뷰 작성 취지에 맞지 않는 애용(복사글 등)",
+//            "저작권 도용 의심(사진 등)",
+//            "기타(아래 내용 작성)",
+//        ])
 //    }
 //}
