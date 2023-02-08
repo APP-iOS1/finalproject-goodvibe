@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StoreReportView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel = StoreReportViewModel()
     @State private var didTap: [Bool] = Array(repeating: false, count: Gukbaps.allCases.count)
@@ -78,6 +79,7 @@ struct StoreReportView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
                     viewModel.handleDoneTapped()
+                    userViewModel.increaseStoreReportCount()
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         dismiss()
