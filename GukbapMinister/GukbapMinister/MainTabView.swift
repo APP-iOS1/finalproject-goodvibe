@@ -10,7 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @State private var tabSelection: Int = 0
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
-   
+
     
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -20,7 +20,7 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
-                
+
                 
             ExploreView()
                 .tabItem {
