@@ -114,11 +114,15 @@ extension CategoryFilteringView {
         didTap[index].toggle()
         switch mode {
         case .map:
-            if mapViewModel.filteredGukbaps.contains(gukbap) {
-                mapViewModel.filteredGukbaps.remove(at: mapViewModel.filteredGukbaps.firstIndex(of: gukbap)!)
-            } else {
-                mapViewModel.filteredGukbaps.append(gukbap)
+            var newVal: [Gukbaps] = []
+            for (index, gukbap) in Gukbaps.allCases.enumerated() {
+                if didTap[index] {
+                    newVal.append(gukbap)
+                }
             }
+            
+            mapViewModel.filteredGukbaps = newVal
+            
         case .myPage: print("아직몰루")
         }
     }

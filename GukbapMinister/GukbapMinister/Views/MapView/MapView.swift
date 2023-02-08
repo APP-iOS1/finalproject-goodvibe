@@ -27,7 +27,8 @@ struct MapView: View {
                         storeAnnotations: $mapViewModel.storeLocationAnnotations,
                         selectedStoreAnnotation:
                             $mapViewModel.selectedStoreAnnotation,
-                        isSelected: $isShowingSelectedStore
+                        isSelected: $isShowingSelectedStore,
+                        filters: $mapViewModel.filteredGukbaps
                     )
                     .ignoresSafeArea(edges: [.top, .horizontal])
                     
@@ -68,7 +69,7 @@ struct MapView: View {
         .onAppear {
             Task{
                 mapViewModel.storeLocations = storesViewModel.stores
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     mapViewModel.setStoreLocationAnnotations()
                 }
             }
