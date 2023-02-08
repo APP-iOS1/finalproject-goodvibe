@@ -207,18 +207,19 @@ struct StoreView: View{
                 Image(uiImage: imagedata)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 185, height: 185)
+                    .frame(width: 190, height: 190)
                     .cornerRadius(10)
                 
                 VStack{
                     HStack {
-                        Image(systemName: "mappin")
                         Text("\(store.storeName)")
                             .fontWeight(.bold)
                             .font(.callout)
+                            .padding(5)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color("AccentColor").opacity(0.1)))
+
                         Spacer()
                     }
-                    
                     
                     HStack {
                         Text("\(store.storeAddress)")
@@ -233,22 +234,17 @@ struct StoreView: View{
                     HStack {
                         Text("\(store.description)")
                             .font(.caption)
+                            .bold()
                             .lineLimit(1)
                             .multilineTextAlignment(.leading)
                         Spacer()
                     }
                     .padding(.bottom, 5)
-                    
-                    
-                    //                    HStack {
-                    //                        Spacer()
-                    //                        Text("평점 4.9")
-                    //                        Text("조회수 24150")
-                    //                    }
-                    //                    .font(.caption2)
-                    //                    .padding(.trailing, 5)
+
+
                 }
                 .frame(width: 185)
+                .padding(2.5)
             } //VStack
             .foregroundColor(.black)
             .frame(width: 200, height: 300)
