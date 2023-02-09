@@ -27,7 +27,7 @@ struct ReviewDetailView: View {
                     
                     
                     if let images = selectedtedReview.images{
-                        TabView() {
+                        TabView {
                             
                             ForEach(images, id: \.self) { imageKey in
                                 Button(action:{
@@ -43,7 +43,7 @@ struct ReviewDetailView: View {
                             
                             }//ForEach
                         }
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode:.never))
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode:.always))
                         .frame(width: UIScreen.main.bounds.width)
                         .padding(.top,-80)
                     }

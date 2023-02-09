@@ -343,7 +343,7 @@ extension DetailView {
                         .padding(.bottom,10)
                     
                     
-                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 45, spacing: 15) { ggakdugi in
+                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
                         starStore.selectedStar = ggakdugi
                         showingCreateRewviewSheet.toggle()
                     }
@@ -409,13 +409,15 @@ struct UserReview:  View {
                         } label: {
                             HStack{
                                 Text("삭제")
-                                    .fontWeight(.medium)
-                                    .font(.system(size:15))
+                                    .fontWeight(.thin)
+                                    .font(.system(size:14))
                                     .foregroundColor(Color(.black))
-                                    .padding(EdgeInsets(top: 0.5, leading: 5, bottom: 0.5, trailing: 5))
+                               
+                                    .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color(.black), lineWidth: 0.5)
+                                           .stroke(Color.secondary, lineWidth: 0.5)
+                                          
                                     )
                                     .padding(.trailing,15)
                                 
@@ -451,6 +453,7 @@ struct UserReview:  View {
                     .padding(.leading,20)
                 Spacer()
                 if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                    
                     Button(action:{
                         isShowingReportView.toggle()
                         
@@ -463,8 +466,9 @@ struct UserReview:  View {
                     }
                     .padding()
                     .foregroundColor(.secondary)
-                }else{
-                    Text("")
+                }
+                else{
+                   
                 }
                 
             }//HStack
@@ -512,7 +516,7 @@ struct UserReview:  View {
         }//VStack
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $isShowingReportView) {
-            ReportView(isshowingReportSheet: $isShowingReportView, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter)
+            ReportView(isshowingReportSheet: $isShowingReportView, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter, review: review)
         }
         //리뷰 이미지 크게 보이는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingReviewDetailView) {
