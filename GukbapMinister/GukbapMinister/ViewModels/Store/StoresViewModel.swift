@@ -133,7 +133,7 @@ final class StoresViewModel: ObservableObject {
                                         try await self.fetchImages(storeId: store.storeName, imageName: imageName)
                                     }
                                     catch{
-                                        
+                                        print("sotreViewModel 'fetchImages' Error")
                                     }
                                 }
                                

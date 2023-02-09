@@ -17,10 +17,9 @@ import FirebaseStorage
 extension Review {
     static var blank =
     Review(id: "",
-           userId: "",
+           userId: "", //리뷰id
            reviewText: "",
            createdAt: 0.0 ,
-           images: [],
            nickName: "",
            starRating: 0,
            storeName: ""
