@@ -19,8 +19,7 @@ extension StoreReport {
                 storeAddress: "",
                 foodType: [],
                 description: "",
-                isUseful: false
-    )
+                isUseful: false)
 }
 
 final class StoreReportViewModel: ObservableObject{
