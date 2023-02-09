@@ -85,6 +85,7 @@
 		AD07DFC9298A5E50005DBA8D /* MyReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD07DFC8298A5E50005DBA8D /* MyReviewView.swift */; };
 		AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD16F7B5298796F400733B85 /* CollectionViewModel.swift */; };
 		AD2A3014297A1BA100086F24 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2A3013297A1BA100086F24 /* MapViewModel.swift */; };
+		ADC041182994C90B00E3C5E5 /* DetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC041172994C90B00E3C5E5 /* DetailListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,6 +163,7 @@
 		AD07DFC8298A5E50005DBA8D /* MyReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewView.swift; sourceTree = "<group>"; };
 		AD16F7B5298796F400733B85 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		AD2A3013297A1BA100086F24 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		ADC041172994C90B00E3C5E5 /* DetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				5BF928D5299368C600DB1445 /* ExploreCategoryIconsView.swift */,
 				5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */,
 				041FE9702988D57500BE32E7 /* SegmentedPicker.swift */,
+				ADC041172994C90B00E3C5E5 /* DetailListView.swift */,
 			);
 			path = ExploreView;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				5B24E179299380FC00F746A0 /* ExploreCategoryDetailView.swift in Sources */,
 				AD2A3014297A1BA100086F24 /* MapViewModel.swift in Sources */,
+				ADC041182994C90B00E3C5E5 /* DetailListView.swift in Sources */,
 				0400A0902992119500727132 /* StoreImageDetailView.swift in Sources */,
 				5B0058422990B6E700564930 /* StoreReport.swift in Sources */,
 				63FCF534297677E0001712CA /* MainTabView.swift in Sources */,
