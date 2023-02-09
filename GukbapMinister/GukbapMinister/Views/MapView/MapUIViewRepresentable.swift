@@ -124,11 +124,11 @@ struct MapUIView: UIViewRepresentable {
         compassButton.compassVisibility = .adaptive
         maps.addSubview(compassButton)
         
-        let trackingButton = MKUserTrackingButton(mapView: maps)
-        trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
-        trackingButton.frame.size = CGSize(width: 45, height: 45)
-        trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 14, y: maps.frame.height * 0.65)
-        trackingButton.layer.cornerRadius = 22.5
+      let trackingButton = MKUserTrackingButton(mapView: maps)
+      trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
+      trackingButton.frame.size = CGSize(width: 42, height: 42)
+      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
+      trackingButton.layer.cornerRadius = 22.5
         
         maps.addSubview(trackingButton)
         
