@@ -28,16 +28,16 @@ enum Gukbaps: String, CaseIterable {
         switch self {
         case .순대국밥: return "SDGukbap"
         case .돼지국밥: return "PigGukbap"
-        case .내장탕: return "SDGukbap" // 변경예정
-        case .선지국: return "SDGukbap" // 변경예정
+        case .내장탕: return "NJGukbap"
+        case .선지국: return "SJGukbap"
         case .소머리국밥: return "SMRGukbap"
         case .뼈해장국: return "BHJGukbap"
-        case .수구레국밥: return "SDGukbap" // 변경예정
+        case .수구레국밥: return "SGRGukbap"
         case .굴국밥: return "OysterGukbap"
         case .콩나물국밥: return "KNMGukbap"
         case .설렁탕: return "SRTGukbap"
-        case .평양온반: return "SDGukbap" // 변경예정
-        case .시레기국밥: return "SDGukbap" // 변경예정
+        case .평양온반: return "PYOBGukbap"
+        case .시레기국밥: return "SRGGukbap"
         }
     }
     
