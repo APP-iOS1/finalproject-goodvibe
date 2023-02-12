@@ -39,7 +39,6 @@
 		5B2E2E722994D2D800A7B94F /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E2E712994D2D800A7B94F /* GifImage.swift */; };
 		5B2E2E742994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */; };
 		5B2E2E7B2994EAB800A7B94F /* Ddukbaegi.boiling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B2E2E7A2994EAB800A7B94F /* Ddukbaegi.boiling.gif */; };
-		5B2E2E7D2995527500A7B94F /* Ddukbaegi.boiling.5.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B2E2E7C2995527500A7B94F /* Ddukbaegi.boiling.5.gif */; };
 		5B31DBBB297A23A100EA0036 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */; };
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */; };
@@ -122,7 +121,6 @@
 		5B2E2E712994D2D800A7B94F /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
 		5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.Intro.gif; sourceTree = "<group>"; };
 		5B2E2E7A2994EAB800A7B94F /* Ddukbaegi.boiling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.gif; sourceTree = "<group>"; };
-		5B2E2E7C2995527500A7B94F /* Ddukbaegi.boiling.5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.5.gif; sourceTree = "<group>"; };
 		5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 			children = (
 				5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */,
 				5B2E2E7A2994EAB800A7B94F /* Ddukbaegi.boiling.gif */,
-				5B2E2E7C2995527500A7B94F /* Ddukbaegi.boiling.5.gif */,
 				5BDB9AE4297581C800BFD5D9 /* Info.plist */,
 				5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */,
 				5BDB9AB12975751C00BFD5D9 /* ContentView.swift */,
@@ -555,7 +552,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B2E2E7D2995527500A7B94F /* Ddukbaegi.boiling.5.gif in Resources */,
 				5BDB9AB72975751F00BFD5D9 /* Preview Assets.xcassets in Resources */,
 				5BDB9AC22975761B00BFD5D9 /* GoogleService-Info.plist in Resources */,
 				5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */,

@@ -38,7 +38,7 @@ struct StoreReportButton: View {
                 Circle()
                     .frame(width: 45, height: 45)
                     .overlay {
-                        GifImage("Ddukbaegi.boiling.5")
+                        GifImage("Ddukbaegi.boiling")
                             .frame(width: 45)
                             .clipShape(Circle())
                     }
