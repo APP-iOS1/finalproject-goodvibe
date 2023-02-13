@@ -12,15 +12,24 @@ struct NoticeView: View {
 
     
     var body: some View {
-        VStack {
-            Text("국밥부장관을 다운받아 주셔서 감사합니다")
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                Text("뒤로")
+        NavigationStack {
+            VStack {
+                List {
+                    Section {
+                        Text("국밥부 장관을 다운받아 주셔서 감사합니다.")
+                    }
+                    
+                }
+              
+                Button {
+                    dismiss()
+                } label: {
+                    Text("뒤로")
+                }
+                
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("공지")
         }
     }
 }
