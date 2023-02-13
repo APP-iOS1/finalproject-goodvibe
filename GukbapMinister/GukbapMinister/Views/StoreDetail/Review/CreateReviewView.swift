@@ -245,7 +245,7 @@ struct CreateReviewView: View {
                             if trimReviewText.count > 0 {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
-                                        userViewModel.increaseReviewCount()
+                                        userViewModel.updateReviewCount()
                                         Task{
                                             
                                             let createdAt = Date().timeIntervalSince1970
