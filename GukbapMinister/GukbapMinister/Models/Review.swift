@@ -16,6 +16,7 @@ struct Review: Codable, Identifiable, Hashable {
     var images: [String]?
     var nickName: String
     var starRating: Int
+    
 
     
     var createdDate: String {
@@ -31,4 +32,6 @@ struct Review: Codable, Identifiable, Hashable {
  
     // 가게이름 추가
     var storeName: String
+    // 가게Id 추가
+    var storeId: String
 }

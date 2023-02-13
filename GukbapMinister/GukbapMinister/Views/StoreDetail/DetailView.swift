@@ -50,26 +50,26 @@ struct DetailView: View {
         NavigationStack {
             GeometryReader { geo in
                 ScrollView(showsIndicators: false) {
-                        VStack{
-                            storeImages
+                    VStack{
+                        storeImages
+                        
+                        storeFoodTypeAndRate
+                        
+                        storeDescription
+                        
+                        storeMenu
+                        
+                        userStarRate
+                        
+                        ForEach(reviewViewModel.reviews) { review in
                             
-                            storeFoodTypeAndRate
-                            
-                            storeDescription
-                            
-                            storeMenu
-                            
-                            userStarRate
-                            
-                            ForEach(reviewViewModel.reviews) { review in
-                               
-                                if (review.storeName == store.storeName){
-                                    UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
-                                }
-                            }//FirstForEach
-                            
-                        }//VStack
- 
+                            if (review.storeName == store.storeName){
+                                UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
+                            }
+                        }//FirstForEach
+                        
+                    }//VStack
+                    
                 }//ScrollView
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
@@ -81,7 +81,7 @@ struct DetailView: View {
                                 .tint(.black)
                         }
                     }
-   
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             collectionViewModel.isHeart.toggle()
@@ -94,16 +94,16 @@ struct DetailView: View {
                 }
             }//GeometryReader
             .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            VStack {
-                                Text("\(store.storeName)").font(.headline)
-                                Text("\(store.storeAddress)").font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("\(store.storeName)").font(.headline)
+                        Text("\(store.storeAddress)").font(.subheadline)
+                            .foregroundColor(.secondary)
                     }
-//            .navigationTitle(store.storeName)
+                }
+            }
+            //            .navigationTitle(store.storeName)
         }//NavigationStack
         //가게 이미지만 보는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingStoreImageDetail){
@@ -201,7 +201,7 @@ extension DetailView {
                         if isExpanded {
                             Text("접기")
                                 .fontWeight(.medium)
-
+                            
                             Image(systemName: "chevron.up")
                                 .fontWeight(.medium)
                                 .font(.system(size:15))
@@ -213,12 +213,12 @@ extension DetailView {
                                 )
                                 .padding(.trailing,15)
                             
-                          
+                            
                             
                         }else {
                             Text("더보기")
                                 .fontWeight(.medium)
-
+                            
                             Image(systemName: "chevron.down")
                                 .fontWeight(.medium)
                                 .font(.system(size:15))
@@ -233,7 +233,7 @@ extension DetailView {
                         }
                     }
                     .foregroundColor(.black)
-
+                    
                 }
                 .foregroundColor(scheme == .light ? .black : .white)
                 Spacer()
@@ -241,7 +241,7 @@ extension DetailView {
         }
         .animation(.easeInOut, value: store.description)
     }
-
+    
     
     //MARK: 가게 메뉴정보
     var storeMenu: some View {
@@ -271,7 +271,7 @@ extension DetailView {
             HStack {
                 Spacer()
                 VStack {
-//                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
+                    //                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
                     Text("\(userViewModel.userInfo.userNickname) 님 이 국밥집은 어떠셨나요?")
                         .fontWeight(.bold)
                         .padding(.bottom,10)
@@ -313,71 +313,63 @@ struct UserReview:  View {
     var review: Review
     
     var body: some View {
-        VStack{
-            
-            
-            HStack{
-                if userViewModel.currentUser?.uid ?? "" == review.userId {
-                    Text("\(review.nickName)")
+        VStack(spacing: 0){
+            HStack(spacing: 0){
+                Text("\(review.nickName)")
                         .fontWeight(.semibold)
-                        .padding()
+                        .padding(.vertical)
+//                        .padding(.leading)
                     
+                if userViewModel.currentUser?.uid ?? "" == review.userId {
                     Text("(내 리뷰)")
-                        .font(.system(size:15))
                         .fontWeight(.medium)
-                        .padding(.leading,-20)
-                }else {
-                    Text("\(review.nickName)")
-                        .fontWeight(.semibold)
-                        .padding()
                 }
                 
                 Spacer()
-                HStack{
-                    Spacer()
-                    if userViewModel.currentUser?.uid ?? ""  == review.userId {
-                        Button {
-                            isDeleteAlert.toggle()
+                
+                if userViewModel.currentUser?.uid ?? "" == review.userId {
+                    Button {
+                        isDeleteAlert.toggle()
+                        
+                    } label: {
+                        HStack{
+                            Text("삭제")
+                                .font(.footnote)
+                                .fontWeight(.thin)
+                                .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.secondary, lineWidth: 0.5)
+                                    
+                                )
                             
-                        } label: {
-                            HStack{
-                                Text("삭제")
-                                    .fontWeight(.thin)
-                                    .font(.system(size:14))
-                                    .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                           .stroke(Color.secondary, lineWidth: 0.5)
-                                          
-                                    )
-                                    .padding(.trailing,15)
-                                
-                            }
-                            
-                        }
-                        .alert(isPresented: $isDeleteAlert) {
-                            Alert(title: Text(""),
-                                  message: Text("리뷰를 삭제하시겠습니까?"),
-                                  primaryButton: .destructive(Text("확인"),
-                                                              action: {
-                                reviewViewModel.removeReview(review: review)
-                            }), secondaryButton: .cancel(Text("닫기")))
                         }
                         
+                    }
+                    .alert(isPresented: $isDeleteAlert) {
+                        Alert(title: Text(""),
+                              message: Text("리뷰를 삭제하시겠습니까?"),
+                              primaryButton: .destructive(Text("확인"),
+                                                          action: {
+                            reviewViewModel.removeReview(review: review)
+                        }), secondaryButton: .cancel(Text("닫기")))
                     }
                     
                 }
                 
                 
+                
+                
             }
+            .padding(.horizontal, 15)
             
             HStack {
-                GgakdugiRatingWide(selected: review.starRating, size: 15, spacing: 2) { _ in
+                GgakdugiRatingWide(selected: review.starRating - 1, size: 15, spacing: 2) { _ in
                 }
                 Text("\(review.createdDate)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
-                    
+                
                 Spacer()
                 if(userViewModel.currentUser?.uid ?? "" != review.userId){
                     Button(action:{
@@ -396,7 +388,7 @@ struct UserReview:  View {
             }//HStack
             .padding(.leading)
             .padding(.trailing, 5)
-            .padding(.top, -35)
+            .padding(.top, -10)
             
             
             
