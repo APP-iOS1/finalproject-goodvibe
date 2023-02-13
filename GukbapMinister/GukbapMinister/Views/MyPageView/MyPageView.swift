@@ -15,6 +15,8 @@ struct MyPageView: View {
     @State private var isUpdateUserInfoPresented: Bool = false
     @State private var isMyReviewPresented: Bool = false
     @State private var isShowingAlert: Bool = false
+    
+    @State private var isShowingNotice: Bool = false
 
     
     var body: some View {
@@ -71,6 +73,20 @@ struct MyPageView: View {
 
                 
                 VStack (alignment: .leading, spacing: 25) {
+                    //공지사항도 있어야할것같아서 버튼만 우선 만들었습니다.
+                    Button {
+                        self.isShowingNotice.toggle()
+                    } label: {
+                        HStack{
+                            Image(systemName: "ellipsis.message")
+                            Text("공지")
+                        }
+                    }
+                    .fullScreenCover(isPresented: $isShowingNotice) {
+                        NoticeView()
+                    }
+                    
+                    
                     Button {
                         self.isMyReviewPresented.toggle()
                     } label: {
