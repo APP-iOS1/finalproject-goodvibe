@@ -17,6 +17,7 @@ struct MyPageView: View {
     @State private var isShowingAlert: Bool = false
     
     @State private var isShowingNotice: Bool = false
+    @State private var isShowingTerms: Bool = false
 
     
     var body: some View {
@@ -78,7 +79,7 @@ struct MyPageView: View {
                         self.isShowingNotice.toggle()
                     } label: {
                         HStack{
-                            Image(systemName: "ellipsis.message")
+                            Image(systemName: "exclamationmark.bubble")
                             Text("공지")
                         }
                     }
@@ -137,6 +138,20 @@ struct MyPageView: View {
                             Text("장소 제보하기(임시)")
                         }
                     }
+                    
+                    //이용약관 페이지로 넘어가는 버튼
+                    Button {
+                        self.isShowingTerms.toggle()
+                    } label: {
+                        HStack{
+                            Image(systemName: "captions.bubble")
+                            Text("이용 약관")
+                        }
+                    }
+                    .fullScreenCover(isPresented: $isShowingTerms) {
+                     
+                    }
+                    
                     
                     Button {
                         isShowingAlert.toggle()
