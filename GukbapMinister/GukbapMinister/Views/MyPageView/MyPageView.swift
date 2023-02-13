@@ -145,7 +145,7 @@ struct MyPageView: View {
                     } label: {
                         HStack{
                             Image(systemName: "captions.bubble")
-                            Text("약관 및 정책")
+                            Text("앱 정보")
                         }
                     }
                     .fullScreenCover(isPresented: $isShowingTerms) {

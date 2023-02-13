@@ -54,7 +54,11 @@ struct PolicyView: View {
                             Text("오픈소스")
                         }
                     })
-                   
+                    
+                    Text("버전 정보 1.0.0")
+                    
+                    
+                    
                     
                 }
                 
@@ -66,7 +70,7 @@ struct PolicyView: View {
                 
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("이용 약관")
+            .navigationTitle("앱 정보")
         }
         
         
