@@ -51,6 +51,7 @@ class ReviewViewModel: ObservableObject {
                         let nickName: String = docData["nickName"] as? String ?? ""
                         let starRating: Int = docData["starRating"] as? Int ?? 0
                         let storeName: String = docData["storeName"] as? String ?? ""
+                        let storeId: String = docData["storeId"] as? String ?? ""
 
                         for imageName in images{
                             self.retrieveImages(reviewId: id, imageName: imageName)
@@ -63,7 +64,8 @@ class ReviewViewModel: ObservableObject {
                                                     images: images,
                                                     nickName: nickName,
                                                     starRating: starRating,
-                                                    storeName: storeName
+                                                    storeName: storeName,
+                                                    storeId: storeId
                         )
                         
                         self.reviews.append(review)
@@ -92,8 +94,12 @@ class ReviewViewModel: ObservableObject {
                           "images": imgNameList,
                           "nickName": review.nickName,
                           "starRating": review.starRating,
-                          "storeName" : review.storeName
+                          "storeName" : review.storeName,
+                          "storeId": review.storeId
                          ])
+            
+            await updateStoreRating(newReview: review)
+            
             fetchReviews()
             print("이미지 배열\(imgNameList)")
         } catch {
@@ -162,6 +168,28 @@ class ReviewViewModel: ObservableObject {
                 self.reviewImage[imageName] = image
             }
         }
+    }
+    
+    func updateStoreRating(newReview: Review) async {
+        let storeReviews = reviews.filter { $0.storeName == newReview.storeName }
+        
+        let reviewCount = storeReviews.count + 1
+        var ratingTotal: Int = newReview.starRating
+        
+        for storeReview in storeReviews {
+            ratingTotal += storeReview.starRating
+        }
+        
+        let newRatingAverage: Double = Double(ratingTotal) / Double(reviewCount)
+        
+        do {
+            try await database.collection("Store").document(newReview.storeId).updateData([
+                "countingStar" : newRatingAverage
+            ])
+        } catch {
+            print(error.localizedDescription)
+        }
+
     }
     
 }
