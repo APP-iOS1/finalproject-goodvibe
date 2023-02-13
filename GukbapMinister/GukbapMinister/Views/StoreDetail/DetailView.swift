@@ -14,14 +14,16 @@ class StarStore: ObservableObject {
 }
 
 struct DetailView: View {
+    @Environment(\.colorScheme) var scheme
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @EnvironmentObject var userViewModel: UserViewModel
     //   @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @StateObject private var storesViewModel: StoresViewModel = StoresViewModel()
-    @ObservedObject var starStore = StarStore()
-    //@StateObject private var storeViewModel : StoreViewModel
     @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
+    
+    @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
@@ -31,15 +33,12 @@ struct DetailView: View {
     @State var startOffset: CGFloat = 0
     @State var scrollViewOffset: CGFloat = 0
     @State private var isReviewImageClicked: Bool = false
-    let colors: [Color] = [.yellow, .green, .red]
-    //let menus: [String : String] = ["국밥" : "9,000원", "술국" : "18,000원", "수육" : "32,000원", "토종순대" : "12,000원"]
+    
     let currentUser = Auth.auth().currentUser
     
     //lineLimit 관련 변수
     @State private var isFirst: Bool = true
     @State private var isExpanded: Bool = false
-    @State private var needFoldButton: Bool = true
-    @State private var textHeight: CGFloat? = nil
     
     //StoreImageDetailView 전달 변수
     @State private var isshowingStoreImageDetail: Bool = false
@@ -50,70 +49,28 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
-                // let width: CGFloat = geo.size.width
-                
-                
                 ScrollView(showsIndicators: false) {
-                    
-                    ZStack {
-                        //배경색
-                        Color(uiColor: .white)
-                        
                         VStack{
-                            
-                            //상호명 주소
-                            //Store.storeName, Store.storeAddress
-                //            storeNameAndAddress
-                            
-                            //Store.images
                             storeImages
                             
-                            //Store.description
+                            storeFoodTypeAndRate
+                            
                             storeDescription
                             
-                            //Store.menu
                             storeMenu
                             
                             userStarRate
                             
                             ForEach(reviewViewModel.reviews) { review in
-                                //                                NavigationLink{
-                                // 리뷰 섹션 클릭시 뭐할지? 고민중, 우선순위도에서 밀려남                                   ReviewDetailView(reviewViewModel:reviewViewModel, selectedtedReview: review)
-                                //                                }label: {
+                               
                                 if (review.storeName == store.storeName){
                                     UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
-                                    
-                                    //                                        .contextMenu{
-                                    //                                            Button{
-                                    //                                                reviewViewModel.removeReview(review: review)
-                                    //                                            }label: {
-                                    //                                                Text("삭제")
-                                    //                                                Image(systemName: "trash")
-                                    //                                            }
-                                    //                                        }//contextMenu
-                                    //   }//NavigationLink
                                 }
-                                
                             }//FirstForEach
                             
                         }//VStack
-                        // .padding(.bottom, 200)
-                    }//ZStack
+ 
                 }//ScrollView
-                //                .overlay(
-                //                    GeometryReader{ proxy -> Color in
-                //                        DispatchQueue.main.async {
-                //                            if startOffset == 0 {
-                //                                self.startOffset = proxy.frame(in: .global).minY
-                //                            }
-                //                            let offset = proxy.frame(in: .global).minY
-                //                            self .scrollViewOffset = offset - startOffset
-                //
-                //                            //print("y축 위치 값: \(self.scrollViewOffset)")
-                //                        }
-                //                        return Color.clear
-                //                    })
-                
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -124,8 +81,7 @@ struct DetailView: View {
                                 .tint(.black)
                         }
                     }
-                   
-                    
+   
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             collectionViewModel.isHeart.toggle()
@@ -157,12 +113,9 @@ struct DetailView: View {
         .fullScreenCover(isPresented: $showingCreateRewviewSheet) {
             CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingCreateRewviewSheet, store: store )
         }
-        
         .onAppear{
             Task{
                 storesViewModel.subscribeStores()
-                
-                
             }
             reviewViewModel.fetchReviews()
         }
@@ -176,35 +129,7 @@ struct DetailView: View {
 }//struct
 
 extension DetailView {
-    var storeNameAndAddress: some View {
-        //상호명 주소
-        //Store.storeName, Store.storeAddress
-        HStack {
-            VStack(alignment: .center){
-                
-                // .padding(.bottom, 3)
-                Text(store.storeAddress)
-                    .font(.system(size:15))
-                    .foregroundColor(.secondary)
-                    .padding(.top,-25)
-                
-            }
-            //                ForEach(mapViewModel.filteredGukbaps, id:\.self) { gukbap in
-            //                    HStack(spacing: 2) {
-            //                        gukbap.image
-            //                            .resizable()
-            //                            .scaledToFill()
-            //                            .frame(width:28, height: 28)
-            //                        Text("\(gukbap.rawValue)")
-            //                    }
-            //                    .categoryCapsule()
-            //                }
-            
-        }
-        .padding(15)
-        
-        .background(.white)
-    }
+    
     //MARK: 가게 이미지
     var storeImages: some View {
         TabView {
@@ -229,13 +154,42 @@ extension DetailView {
         .frame(height:Screen.maxWidth * 0.8)
         .tabViewStyle(.page(indexDisplayMode: .always))
     }
+    
+    //MARK: 가게 음식종류, 평점
+    var storeFoodTypeAndRate: some View {
+        VStack {
+            HStack {
+                ForEach(store.foodType, id: \.self) { gukbap in
+                    Text(gukbap)
+                        .font(.footnote)
+                        .bold()
+                        .padding(.vertical, 2)
+                        .padding(.horizontal, 10)
+                        .background {
+                            Capsule()
+                                .fill(Color.mainColor.opacity(0.1))
+                        }
+                }
+                
+                Spacer()
+                
+                GgakdugiRatingShort(rate: store.countingStar , size: 22)
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 10)
+            
+            Divider()
+                .padding(.bottom, 10)
+        }
+    }
+    
     //MARK: 가게 설명
     var storeDescription: some View {
         
         VStack{
             Text(store.description)
-                .font(.system(size:18))
-                .frame(width: Screen.maxWidth - 20, height:textHeight)
+                .font(.body)
+                .frame(width: Screen.maxWidth - 20)
                 .lineSpacing(5)
                 .lineLimit(isExpanded ? nil : 2)
             HStack{
@@ -243,27 +197,12 @@ extension DetailView {
                 Button(action: {
                     isExpanded.toggle()
                 }){
-                    //                    HStack{
-                    //                        Text("삭제")
-                    //                               .fontWeight(.medium)
-                    //                               .font(.system(size:15))
-                    //                               .foregroundColor(Color("AccentColor"))
-                    //                               .padding(EdgeInsets(top: 0.5, leading: 5, bottom: 0.5, trailing: 5))
-                    //                               .overlay(
-                    //                                   RoundedRectangle(cornerRadius: 20)
-                    //                                    .stroke(Color("AccentColor"), lineWidth: 0.5)
-                    //                               )
-                    //                                .padding(.trailing,15)
-                    //
-                    //                    }
                     HStack{
-                        if(isExpanded == true) {
-                            
+                        if isExpanded {
                             Text("접기")
                                 .fontWeight(.medium)
 
                             Image(systemName: "chevron.up")
-                                .foregroundColor(.black)
                                 .fontWeight(.medium)
                                 .font(.system(size:15))
                                 .foregroundColor(Color(.black))
@@ -281,8 +220,6 @@ extension DetailView {
                                 .fontWeight(.medium)
 
                             Image(systemName: "chevron.down")
-
-                                .foregroundColor(.black)
                                 .fontWeight(.medium)
                                 .font(.system(size:15))
                                 .foregroundColor(Color(.black))
@@ -298,17 +235,13 @@ extension DetailView {
                     .foregroundColor(.black)
 
                 }
+                .foregroundColor(scheme == .light ? .black : .white)
                 Spacer()
             }
         }
         .animation(.easeInOut, value: store.description)
     }
-    
-    
-    fileprivate struct SizePreference: PreferenceKey {
-        static let defaultValue: CGSize = .zero
-        static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
-    }
+
     
     //MARK: 가게 메뉴정보
     var storeMenu: some View {
@@ -318,7 +251,7 @@ extension DetailView {
                     .font(.title2.bold())
                     .padding(.bottom)
                 
-                ForEach(/*menus.sorted(by: >)*/store.menu.sorted(by: >), id: \.key) {menu, price in
+                ForEach(store.menu.sorted(by: <), id: \.key) {menu, price in
                     HStack{
                         Text(menu)
                         Spacer()
@@ -330,7 +263,7 @@ extension DetailView {
             .padding(15)
             Divider()
         }
-        .background(.white)
+        .background(scheme == .light ? .white : .black)
     }
     
     var userStarRate: some View {
@@ -338,7 +271,8 @@ extension DetailView {
             HStack {
                 Spacer()
                 VStack {
-                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
+//                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
+                    Text("\(userViewModel.userInfo.userNickname) 님 이 국밥집은 어떠셨나요?")
                         .fontWeight(.bold)
                         .padding(.bottom,10)
                     
@@ -353,7 +287,7 @@ extension DetailView {
                 
                 Spacer()
             }
-            .background(.white)
+            .background(scheme == .light ? .white : .black)
             
         }
         
@@ -361,6 +295,8 @@ extension DetailView {
 }
 //MARK: 가게 리뷰
 struct UserReview:  View {
+    @Environment(\.colorScheme) var scheme
+    
     @StateObject var reviewViewModel: ReviewViewModel
     @ObservedObject var starStore = StarStore()
     @Binding var scrollViewOffset: CGFloat
@@ -383,18 +319,15 @@ struct UserReview:  View {
             HStack{
                 if userViewModel.currentUser?.uid ?? "" == review.userId {
                     Text("\(review.nickName)")
-                        .foregroundColor(.black)
                         .fontWeight(.semibold)
                         .padding()
                     
                     Text("(내 리뷰)")
                         .font(.system(size:15))
-                        .foregroundColor(.black)
                         .fontWeight(.medium)
                         .padding(.leading,-20)
                 }else {
                     Text("\(review.nickName)")
-                        .foregroundColor(.black)
                         .fontWeight(.semibold)
                         .padding()
                 }
@@ -411,8 +344,6 @@ struct UserReview:  View {
                                 Text("삭제")
                                     .fontWeight(.thin)
                                     .font(.system(size:14))
-                                    .foregroundColor(Color(.black))
-                               
                                     .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
@@ -440,20 +371,15 @@ struct UserReview:  View {
                 
             }
             
-            HStack(spacing: -30){
-                ForEach(0..<5) { index in
-                    Image(review.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                        .padding()
+            HStack {
+                GgakdugiRatingWide(selected: review.starRating, size: 15, spacing: 2) { _ in
                 }
                 Text("\(review.createdDate)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
-                    .padding(.leading,20)
+                    
                 Spacer()
                 if(userViewModel.currentUser?.uid ?? "" != review.userId){
-                    
                     Button(action:{
                         isShowingReportView.toggle()
                         
@@ -462,17 +388,15 @@ struct UserReview:  View {
                             .font(.system(size:12))
                         Image(systemName: "chevron.right")
                             .font(.system(size:7))
-                            .padding(.leading, -8)
                     }
                     .padding()
                     .foregroundColor(.secondary)
                 }
-                else{
-                   
-                }
                 
             }//HStack
-            .padding(.top,-35)
+            .padding(.leading)
+            .padding(.trailing, 5)
+            .padding(.top, -35)
             
             
             
@@ -507,7 +431,6 @@ struct UserReview:  View {
             HStack{
                 Text("\(review.reviewText)")
                     .font(.system(size:17))
-                    .foregroundColor(.black)
                     .padding()
                 Spacer()
             }
