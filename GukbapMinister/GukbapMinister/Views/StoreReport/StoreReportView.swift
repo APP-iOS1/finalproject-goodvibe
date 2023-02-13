@@ -79,7 +79,7 @@ struct StoreReportView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
                     viewModel.handleDoneTapped()
-                    userViewModel.increaseStoreReportCount()
+                    userViewModel.updateStoreReportCount()
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         dismiss()

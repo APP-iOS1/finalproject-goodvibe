@@ -31,16 +31,8 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
-    @Published var reviewCount: Int = 0 {
-        didSet {
-            self.updateReviewCount()
-        }
-    }
-    @Published var storeReportCount: Int = 0 {
-        didSet {
-            self.updateStoreReportCount()
-        }
-    }
+    @Published var reviewCount: Int = 0
+    @Published var storeReportCount: Int = 0
     @Published var logStatus: Bool = false {
         didSet{
             UserDefaults.standard.set(logStatus, forKey: "logStatus")
@@ -53,6 +45,7 @@ final class UserViewModel: ObservableObject {
     }
     
     @Published var isLoading: Bool = false
+    @Published var userGrade: userGrade = .깍두기
     
     //로그인 상태
     enum SignInState{
@@ -285,12 +278,13 @@ final class UserViewModel: ObservableObject {
     
     // MARK: - 회원등급관련 리뷰수, 제보수 함수
     // 1. 리뷰수 증가 함수
-    func increaseReviewCount() {
+    private func increaseReviewCount() {
         self.reviewCount += 1
         print("\(#function) : 리뷰수 1 증가")
     }
     func updateReviewCount() {
         Task{
+            self.increaseReviewCount()
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
@@ -304,12 +298,13 @@ final class UserViewModel: ObservableObject {
     }
     
     // 2. 제보수 증가 함수
-    func increaseStoreReportCount() {
+    private func increaseStoreReportCount() {
         self.storeReportCount += 1
         print("\(#function) : 국밥집 제보수 1 증가")
     }
     func updateStoreReportCount() {
         Task{
+            self.increaseStoreReportCount()
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
