@@ -13,10 +13,7 @@ struct CollectionView: View {
     @EnvironmentObject private var userVM: UserViewModel
     
     @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
-    
     let currentUser = Auth.auth().currentUser
-    
-    
     @State var res : [Store] = []
     
     var body: some View {
@@ -40,11 +37,17 @@ struct CollectionView: View {
                                 let imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
                                 
                                 cellLiked(collectionVM: collectionVM, cellData: store, imagedata: imageData)
-                                    .frame(width: UIScreen.main.bounds.width-40, height: 90)
+                                    .frame(width: UIScreen.main.bounds.width-40, height: 100)
                                     .padding()
-                                    .padding(.vertical, 10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(.gray.opacity(0.3))
+                                            .frame(width: UIScreen.main.bounds.width - 20, height: 140)
+                                    )
                                 
+                                    .padding(.vertical,14)
                                 Divider()
+                                   
                             }
                         }
                         .background(.white)
@@ -55,49 +58,57 @@ struct CollectionView: View {
                         VStack{
                             Spacer()
                             
-                            VStack{
-                                HStack{
-                                    Text("찜한 가게가 아무 곳도 없네요, 이런 국밥집은 어떠신가요?")
-                                        .font(.callout)
-                                        .bold()
-                                        .padding(.leading)
-                                    Spacer()
-                                }
-                                .padding(.top, 20)
+                            VStack(alignment:.leading){
                                 
-                                ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
-
-                                    if Int(index.description) == storesViewModel.countRan{
-                                        let imageData = storesViewModel.storeTitleImage[element.storeImages.first ?? ""] ?? UIImage()
-                                        
-                                        cellRandom(collectionVM: collectionVM, cellData: element, imagedata: imageData)
-                                            .frame(width: UIScreen.main.bounds.width-40, height: 90)
-                                            .padding()
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(.gray.opacity(0.3))
-                                                    .frame(width: UIScreen.main.bounds.width - 20, height: 120)
-                                            )
-                                            .padding(.bottom, 15)
+                                VStack{
+                                    HStack{
+                                        Text("찜한 곳이 없네요")
+                                        Spacer()
                                     }
+                                    HStack{
+                                        Text("추천하는 국밥집은 어떠신가요?")
+                                        Spacer()
+
+                                    }
+                                   
+                                    
+                                    
                                 }
+                                .font(.callout)
+                                .bold()
+                                .padding(.leading)
+                                // .padding(.top, 20)
+                              
+                                ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
+                                    if ((element.foodType).contains(userVM.gukbaps)){
+//                                        if Int(index.description) == storesViewModel.countRan{
+                                            let imageData = storesViewModel.storeTitleImage[element.storeImages.first ?? ""] ?? UIImage()
+                                            
+                                            cellRandom(collectionVM: collectionVM, cellData: element, imagedata: imageData)
+                                                .frame(width: UIScreen.main.bounds.width-40, height: 90)
+                                                .padding()
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 20)
+                                                        .stroke(.gray.opacity(0.3))
+                                                        .frame(width: UIScreen.main.bounds.width - 20, height: 120)
+                                                )
+                                                .padding(.vertical,14)
+                                            Divider()
+                                        }
+                                    }
                             }
-                            .frame(width: UIScreen.main.bounds.width, height: 170)
-                            .background(.white)
-                            
                         }
-                        
                     }
                 } // ScrollView
                 .toolbarBackground(Color.white, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
-                .navigationTitle("내가 찜한 곳")
+                .navigationTitle("내가 찜한 가게")
                 .navigationBarTitleDisplayMode(.inline)
             } // ZStack
         } // NavigationStack
         .onAppear {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
-            print("\(collectionVM.stores)")
+           //userVM.fetchUserInfo(uid: currentUser?.uid ?? "")
             Task{
                 storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
