@@ -121,6 +121,9 @@ struct MapUIView: UIViewRepresentable {
       trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
       trackingButton.layer.cornerRadius = 22.5
         
+        
+        
+        
         maps.addSubview(trackingButton)
         
         // 맵이 보이는 범위를 한국으로 제한하기
@@ -164,6 +167,7 @@ struct MapUIView: UIViewRepresentable {
                     removingAnnotations.append(store)
                 }
             }
+            
             return removingAnnotations
         }
     }

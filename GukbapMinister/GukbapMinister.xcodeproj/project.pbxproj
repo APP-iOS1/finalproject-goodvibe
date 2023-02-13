@@ -38,10 +38,10 @@
 		5B24E179299380FC00F746A0 /* ExploreCategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */; };
 		5B2E2E722994D2D800A7B94F /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E2E712994D2D800A7B94F /* GifImage.swift */; };
 		5B2E2E742994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */; };
-		5B2E2E7B2994EAB800A7B94F /* Ddukbaegi.boiling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B2E2E7A2994EAB800A7B94F /* Ddukbaegi.boiling.gif */; };
 		5B31DBBB297A23A100EA0036 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */; };
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */; };
+		5B6536C12999C8E000EA8FE5 /* Ddukbaegi.boiling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */; };
 		5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B984029298F90EE003F604B /* SearchBarModifier.swift */; };
 		5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */; };
 		5BA2DB3D298CD57200A33EAB /* Gukbaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3C298CD57200A33EAB /* Gukbaps.swift */; };
@@ -125,10 +125,10 @@
 		5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCategoryDetailView.swift; sourceTree = "<group>"; };
 		5B2E2E712994D2D800A7B94F /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
 		5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.Intro.gif; sourceTree = "<group>"; };
-		5B2E2E7A2994EAB800A7B94F /* Ddukbaegi.boiling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.gif; sourceTree = "<group>"; };
 		5B31DBBA297A23A100EA0036 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
+		5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.gif; sourceTree = "<group>"; };
 		5B984029298F90EE003F604B /* SearchBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarModifier.swift; sourceTree = "<group>"; };
 		5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackDemoView.swift; sourceTree = "<group>"; };
 		5BA2DB3C298CD57200A33EAB /* Gukbaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gukbaps.swift; sourceTree = "<group>"; };
@@ -345,7 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */,
-				5B2E2E7A2994EAB800A7B94F /* Ddukbaegi.boiling.gif */,
+				5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */,
 				5BDB9AE4297581C800BFD5D9 /* Info.plist */,
 				5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */,
 				5BDB9AB12975751C00BFD5D9 /* ContentView.swift */,
@@ -575,11 +575,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6536C12999C8E000EA8FE5 /* Ddukbaegi.boiling.gif in Resources */,
 				5BDB9AB72975751F00BFD5D9 /* Preview Assets.xcassets in Resources */,
 				5BDB9AC22975761B00BFD5D9 /* GoogleService-Info.plist in Resources */,
 				5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */,
 				5B2E2E742994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif in Resources */,
-				5B2E2E7B2994EAB800A7B94F /* Ddukbaegi.boiling.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
