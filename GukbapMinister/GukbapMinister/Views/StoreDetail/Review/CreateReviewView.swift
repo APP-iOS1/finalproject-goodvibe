@@ -219,8 +219,18 @@ struct CreateReviewView: View {
                                 .lineLimit(11...)
                         }
                         
-                        .navigationTitle(store.storeName)
+//                        .navigationTitle(store.storeName)
+//                        .navigationBarTitleDisplayMode(.inline)
                         .navigationBarTitleDisplayMode(.inline)
+                                .toolbar {
+                                    ToolbarItem(placement: .principal) {
+                                        VStack {
+                                            Text("\(store.storeName)").font(.headline)
+                                            Text("\(store.storeAddress)").font(.subheadline)
+                                                .foregroundColor(.secondary)
+                                        }
+                                    }
+                                }
                         
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
@@ -235,6 +245,7 @@ struct CreateReviewView: View {
                             if trimReviewText.count > 0 {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
+                                        userViewModel.increaseReviewCount()
                                         Task{
                                             
                                             let createdAt = Date().timeIntervalSince1970
@@ -255,7 +266,7 @@ struct CreateReviewView: View {
                                             isReviewAdded.toggle()
                                         }
                                     }) {
-                                        Image(systemName: "plus")
+                                        Image(systemName: "checkmark")
                                             .foregroundColor(Color("AccentColor"))
                                     }
                                 }

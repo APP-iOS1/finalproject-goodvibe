@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 extension MapView {
     var mapFilter: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -32,26 +34,21 @@ extension MapView {
                 .frame(height: 35)
         }
         .background {
-            Capsule()
-                .fill(buttonBackgroundColor)
-        }
-        .overlay {
-            Capsule()
-                .stroke(buttonBorderColor)
+            RoundedCorners(color: buttonBackgroundColor, strokeColor: buttonBorderColor, tl: 8, tr: 18, bl: 8, br: 18)
         }
         .overlay {
             if isFiltered {
                 Image(systemName: "checkmark.circle")
                     .foregroundColor(buttonFontColor)
-                    .background(Circle().fill(.white))
+                    .background(Circle().fill(buttonBackgroundColor))
                     .offset(x: -30, y: -15)
             }
         }
-        .padding(.leading, 26)
+        .padding(.leading, 25)
         .padding(.trailing, 6)
         .sheet(isPresented: self.$isShowingFilterModal) {
             NavigationStack {
-                CategoryFilteringView(showModal: $isShowingFilterModal)
+                CategoryFilteringView(showModal: $isShowingFilterModal, mapViewModel: mapViewModel)
                     .presentationDetents([.height(335)])
             }
         }

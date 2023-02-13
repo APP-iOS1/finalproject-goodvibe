@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+
 import PopupView
+import Shimmer
+
+
+
 
 struct StoreReportButton: View {
     @Environment(\.colorScheme) var scheme
     @State var showModal: Bool = false
+
+    
     var body: some View {
         Button {
             showModal.toggle()
@@ -22,28 +29,32 @@ struct StoreReportButton: View {
                     .frame(width: 70, height: 20)
                     .background {
                         Capsule().fill(Color.mainColorDark)
+                            .shimmering(duration: 2, delay: 5)
                     }
                     .padding(.bottom, 4)
-//                    .padding(.horizontal, -20)
+                    
+                
                 
                 Circle()
-                    .fill(Color.mainColor)
-                    .frame(width: 42, height: 42)
+                    .frame(width: 45, height: 45)
                     .overlay {
-                        Image("Ddukbaegi.fill")
-                            .font(.title3)
-                            .foregroundColor(.mainColorReversed)
+                        GifImage("Ddukbaegi.boiling")
+                            .frame(width: 45)
+                            .clipShape(Circle())
                     }
                 
             }
-                
+            
         }
         .sheet(isPresented: $showModal) {
             NavigationStack{
                 StoreReportView()
             }
         }
-
+        .onAppear {
+//            loadGIFData()
+        }
+        
     }
     
 }

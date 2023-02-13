@@ -27,8 +27,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
             // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
             return nil
         }
-        
-        
         var annotationView: MKAnnotationView?
         
         if let annotation = annotation as? StoreAnnotation {
@@ -50,8 +48,12 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         guard let _ = view.annotation as? StoreAnnotation else { return }
         print(#function, "마커 deselect")
-        mapViewController.selectedStoreAnnotation = .init(storeId: "", title: "", subtitle: "", foodType: "", coordinate: .init())
+        mapViewController.selectedStoreAnnotation = .init(storeId: "", title: "", subtitle: "", foodType: [], coordinate: .init())
         mapViewController.isSelected = false
+    }
+    
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        print(#function, "\(views)")
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
@@ -66,22 +68,11 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             
-            let markerImage = Gukbaps(rawValue: annotation.foodType)?
+            let markerImage = Gukbaps(rawValue: annotation.foodType.first ?? "순대국밥")?
                 .uiImage?
                 .resizeImageTo(size: CGSize(width: 60, height: 60))
             
             annotationView?.image =  markerImage
-            
-            //텍스트 추가 시도
-            /*
-             let uiText = UITextView(frame: CGRect())
-             uiText.text = annotation.title
-             uiText.textColor = .black
-             uiText.textAlignment = .center
-             uiText.layer.cornerRadius = 10
-             
-             annotationView?.addSubview(uiText)
-             */
             
         }
         
@@ -93,12 +84,12 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 
 // View라고 생각하면 됨
 struct MapUIView: UIViewRepresentable {
-    // Model with test data
-    //    let landmarks = LandmarkAnnotation.requestMockData()
+    
     @Binding var region: MKCoordinateRegion
     @Binding var storeAnnotations: [StoreAnnotation]
     @Binding var selectedStoreAnnotation: StoreAnnotation
     @Binding var isSelected: Bool
+    @Binding var filters: [Gukbaps]
     
     
     
@@ -124,11 +115,14 @@ struct MapUIView: UIViewRepresentable {
         compassButton.compassVisibility = .adaptive
         maps.addSubview(compassButton)
         
-        let trackingButton = MKUserTrackingButton(mapView: maps)
-        trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
-        trackingButton.frame.size = CGSize(width: 45, height: 45)
-        trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 14, y: maps.frame.height * 0.65)
-        trackingButton.layer.cornerRadius = 22.5
+      let trackingButton = MKUserTrackingButton(mapView: maps)
+      trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
+      trackingButton.frame.size = CGSize(width: 42, height: 42)
+      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
+      trackingButton.layer.cornerRadius = 22.5
+        
+        
+        
         
         maps.addSubview(trackingButton)
         
@@ -146,16 +140,54 @@ struct MapUIView: UIViewRepresentable {
     func updateUIView(_ view: MKMapView, context: Context) {
         // Assigning delegate
         view.delegate = context.coordinator
-        // If you changing the Map Annotation then you have to remove old Annotations
-        //        view.removeAnnotations(view.annotations)
-        // Passing model array here
-        view.addAnnotations(storeAnnotations)
         
+        // 필터가 변함에 따라 뷰에서 제거 해야 할 Annotation이 변동되기 때문
+        view.removeAnnotations(getRemovingAnnotations(filters, storeAnnotations: storeAnnotations))
+        // 필터가 변함에 따라 뷰에 추가 해야 할 Annotation이 변동되기 때문
+        view.addAnnotations(getAddingAnnotations(filters, storeAnnotations: storeAnnotations))
         
     }
     
     func makeCoordinator() -> MapViewCoordinator{
         MapViewCoordinator(self)
+    }
+    
+    
+    func getRemovingAnnotations(_ filters: [Gukbaps], storeAnnotations: [StoreAnnotation]) -> [StoreAnnotation] {
+        var removingAnnotations: [StoreAnnotation] = []
+        
+        if filters.isEmpty {
+            return removingAnnotations
+        } else {
+            let filterSet = Set(filters.map { $0.rawValue })
+            for store in storeAnnotations {
+                let foodTypeSet = Set(store.foodType)
+                
+                if foodTypeSet.intersection(filterSet).isEmpty {
+                    removingAnnotations.append(store)
+                }
+            }
+            
+            return removingAnnotations
+        }
+    }
+    
+    func getAddingAnnotations(_ filters: [Gukbaps], storeAnnotations: [StoreAnnotation]) -> [StoreAnnotation] {
+        var addingAnnotations: [StoreAnnotation] = []
+        
+        if filters.isEmpty {
+            return storeAnnotations
+        } else {
+            let filterSet = Set(filters.map { $0.rawValue })
+            for store in storeAnnotations {
+                let foodTypeSet = Set(store.foodType)
+                
+                if foodTypeSet.intersection(filterSet).count > 0 {
+                    addingAnnotations.append(store)
+                }
+            }
+            return addingAnnotations
+        }
     }
 }
 

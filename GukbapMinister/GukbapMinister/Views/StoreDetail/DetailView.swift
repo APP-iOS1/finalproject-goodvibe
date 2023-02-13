@@ -63,7 +63,7 @@ struct DetailView: View {
                             
                             //상호명 주소
                             //Store.storeName, Store.storeAddress
-                            storeNameAndAddress
+                //            storeNameAndAddress
                             
                             //Store.images
                             storeImages
@@ -124,7 +124,7 @@ struct DetailView: View {
                                 .tint(.black)
                         }
                     }
-                    
+                   
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -137,7 +137,17 @@ struct DetailView: View {
                     }
                 }
             }//GeometryReader
-            .navigationTitle(store.storeName)
+            .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            VStack {
+                                Text("\(store.storeName)").font(.headline)
+                                Text("\(store.storeAddress)").font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
+//            .navigationTitle(store.storeName)
         }//NavigationStack
         //가게 이미지만 보는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingStoreImageDetail){
@@ -226,22 +236,67 @@ extension DetailView {
             Text(store.description)
                 .font(.system(size:18))
                 .frame(width: Screen.maxWidth - 20, height:textHeight)
+                .lineSpacing(5)
                 .lineLimit(isExpanded ? nil : 2)
             HStack{
                 Spacer()
                 Button(action: {
                     isExpanded.toggle()
                 }){
+                    //                    HStack{
+                    //                        Text("삭제")
+                    //                               .fontWeight(.medium)
+                    //                               .font(.system(size:15))
+                    //                               .foregroundColor(Color("AccentColor"))
+                    //                               .padding(EdgeInsets(top: 0.5, leading: 5, bottom: 0.5, trailing: 5))
+                    //                               .overlay(
+                    //                                   RoundedRectangle(cornerRadius: 20)
+                    //                                    .stroke(Color("AccentColor"), lineWidth: 0.5)
+                    //                               )
+                    //                                .padding(.trailing,15)
+                    //
+                    //                    }
                     HStack{
                         if(isExpanded == true) {
+                            
                             Text("접기")
+                                .fontWeight(.medium)
+
                             Image(systemName: "chevron.up")
+                                .foregroundColor(.black)
+                                .fontWeight(.medium)
+                                .font(.system(size:15))
+                                .foregroundColor(Color(.black))
+                                .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color(.black), lineWidth: 0.5)
+                                )
+                                .padding(.trailing,15)
+                            
+                          
                             
                         }else {
                             Text("더보기")
+                                .fontWeight(.medium)
+
                             Image(systemName: "chevron.down")
+
+                                .foregroundColor(.black)
+                                .fontWeight(.medium)
+                                .font(.system(size:15))
+                                .foregroundColor(Color(.black))
+                                .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color(.black), lineWidth: 0.5)
+                                )
+                                .padding(.trailing,15)
+                            
                         }
                     }
+                    .foregroundColor(.black)
+
                 }
                 Spacer()
             }
@@ -286,20 +341,22 @@ extension DetailView {
                     Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
                         .fontWeight(.bold)
                         .padding(.bottom,10)
-                        
                     
-                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 45, spacing: 15) { ggakdugi in
+                    
+                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
                         starStore.selectedStar = ggakdugi
                         showingCreateRewviewSheet.toggle()
                     }
                 }
                 .padding(.top, 10)
-                .padding(.bottom, 20)
+                .padding(.bottom, 15)
                 
                 Spacer()
             }
             .background(.white)
+            
         }
+        
     }
 }
 //MARK: 가게 리뷰
@@ -321,39 +378,20 @@ struct UserReview:  View {
     
     var body: some View {
         VStack{
-            HStack{
-                Spacer()
-                if userViewModel.currentUser?.uid ?? ""  == review.userId {
-                    Button {
-                        isDeleteAlert.toggle()
-                        
-                    } label: {
-                        Image(systemName: "trash")
-                            .font(.system(size:20))
-                            .padding(.trailing,15)
-                            .padding(.leading,-10)
-                            .padding(.bottom,-20)
-                    }
-                    .alert(isPresented: $isDeleteAlert) {
-                        Alert(title: Text(""),
-                              message: Text("리뷰를 삭제하시겠습니까?"),
-                              primaryButton: .destructive(Text("확인"),
-                                                          action: {
-                            reviewViewModel.removeReview(review: review)
-                        }), secondaryButton: .cancel(Text("닫기")))
-                    }
-                    
-                }
-                
-            }
+            
             
             HStack{
                 if userViewModel.currentUser?.uid ?? "" == review.userId {
                     Text("\(review.nickName)")
-                        .shimmering()
                         .foregroundColor(.black)
                         .fontWeight(.semibold)
                         .padding()
+                    
+                    Text("(내 리뷰)")
+                        .font(.system(size:15))
+                        .foregroundColor(.black)
+                        .fontWeight(.medium)
+                        .padding(.leading,-20)
                 }else {
                     Text("\(review.nickName)")
                         .foregroundColor(.black)
@@ -362,10 +400,43 @@ struct UserReview:  View {
                 }
                 
                 Spacer()
-                Text("\(review.createdDate)")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .padding()
+                HStack{
+                    Spacer()
+                    if userViewModel.currentUser?.uid ?? ""  == review.userId {
+                        Button {
+                            isDeleteAlert.toggle()
+                            
+                        } label: {
+                            HStack{
+                                Text("삭제")
+                                    .fontWeight(.thin)
+                                    .font(.system(size:14))
+                                    .foregroundColor(Color(.black))
+                               
+                                    .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                           .stroke(Color.secondary, lineWidth: 0.5)
+                                          
+                                    )
+                                    .padding(.trailing,15)
+                                
+                            }
+                            
+                        }
+                        .alert(isPresented: $isDeleteAlert) {
+                            Alert(title: Text(""),
+                                  message: Text("리뷰를 삭제하시겠습니까?"),
+                                  primaryButton: .destructive(Text("확인"),
+                                                              action: {
+                                reviewViewModel.removeReview(review: review)
+                            }), secondaryButton: .cancel(Text("닫기")))
+                        }
+                        
+                    }
+                    
+                }
+                
                 
             }
             
@@ -376,11 +447,15 @@ struct UserReview:  View {
                         .frame(width: 15, height: 15)
                         .padding()
                 }
+                Text("\(review.createdDate)")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .padding(.leading,20)
                 Spacer()
                 if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                    
                     Button(action:{
                         isShowingReportView.toggle()
-                        print("\(isShowingReportView)")
                         
                     }){
                         Text("신고하기")
@@ -391,12 +466,13 @@ struct UserReview:  View {
                     }
                     .padding()
                     .foregroundColor(.secondary)
-                }else{
-                    Text("")
+                }
+                else{
+                   
                 }
                 
             }//HStack
-            .padding(.top,-30)
+            .padding(.top,-35)
             
             
             
@@ -440,7 +516,7 @@ struct UserReview:  View {
         }//VStack
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $isShowingReportView) {
-            ReportView(isshowingReportSheet: $isShowingReportView, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter)
+            ReportView(isshowingReportSheet: $isShowingReportView, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter, review: review)
         }
         //리뷰 이미지 크게 보이는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingReviewDetailView) {

@@ -13,7 +13,7 @@ struct CategoryFilteringView: View {
     }
     
     @Binding var showModal: Bool
-    @EnvironmentObject var mapViewModel: MapViewModel
+    @ObservedObject var mapViewModel: MapViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var didTap: [Bool] = Array(repeating: false, count: Gukbaps.allCases.count)
@@ -114,11 +114,15 @@ extension CategoryFilteringView {
         didTap[index].toggle()
         switch mode {
         case .map:
-            if mapViewModel.filteredGukbaps.contains(gukbap) {
-                mapViewModel.filteredGukbaps.remove(at: mapViewModel.filteredGukbaps.firstIndex(of: gukbap)!)
-            } else {
-                mapViewModel.filteredGukbaps.append(gukbap)
+            var newVal: [Gukbaps] = []
+            for (index, gukbap) in Gukbaps.allCases.enumerated() {
+                if didTap[index] {
+                    newVal.append(gukbap)
+                }
             }
+            
+            mapViewModel.filteredGukbaps = newVal
+            
         case .myPage: print("아직몰루")
         }
     }
@@ -127,7 +131,7 @@ extension CategoryFilteringView {
 struct GukbapCategoryFilteringView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CategoryFilteringView(showModal: .constant(false), mode: .map)
+            CategoryFilteringView(showModal: .constant(false), mapViewModel: MapViewModel(storeLocations: []), mode: .map)
         }
         .environmentObject(MapViewModel(storeLocations: []))
         .environmentObject(UserViewModel())

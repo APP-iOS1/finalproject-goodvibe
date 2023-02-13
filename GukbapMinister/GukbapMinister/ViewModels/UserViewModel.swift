@@ -31,6 +31,16 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
+    @Published var reviewCount: Int = 0 {
+        didSet {
+            self.updateReviewCount()
+        }
+    }
+    @Published var storeReportCount: Int = 0 {
+        didSet {
+            self.updateStoreReportCount()
+        }
+    }
     @Published var logStatus: Bool = false {
         didSet{
             UserDefaults.standard.set(logStatus, forKey: "logStatus")
@@ -49,7 +59,6 @@ final class UserViewModel: ObservableObject {
         case signedIn
         case signedOut
         case kakaoSign
-        case main
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
@@ -108,6 +117,8 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.preferenceArea = data["preferenceArea"] as? String ?? ""
                 self.userInfo.userEmail = data["userEmail"] as? String ?? ""
                 self.userInfo.status = data["status"] as? String ?? ""
+                self.userInfo.reviewCount = data["reviewCount"] as? Int ?? 0
+                self.userInfo.storeReportCount = data["storeReportCount"] as? Int ?? 0
             }
     }
     
@@ -128,7 +139,8 @@ final class UserViewModel: ObservableObject {
                 let gukbaps: [String] = dataDescription?["gukbaps"] as? [String] ?? []
                 let preferenceArea: String = dataDescription?["preferenceArea"] as? String ?? ""
                 let status : String = dataDescription?["status"] as? String ?? ""
-                
+                let reviewCount: Int = dataDescription?["reviewCount"] as? Int ?? 0
+                let storeReportCount: Int = dataDescription?["storeReportCount"] as? Int ?? 0
                 
                 self.userInfo.id = uid
                 self.userInfo.userEmail = email
@@ -137,6 +149,8 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.gukbaps = gukbaps
                 self.userInfo.preferenceArea = preferenceArea
                 self.userInfo.status = status
+                self.reviewCount = reviewCount
+                self.storeReportCount = storeReportCount
                 
             } else {
                 print("Document does not exist")
@@ -247,7 +261,6 @@ final class UserViewModel: ObservableObject {
                     "ageRange" : ageRange,
                     "preferenceArea" : preferenceArea,
                 ])
-                //                self.state = .signedIn
             }catch let error {
                 print("Sign Up Failed : \(error)")
             }
@@ -269,6 +282,46 @@ final class UserViewModel: ObservableObject {
         }//Task
         //        self.state = .signedIn
     }
+    
+    // MARK: - 회원등급관련 리뷰수, 제보수 함수
+    // 1. 리뷰수 증가 함수
+    func increaseReviewCount() {
+        self.reviewCount += 1
+        print("\(#function) : 리뷰수 1 증가")
+    }
+    func updateReviewCount() {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "reviewCount" : reviewCount,
+                ])
+                print("\(#function) : 리뷰수 Firestore 업데이트")
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
+    // 2. 제보수 증가 함수
+    func increaseStoreReportCount() {
+        self.storeReportCount += 1
+        print("\(#function) : 국밥집 제보수 1 증가")
+    }
+    func updateStoreReportCount() {
+        Task{
+            do{
+                let uid = Auth.auth().currentUser?.uid
+                try await database.collection("User").document(uid ?? "").updateData([
+                    "storeReportCount" : storeReportCount,
+                ])
+                print("\(#function) : 제보수 Firestore 업데이트")
+            }catch let error {
+                print("\(#function) : \(error)")
+            }
+        }
+    }
+    
     //MARK: - KAKAO
     
     //MARK: - Kakao SignIn

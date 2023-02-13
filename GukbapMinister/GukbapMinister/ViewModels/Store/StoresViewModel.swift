@@ -17,12 +17,60 @@ import FirebaseStorage
 final class StoresViewModel: ObservableObject {
     @Published var stores: [Store] = []
     @Published var storeTitleImage: [String : UIImage] = [:]
+    
+    @Published var storesStar: [Store] = []
+    @Published var storeTitleImageStar: [String : UIImage] = [:]
+    
     @Published var countRan = 0
 
     
     private var database = Firestore.firestore()
     private var storage = Storage.storage()
     private var listenerRegistration: ListenerRegistration?
+    
+    
+    
+    func fetchStarStores() {
+            let ref = database.collection("Store").order(by: "countingStar", descending: true)
+            
+            ref.getDocuments { snapShot, error in
+                
+                self.storesStar.removeAll()
+                
+                if let snapShot {
+                    for document in snapShot.documents {
+                        let id: String = document.documentID
+                        let docData = document.data()
+                        
+                        let storeName: String = docData["storeName"] as? String ?? ""
+                        let storeAddress: String = docData["storeAddress"] as? String ?? ""
+                        let coordinate: GeoPoint = docData["coordinate"] as? GeoPoint ?? GeoPoint(latitude: 0.0, longitude: 0.0)
+                        let storeImages: [String] = docData["storeImages"] as? [String] ?? []
+                        let menu: [String : String] = docData["menu"] as? [String : String] ?? ["":""]
+                        let description: String = docData["description"] as? String ?? ""
+                        let countingStar: Double = docData["countingStar"] as? Double ?? 0
+                        let foodType : [String] = docData["foodType"]  as? [String] ?? []
+                  
+                        for imageName in storeImages {
+                            self.fetchImagesStar(storeId: storeName, imageName: imageName)
+                        }
+
+                        let store: Store = Store(id: id,
+                                                 storeName: storeName,
+                                                 storeAddress: storeAddress,
+                                                 coordinate: coordinate,
+                                                 storeImages: storeImages,
+                                                 menu: menu,
+                                                 description: description,
+                                                 countingStar: countingStar,
+                                                 foodType: foodType)
+                        
+                        self.storesStar.append(store)
+                    }
+                }
+            }
+    }
+    
     
     //Store정보 구독취소
     //Store정보가 필요한 뷰에서
@@ -85,7 +133,7 @@ final class StoresViewModel: ObservableObject {
                                         try await self.fetchImages(storeId: store.storeName, imageName: imageName)
                                     }
                                     catch{
-                                        
+                                        print("sotreViewModel 'fetchImages' Error")
                                     }
                                 }
                                
@@ -120,7 +168,6 @@ final class StoresViewModel: ObservableObject {
 //        }
 //    }
     func fetchImages(storeId: String, imageName: String) async throws -> UIImage {
-        print("스토어 아이디: \(storeId)")
         let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
 
         let data = try await ref.data(maxSize: 1 * 1024 * 1024)
@@ -129,6 +176,23 @@ final class StoresViewModel: ObservableObject {
         self.storeTitleImage[imageName] = image
         
         return image!
+    }
+    
+    
+    func fetchImagesStar(storeId: String, imageName: String) {
+        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
+            if let error = error {
+                print("error while downloading image\n\(error.localizedDescription)")
+                return
+            } else {
+                let image = UIImage(data: data!)
+                self.storeTitleImageStar[imageName] = image
+         
+            }
+        }
     }
 }
 

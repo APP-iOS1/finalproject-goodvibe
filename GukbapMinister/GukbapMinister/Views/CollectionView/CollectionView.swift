@@ -68,7 +68,7 @@ struct CollectionView: View {
                                 ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
 
                                     if Int(index.description) == storesViewModel.countRan{
-                                        let imageData = collectionVM.storeImages[element.storeImages.first ?? ""] ?? UIImage()
+                                        let imageData = storesViewModel.storeTitleImage[element.storeImages.first ?? ""] ?? UIImage()
                                         
                                         cellRandom(collectionVM: collectionVM, cellData: element, imagedata: imageData)
                                             .frame(width: UIScreen.main.bounds.width-40, height: 90)
@@ -99,7 +99,7 @@ struct CollectionView: View {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             print("\(collectionVM.stores)")
             Task{
-//                storesViewModel.subscribeStores()
+                storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
@@ -107,8 +107,10 @@ struct CollectionView: View {
         }
         .refreshable {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
+
             Task{
-//                storesViewModel.subscribeStores()
+
+                storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
@@ -128,7 +130,6 @@ struct cellLiked : View {
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
 
     @State var isLoading = true
-    
     
     var body: some View {
         
@@ -237,7 +238,9 @@ struct cellRandom : View {
     var imagedata: UIImage
     let currentUser = Auth.auth().currentUser
     @State var isLoading = true
-    
+    @State var plusHeart = false
+    var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
+
     
     var body: some View {
         
@@ -246,14 +249,14 @@ struct cellRandom : View {
             NavigationLink {
                 DetailView(store : cellData)
             } label: {
-                HStack{
+                HStack (alignment: .top){
                     
                     Image(uiImage: imagedata)
                         .resizable()
                         .frame(width: 90, height: 90)
-                        .cornerRadius(6)
+                        .cornerRadius(25)
                     
-                    VStack(alignment: .leading, spacing: 1){
+                    VStack(alignment: .leading, spacing: 0){
                         HStack{
                             Text(cellData.storeName)
                                 .font(.title3)
@@ -262,45 +265,57 @@ struct cellRandom : View {
                             Spacer()
                             
                             Button{
-                                collectionVM.isHeart.toggle()
+                                collectionVM.isHeart = true
+                                self.plusHeart = true
+
+//                                    collectionVM.isHeart.toggle()
                                 // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
                                 // append(cellData.sotreId)
                                 collectionVM.manageHeart(userId: currentUser?.uid ?? "", store: cellData)
                                 
                             } label: {
-                                Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
+                                Image(systemName: plusHeart ? "heart.fill" : "heart")
                                     .foregroundColor(.red)
                             }
-                            .padding(.trailing, 10)
                         }
                         
                         Text(cellData.storeAddress)
                             .font(.caption)
-                            .bold()
                             .padding(.top, 2.5)
                         
-                        Spacer()
                         
-                        HStack(alignment: .bottom){
+                        HStack(alignment: .center){
                             Text("깍두기 점수")
-                            
+                                .bold()
+                                .font(.caption)
                             HStack(alignment: .center, spacing: 1){
                                 ForEach(0..<5) { index in
                                     Image(Int(cellData.countingStar) >= index ? "Ggakdugi" : "Ggakdugi.gray")
                                         .resizable()
-                                        .frame(width: 15, height: 15)
+                                        .frame(width: 12, height: 12)
                                 }
                             }
-                            
-                            
                             Spacer()
-                            
                         }
-                        .frame(height: 40)
-                        .padding(.bottom, -5)
+                        .padding(.top, 5)
+                        .frame(height: 20)
+                        
+                        
+                        HStack{
+                            LazyHGrid(rows: rowOne) {
+                                ForEach(cellData.foodType, id: \.self) { foodType in
+                                    Text("\(foodType)")
+                                        .font(.caption)
+                                        .padding(8)
+                                        .background(Capsule().fill(Color.gray.opacity(0.15)))
+                                }
+                            }
+                        }
                     }
+                    .frame(height: 120)
                     .padding(.leading, 0)
                 }
+                .padding(.top,15)
                 .foregroundColor(.black)
                 
             }
