@@ -45,13 +45,14 @@ final class UserViewModel: ObservableObject {
     }
     
     @Published var isLoading: Bool = false
-    @Published var userGrade: userGrade = .깍두기
+//    @Published var userGrade: userGrade = .깍두기
     
     //로그인 상태
     enum SignInState{
         case signedIn
         case signedOut
         case kakaoSign
+        case noSigned
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
