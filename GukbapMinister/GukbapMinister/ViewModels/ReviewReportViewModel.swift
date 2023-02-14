@@ -22,7 +22,8 @@ extension Review {
            createdAt: 0.0 ,
            nickName: "",
            starRating: 0,
-           storeName: ""
+           storeName: "",
+           storeId: ""
     )
     
 }

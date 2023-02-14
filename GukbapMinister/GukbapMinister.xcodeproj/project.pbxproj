@@ -48,6 +48,7 @@
 		5B0058482990D84400564930 /* StoreReportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058472990D84400564930 /* StoreReportButton.swift */; };
 		5B01F2E32976840800ACB32F /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E22976840800ACB32F /* DetailView.swift */; };
 		5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01F2E42976CD1200ACB32F /* CommentUnit.swift */; };
+		5B0E6FDD299BE04C00F4C0F6 /* UserReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */; };
 		5B138DE02988EB3A004F9187 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */; };
 		5B138DE22988EB66004F9187 /* MKMapRect+Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */; };
 		5B24E179299380FC00F746A0 /* ExploreCategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */; };
@@ -154,6 +155,7 @@
 		5B0058472990D84400564930 /* StoreReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportButton.swift; sourceTree = "<group>"; };
 		5B01F2E22976840800ACB32F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		5B01F2E42976CD1200ACB32F /* CommentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUnit.swift; sourceTree = "<group>"; };
+		5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserReviewCell.swift; path = "../../../../../../../.Trash/finalproject-goodvibe 오전 12.09.31/GukbapMinister/GukbapMinister/Views/StoreDetail/Review/UserReviewCell.swift"; sourceTree = "<group>"; };
 		5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
 		5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+Regions.swift"; sourceTree = "<group>"; };
 		5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCategoryDetailView.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
 				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
 				0400A08D2990CC9400727132 /* ReportView.swift */,
+				5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 				0488EE592977DD8A00D866B7 /* ImageDetailView.swift in Sources */,
 				5B0058462990B7BB00564930 /* StoreReportViewModel.swift in Sources */,
 				5BF928D32993644F00DB1445 /* RoundedCorners.swift in Sources */,
+				5B0E6FDD299BE04C00F4C0F6 /* UserReviewCell.swift in Sources */,
 				5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */,
 				63D2582E299A0D9800370202 /* PolicyView.swift in Sources */,
 				148CD4FB298CD317006078C7 /* EditGukbapView.swift in Sources */,
@@ -1039,7 +1043,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-				DEVELOPMENT_TEAM = 4YH8347DW8;
+				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
@@ -1076,9 +1080,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-
 				DEVELOPMENT_TEAM = 4YH8347DW8;
-
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;

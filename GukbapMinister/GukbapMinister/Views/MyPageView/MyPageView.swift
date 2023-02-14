@@ -97,8 +97,6 @@ struct MyPageView: View {
                     }
                     .fullScreenCover(isPresented: $isMyReviewPresented) {
                         MyReviewView()
-                            .environmentObject(ReviewViewModel())
-                            .environmentObject(UserViewModel())
                     }
                     
                     Button {
@@ -111,7 +109,7 @@ struct MyPageView: View {
                     }
                     .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
                         UpdateUserInfoView()
-                            .environmentObject(UserViewModel())
+                           
                         
                     }
                     
