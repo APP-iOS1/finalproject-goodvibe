@@ -42,34 +42,34 @@ struct DetailView: View {
     
     //StoreImageDetailView 전달 변수
     @State private var isshowingStoreImageDetail: Bool = false
-    
-    
+    @State private var showModal: Bool = false
+    @State private var showingAlert = false
     var store : Store
     
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
                 ScrollView(showsIndicators: false) {
-                        VStack{
-                            storeImages
+                    VStack{
+                        storeImages
+                        
+                        storeFoodTypeAndRate
+                        
+                        storeDescription
+                        
+                        storeMenu
+                        
+                        userStarRate
+                        
+                        ForEach(reviewViewModel.reviews) { review in
                             
-                            storeFoodTypeAndRate
-                            
-                            storeDescription
-                            
-                            storeMenu
-                            
-                            userStarRate
-                            
-                            ForEach(reviewViewModel.reviews) { review in
-                               
-                                if (review.storeName == store.storeName){
-                                    UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
-                                }
-                            }//FirstForEach
-                            
-                        }//VStack
- 
+                            if (review.storeName == store.storeName){
+                                UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
+                            }
+                        }//FirstForEach
+                        
+                    }//VStack
+                    
                 }//ScrollView
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
@@ -81,29 +81,48 @@ struct DetailView: View {
                                 .tint(.black)
                         }
                     }
-   
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            collectionViewModel.isHeart.toggle()
-                            collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
-                        } label: {
-                            Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
-                                .tint(.red)
+                        if userViewModel.state == .noSigned{
+                            Button {
+                                //                                showModal.toggle()
+                                showingAlert.toggle()
+                            } label: {
+                                Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
+                                    .tint(.red)
+                            }
+                            .alert("로그인이 필요한 서비스입니다.", isPresented: $showingAlert) {
+                                Button("확인", role: .cancel) {
+//                                    showModal.toggle()
+                                }
+//                                .fullScreenCover(isPresented: $showModal, content: {
+//                                    SignInView2()
+//                                })
+                            }
+                            
+                        }else{
+                            Button {
+                                collectionViewModel.isHeart.toggle()
+                                collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
+                            } label: {
+                                Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
+                                    .tint(.red)
+                            }
                         }
                     }
                 }
             }//GeometryReader
             .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            VStack {
-                                Text("\(store.storeName)").font(.headline)
-                                Text("\(store.storeAddress)").font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("\(store.storeName)").font(.headline)
+                        Text("\(store.storeAddress)").font(.subheadline)
+                            .foregroundColor(.secondary)
                     }
-//            .navigationTitle(store.storeName)
+                }
+            }
+            //            .navigationTitle(store.storeName)
         }//NavigationStack
         //가게 이미지만 보는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingStoreImageDetail){
@@ -201,7 +220,7 @@ extension DetailView {
                         if isExpanded {
                             Text("접기")
                                 .fontWeight(.medium)
-
+                            
                             Image(systemName: "chevron.up")
                                 .fontWeight(.medium)
                                 .font(.system(size:15))
@@ -213,12 +232,12 @@ extension DetailView {
                                 )
                                 .padding(.trailing,15)
                             
-                          
+                            
                             
                         }else {
                             Text("더보기")
                                 .fontWeight(.medium)
-
+                            
                             Image(systemName: "chevron.down")
                                 .fontWeight(.medium)
                                 .font(.system(size:15))
@@ -233,7 +252,7 @@ extension DetailView {
                         }
                     }
                     .foregroundColor(.black)
-
+                    
                 }
                 .foregroundColor(scheme == .light ? .black : .white)
                 Spacer()
@@ -241,7 +260,7 @@ extension DetailView {
         }
         .animation(.easeInOut, value: store.description)
     }
-
+    
     
     //MARK: 가게 메뉴정보
     var storeMenu: some View {
@@ -271,7 +290,7 @@ extension DetailView {
             HStack {
                 Spacer()
                 VStack {
-//                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
+                    //                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
                     Text("\(userViewModel.userInfo.userNickname) 님 이 국밥집은 어떠셨나요?")
                         .fontWeight(.bold)
                         .padding(.bottom,10)
@@ -309,7 +328,7 @@ struct UserReview:  View {
     
     //리뷰 삭제 알림
     @State private var isDeleteAlert: Bool = false
-    
+    @State private var showingAlert = false
     var review: Review
     
     var body: some View {
@@ -347,8 +366,8 @@ struct UserReview:  View {
                                     .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 20)
-                                           .stroke(Color.secondary, lineWidth: 0.5)
-                                          
+                                            .stroke(Color.secondary, lineWidth: 0.5)
+                                        
                                     )
                                     .padding(.trailing,15)
                                 
@@ -377,11 +396,27 @@ struct UserReview:  View {
                 Text("\(review.createdDate)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
-                    
+                
                 Spacer()
-                if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                if userViewModel.state == .noSigned{
                     Button(action:{
                         isShowingReportView.toggle()
+                        showingAlert.toggle()
+                    }){
+                        Text("신고하기")
+                            .font(.system(size:12))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size:7))
+                    }
+                    .padding()
+                    .foregroundColor(.secondary)
+                    .alert(isPresented: $showingAlert){
+                        Alert(title: Text("로그인이 필요한 서비스입니다."), dismissButton: .cancel(Text("확인")))
+                    }
+                }else if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                    Button(action:{
+                        isShowingReportView.toggle()
+                        
                         
                     }){
                         Text("신고하기")
@@ -392,7 +427,6 @@ struct UserReview:  View {
                     .padding()
                     .foregroundColor(.secondary)
                 }
-                
             }//HStack
             .padding(.leading)
             .padding(.trailing, 5)

@@ -11,6 +11,7 @@ struct MainTabView: View {
     @State private var tabSelection: Int = 0
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
     @EnvironmentObject var userViewModel : UserViewModel
+    //    @StateObject var userViewModel: UserViewModel = UserViewModel()
     @State private var showModal: Bool = false
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -28,22 +29,7 @@ struct MainTabView: View {
                 }
                 .tag(1)
                 .environmentObject(storesViewModel)
-            if userViewModel.state == .signedIn{
-                CollectionView()
-                    .tabItem {
-                        Label("내가 찜한 곳", systemImage: "heart.circle")
-                    }
-                    .toolbar(.visible, for: .tabBar)
-                    .toolbarBackground(Color.white, for: .tabBar)
-                    .tag(2)
-                    .environmentObject(storesViewModel)
-                    .environmentObject(UserViewModel())
-                MyPageView()
-                    .tabItem {
-                        Label("마이페이지", systemImage: "person")
-                    }
-                    .tag(3)
-            }else if userViewModel.state == .noSigned{
+            if userViewModel.state == .noSigned{
                 //                CollectionView()
                 NoLoginView()
                     .tabItem {
@@ -53,7 +39,7 @@ struct MainTabView: View {
                     .toolbarBackground(Color.white, for: .tabBar)
                     .tag(2)
                 //                    .environmentObject(storesViewModel)
-                //                    .environmentObject(UserViewModel())
+                    .environmentObject(userViewModel)
                     .fullScreenCover(isPresented: $showModal, content: {
                         SignInView2()
                     })
@@ -63,19 +49,35 @@ struct MainTabView: View {
                         }
                     }
                 //                MyPageView()
-                NoLoginView()
+                NoLoginView2()
                     .tabItem {
                         Label("마이페이지", systemImage: "person")
                     }
                     .tag(3)
-                    .fullScreenCover(isPresented: $showModal, content: {
-                        SignInView2()
-                    })
-                    .onAppear {
-                        DispatchQueue.main.async {
-                            self.showModal = true
-                        }
+                    .environmentObject(userViewModel)
+//                    .fullScreenCover(isPresented: $showModal, content: {
+//                        SignInView2()
+//                    })
+//                    .onAppear {
+//                        DispatchQueue.main.async {
+//                            self.showModal = true
+//                        }
+//                    }
+            }else if userViewModel.state == .signedIn{
+                CollectionView()
+                    .tabItem {
+                        Label("내가 찜한 곳", systemImage: "heart.circle")
                     }
+                    .toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(Color.white, for: .tabBar)
+                    .tag(2)
+                    .environmentObject(storesViewModel)
+                    .environmentObject(userViewModel)
+                MyPageView()
+                    .tabItem {
+                        Label("마이페이지", systemImage: "person")
+                    }
+                    .tag(3)
             }
         }
         .accentColor(.mainColor)
