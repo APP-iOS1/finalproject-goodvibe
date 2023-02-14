@@ -182,16 +182,25 @@ final class ReviewViewModel: ObservableObject {
 
     func updateStoreRating(updatingReview: Review, isDeleting: Bool) async {
         let storeReviews = reviews.filter { $0.storeName == updatingReview.storeName }
+        var reviewCount = storeReviews.count
+        var ratingSum: Int = storeReviews.reduce(0) { $0 + $1.starRating}
+        var newRatingAverage: Double
         
-        let reviewCount = storeReviews.count + (isDeleting ? -1 : +1)
-        var ratingTotal: Int = isDeleting ? -updatingReview.starRating : +updatingReview.starRating
-        
-        for storeReview in storeReviews {
-            ratingTotal += storeReview.starRating
+        if isDeleting {
+            reviewCount -= 1
+            ratingSum -= updatingReview.starRating
+        } else {
+            reviewCount += 1
+            ratingSum += updatingReview.starRating
         }
         
+      
+        if reviewCount != 0 {
+            newRatingAverage = Double(ratingSum) / Double(reviewCount)
+        } else {
+            newRatingAverage = 0
+        }
         
-        let newRatingAverage: Double = Double(ratingTotal) / Double(reviewCount)
         
         do {
             try await database.collection("Store").document(updatingReview.storeId).updateData([
