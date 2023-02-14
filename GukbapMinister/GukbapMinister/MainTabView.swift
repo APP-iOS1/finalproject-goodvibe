@@ -63,7 +63,7 @@ struct MainTabView: View {
 //                            self.showModal = true
 //                        }
 //                    }
-            }else if userViewModel.state == .signedIn{
+            }else{
                 CollectionView()
                     .tabItem {
                         Label("내가 찜한 곳", systemImage: "heart.circle")
