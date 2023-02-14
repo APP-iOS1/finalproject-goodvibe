@@ -31,7 +31,7 @@ struct CollectionView: View {
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.width, height: 10)
                                 .foregroundColor(.gray.opacity(0.2))
-
+                            
                             ForEach(collectionVM.stores, id: \.self) { store in
                                 
                                 let imageData = collectionVM.storeImages[store.storeImages.first ?? ""] ?? UIImage()
@@ -47,7 +47,7 @@ struct CollectionView: View {
                                 
                                     .padding(.vertical,14)
                                 Divider()
-                                   
+                                
                             }
                         }
                         .background(.white)
@@ -68,9 +68,9 @@ struct CollectionView: View {
                                     HStack{
                                         Text("추천하는 국밥집은 어떠신가요?")
                                         Spacer()
-
+                                        
                                     }
-                                   
+                                    
                                     
                                     
                                 }
@@ -78,24 +78,24 @@ struct CollectionView: View {
                                 .bold()
                                 .padding(.leading)
                                 // .padding(.top, 20)
-                              
+                                
                                 ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
                                     if ((element.foodType).contains(userVM.gukbaps)){
-//                                        if Int(index.description) == storesViewModel.countRan{
-                                            let imageData = storesViewModel.storeTitleImage[element.storeImages.first ?? ""] ?? UIImage()
-                                            
-                                            cellRandom(collectionVM: collectionVM, cellData: element, imagedata: imageData)
-                                                .frame(width: UIScreen.main.bounds.width-40, height: 90)
-                                                .padding()
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 20)
-                                                        .stroke(.gray.opacity(0.3))
-                                                        .frame(width: UIScreen.main.bounds.width - 20, height: 120)
-                                                )
-                                                .padding(.vertical,14)
-                                            Divider()
-                                        }
+                                        //                                        if Int(index.description) == storesViewModel.countRan{
+                                        let imageData = storesViewModel.storeTitleImage[element.storeImages.first ?? ""] ?? UIImage()
+                                        
+                                        cellRandom(collectionVM: collectionVM, cellData: element, imagedata: imageData)
+                                            .frame(width: UIScreen.main.bounds.width-40, height: 90)
+                                            .padding()
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(.gray.opacity(0.3))
+                                                    .frame(width: UIScreen.main.bounds.width - 20, height: 120)
+                                            )
+                                            .padding(.vertical,14)
+                                        Divider()
                                     }
+                                }
                             }
                         }
                     }
@@ -108,25 +108,23 @@ struct CollectionView: View {
         } // NavigationStack
         .onAppear {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
-           //userVM.fetchUserInfo(uid: currentUser?.uid ?? "")
+            //userVM.fetchUserInfo(uid: currentUser?.uid ?? "")
             Task{
                 storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
+        }
+        .refreshable {
+            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             
-        }
-        .refreshable {
-            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
-
             Task{
-
+                
                 storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
         }
-        
     }
 }
 
@@ -139,7 +137,7 @@ struct cellLiked : View {
     var imagedata: UIImage
     let currentUser = Auth.auth().currentUser
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
-
+    
     @State var isLoading = true
     
     var body: some View {
@@ -151,13 +149,13 @@ struct cellLiked : View {
             } label: {
                 HStack{
                     HStack(alignment: .top){
-
-                    Image(uiImage: imagedata)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 90, height: 90)
-                        .cornerRadius(25)
-                    
+                        
+                        Image(uiImage: imagedata)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 90, height: 90)
+                            .cornerRadius(25)
+                        
                         VStack(alignment: .leading, spacing: 1){
                             HStack{
                                 Text(cellData.storeName)
@@ -171,6 +169,7 @@ struct cellLiked : View {
                                     collectionVM.isHeart.toggle()
                                     // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
                                     // append(cellData.sotreId)
+                                    
                                     collectionVM.manageHeart(userId: currentUser?.uid ?? "", store: cellData)
                                     
                                 } label: {
@@ -218,7 +217,7 @@ struct cellLiked : View {
                             }
                             
                         }
-
+                        
                     }
                     .foregroundColor(.black)
                     .frame(height: 120)
@@ -229,12 +228,12 @@ struct cellLiked : View {
         .redacted(reason: isLoading ? .placeholder : [])
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isLoading = false
-          }
+                self.isLoading = false
+            }
         }
         .onAppear {
             collectionVM.isHeart = true
-
+            
         }
     }
 }
@@ -251,7 +250,7 @@ struct cellRandom : View {
     @State var isLoading = true
     @State var plusHeart = false
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
-
+    
     
     var body: some View {
         
@@ -278,10 +277,11 @@ struct cellRandom : View {
                             Button{
                                 collectionVM.isHeart = true
                                 self.plusHeart = true
-
-//                                    collectionVM.isHeart.toggle()
+                                
+                                //                                    collectionVM.isHeart.toggle()
                                 // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
                                 // append(cellData.sotreId)
+                                
                                 collectionVM.manageHeart(userId: currentUser?.uid ?? "", store: cellData)
                                 
                             } label: {
@@ -334,12 +334,12 @@ struct cellRandom : View {
         .redacted(reason: isLoading ? .placeholder : [])
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isLoading = false
-          }
+                self.isLoading = false
+            }
         }
         .onAppear {
             collectionVM.isHeart = true
-
+            
         }
     }
 }
