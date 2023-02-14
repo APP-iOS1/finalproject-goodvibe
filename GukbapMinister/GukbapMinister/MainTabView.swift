@@ -20,31 +20,63 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
-                
-
-                
             ExploreView()
                 .tabItem {
                     Label("둘러보기", image: "Ddukbaegi.fill")
                 }
                 .tag(1)
                 .environmentObject(storesViewModel)
-            
-            CollectionView()
-                .tabItem {
-                    Label("내가 찜한 곳", systemImage: "heart.circle")
-                }
-                .toolbar(.visible, for: .tabBar)
-                .toolbarBackground(Color.white, for: .tabBar)
-                .tag(2)
-                .environmentObject(storesViewModel)
-                .environmentObject(UserViewModel())
+            if userViewModel.state == .noSigned{
+                //                CollectionView()
+                NoLoginView()
+                    .tabItem {
+                        Label("내가 찜한 곳", systemImage: "heart.circle")
+                    }
+                    .toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(Color.white, for: .tabBar)
+                    .tag(2)
+                //                    .environmentObject(storesViewModel)
+                    .environmentObject(userViewModel)
+                    .fullScreenCover(isPresented: $showModal, content: {
+                        SignInView2()
+                    })
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            self.showModal = true
+                        }
+                    }
+                //                MyPageView()
+                NoLoginView2()
+                    .tabItem {
+                        Label("마이페이지", systemImage: "person")
+                    }
+                    .tag(3)
+                    .environmentObject(userViewModel)
+//                    .fullScreenCover(isPresented: $showModal, content: {
+//                        SignInView2()
+//                    })
+//                    .onAppear {
+//                        DispatchQueue.main.async {
+//                            self.showModal = true
+//                        }
+//                    }
+            }else if userViewModel.state == .signedIn{
+                CollectionView()
+                    .tabItem {
+                        Label("내가 찜한 곳", systemImage: "heart.circle")
+                    }
+                    .toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(Color.white, for: .tabBar)
+                    .tag(2)
+                    .environmentObject(storesViewModel)
+                    .environmentObject(userViewModel)
+                MyPageView()
+                    .tabItem {
+                        Label("마이페이지", systemImage: "person")
+                    }
+                    .tag(3)
+            }
 
-            MyPageView()
-                .tabItem {
-                    Label("마이페이지", systemImage: "person")
-                }
-                .tag(3)
         }
         .accentColor(.mainColor)
         .onAppear {

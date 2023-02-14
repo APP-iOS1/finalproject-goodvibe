@@ -45,10 +45,11 @@ struct DetailView: View {
     
     //StoreImageDetailView 전달 변수
     @State private var isshowingStoreImageDetail: Bool = false
-    
+    @State private var showModal: Bool = false
+    @State private var showingAlert = false
+
     
     @State private var isLoading: Bool = true
-    
     
     var store : Store
     
@@ -83,7 +84,7 @@ struct DetailView: View {
                             presentationMode.wrappedValue.dismiss()
                         } label: {
                             Image(systemName: "arrow.backward")
-                                .tint(scheme == .light ? .black : .white)
+                                .tint(.black)
                         }
                     }
                     
@@ -132,12 +133,6 @@ struct DetailView: View {
         }
         .refreshable {
             reviewViewModel.fetchReviews()
-        }
-        .redacted(reason: isLoading ? .placeholder : [])
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isLoading = false
-          }
         }
     }//body
 }//struct
@@ -233,9 +228,11 @@ extension DetailView {
                                     Capsule().fill(Color.mainColor.opacity(0.1))
                                 }
                         }
+
                 }
-                .padding(.vertical, 20)
-            
+                .foregroundColor(scheme == .light ? .black : .white)
+                Spacer()
+            }
         }
 
     }
@@ -292,6 +289,14 @@ extension DetailView {
     }
 }
 
+
+
+
+extension View {
+    func getRect()->CGRect{
+        return UIScreen.main.bounds
+    }
+}
 
 
 //struct DetailView_Previews: PreviewProvider {

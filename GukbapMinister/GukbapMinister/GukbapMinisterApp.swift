@@ -28,7 +28,6 @@ struct GukbapMinisterApp: App {
         print("kakaoAppKey: \(kakaoAppKey)")
     }
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var userViewModel = UserViewModel()
 
   var body: some Scene {
     WindowGroup {
@@ -37,7 +36,7 @@ struct GukbapMinisterApp: App {
               if(AuthApi.isKakaoTalkLoginUrl(url)){
                  _ = AuthController.handleOpenUrl(url: url)
               }
-          }.environmentObject(userViewModel)
+          }.environmentObject(UserViewModel())
       }
     }
   }
