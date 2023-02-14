@@ -19,9 +19,6 @@ struct ServiceTermsView: View {
                         .font(.caption)
                     
                 }
-                
-                
-                
             }
         }
         .padding(10)
