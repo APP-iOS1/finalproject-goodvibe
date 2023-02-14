@@ -41,7 +41,6 @@ final class UserViewModel: ObservableObject {
     
     init(){
         self.logStatus = UserDefaults.standard.bool(forKey: "logStatus")
-//        UserDefaults.standard.integer(forKey: state)
         self.fetchUserInfo(uid: currentUser?.uid)
     }
     
@@ -53,7 +52,6 @@ final class UserViewModel: ObservableObject {
         case signedIn
         case signedOut
         case kakaoSign
-        case noSigned
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
@@ -198,14 +196,9 @@ final class UserViewModel: ObservableObject {
                 let authDataResult = try await Auth.auth().signIn(withEmail: signInEmailID, password: signInPassword)
                 let currentUser = authDataResult.user
                 print("Signed In As User \(currentUser.uid), with Email: \(String(describing: currentUser.email))")
-                logStatus = true
                 self.state = .signedIn
-               
                 fetchUserInfo(uid: currentUser.uid)
-                
-                print("안녕하세요안녕하세요\(logStatus)")
-                print("asdf\(SignInState.noSigned.hashValue)")
-                print("asdf\(SignInState.signedIn.hashValue)")
+                logStatus = true
             }catch{
                 print("Sign In Failed")
             }
