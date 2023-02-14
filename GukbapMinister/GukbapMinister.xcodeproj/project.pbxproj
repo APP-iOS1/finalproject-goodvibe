@@ -94,9 +94,6 @@
 		6348D75F2994B0EF00148552 /* OnboardingView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D75E2994B0EF00148552 /* OnboardingView2.swift */; };
 		6348D7612994B15500148552 /* OnboardingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D7602994B15500148552 /* OnboardingTabView.swift */; };
 		6348D7632994BF0F00148552 /* OnboardingView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D7622994BF0F00148552 /* OnboardingView3.swift */; };
-		6348D765299A8E4E00148552 /* NoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D764299A8E4E00148552 /* NoLoginView.swift */; };
-		6348D767299A930300148552 /* SignInView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D766299A930300148552 /* SignInView2.swift */; };
-		6348D769299B5D8B00148552 /* NoLoginView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D768299B5D8B00148552 /* NoLoginView2.swift */; };
 		63D2582C299A060100370202 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582B299A060100370202 /* NoticeView.swift */; };
 		63D2582E299A0D9800370202 /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582D299A0D9800370202 /* PolicyView.swift */; };
 		63D25830299A188600370202 /* ServiceTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582F299A188600370202 /* ServiceTermsView.swift */; };
@@ -198,9 +195,6 @@
 		6348D75E2994B0EF00148552 /* OnboardingView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView2.swift; sourceTree = "<group>"; };
 		6348D7602994B15500148552 /* OnboardingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTabView.swift; sourceTree = "<group>"; };
 		6348D7622994BF0F00148552 /* OnboardingView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView3.swift; sourceTree = "<group>"; };
-		6348D764299A8E4E00148552 /* NoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLoginView.swift; sourceTree = "<group>"; };
-		6348D766299A930300148552 /* SignInView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView2.swift; sourceTree = "<group>"; };
-		6348D768299B5D8B00148552 /* NoLoginView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLoginView2.swift; sourceTree = "<group>"; };
 		63D2582B299A060100370202 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		63D2582D299A0D9800370202 /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
 		63D2582F299A188600370202 /* ServiceTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTermsView.swift; sourceTree = "<group>"; };
@@ -499,9 +493,6 @@
 				147FE7CC2977BFB100E635A1 /* SignUpTabView.swift */,
 				6F43066D2977AE7C00ADBD2C /* SignUpProcessView.swift */,
 				6F7779CE297A5A0A000CF41B /* LoadingView.swift */,
-				6348D764299A8E4E00148552 /* NoLoginView.swift */,
-				6348D766299A930300148552 /* SignInView2.swift */,
-				6348D768299B5D8B00148552 /* NoLoginView2.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -776,14 +767,12 @@
 				5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */,
 				5B0058482990D84400564930 /* StoreReportButton.swift in Sources */,
 				5BDC6746297D99D800B681EC /* GgakdugiRatingWide.swift in Sources */,
-				6348D765299A8E4E00148552 /* NoLoginView.swift in Sources */,
 				0392B374298782E800C510E5 /* LocationManager.swift in Sources */,
 				5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */,
 				0400A09429935BE200727132 /* ReviewReportViewModel.swift in Sources */,
 				5B0058442990B78C00564930 /* StoreReportView.swift in Sources */,
 				147FE7CD2977BFB100E635A1 /* SignUpTabView.swift in Sources */,
 				6348D7612994B15500148552 /* OnboardingTabView.swift in Sources */,
-				6348D769299B5D8B00148552 /* NoLoginView2.swift in Sources */,
 				AD16F7B6298796F400733B85 /* CollectionViewModel.swift in Sources */,
 				5BA829D729922FE200B56B13 /* GgakdugiRatingShort.swift in Sources */,
 				5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */,
@@ -842,7 +831,6 @@
 				5B2E2E722994D2D800A7B94F /* GifImage.swift in Sources */,
 				5BA2DB3F298EA12D00A33EAB /* MapView+MapFilter.swift in Sources */,
 				63D25834299A1A6800370202 /* LocationBasedServicePolicyView.swift in Sources */,
-				6348D767299A930300148552 /* SignInView2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

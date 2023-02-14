@@ -10,9 +10,8 @@ import SwiftUI
 struct MainTabView: View {
     @State private var tabSelection: Int = 0
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
-    @EnvironmentObject var userViewModel : UserViewModel
-    //    @StateObject var userViewModel: UserViewModel = UserViewModel()
-    @State private var showModal: Bool = false
+
+    
     var body: some View {
         TabView(selection: $tabSelection) {
             MapView()
@@ -21,8 +20,6 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
-            
-            
             ExploreView()
                 .tabItem {
                     Label("둘러보기", image: "Ddukbaegi.fill")
@@ -79,6 +76,7 @@ struct MainTabView: View {
                     }
                     .tag(3)
             }
+
         }
         .accentColor(.mainColor)
         .onAppear {
@@ -87,7 +85,7 @@ struct MainTabView: View {
         .onDisappear {
             storesViewModel.unsubscribeStores()
         }
-        
+
     }
 }
 
