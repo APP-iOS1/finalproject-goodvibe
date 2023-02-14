@@ -23,6 +23,9 @@ struct DetailView: View {
     @StateObject private var storesViewModel: StoresViewModel = StoresViewModel()
     @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
     
+    //@StateObject var storeViewModel : StoreRegistrationViewModel = StoreRegistrationViewModel()
+    @EnvironmentObject var storeViewModel : StoreRegistrationViewModel
+    
     @ObservedObject var starStore = StarStore()
     
     @State private var text: String = ""
@@ -85,6 +88,7 @@ struct DetailView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
+
                         Button {
                             collectionViewModel.isHeart.toggle()
                             collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
@@ -119,7 +123,9 @@ struct DetailView: View {
             Task{
                 storesViewModel.subscribeStores()
             }
-            reviewViewModel.fetchReviews()
+            // 조회수 증가
+            storesViewModel.increaseHits(store: store)
+
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()

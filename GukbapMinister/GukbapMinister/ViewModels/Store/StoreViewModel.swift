@@ -14,6 +14,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseStorage
 
+
 final class StoreRegistrationViewModel: ObservableObject {
     @Published var store: Store
     @Published var latitude: String = ""
@@ -40,7 +41,8 @@ final class StoreRegistrationViewModel: ObservableObject {
                               menu: [:],
                               description: "",
                               countingStar: 0.0,
-                              foodType: ["순대국밥"]
+                              foodType: ["순대국밥"],
+                              hits: 0
     )) {
 
         self.store = store
@@ -91,6 +93,7 @@ final class StoreRegistrationViewModel: ObservableObject {
         }
     }
     
+
     private func updateStoreInfo(_ store: Store) {
         
         if let documentId = store.id {
@@ -105,7 +108,7 @@ final class StoreRegistrationViewModel: ObservableObject {
             
         }
     }
-    
+
     
     private func removeStoreInfo() {
         if let documentId = self.store.id {
