@@ -40,7 +40,8 @@ final class StoreRegistrationViewModel: ObservableObject {
                               menu: [:],
                               description: "",
                               countingStar: 0.0,
-                              foodType: ["순대국밥"]
+                              foodType: ["순대국밥"],
+                              likes: 0
     )) {
 
         self.store = store

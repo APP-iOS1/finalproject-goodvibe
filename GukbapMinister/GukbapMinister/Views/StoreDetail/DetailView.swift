@@ -83,6 +83,7 @@ struct DetailView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
+
                         if userViewModel.state == .noSigned{
                             Button {
                                 //                                showModal.toggle()
@@ -108,6 +109,7 @@ struct DetailView: View {
                                 Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
                                     .tint(.red)
                             }
+
                         }
                     }
                 }
