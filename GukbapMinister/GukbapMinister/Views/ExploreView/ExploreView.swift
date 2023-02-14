@@ -12,8 +12,7 @@ struct ExploreView: View {
 
     @EnvironmentObject var storesViewModel: StoresViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-
-
+    
     @State private var selectedIndex: Int = 0
     
     // HGrid의 행
@@ -21,9 +20,9 @@ struct ExploreView: View {
     
     // 배너의 샘플
     //let sampleColors: [Color] = [.yellow, .orange, .red]
-    let bannerIndex : [String] = ["Banner1_N", "Banner2_C" , "Banner3_D" ]
-    let bannerImg : [String : String] = ["Banner1_N" : "농민백암순대", "Banner2_C" : "청진옥", "Banner3_D" : "도야지 면옥"]
-    
+    let bannerIndex : [String] = ["GBMain1", "GBMain2" , "GBMain3" ]
+    let bannerImg : [String : String] = ["GBMain1" : "이달의 국밥집 Top 3", "GBMain2" : "국밥집 장관들의 Pick", "GBMain3" : "서울 3대 국밥"]
+
     
     // 배너 자동 넘기기 기능
     private var numberOfImages = 3
@@ -58,60 +57,66 @@ struct ExploreView: View {
                     ScrollView{
                         
                         VStack(spacing: 0){
-                            TabView(selection: $currentIndex) {
-                                ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in
-                                    
-                                    
-                                    
-                                    ZStack (alignment: .topLeading) {
-                                        Image("\(img)")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
-                                        
-                                        
+                                    TabView(selection: $currentIndex) {
+                                        ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in
+                                            
+                                            // TODO : 클릭시 국밥집 해당되는 국밥집 소개 페이지(또는 리스트 뷰, 또는 정보 창) 이동
+                                            // 현재는 2, 3번째 이미지 저작권(출처) 이슈
+                                            
+                                            ZStack (alignment: .topLeading) {
+                                                Text("\(bannerImg[img] ?? "")")
+                                                    .font(.title)
+                                                    .bold()
+                                                    .foregroundColor(.white)
+                                                    .padding(.top, 25)
+                                                    .padding(.leading, 20)
+                                                    .zIndex(1)
+                                                    .tag(index)
+                                                
+                                                
+                                                Image("\(img)")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
+                                                    .overlay{ (LinearGradient(gradient: Gradient(colors: [Color.black, .clear]), startPoint: .center, endPoint: .bottom).opacity(0.5))
+                                                    }
+
+                                            }
+//                                            .frame(maxWidth: .infinity)
+//                                            .frame(height: UIScreen.main.bounds.width * 0.75)
+                                            
+                                        }
                                     }
-                                    .onTapGesture {
-                                        print(index, img)
-                                    }
+                                    .frame(height: UIScreen.main.bounds.width * 0.75)
+                                    .tabViewStyle(.page(indexDisplayMode: .always))
+                                    .onReceive(timer, perform: { _ in next()})
                                     
-                                }
-                            }
-                            .frame(height: UIScreen.main.bounds.width * 0.75)
-                            .tabViewStyle(.page(indexDisplayMode: .always))
-                            .onReceive(timer, perform: { _ in next()})
-                            
-                            
-                            ExploreCategoryIconsView()
-                                .frame(width: UIScreen.main.bounds.width)
+                                    
+                                    
+                                    ExploreCategoryIconsView()
+                                        .frame(width: UIScreen.main.bounds.width)
                         }
                         
+                        
+                        // TODO : 찜 순으로 StoreCollectView 에 담아줘야함
+                        // 뷰모델 및 모델에 찜 카운트 항목 생성해서 전체적인 수정 필요
+                    
                         VStack{
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack(alignment: .center, spacing: 0){
 
-                                    
-                                    Text("국밥집 조회수 랭킹")
+                                    Text("찜이 가장 많이 된 국밥집")
                                         .font(.body)
                                         .bold()
-                                    Spacer()
                                     
-                                    NavigationLink{
-                                        DetailListView(listName : "깍두기 점수 랭킹", list : storesViewModel.storesHits, images: storesViewModel.storeTitleImageHits)
-                                    } label:{
-                                        Text("더보기 >")
-                                            .font(.caption)
-                                            .bold()
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding(.trailing)
+
                                 }
                                 .padding(.top)
                                 .padding(.leading)
                                 .font(.body)
 
                                 
-                                Text("국밥부 직원들이 가장 많이 찾아본 국밥집들을 소개합니다")
+                                Text("국밥부 직원들이 가장 많이 찜한 국밥집들을 소개합니다")
                                     .foregroundColor(.gray)
                                     .font(.caption)
                                     .padding(.leading)
@@ -120,12 +125,12 @@ struct ExploreView: View {
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, alignment: .center) {
-                                        ForEach(storesViewModel.storesHits, id: \.self){ store in
-                                            let imageData = storesViewModel.storeTitleImageHits[store.storeImages.first ?? ""] ?? UIImage()
+                                        ForEach(storesViewModel.stores, id: \.self){ store in
+                                            let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
                                             NavigationLink{
                                                 DetailView(store: store)
                                             } label:{
-                                                StoreHitsView(store:store, imagedata: imageData)
+                                                StoreCollectView(store:store, imagedata: imageData)
                                             }
                                             .padding(.bottom, 10)
                                         }
@@ -202,7 +207,6 @@ struct ExploreView: View {
                 Task{
                     storesViewModel.subscribeStores()
                     storesViewModel.fetchStarStores()
-                    storesViewModel.fetchHitsStores()
                 }
 
             }
@@ -302,8 +306,8 @@ struct StoreStarView: View{
 }
 
 
-// 조회 순으로 보여주는 하위 뷰
-struct StoreHitsView: View{
+// 찜 순으로 보여주는 하위 뷰
+struct StoreCollectView: View{
     var store : Store
     var imagedata: UIImage
     var body: some View{
@@ -313,13 +317,14 @@ struct StoreHitsView: View{
             VStack{
                 ZStack(alignment: .topLeading){
                     HStack(alignment: .center, spacing: 0){
-                        Image(systemName: "eye")
+                        Image(systemName: "heart.fill")
                             .resizable()
-                            .frame(width: 15, height: 10)
+                            .foregroundColor(.red)
+                            .frame(width: 13, height: 12)
                             .padding(.trailing, 5)
 
                         
-                        Text("\(store.hits)")
+                        Text("124")
                             .font(.caption)
                             .bold()
                     }

@@ -12,7 +12,9 @@ struct GgakdugiRatingWide: View {
     let size: CGFloat
     let spacing: CGFloat
     let perform: ((Int) -> Void)?
-    
+    @EnvironmentObject var userViewModel: UserViewModel
+    @State private var showModal: Bool = false
+    @State private var showingAlert = false
     init(selected: Int, size: CGFloat, spacing: CGFloat, perform: @escaping (Int) -> Void) {
         self.selected = selected
         self.size = size
@@ -21,17 +23,34 @@ struct GgakdugiRatingWide: View {
     }
     
     var body: some View {
-        HStack(spacing: spacing) {
-            ForEach(0..<5) { index in
-                Image(selected >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size, height: size)
-                    .onTapGesture { _ in
-                        perform?(index)
-                    }
+        if userViewModel.state == .noSigned{
+            HStack(spacing: spacing) {
+                ForEach(0..<5) { index in
+                    Image(selected >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
+                        .onTapGesture {
+                            showingAlert.toggle()
+                        }.alert(isPresented: $showingAlert){
+                            Alert(title: Text("로그인이 필요한 서비스입니다."), dismissButton: .cancel(Text("확인")))
+                        }
+                }
+            }
+        }else{
+            HStack(spacing: spacing) {
+                ForEach(0..<5) { index in
+                    Image(selected >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
+                        .onTapGesture { _ in
+                            perform?(index)
+                        }
+                }
             }
         }
+
     }
 }
 

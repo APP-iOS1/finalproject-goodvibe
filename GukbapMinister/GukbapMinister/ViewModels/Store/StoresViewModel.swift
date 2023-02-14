@@ -23,8 +23,6 @@ final class StoresViewModel: ObservableObject {
     
     @Published var countRan = 0
 
-    @Published var storesHits: [Store] = []
-    @Published var storeTitleImageHits: [String : UIImage] = [:]
     
     private var database = Firestore.firestore()
     private var storage = Storage.storage()
@@ -52,8 +50,6 @@ final class StoresViewModel: ObservableObject {
                         let description: String = docData["description"] as? String ?? ""
                         let countingStar: Double = docData["countingStar"] as? Double ?? 0
                         let foodType : [String] = docData["foodType"]  as? [String] ?? []
-                        let hits : Int = docData["hits"] as? Int ?? 0
-
                   
                         for imageName in storeImages {
                             self.fetchImagesStar(storeId: storeName, imageName: imageName)
@@ -67,9 +63,7 @@ final class StoresViewModel: ObservableObject {
                                                  menu: menu,
                                                  description: description,
                                                  countingStar: countingStar,
-                                                 foodType: foodType,
-                                                 hits: hits)
-
+                                                 foodType: foodType)
                         
                         self.storesStar.append(store)
                     }
@@ -77,67 +71,6 @@ final class StoresViewModel: ObservableObject {
             }
     }
     
-    
-    func fetchHitsStores() {
-            let ref = database.collection("Store").order(by: "hits", descending: true)
-            
-            ref.getDocuments { snapShot, error in
-                
-                self.storesHits.removeAll()
-                
-                if let snapShot {
-                    for document in snapShot.documents {
-                        let id: String = document.documentID
-                        let docData = document.data()
-                        
-                        let storeName: String = docData["storeName"] as? String ?? ""
-                        let storeAddress: String = docData["storeAddress"] as? String ?? ""
-                        let coordinate: GeoPoint = docData["coordinate"] as? GeoPoint ?? GeoPoint(latitude: 0.0, longitude: 0.0)
-                        let storeImages: [String] = docData["storeImages"] as? [String] ?? []
-                        let menu: [String : String] = docData["menu"] as? [String : String] ?? ["":""]
-                        let description: String = docData["description"] as? String ?? ""
-                        let countingStar: Double = docData["countingStar"] as? Double ?? 0
-                        let foodType : [String] = docData["foodType"]  as? [String] ?? []
-                        let hits : Int = docData["hits"] as? Int ?? 0
-                  
-                        for imageName in storeImages {
-                            self.fetchImagesHits(storeId: storeName, imageName: imageName)
-                        }
-
-                        let store: Store = Store(id: id,
-                                                 storeName: storeName,
-                                                 storeAddress: storeAddress,
-                                                 coordinate: coordinate,
-                                                 storeImages: storeImages,
-                                                 menu: menu,
-                                                 description: description,
-                                                 countingStar: countingStar,
-                                                 foodType: foodType,
-                                                 hits: hits)
-                        
-                        self.storesHits.append(store)
-                    }
-                }
-            }
-    }
-    
-    
-    // 조회수를 increase시키는 메서드 (onAppear시 동작)
-    func increaseHits(store : Store) {
-        var updateStoreHits = store
-        updateStoreHits.hits += 1
-        
-        if let documentId = store.id {
-            do {
-                try database.collection("Store")
-                    .document(documentId)
-                    .updateData(["hits" : updateStoreHits.hits])
-            }
-            catch {
-                print(error)
-            }
-        }
-    }
     
     //Store정보 구독취소
     //Store정보가 필요한 뷰에서
@@ -257,22 +190,6 @@ final class StoresViewModel: ObservableObject {
             } else {
                 let image = UIImage(data: data!)
                 self.storeTitleImageStar[imageName] = image
-         
-            }
-        }
-    }
-    
-    func fetchImagesHits(storeId: String, imageName: String) {
-        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        ref.getData(maxSize: 15 * 1024 * 1024) { [self] data, error in
-            if let error = error {
-                print("error while downloading image\n\(error.localizedDescription)")
-                return
-            } else {
-                let image = UIImage(data: data!)
-                self.storeTitleImageHits[imageName] = image
          
             }
         }

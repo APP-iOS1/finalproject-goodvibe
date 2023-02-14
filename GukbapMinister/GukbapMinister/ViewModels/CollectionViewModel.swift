@@ -45,7 +45,6 @@ class CollectionViewModel : ObservableObject {
                     let menu: [String : String] = docData["menu"] as? [String : String] ?? ["":""]
                     let description: String = docData["description"] as? String ?? ""
                     let countingStar: Double = docData["countingStar"] as? Double ?? 0
-                    let hits : Int = docData["hits"] as? Int ?? 0
               
                     
                     for imageName in storeImages {
@@ -60,8 +59,7 @@ class CollectionViewModel : ObservableObject {
                                              menu: menu,
                                              description: description,
                                              countingStar: countingStar,
-                                             foodType: ["순대국밥"],
-                                             hits: hits)
+                                             foodType: ["순대국밥"])
                     
                     self.stores.append(store)
                 }

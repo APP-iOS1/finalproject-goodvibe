@@ -68,6 +68,20 @@ struct SignInView: View {
                             .cornerRadius(7)
                     }//VStack
                 }
+                Button {
+                    //Login 버튼
+                    viewModel.state = .noSigned
+                } label: {
+                    VStack {
+                        Text("로그인 없이 이용하기")
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .frame(width: 360, height: 60)
+                            .background(.yellow)
+                            .cornerRadius(7)
+                    }//VStack
+                }
             }//VStack
             .padding(.bottom, 30)
             //MARK: - KAKAO Login Button

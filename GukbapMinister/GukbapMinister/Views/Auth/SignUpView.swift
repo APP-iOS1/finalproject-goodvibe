@@ -18,8 +18,6 @@ struct SignUpView: View {
     @State var userRulesView: Bool = false
     @State var appRulesView: Bool = false
     
-    
-    
     var body: some View {
         VStack {
             HStack {
