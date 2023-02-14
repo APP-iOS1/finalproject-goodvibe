@@ -110,7 +110,7 @@ struct CollectionView: View {
                                 }
                             }
                         }
-                    }
+                    
                 } // ScrollView
                 .toolbarBackground(Color.white, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
@@ -139,6 +139,7 @@ struct CollectionView: View {
         }
     }
 }
+
 
 // 내가 찜한 곳이 있을 시 보여주는 cell
 struct cellLiked : View {
