@@ -28,6 +28,7 @@ struct MainTabView: View {
                 }
                 .tag(1)
                 .environmentObject(storesViewModel)
+            
             CollectionView()
                 .tabItem {
                     Label("내가 찜한 곳", systemImage: "heart.circle")
@@ -37,6 +38,7 @@ struct MainTabView: View {
                 .tag(2)
                 .environmentObject(storesViewModel)
                 .environmentObject(UserViewModel())
+            
             MyPageView()
                 .tabItem {
                     Label("마이페이지", systemImage: "person")

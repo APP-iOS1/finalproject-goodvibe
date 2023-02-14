@@ -12,7 +12,8 @@ struct ExploreView: View {
 
     @EnvironmentObject var storesViewModel: StoresViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-    
+
+
     @State private var selectedIndex: Int = 0
     
     // HGrid의 행
@@ -80,11 +81,9 @@ struct ExploreView: View {
                                                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
                                                     .overlay{ (LinearGradient(gradient: Gradient(colors: [Color.black, .clear]), startPoint: .center, endPoint: .bottom).opacity(0.5))
                                                     }
-
                                             }
 //                                            .frame(maxWidth: .infinity)
 //                                            .frame(height: UIScreen.main.bounds.width * 0.75)
-                                            
                                         }
                                     }
                                     .frame(height: UIScreen.main.bounds.width * 0.75)
@@ -92,12 +91,9 @@ struct ExploreView: View {
                                     .onReceive(timer, perform: { _ in next()})
                                     
                                     
-                                    
                                     ExploreCategoryIconsView()
                                         .frame(width: UIScreen.main.bounds.width)
                         }
-                        
-                        
                         // TODO : 찜 순으로 StoreCollectView 에 담아줘야함
                         // 뷰모델 및 모델에 찜 카운트 항목 생성해서 전체적인 수정 필요
                     
@@ -105,10 +101,10 @@ struct ExploreView: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack(alignment: .center, spacing: 0){
 
-                                    Text("찜이 가장 많이 된 국밥집")
+                                    
+                                    Text("국밥집 조회수 랭킹")
                                         .font(.body)
                                         .bold()
-                                    
 
                                 }
                                 .padding(.top)
@@ -116,7 +112,7 @@ struct ExploreView: View {
                                 .font(.body)
 
                                 
-                                Text("국밥부 직원들이 가장 많이 찜한 국밥집들을 소개합니다")
+                                Text("국밥부 직원들이 가장 많이 찾아본 국밥집들을 소개합니다")
                                     .foregroundColor(.gray)
                                     .font(.caption)
                                     .padding(.leading)
@@ -125,12 +121,12 @@ struct ExploreView: View {
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, alignment: .center) {
-                                        ForEach(storesViewModel.stores, id: \.self){ store in
-                                            let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
+                                        ForEach(storesViewModel.storesHits, id: \.self){ store in
+                                            let imageData = storesViewModel.storeTitleImageHits[store.storeImages.first ?? ""] ?? UIImage()
                                             NavigationLink{
                                                 DetailView(store: store)
                                             } label:{
-                                                StoreCollectView(store:store, imagedata: imageData)
+                                                StoreHitsView(store:store, imagedata: imageData)
                                             }
                                             .padding(.bottom, 10)
                                         }
@@ -207,6 +203,7 @@ struct ExploreView: View {
                 Task{
                     storesViewModel.subscribeStores()
                     storesViewModel.fetchStarStores()
+                    storesViewModel.fetchHitsStores()
                 }
 
             }
@@ -306,8 +303,8 @@ struct StoreStarView: View{
 }
 
 
-// 찜 순으로 보여주는 하위 뷰
-struct StoreCollectView: View{
+// 조회 순으로 보여주는 하위 뷰
+struct StoreHitsView: View{
     var store : Store
     var imagedata: UIImage
     var body: some View{
@@ -317,14 +314,13 @@ struct StoreCollectView: View{
             VStack{
                 ZStack(alignment: .topLeading){
                     HStack(alignment: .center, spacing: 0){
-                        Image(systemName: "heart.fill")
+                        Image(systemName: "eye")
                             .resizable()
-                            .foregroundColor(.red)
-                            .frame(width: 13, height: 12)
+                            .frame(width: 15, height: 10)
                             .padding(.trailing, 5)
 
                         
-                        Text("124")
+                        Text("\(store.hits)")
                             .font(.caption)
                             .bold()
                     }
