@@ -86,9 +86,17 @@ struct DetailView: View {
                         Button {
                             collectionViewModel.isHeart.toggle()
                             collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
+                          
+                    
                         } label: {
-                            Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
-                                .tint(.red)
+                            VStack{
+                                Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
+                                    .tint(.red)
+                                Text("\(store.likes)")
+                                    .font(.caption)
+                                    .foregroundColor(.black)
+                            }
+                        
                         }
                     }
                 }

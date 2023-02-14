@@ -50,7 +50,8 @@ final class StoresViewModel: ObservableObject {
                         let description: String = docData["description"] as? String ?? ""
                         let countingStar: Double = docData["countingStar"] as? Double ?? 0
                         let foodType : [String] = docData["foodType"]  as? [String] ?? []
-                  
+                        let likes : Int = docData["likes"]  as? Int ?? 0
+
                         for imageName in storeImages {
                             self.fetchImagesStar(storeId: storeName, imageName: imageName)
                         }
@@ -63,7 +64,9 @@ final class StoresViewModel: ObservableObject {
                                                  menu: menu,
                                                  description: description,
                                                  countingStar: countingStar,
-                                                 foodType: foodType)
+                                                 foodType: foodType,
+                                                 likes: likes)
+                         
                         
                         self.storesStar.append(store)
                     }
