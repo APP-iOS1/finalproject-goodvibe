@@ -157,6 +157,7 @@ struct UserRulesView: View {
                 .toolbarBackground(.yellow, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
             }
+            
         }//NavigationStack
     }//var body
 }
