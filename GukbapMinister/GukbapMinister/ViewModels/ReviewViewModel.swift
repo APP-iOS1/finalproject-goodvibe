@@ -11,8 +11,8 @@ import FirebaseStorage
 import SwiftUI
 import Firebase
 
-
-class ReviewViewModel: ObservableObject {
+//TODO: 서버에 등록된 모든 리뷰를 가져올게 아니라 특정 조건에 맞는 리뷰를 가지고올 필요가 있음
+final class ReviewViewModel: ObservableObject {
     @Published var reviews: [Review] = []
     @Published var reviewImage: [String : UIImage] = [:]
     
@@ -31,6 +31,8 @@ class ReviewViewModel: ObservableObject {
     //    var nickName: String
     //    var createdDate: String
     //    var storeName: String
+    
+    
     
     func fetchReviews() {
         
@@ -177,6 +179,7 @@ class ReviewViewModel: ObservableObject {
         }
     }
     
+
     func updateStoreRating(updatingReview: Review, isDeleting: Bool) async {
         let storeReviews = reviews.filter { $0.storeName == updatingReview.storeName }
         
