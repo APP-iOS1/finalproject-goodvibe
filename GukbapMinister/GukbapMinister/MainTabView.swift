@@ -17,7 +17,7 @@ struct MainTabView: View {
         TabView(selection: $tabSelection) {
             MapView()
                 .tabItem {
-                    Label("지도", systemImage: "map")
+                    Label("지도", image: "GBmapIcon")
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
@@ -25,15 +25,17 @@ struct MainTabView: View {
             
             ExploreView()
                 .tabItem {
-                    Label("둘러보기", image: "Ddukbaegi.fill")
+                    Label("둘러보기", image: "GBexploreIcon")
                 }
                 .tag(1)
                 .environmentObject(storesViewModel)
+
+
             if userViewModel.state == .noSigned{
                 //                CollectionView()
                 NoLoginView()
                     .tabItem {
-                        Label("내가 찜한 곳", systemImage: "heart.circle")
+                        Label("내가 찜한 곳", image: "GBcollectionIcon")
                     }
                     .toolbar(.visible, for: .tabBar)
                     .toolbarBackground(Color.white, for: .tabBar)
@@ -51,7 +53,7 @@ struct MainTabView: View {
                 //                MyPageView()
                 NoLoginView2()
                     .tabItem {
-                        Label("마이페이지", systemImage: "person")
+                        Label("마이페이지", image: "GBmypageIcon")
                     }
                     .tag(3)
                     .environmentObject(userViewModel)
@@ -66,7 +68,7 @@ struct MainTabView: View {
             }else{
                 CollectionView()
                     .tabItem {
-                        Label("내가 찜한 곳", systemImage: "heart.circle")
+                        Label("내가 찜한 곳", image: "GBcollectionIcon")
                     }
                     .toolbar(.visible, for: .tabBar)
                     .toolbarBackground(Color.white, for: .tabBar)
@@ -75,10 +77,11 @@ struct MainTabView: View {
                     .environmentObject(userViewModel)
                 MyPageView()
                     .tabItem {
-                        Label("마이페이지", systemImage: "person")
+                        Label("마이페이지", image: "GBmypageIcon")
                     }
                     .tag(3)
             }
+
         }
         .accentColor(.mainColor)
         .onAppear {
@@ -93,6 +96,7 @@ struct MainTabView: View {
 
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MainTabView()
+        MainTabView(storesViewModel: StoresViewModel())
+            
     }
 }
