@@ -45,7 +45,8 @@ final class UserViewModel: ObservableObject {
     }
     
     @Published var isLoading: Bool = false
-    //@Published var userGrade: userGrade = .깍두기    //error 0213ㄹ
+
+//    @Published var userGrade: userGrade = .깍두기
     
     //로그인 상태
     enum SignInState{
