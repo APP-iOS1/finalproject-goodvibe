@@ -28,11 +28,9 @@ struct ExploreView: View {
     private var numberOfImages = 3
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State private var currentIndex = 0
-    
     func previous() {
         currentIndex = currentIndex > 0 ? currentIndex - 1 : numberOfImages - 1
     }
-    
     func next() {
         withAnimation {
             currentIndex = currentIndex < numberOfImages ? currentIndex + 1 : 0
@@ -40,7 +38,10 @@ struct ExploreView: View {
     }
     @State var isLoading = true
     
+    
 
+    
+    
     var body: some View {
         NavigationStack{
             SearchBarButton()
@@ -51,7 +52,10 @@ struct ExploreView: View {
                 Color.gray.opacity(scheme == .light ? 0.2 : 0)
                 
                 VStack{
+
+
                     ScrollView{
+                        
                         VStack(spacing: 0){
                                     TabView(selection: $currentIndex) {
                                         ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in

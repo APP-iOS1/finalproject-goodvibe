@@ -57,7 +57,6 @@
 		5B31DBBE297A257A00EA0036 /* StoreJsonString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */; };
 		5B31DBC0297A315000EA0036 /* StoreRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */; };
 		5B6536C12999C8E000EA8FE5 /* Ddukbaegi.boiling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */; };
-		5B6536C3299B3EBA00EA8FE5 /* UserReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6536C2299B3EBA00EA8FE5 /* UserReviewCell.swift */; };
 		5B98402A298F90EE003F604B /* SearchBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B984029298F90EE003F604B /* SearchBarModifier.swift */; };
 		5BA2DB3B298C9A6100A33EAB /* NavigationStackDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */; };
 		5BA2DB3D298CD57200A33EAB /* Gukbaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA2DB3C298CD57200A33EAB /* Gukbaps.swift */; };
@@ -164,7 +163,6 @@
 		5B31DBBD297A257A00EA0036 /* StoreJsonString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreJsonString.swift; sourceTree = "<group>"; };
 		5B31DBBF297A315000EA0036 /* StoreRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRegistrationView.swift; sourceTree = "<group>"; };
 		5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Ddukbaegi.boiling.gif; sourceTree = "<group>"; };
-		5B6536C2299B3EBA00EA8FE5 /* UserReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewCell.swift; sourceTree = "<group>"; };
 		5B984029298F90EE003F604B /* SearchBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarModifier.swift; sourceTree = "<group>"; };
 		5BA2DB3A298C9A6100A33EAB /* NavigationStackDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackDemoView.swift; sourceTree = "<group>"; };
 		5BA2DB3C298CD57200A33EAB /* Gukbaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gukbaps.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				0488EE582977DD8A00D866B7 /* ImageDetailView.swift */,
 				041FE96D297A287000BE32E7 /* ReviewDetailView.swift */,
 				0400A08D2990CC9400727132 /* ReportView.swift */,
-				5B6536C2299B3EBA00EA8FE5 /* UserReviewCell.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -768,7 +765,6 @@
 				149CBCEF297A273400F298C7 /* SearchView.swift in Sources */,
 				049BF93D2976848D00D2D044 /* CreateReviewView.swift in Sources */,
 				5B138DE02988EB3A004F9187 /* StoreAnnotation.swift in Sources */,
-				5B6536C3299B3EBA00EA8FE5 /* UserReviewCell.swift in Sources */,
 				5BB236D9298B9F7700CBC816 /* Ex+UIImage.swift in Sources */,
 				AD07DFC9298A5E50005DBA8D /* MyReviewView.swift in Sources */,
 				5BDB9AD2297579A900BFD5D9 /* SignInView.swift in Sources */,
@@ -1043,7 +1039,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-				DEVELOPMENT_TEAM = 6R3M7VGRP2;
+				DEVELOPMENT_TEAM = F2K4SQRVM6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;

@@ -20,14 +20,15 @@ struct MainTabView: View {
                     Label("지도", systemImage: "map")
                 }
                 .tag(0)
-                .environmentObject(storesViewModel)          
+                .environmentObject(storesViewModel)
+            
+            
             ExploreView()
                 .tabItem {
                     Label("둘러보기", image: "Ddukbaegi.fill")
                 }
                 .tag(1)
                 .environmentObject(storesViewModel)
-
             if userViewModel.state == .noSigned{
                 //                CollectionView()
                 NoLoginView()
@@ -78,21 +79,6 @@ struct MainTabView: View {
                     }
                     .tag(3)
             }
-=======
-            CollectionView()
-                .tabItem {
-                    Label("내가 찜한 곳", systemImage: "heart.circle")
-                }
-                .toolbar(.visible, for: .tabBar)
-                .toolbarBackground(Color.white, for: .tabBar)
-                .tag(2)
-                .environmentObject(storesViewModel)
-//                .environmentObject(UserViewModel())
-            MyPageView()
-                .tabItem {
-                    Label("마이페이지", systemImage: "person")
-                }
-                .tag(3)
         }
         .accentColor(.mainColor)
         .onAppear {

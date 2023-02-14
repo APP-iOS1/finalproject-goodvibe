@@ -44,9 +44,6 @@ struct DetailView: View {
     @State private var isshowingStoreImageDetail: Bool = false
     @State private var showModal: Bool = false
     @State private var showingAlert = false
-    
-    @State private var isLoading: Bool = true
-    
     var store : Store
     
     var body: some View {
@@ -65,7 +62,7 @@ struct DetailView: View {
                         userStarRate
                         
                         ForEach(reviewViewModel.reviews) { review in
-   
+                            
                             if (review.storeName == store.storeName){
                                 UserReview(reviewViewModel: reviewViewModel, scrollViewOffset: $scrollViewOffset, review: review)
                             }
@@ -81,7 +78,7 @@ struct DetailView: View {
                             presentationMode.wrappedValue.dismiss()
                         } label: {
                             Image(systemName: "arrow.backward")
-                                .tint(scheme == .light ? .black : .white)
+                                .tint(.black)
                         }
                     }
                     
@@ -146,12 +143,6 @@ struct DetailView: View {
         }
         .refreshable {
             reviewViewModel.fetchReviews()
-        }
-        .redacted(reason: isLoading ? .placeholder : [])
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isLoading = false
-          }
         }
     }//body
 }//struct
@@ -260,36 +251,12 @@ extension DetailView {
                             
                         }
                     }
-                    .foregroundColor(.black) 
-            Divider()
-                .overlay {
-                        Button {
-                            isExpanded.toggle()
-                        } label: {
-                            HStack{
-                                if isExpanded {
-                                    Text("접기")
-                                    Image(systemName: "chevron.up")
-                                } else {
-                                    Text("더보기")
-                                    Image(systemName: "chevron.down")
-                                }
-                                    
-                            }
-                            .padding(EdgeInsets(top: 3, leading: 8, bottom: 3, trailing: 8))
-                            .font(.footnote)
-                            .fontWeight(.medium)
-                            .foregroundColor(scheme == .light ? .black : .white)
-                        }
-                        .background {
-                            Capsule().fill(scheme == .light ? .white : .black)
-                                .overlay{
-                                    Capsule().fill(Color.mainColor.opacity(0.1))
-                                }
-                        }
+                    .foregroundColor(.black)
+                    
                 }
-                .padding(.vertical, 20)
-            
+                .foregroundColor(scheme == .light ? .black : .white)
+                Spacer()
+            }
         }
         .animation(.easeInOut, value: store.description)
     }
@@ -554,6 +521,14 @@ struct UserReview:  View {
                 
             }
         }
+    }
+}
+
+
+
+extension View {
+    func getRect()->CGRect{
+        return UIScreen.main.bounds
     }
 }
 
