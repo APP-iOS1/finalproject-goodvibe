@@ -11,7 +11,7 @@ import FirebaseAuth
 struct MyReviewView: View {
     @Environment(\.dismiss) var dismiss
 
-    @EnvironmentObject private var reviewVM: ReviewViewModel
+    @StateObject private var reviewVM = ReviewViewModel()
     @EnvironmentObject private var userVM: UserViewModel
     //@StateObject private var storeVM : StoreViewModel
     
@@ -19,27 +19,17 @@ struct MyReviewView: View {
         VStack{
             NavigationStack{
                 ScrollView(showsIndicators: false) {
-
-                    
-                    
                     VStack(spacing: 0){
-                        Rectangle()
-                            .frame(width: 400, height: 10)
-                            .foregroundColor(.gray)
-                            .opacity(0.20)
-                        
                         // review 컬렉션의 유저 아이디와 현재 유저 아이디를 비교하여 같으면 '내가 쓴 리뷰'로 보여준다
                         ForEach(reviewVM.reviews, id: \.self) { review in
                             if(review.userId == userVM.userInfo.id){
-                                let reviewImg = reviewVM.reviewImage[review.images?.first ?? ""] ?? UIImage()
-                                ReviewCell(reviewData: review, reviewImg: reviewImg)
+                                UserReviewCell(reviewViewModel: reviewVM, review: review, isInMypage: true)
+                                    
                             }
-
                         }
                     }
                 }
                 .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
-                
             }
             .onAppear{
                 userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
