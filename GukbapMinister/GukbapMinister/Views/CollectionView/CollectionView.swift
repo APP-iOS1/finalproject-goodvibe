@@ -27,6 +27,7 @@ struct CollectionView: View {
                     if (collectionVM.stores != [] ) {
                         // 내가 찜한 가게가 있을 시 보여준다
                         VStack{
+
                             HStack{
                                 Text("총 \(collectionVM.stores.count)개")
                                     .font(.caption)
@@ -38,6 +39,7 @@ struct CollectionView: View {
 //                            Rectangle()
 //                                .frame(width: UIScreen.main.bounds.width, height: 10)
 //                                .foregroundColor(.gray.opacity(0.2))
+
 
                             ForEach(collectionVM.stores, id: \.self) { store in
                                 
@@ -54,7 +56,7 @@ struct CollectionView: View {
                                 
                                     .padding(.vertical,5)
                                 Divider()
-                                   
+                                
                             }
                         }
                         .background(.white)
@@ -75,9 +77,9 @@ struct CollectionView: View {
                                     HStack{
                                         Text("추천하는 국밥집은 어떠신가요?")
                                         Spacer()
-
+                                        
                                     }
-                                   
+                                    
                                     
                                     
                                 }
@@ -85,9 +87,10 @@ struct CollectionView: View {
                                 .bold()
                                 .padding(.leading)
                                 // .padding(.top, 20)
-                              
+                                
                                 ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
                                     if ((element.foodType).contains(userVM.gukbaps)){
+
 //                                        if Int(index.description) == storesViewModel.countRan{
                                             let imageData = storesViewModel.storeTitleImage[element.storeImages.first ?? ""] ?? UIImage()
                                             
@@ -102,7 +105,9 @@ struct CollectionView: View {
                                                 .padding(.vertical,5)
                                             Divider()
                                         }
+
                                     }
+                                }
                             }
                         }
                     }
@@ -115,25 +120,23 @@ struct CollectionView: View {
         } // NavigationStack
         .onAppear {
             collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
-           //userVM.fetchUserInfo(uid: currentUser?.uid ?? "")
+            //userVM.fetchUserInfo(uid: currentUser?.uid ?? "")
             Task{
                 storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
+        }
+        .refreshable {
+            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
             
-        }
-        .refreshable {
-            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
-
             Task{
-
+                
                 storesViewModel.subscribeStores()
                 // 생성 시점 이슈로 인해 뷰모델에서 난수를 생성
                 storesViewModel.getRandomNumber()
             }
         }
-        
     }
 }
 
@@ -146,7 +149,7 @@ struct cellLiked : View {
     var imagedata: UIImage
     let currentUser = Auth.auth().currentUser
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
-
+    
     @State var isLoading = true
     
     var body: some View {
@@ -160,6 +163,7 @@ struct cellLiked : View {
                 HStack{
                     HStack(alignment: .top){
 
+
                     Image(uiImage: imagedata)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -168,6 +172,7 @@ struct cellLiked : View {
                         .padding(.top,7.5)
                         
                         VStack(alignment: .leading, spacing: 0){
+
                             HStack{
                                 Text(cellData.storeName)
                                     .font(.title3)
@@ -176,6 +181,7 @@ struct cellLiked : View {
                                 
                                 Spacer()
                                 
+
 //                                Button{
 //                                    collectionVM.isHeart.toggle()
 //                                    // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
@@ -186,6 +192,7 @@ struct cellLiked : View {
 //                                    Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
 //                                        .foregroundColor(.red)
 //                                }
+
                             }
                             
                             
@@ -215,7 +222,7 @@ struct cellLiked : View {
                             }
                             
                         }
-
+                        
                     }
                     .frame(height: 120)
                     .padding(.leading, 0)
@@ -227,13 +234,15 @@ struct cellLiked : View {
         }
         .redacted(reason: isLoading ? .placeholder : [])
         .onAppear {
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
           }
+
         }
         .onAppear {
             collectionVM.isHeart = true
-
+            
         }
     }
 }
@@ -250,7 +259,7 @@ struct cellRandom : View {
     @State var isLoading = true
     @State var plusHeart = false
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
-
+    
     
     var body: some View {
         
@@ -277,7 +286,7 @@ struct cellRandom : View {
 
                             
                             Spacer()
-                            
+
 //                            Button{
 //                                collectionVM.isHeart = true
 //                                self.plusHeart = true
@@ -291,6 +300,7 @@ struct cellRandom : View {
 //                                Image(systemName: plusHeart ? "heart.fill" : "heart")
 //                                    .foregroundColor(.red)
 //                            }
+
                         }
                         
                         Text(cellData.storeAddress)
@@ -328,13 +338,15 @@ struct cellRandom : View {
         }
         .redacted(reason: isLoading ? .placeholder : [])
         .onAppear {
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
           }
+
         }
         .onAppear {
             collectionVM.isHeart = true
-
+            
         }
     }
 }

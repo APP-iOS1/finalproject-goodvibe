@@ -42,8 +42,8 @@ struct DetailView: View {
     
     //StoreImageDetailView 전달 변수
     @State private var isshowingStoreImageDetail: Bool = false
-    
-    
+    @State private var showModal: Bool = false
+    @State private var showingAlert = false
     var store : Store
     
     var body: some View {
@@ -83,20 +83,33 @@ struct DetailView: View {
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            collectionViewModel.isHeart.toggle()
-                            collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
-                          
-                    
-                        } label: {
-                            VStack{
+
+                        if userViewModel.state == .noSigned{
+                            Button {
+                                //                                showModal.toggle()
+                                showingAlert.toggle()
+                            } label: {
                                 Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
                                     .tint(.red)
-                                Text("\(store.likes)")
-                                    .font(.caption)
-                                    .foregroundColor(.black)
                             }
-                        
+                            .alert("로그인이 필요한 서비스입니다.", isPresented: $showingAlert) {
+                                Button("확인", role: .cancel) {
+//                                    showModal.toggle()
+                                }
+//                                .fullScreenCover(isPresented: $showModal, content: {
+//                                    SignInView2()
+//                                })
+                            }
+                            
+                        }else{
+                            Button {
+                                collectionViewModel.isHeart.toggle()
+                                collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
+                            } label: {
+                                Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
+                                    .tint(.red)
+                            }
+
                         }
                     }
                 }
@@ -317,71 +330,95 @@ struct UserReview:  View {
     
     //리뷰 삭제 알림
     @State private var isDeleteAlert: Bool = false
-    
+    @State private var showingAlert = false
     var review: Review
     
     var body: some View {
-        VStack(spacing: 0){
-            HStack(spacing: 0){
-                Text("\(review.nickName)")
-                        .fontWeight(.semibold)
-                        .padding(.vertical)
-//                        .padding(.leading)
-                    
+        VStack{
+            
+            
+            HStack{
                 if userViewModel.currentUser?.uid ?? "" == review.userId {
+                    Text("\(review.nickName)")
+                        .fontWeight(.semibold)
+                        .padding()
+                    
                     Text("(내 리뷰)")
+                        .font(.system(size:15))
                         .fontWeight(.medium)
+                        .padding(.leading,-20)
+                }else {
+                    Text("\(review.nickName)")
+                        .fontWeight(.semibold)
+                        .padding()
                 }
                 
                 Spacer()
-                
-                if userViewModel.currentUser?.uid ?? "" == review.userId {
-                    Button {
-                        isDeleteAlert.toggle()
-                        
-                    } label: {
-                        HStack{
-                            Text("삭제")
-                                .font(.footnote)
-                                .fontWeight(.thin)
-                                .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.secondary, lineWidth: 0.5)
-                                    
-                                )
+                HStack{
+                    Spacer()
+                    if userViewModel.currentUser?.uid ?? ""  == review.userId {
+                        Button {
+                            isDeleteAlert.toggle()
+                            
+                        } label: {
+                            HStack{
+                                Text("삭제")
+                                    .fontWeight(.thin)
+                                    .font(.system(size:14))
+                                    .padding(EdgeInsets(top: 2.5, leading: 6.5, bottom: 2.5, trailing: 6.5))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.secondary, lineWidth: 0.5)
+                                        
+                                    )
+                                    .padding(.trailing,15)
+                                
+                            }
                             
                         }
+                        .alert(isPresented: $isDeleteAlert) {
+                            Alert(title: Text(""),
+                                  message: Text("리뷰를 삭제하시겠습니까?"),
+                                  primaryButton: .destructive(Text("확인"),
+                                                              action: {
+                                reviewViewModel.removeReview(review: review)
+                            }), secondaryButton: .cancel(Text("닫기")))
+                        }
                         
-                    }
-                    .alert(isPresented: $isDeleteAlert) {
-                        Alert(title: Text(""),
-                              message: Text("리뷰를 삭제하시겠습니까?"),
-                              primaryButton: .destructive(Text("확인"),
-                                                          action: {
-                            reviewViewModel.removeReview(review: review)
-                        }), secondaryButton: .cancel(Text("닫기")))
                     }
                     
                 }
                 
                 
-                
-                
             }
-            .padding(.horizontal, 15)
             
             HStack {
-                GgakdugiRatingWide(selected: review.starRating - 1, size: 15, spacing: 2) { _ in
+                GgakdugiRatingWide(selected: review.starRating, size: 15, spacing: 2) { _ in
                 }
                 Text("\(review.createdDate)")
                     .font(.footnote)
                     .foregroundColor(.secondary)
                 
                 Spacer()
-                if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                if userViewModel.state == .noSigned{
                     Button(action:{
                         isShowingReportView.toggle()
+                        showingAlert.toggle()
+                    }){
+                        Text("신고하기")
+                            .font(.system(size:12))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size:7))
+                    }
+                    .padding()
+                    .foregroundColor(.secondary)
+                    .alert(isPresented: $showingAlert){
+                        Alert(title: Text("로그인이 필요한 서비스입니다."), dismissButton: .cancel(Text("확인")))
+                    }
+                }else if(userViewModel.currentUser?.uid ?? "" != review.userId){
+                    Button(action:{
+                        isShowingReportView.toggle()
+                        
                         
                     }){
                         Text("신고하기")
@@ -392,11 +429,10 @@ struct UserReview:  View {
                     .padding()
                     .foregroundColor(.secondary)
                 }
-                
             }//HStack
             .padding(.leading)
             .padding(.trailing, 5)
-            .padding(.top, -10)
+            .padding(.top, -35)
             
             
             

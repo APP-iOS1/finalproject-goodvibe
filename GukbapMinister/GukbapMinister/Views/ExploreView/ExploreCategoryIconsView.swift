@@ -29,9 +29,8 @@ struct ExploreCategoryIconsView: View {
                                 .frame(width: 40, height: 40)
                             Text(gukbap.rawValue)
                                 .font(.footnote)
-//                                .fontWeight(.semibold)
+                                .fontWeight(.semibold)
                                 .fixedSize()
-                                .tint(scheme == .light ? .black : .white)
                         }
                     }
                 }
