@@ -20,6 +20,7 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
+                
 
                 
             ExploreView()
@@ -36,7 +37,7 @@ struct MainTabView: View {
                 .toolbarBackground(Color.white, for: .tabBar)
                 .tag(2)
                 .environmentObject(storesViewModel)
-                .environmentObject(UserViewModel())
+//                .environmentObject(UserViewModel())
             MyPageView()
                 .tabItem {
                     Label("마이페이지", systemImage: "person")
