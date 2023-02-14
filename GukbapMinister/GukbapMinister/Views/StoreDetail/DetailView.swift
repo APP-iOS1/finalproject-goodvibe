@@ -351,7 +351,9 @@ struct UserReview:  View {
                               message: Text("리뷰를 삭제하시겠습니까?"),
                               primaryButton: .destructive(Text("확인"),
                                                           action: {
-                            reviewViewModel.removeReview(review: review)
+                            Task {
+                                await reviewViewModel.removeReview(review: review)
+                            }
                         }), secondaryButton: .cancel(Text("닫기")))
                     }
                     

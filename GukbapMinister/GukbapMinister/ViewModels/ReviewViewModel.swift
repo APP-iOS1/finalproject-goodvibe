@@ -98,7 +98,7 @@ class ReviewViewModel: ObservableObject {
                           "storeId": review.storeId
                          ])
             
-            await updateStoreRating(newReview: review)
+            await updateStoreRating(updatingReview: review, isDeleting: false)
             
             fetchReviews()
             print("이미지 배열\(imgNameList)")
@@ -110,24 +110,31 @@ class ReviewViewModel: ObservableObject {
     }
     
     // MARK: - 서버의 Reviews Collection에서 Reviews 객체 하나를 삭제하는 Method
-    func removeReview(review: Review) {
-        database.collection("Review")
-            .document(review.id).delete()
-        
-        // remove photos from storage
-        if let images = review.images {
-            for image in images {
-                let imagesRef = storage.reference().child("images/\(review.id)/\(image)")
-                imagesRef.delete { error in
-                    if let error = error {
-                        print("Error removing image from storage\n\(error.localizedDescription)")
-                    } else {
-                        print("images directory deleted successfully")
+    func removeReview(review: Review) async {
+        do {
+            try await database.collection("Review")
+                .document(review.id).delete()
+            
+            // remove photos from storage
+            if let images = review.images {
+                for image in images {
+                    let imagesRef = storage.reference().child("images/\(review.id)/\(image)")
+                    imagesRef.delete { error in
+                        if let error = error {
+                            print("Error removing image from storage\n\(error.localizedDescription)")
+                        } else {
+                            print("images directory deleted successfully")
+                        }
                     }
                 }
             }
+            
+            await updateStoreRating(updatingReview: review, isDeleting: true)
+            
+            fetchReviews()
+        } catch {
+            print(error.localizedDescription)
         }
-        fetchReviews()
     }
     
     // MARK: - 서버의 Storage에 이미지를 업로드하는 Method
@@ -170,27 +177,29 @@ class ReviewViewModel: ObservableObject {
         }
     }
     
-    func updateStoreRating(newReview: Review) async {
-        let storeReviews = reviews.filter { $0.storeName == newReview.storeName }
+    func updateStoreRating(updatingReview: Review, isDeleting: Bool) async {
+        let storeReviews = reviews.filter { $0.storeName == updatingReview.storeName }
         
-        let reviewCount = storeReviews.count + 1
-        var ratingTotal: Int = newReview.starRating
+        let reviewCount = storeReviews.count + (isDeleting ? -1 : +1)
+        var ratingTotal: Int = isDeleting ? -updatingReview.starRating : +updatingReview.starRating
         
         for storeReview in storeReviews {
             ratingTotal += storeReview.starRating
         }
         
+        
         let newRatingAverage: Double = Double(ratingTotal) / Double(reviewCount)
         
         do {
-            try await database.collection("Store").document(newReview.storeId).updateData([
+            try await database.collection("Store").document(updatingReview.storeId).updateData([
                 "countingStar" : newRatingAverage
             ])
         } catch {
             print(error.localizedDescription)
         }
-
     }
+    
+    
     
 }
 

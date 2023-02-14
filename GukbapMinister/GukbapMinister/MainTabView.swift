@@ -20,6 +20,7 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
+                .environmentObject(UserViewModel())
 
                 
             ExploreView()
