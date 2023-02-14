@@ -27,7 +27,7 @@ struct PolicyView: View {
                         NavigationLink {
                             PrivacyPolicyView()
                         } label: {
-                            Text("개인정보 처리 방침")
+                            Text("개인정보 처리방침")
                         }
                     })
                     
