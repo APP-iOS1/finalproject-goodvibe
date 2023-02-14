@@ -21,9 +21,9 @@ struct ExploreView: View {
     
     // 배너의 샘플
     //let sampleColors: [Color] = [.yellow, .orange, .red]
-    let bannerIndex : [String] = ["GBMain1", "GBMain2" , "GBMain3" ]
-    let bannerImg : [String : String] = ["GBMain1" : "이달의 국밥집 Top 3", "GBMain2" : "국밥집 장관들의 Pick", "GBMain3" : "서울 3대 국밥"]
-
+    let bannerIndex : [String] = ["Banner1_N", "Banner2_C" , "Banner3_D" ]
+    let bannerImg : [String : String] = ["Banner1_N" : "농민백암순대", "Banner2_C" : "청진옥", "Banner3_D" : "도야지 면옥"]
+    
     
     // 배너 자동 넘기기 기능
     private var numberOfImages = 3
@@ -58,45 +58,34 @@ struct ExploreView: View {
                     ScrollView{
                         
                         VStack(spacing: 0){
-                                    TabView(selection: $currentIndex) {
-                                        ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in
-                                            
-                                            // TODO : 클릭시 국밥집 해당되는 국밥집 소개 페이지(또는 리스트 뷰, 또는 정보 창) 이동
-                                            // 현재는 2, 3번째 이미지 저작권(출처) 이슈
-                                            
-                                            ZStack (alignment: .topLeading) {
-                                                Text("\(bannerImg[img] ?? "")")
-                                                    .font(.title)
-                                                    .bold()
-                                                    .foregroundColor(.white)
-                                                    .padding(.top, 25)
-                                                    .padding(.leading, 20)
-                                                    .zIndex(1)
-                                                    .tag(index)
-                                                
-                                                
-                                                Image("\(img)")
-                                                    .resizable()
-                                                    .scaledToFill()
-                                                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
-                                                    .overlay{ (LinearGradient(gradient: Gradient(colors: [Color.black, .clear]), startPoint: .center, endPoint: .bottom).opacity(0.5))
-                                                    }
-                                            }
-//                                            .frame(maxWidth: .infinity)
-//                                            .frame(height: UIScreen.main.bounds.width * 0.75)
-                                        }
+                            TabView(selection: $currentIndex) {
+                                ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in
+                                    
+                                    
+                                    
+                                    ZStack (alignment: .topLeading) {
+                                        Image("\(img)")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
+                                        
+                                        
                                     }
-                                    .frame(height: UIScreen.main.bounds.width * 0.75)
-                                    .tabViewStyle(.page(indexDisplayMode: .always))
-                                    .onReceive(timer, perform: { _ in next()})
+                                    .onTapGesture {
+                                        print(index, img)
+                                    }
                                     
-                                    
-                                    ExploreCategoryIconsView()
-                                        .frame(width: UIScreen.main.bounds.width)
+                                }
+                            }
+                            .frame(height: UIScreen.main.bounds.width * 0.75)
+                            .tabViewStyle(.page(indexDisplayMode: .always))
+                            .onReceive(timer, perform: { _ in next()})
+                            
+                            
+                            ExploreCategoryIconsView()
+                                .frame(width: UIScreen.main.bounds.width)
                         }
-                        // TODO : 찜 순으로 StoreCollectView 에 담아줘야함
-                        // 뷰모델 및 모델에 찜 카운트 항목 생성해서 전체적인 수정 필요
-                    
+                        
                         VStack{
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack(alignment: .center, spacing: 0){

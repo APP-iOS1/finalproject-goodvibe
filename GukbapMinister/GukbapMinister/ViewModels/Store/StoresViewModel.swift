@@ -128,22 +128,14 @@ final class StoresViewModel: ObservableObject {
         updateStoreHits.hits += 1
         
         if let documentId = store.id {
-//            do {
-//                try database.collection("Store")
-//                    .document(documentId)
-//                    .setData(from: updateStoreHits)
-//            }
-//            catch {
-//                print(error)
-//            }
-        do {
-            try database.collection("Store")
-                .document(documentId)
-                .updateData(["hits" : updateStoreHits.hits])
-        }
-        catch {
-            print(error)
-        }
+            do {
+                try database.collection("Store")
+                    .document(documentId)
+                    .updateData(["hits" : updateStoreHits.hits])
+            }
+            catch {
+                print(error)
+            }
         }
     }
     
