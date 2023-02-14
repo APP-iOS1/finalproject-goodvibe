@@ -150,7 +150,7 @@ struct ReportView: View {
     @Binding var selectedReportButton : String
     @Binding var reportEnter : Bool
     @StateObject var reviewReportViewModel = ReviewReportViewModel()
-    @EnvironmentObject private var reviewViewModel: ReviewViewModel 
+    @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     var review: Review
 
     @State private var memo: String = ""

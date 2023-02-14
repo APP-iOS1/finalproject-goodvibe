@@ -18,7 +18,6 @@ struct MyPageView: View {
     
     @State private var isShowingNotice: Bool = false
     @State private var isShowingTerms: Bool = false
-
     
     var body: some View {
         NavigationStack {
@@ -28,7 +27,7 @@ struct MyPageView: View {
                     .font(.largeTitle)
                     .padding(.top, 20)
                     .padding()
-            
+                
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.opacity(0.1))
                     .frame(width: UIScreen.main.bounds.width - 30, height: 110)
@@ -45,14 +44,14 @@ struct MyPageView: View {
                                         .font(.largeTitle)
                                 }
                                 .padding(.leading, 20)
-
+                            
                             VStack(alignment: .leading){
                                 HStack{
                                     Text("\(userVM.userInfo.userNickname)")
                                         .font(.title3)
                                     
                                     Spacer()
-
+                                    
                                     Text("\(userVM.userInfo.status)님")
                                         .font(.body)
                                         .padding(.trailing, 20)
@@ -70,8 +69,8 @@ struct MyPageView: View {
                         }
                     }
                     .padding()
-
-
+                
+                
                 
                 VStack (alignment: .leading, spacing: 25) {
                     //공지사항도 있어야할것같아서 버튼만 우선 만들었습니다.
@@ -98,7 +97,8 @@ struct MyPageView: View {
                     }
                     .fullScreenCover(isPresented: $isMyReviewPresented) {
                         MyReviewView()
-//                            .environmentObject(ReviewViewModel())
+                            .environmentObject(ReviewViewModel())
+                            .environmentObject(UserViewModel())
                     }
                     
                     Button {
@@ -111,7 +111,7 @@ struct MyPageView: View {
                     }
                     .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
                         UpdateUserInfoView()
-//                            .environmentObject(UserViewModel())
+                            .environmentObject(UserViewModel())
                         
                     }
                     
@@ -193,6 +193,8 @@ struct MyPageView: View {
             .tint(.mainColor)
         }
         .tint(.mainColor)
+        
+        
     }
 }
 

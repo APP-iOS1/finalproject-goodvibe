@@ -10,8 +10,9 @@ import SwiftUI
 struct MainTabView: View {
     @State private var tabSelection: Int = 0
     @StateObject var storesViewModel: StoresViewModel = StoresViewModel()
-
-    
+    @EnvironmentObject var userViewModel : UserViewModel
+    //    @StateObject var userViewModel: UserViewModel = UserViewModel()
+    @State private var showModal: Bool = false
     var body: some View {
         TabView(selection: $tabSelection) {
             MapView()
@@ -20,29 +21,67 @@ struct MainTabView: View {
                 }
                 .tag(0)
                 .environmentObject(storesViewModel)
-                
-
-                
+            
+            
             ExploreView()
                 .tabItem {
                     Label("둘러보기", image: "GBexploreIcon")
                 }
                 .tag(1)
                 .environmentObject(storesViewModel)
-            CollectionView()
-                .tabItem {
-                    Label("내가 찜한 곳", image: "GBcollectionIcon")
-                }
-                .toolbar(.visible, for: .tabBar)
-                .toolbarBackground(Color.white, for: .tabBar)
-                .tag(2)
-                .environmentObject(storesViewModel)
-//                .environmentObject(UserViewModel())
-            MyPageView()
-                .tabItem {
-                    Label("마이페이지", image: "GBmypageIcon")
-                }
-                .tag(3)
+
+
+            if userViewModel.state == .noSigned{
+                //                CollectionView()
+                NoLoginView()
+                    .tabItem {
+                        Label("내가 찜한 곳", image: "GBcollectionIcon")
+                    }
+                    .toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(Color.white, for: .tabBar)
+                    .tag(2)
+                //                    .environmentObject(storesViewModel)
+                    .environmentObject(userViewModel)
+                    .fullScreenCover(isPresented: $showModal, content: {
+                        SignInView2()
+                    })
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            self.showModal = true
+                        }
+                    }
+                //                MyPageView()
+                NoLoginView2()
+                    .tabItem {
+                        Label("마이페이지", image: "GBmypageIcon")
+                    }
+                    .tag(3)
+                    .environmentObject(userViewModel)
+//                    .fullScreenCover(isPresented: $showModal, content: {
+//                        SignInView2()
+//                    })
+//                    .onAppear {
+//                        DispatchQueue.main.async {
+//                            self.showModal = true
+//                        }
+//                    }
+            }else{
+                CollectionView()
+                    .tabItem {
+                        Label("내가 찜한 곳", image: "GBcollectionIcon")
+                    }
+                    .toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(Color.white, for: .tabBar)
+                    .tag(2)
+                    .environmentObject(storesViewModel)
+                    .environmentObject(userViewModel)
+                MyPageView()
+                    .tabItem {
+                        Label("마이페이지", image: "GBmypageIcon")
+                    }
+                    .tag(3)
+            }
+
         }
         .accentColor(.mainColor)
         .onAppear {
@@ -51,7 +90,7 @@ struct MainTabView: View {
         .onDisappear {
             storesViewModel.unsubscribeStores()
         }
-
+        
     }
 }
 

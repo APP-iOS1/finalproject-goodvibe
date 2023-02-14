@@ -7,22 +7,30 @@
 
 import SwiftUI
 
-struct SignInView: View {
+struct SignInView2: View {
     @EnvironmentObject var viewModel: UserViewModel
-//    @State var isLoading: Bool = false
+    //    @State var isLoading: Bool = false
     @State var signUpView: Bool = false
-    
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack {
+            HStack{
+                Button {
+                    self.presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Text("Cancel")
+                }
+                Spacer()
+            }
             Spacer()
             //MARK: - App LOGO
             VStack {
-//                Text("LOGO")
-//                Rectangle()
-//                    .foregroundColor(.secondary)
+                //                Text("LOGO")
+                //                Rectangle()
+                //                    .foregroundColor(.secondary)
                 Image("AppIcon.noBg")
                     .resizable()
-                .frame(width: 200, height: 200)
+                    .frame(width: 200, height: 200)
             }
             .padding(.bottom, 20)
             //MARK: - Email
@@ -60,20 +68,6 @@ struct SignInView: View {
                 } label: {
                     VStack {
                         Text("이메일로 계속하기")
-                            .fontWeight(.bold)
-                            .font(.title3)
-                            .foregroundColor(.white)
-                            .frame(width: 360, height: 60)
-                            .background(.yellow)
-                            .cornerRadius(7)
-                    }//VStack
-                }
-                Button {
-                    //Login 버튼
-                    viewModel.state = .noSigned
-                } label: {
-                    VStack {
-                        Text("로그인 없이 이용하기")
                             .fontWeight(.bold)
                             .font(.title3)
                             .foregroundColor(.white)
@@ -136,15 +130,15 @@ struct SignInView: View {
     }
 }
 
-struct SignInView_Previews: PreviewProvider {
+struct SignInView2_Previews: PreviewProvider {
     //    static let userViewModel: UserViewModel()
     static var previews: some View {
-        SignInView().environmentObject(UserViewModel())
+        SignInView2().environmentObject(UserViewModel())
     }
 }
 
 extension View{
-    func border(_ width: CGFloat, _ color: Color) -> some View{
+    func border2(_ width: CGFloat, _ color: Color) -> some View{
         self
             .padding(.horizontal, 15)
             .padding(.vertical, 10)

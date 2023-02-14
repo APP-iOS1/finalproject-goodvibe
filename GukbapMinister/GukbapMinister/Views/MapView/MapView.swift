@@ -8,10 +8,9 @@ struct MapView: View {
     @Environment(\.colorScheme) var scheme
     // Command + F -> replace: changes searched word in the file
     @EnvironmentObject var storesViewModel: StoresViewModel
-    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject var mapViewModel = MapViewModel(storeLocations: [])
     @StateObject var locationManager = LocationManager()
-    
+    @EnvironmentObject var userViewModel : UserViewModel
     // 필터 버튼을 눌렀을 때 동작하는
     @State var isShowingFilterModal: Bool = false
     @State private var isShowingSelectedStore: Bool = false

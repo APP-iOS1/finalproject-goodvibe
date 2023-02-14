@@ -22,7 +22,7 @@ struct UpdateUserInfoView: View {
                     Section(content: {
                         NavigationLink {
                             EditNicknameView()
-//                                .environmentObject(userViewModel)
+                                .environmentObject(userViewModel)
                         } label: {
                             Text("\(userViewModel.userInfo.userNickname)")
                         }

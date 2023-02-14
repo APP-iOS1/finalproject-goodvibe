@@ -55,8 +55,14 @@ struct CreateReviewView: View {
                         }
                         HStack(spacing: 15) {
                             Spacer()
-                            GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { star in
-                                starStore.selectedStar = star
+                            
+                            ForEach(0..<5) { index in
+                                Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .onTapGesture {
+                                        starStore.selectedStar = index
+                                    }
                             }
                             Spacer()
                         }
@@ -78,6 +84,9 @@ struct CreateReviewView: View {
                                         .foregroundColor(Color("AccentColor"))
                                         .font(.system(size: 25))
                                         .frame(width:80, height: 45, alignment: .center)
+                                    
+                                    
+                                    
                                 }//photoLibrary
                             HStack{
                                 if selectedImages.count == 0{
@@ -96,7 +105,9 @@ struct CreateReviewView: View {
                                         .foregroundColor(selectedImages.count == 0 ? .gray : .black)
                                         .fontWeight(.regular)
                                         .padding(.trailing,-8)
-                           
+                                    //                                    .shimmering(
+                                    //                                        animation: .easeInOut(duration: 2).repeatCount(5, autoreverses: false).delay(1)
+                                    //                                    )
                                     Text("/4")
                                         .font(.callout)
                                         .fontWeight(.regular)
@@ -244,10 +255,8 @@ struct CreateReviewView: View {
                                                                         reviewText: reviewText,
                                                                         createdAt: createdAt,
                                                                         nickName: userViewModel.userInfo.userNickname,
-                                                                        starRating:  starStore.selectedStar + 1,
-                                                                        storeName: store.storeName,
-                                                                        storeId: store.id ?? ""
-                                            )
+                                                                        starRating:  starStore.selectedStar,
+                                                                        storeName: store.storeName)
                                             
                                             await reviewViewModel.addReview(review: review, images: images)
                                             
