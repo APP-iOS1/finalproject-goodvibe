@@ -105,7 +105,17 @@ struct ExploreView: View {
                                     Text("국밥집 조회수 랭킹")
                                         .font(.body)
                                         .bold()
-
+                                    Spacer()
+                                    
+                                    NavigationLink{
+                                        DetailListView(listName : "깍두기 점수 랭킹", list : storesViewModel.storesHits, images: storesViewModel.storeTitleImageHits)
+                                    } label:{
+                                        Text("더보기 >")
+                                            .font(.caption)
+                                            .bold()
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding(.trailing)
                                 }
                                 .padding(.top)
                                 .padding(.leading)
