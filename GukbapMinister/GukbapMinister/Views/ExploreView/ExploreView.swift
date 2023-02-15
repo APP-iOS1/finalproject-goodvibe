@@ -323,7 +323,7 @@ struct StoreHitsView: View{
                     HStack(alignment: .center, spacing: 0){
                         Image(systemName: "eye")
                             .resizable()
-                            .foregroundColor(.red)
+                            .foregroundColor(.black)
                             .frame(width: 15, height: 10)
                             .padding(.trailing, 5)
 
