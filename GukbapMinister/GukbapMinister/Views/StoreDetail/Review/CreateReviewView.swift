@@ -14,7 +14,8 @@ import FirebaseAuth
 struct CreateReviewView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @StateObject var reviewViewModel: ReviewViewModel
-    @ObservedObject var starStore: StarStore
+    
+    @Binding var selectedStar: Int
     
     @State private var selectedImages: [PhotosPickerItem] = []
     @State private var selectedImageData: [Data] =  []
@@ -55,14 +56,14 @@ struct CreateReviewView: View {
                         }
                         HStack(spacing: 15) {
                             Spacer()
-                            GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { star in
-                                starStore.selectedStar = star
+                            GgakdugiRatingWide(selected: selectedStar, size: 40, spacing: 15) { star in
+                                selectedStar = star
                             }
                             Spacer()
                         }
                         
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
-                        Text("\(starStore.selectedStar + 1) / \(5)")
+                        Text("\(selectedStar + 1) / \(5)")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                     }//VStack
@@ -249,7 +250,7 @@ struct CreateReviewView: View {
                                                                         reviewText: reviewText,
                                                                         createdAt: createdAt,
                                                                         nickName: userViewModel.userInfo.userNickname,
-                                                                        starRating:  starStore.selectedStar + 1,
+                                                                        starRating:  selectedStar + 1,
                                                                         storeName: store.storeName,
                                                                         storeId: store.id ?? ""
                                             )

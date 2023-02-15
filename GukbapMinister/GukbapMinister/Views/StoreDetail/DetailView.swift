@@ -8,9 +8,6 @@ import SwiftUI
 import Shimmer
 
 import FirebaseAuth
-class StarStore: ObservableObject {
-    @Published var selectedStar: Int = 0
-}
 
 struct DetailView: View {
     @Environment(\.colorScheme) var scheme
@@ -19,10 +16,10 @@ struct DetailView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     //   @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
-    @StateObject private var storesViewModel: StoresViewModel = StoresViewModel()
+    @EnvironmentObject private var storesViewModel: StoresViewModel
     @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
     
-    @ObservedObject var starStore = StarStore()
+    @State private var selectedStar: Int = 0
     
     @State private var text: String = ""
     @State private var isBookmarked: Bool = false
@@ -112,7 +109,7 @@ struct DetailView: View {
         }
         //리뷰 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $showingCreateRewviewSheet) {
-            CreateReviewView(reviewViewModel: reviewViewModel, starStore: starStore,showingSheet: $showingCreateRewviewSheet, store: store )
+            CreateReviewView(reviewViewModel: reviewViewModel,selectedStar: $selectedStar, showingSheet: $showingCreateRewviewSheet, store: store )
         }
         .onAppear{
             Task{
@@ -268,8 +265,8 @@ extension DetailView {
                         .padding(.bottom,10)
                     
                     
-                    GgakdugiRatingWide(selected: starStore.selectedStar, size: 40, spacing: 15) { ggakdugi in
-                        starStore.selectedStar = ggakdugi
+                    GgakdugiRatingWide(selected: selectedStar, size: 40, spacing: 15) { ggakdugi in
+                        self.selectedStar = ggakdugi
                         showingCreateRewviewSheet.toggle()
                     }
                 }
