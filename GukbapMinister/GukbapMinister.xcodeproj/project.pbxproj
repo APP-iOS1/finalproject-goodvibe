@@ -155,7 +155,7 @@
 		5B0058472990D84400564930 /* StoreReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportButton.swift; sourceTree = "<group>"; };
 		5B01F2E22976840800ACB32F /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		5B01F2E42976CD1200ACB32F /* CommentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUnit.swift; sourceTree = "<group>"; };
-		5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserReviewCell.swift; path = "../../../../../../../.Trash/finalproject-goodvibe 오전 12.09.31/GukbapMinister/GukbapMinister/Views/StoreDetail/Review/UserReviewCell.swift"; sourceTree = "<group>"; };
+		5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewCell.swift; sourceTree = "<group>"; };
 		5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
 		5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+Regions.swift"; sourceTree = "<group>"; };
 		5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCategoryDetailView.swift; sourceTree = "<group>"; };
