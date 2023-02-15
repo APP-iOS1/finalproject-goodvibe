@@ -116,7 +116,6 @@ struct DetailView: View {
                 storesViewModel.subscribeStores()
             }
             reviewViewModel.fetchReviews()
-            storesViewModel.increaseHits(store: store)
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()

@@ -130,6 +130,9 @@ struct ExploreView: View {
                                             } label:{
                                                 StoreHitsView(store:store, imagedata: imageData)
                                             }
+                                            .simultaneousGesture(TapGesture().onEnded{
+                                                storesViewModel.increaseHits(store: store)
+                                                })
                                             .padding(.bottom, 10)
                                         }
                                     }
