@@ -9,7 +9,14 @@
 - 설치/실행 방법
 
 ## 참여자
-기태욱 박성민 박정선 이서현 이석준 이영우 이원형 전혜성 
+
+| 📎기태욱<br/>https://github.com/KiTaeUk<br/> | 📎박성민<br/>https://github.com/teddy5518<br/> | 📎박정선<br/>https://github.com/JSPark0099<br/> | 📎이서현<br/> https://github.com/sudoswift<br/> |
+| --- | --- | --- | --- |
+| <img src="https://avatars.githubusercontent.com/u/79833715?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/108975398?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/91583287?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/83416999?v=4" width=400> |
+
+| 📎이석준<br/>https://github.com/MartinLeeSJ<br/> | 📎이영우<br/>https://github.com/Lee-Youngwoo<br/> | 📎이원형<br/>https://github.com/whl0526<br/> | 📎전혜성<br/>https://github.com/angry-dev<br/>|
+| --- | --- | --- | --- |
+| <img src="https://avatars.githubusercontent.com/u/76909552?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/114223605?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/67450169?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/98198645?v=4" width=400> |
 
 ## 라이센스
 
