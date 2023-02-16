@@ -124,11 +124,11 @@ struct ExploreView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, alignment: .center) {
                                         ForEach(storesViewModel.storesHits, id: \.self){ store in
-                                            let imageData = storesViewModel.storeTitleImageHits[store.storeImages.first ?? ""] ?? UIImage()
+                                            let imageData = storesViewModel.storeTitleImageHits[store.storeImages.first ?? ""] ?? Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder
                                             NavigationLink{
                                                 DetailView(store: store)
                                             } label:{
-                                                StoreHitsView(store:store, imagedata: imageData)
+                                                StoreHitsView(store:store, imagedata:  (imageData ?? Gukbaps(rawValue: "순대국밥")?.uiImagePlaceholder)!)
                                             }
                                             .simultaneousGesture(TapGesture().onEnded{
                                                 storesViewModel.increaseHits(store: store)
@@ -180,11 +180,11 @@ struct ExploreView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, alignment: .center) {
                                         ForEach(storesViewModel.storesStar, id: \.self){ store in
-                                            let imageData = storesViewModel.storeTitleImageStar[store.storeImages.first ?? ""] ?? UIImage()
+                                            let imageData = storesViewModel.storeTitleImageStar[store.storeImages.first ?? ""] ?? Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder
                                             NavigationLink{
                                                 DetailView(store: store)
                                             } label:{
-                                                StoreStarView(store:store, imagedata: imageData)
+                                                StoreStarView(store:store, imagedata: (imageData ?? Gukbaps(rawValue: "순대국밥")?.uiImagePlaceholder)!)
                                             }
                                             .padding(.bottom, 10)
                                         }
@@ -261,6 +261,10 @@ struct StoreStarView: View{
                         .scaledToFill()
                         .frame(width: 190, height: 190)
                         .cornerRadius(10)
+                        .background{
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.black.opacity(0.2))
+                        }
                 }
                 
                 
@@ -343,6 +347,10 @@ struct StoreHitsView: View{
                         .scaledToFill()
                         .frame(width: 190, height: 190)
                         .cornerRadius(10)
+                        .background{
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.black.opacity(0.2))
+                        }
                 }
 
                 

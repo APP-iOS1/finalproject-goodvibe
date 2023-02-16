@@ -47,9 +47,19 @@ enum Gukbaps: String, CaseIterable {
         Image(imageName)
     }
     
+    var placeholder: Image {
+        Image("\(imageName + ".gray")")
+    }
+    
     var uiImage: UIImage? {
         UIImage(named: imageName)
     }
+    
+    var uiImagePlaceholder: UIImage? {
+        UIImage(named: "\(imageName + ".gray")")
+    }
+    
+    
 
 }
 
