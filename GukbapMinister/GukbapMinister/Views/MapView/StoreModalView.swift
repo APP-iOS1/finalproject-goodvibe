@@ -93,19 +93,32 @@ extension StoreModalView {
             .overlay(Color.mainColor.opacity(0.5))
     }
     
+
     var imageOrPlaceholder: some View {
         NavigationLink(destination: DetailView(store: store)) {
-            if let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] {
+            if let imageAddress = store.storeImages.first,
+               let imageData = storesViewModel.storeTitleImage[imageAddress]
+            {
                 Image(uiImage: imageData)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 90, height: 90)
                     .cornerRadius(6)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(.black.opacity(0.2))
+                    }
+                
             } else {
-                Rectangle().fill(.gray.opacity(0.1))
+                Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 90, height: 90)
                     .cornerRadius(6)
-
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(.black.opacity(0.2))
+                    }
             }
         }
     }

@@ -14,7 +14,6 @@ struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @EnvironmentObject var userViewModel: UserViewModel
-    //   @EnvironmentObject var mapViewModel: MapViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @EnvironmentObject private var storesViewModel: StoresViewModel
     @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
