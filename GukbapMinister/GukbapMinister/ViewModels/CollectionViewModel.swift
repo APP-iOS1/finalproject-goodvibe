@@ -19,14 +19,14 @@ class CollectionViewModel : ObservableObject {
     // 필요한 것 : 현재사용자의 id
     @Published var isHeart: Bool = false
     @Published var stores: [Store] = []
-    @Published var storeImages: [String : UIImage] = [:] 
+    @Published var storeImages: [String : UIImage] = [:]
     
+
     let database = Firestore.firestore()
     let storage = Storage.storage()
     
     // MARK: - 찜한 가게 목록 불러오기
     func fetchLikedStore(userId: String) {
-        print("userID : \(userId)")
         let ref = database.collection("User").document("\(userId)").collection("LikedStore")
         
         ref.getDocuments { snapShot, error in
@@ -45,7 +45,9 @@ class CollectionViewModel : ObservableObject {
                     let menu: [String : String] = docData["menu"] as? [String : String] ?? ["":""]
                     let description: String = docData["description"] as? String ?? ""
                     let countingStar: Double = docData["countingStar"] as? Double ?? 0
-              
+                    let likes : Int = docData["likes"]  as? Int ?? 0
+                    let hits : Int = docData["hits"] as? Int ?? 0
+
                     
                     for imageName in storeImages {
                         self.fetchImages(storeId: storeName, imageName: imageName)
@@ -59,7 +61,9 @@ class CollectionViewModel : ObservableObject {
                                              menu: menu,
                                              description: description,
                                              countingStar: countingStar,
-                                             foodType: ["순대국밥"])
+                                             foodType: ["순대국밥"],
+                                             likes:likes,
+                                             hits: hits)
                     
                     self.stores.append(store)
                 }
@@ -78,7 +82,6 @@ class CollectionViewModel : ObservableObject {
     
     // MARK: - 찜한 가게 추가/삭제
     func manageHeart(userId: String, store: Store) {
-        print("\(#function) : \(userId)")
         let ref = database.collection("User").document(userId).collection("LikedStore").document(store.id ?? "")
         
         if isHeart {
@@ -93,13 +96,53 @@ class CollectionViewModel : ObservableObject {
             ])
             print("\(self.isHeart)")
             print("\(#function) : 찜한 가게 추가")
+            self.likeStore(userId: userId, store: store)
         } else {
             ref.delete()
             print("\(self.isHeart)")
             print("\(#function) : 찜한 가게 삭제")
+            self.disLikeStore(userId: userId, store: store)
+
         }
+        self.fetchLikedStore(userId: userId)
     }
     
+    func likeStore(userId: String, store: Store){
+        let ref = database.collection("Store").document(store.id ?? "")
+        ref.updateData([
+            "likes": store.likes + 1])
+    }
+    func disLikeStore(userId: String, store: Store){
+        let ref = database.collection("Store").document(store.id ?? "")
+        ref.updateData([
+            "likes": store.likes - 1])
+    }
+//    func likeStore(store: Store) {
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let storeId = store.id else { return }
+//
+//        let userLikeRef = database.collection("User").document(uid).collection("LikedStore")
+//        database.collection("Store").document(storeId)
+//            .updateData(["likes": store.likes + 1]) { _ in
+//                userLikeRef.document(storeId).setData([:]){ _ in
+//
+//                }
+//            }
+//    }
+//
+//    func disLikeStore(store: Store) {
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        guard let storeId = store.id else { return }
+//
+//        let userLikeRef = database.collection("User").document(uid).collection("LikedStore")
+//        database.collection("Store").document(storeId)
+//            .updateData(["likes": store.likes - 1]) { _ in
+//                userLikeRef.document(storeId).setData([:]){ _ in
+//
+//                }
+//            }
+//    }
+//
     // MARK: - Storage에서 이미지 다운로드
     func fetchImages(storeId: String, imageName: String) {
         let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
@@ -116,4 +159,10 @@ class CollectionViewModel : ObservableObject {
             }
         }
     }
-}
+    
+
+    
+    
+
+
+} 

@@ -11,75 +11,75 @@ import MapKit
 
 // SwiftUI와 UIRepresentable 이 상호작용하도록 도와주는 것
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
-    var mapViewController: MapUIView
+  var mapViewController: MapUIView
+  
+  init(_ control: MapUIView) {
+    self.mapViewController = control
+  }
+  
+  
+  /*
+   - Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
+   */
+  @MainActor
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard !annotation.isKind(of: MKUserLocation.self) else {
+      // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
+      return nil
+    }
+    var annotationView: MKAnnotationView?
     
-    init(_ control: MapUIView) {
-        self.mapViewController = control
+    if let annotation = annotation as? StoreAnnotation {
+      annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
+    }
+    
+    return annotationView
+  }
+  
+  // 마커를 클릭 했을 때 동작하는 함수
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    guard let annotation = view.annotation as? StoreAnnotation else { return }
+    print(#function, "마커 clicked")
+    mapViewController.selectedStoreAnnotation = annotation
+    mapViewController.isSelected = true
+  }
+  
+  // 마커를 클릭해제 했을 때 동작하는 함수
+  func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+    guard let _ = view.annotation as? StoreAnnotation else { return }
+    print(#function, "마커 deselect")
+    mapViewController.selectedStoreAnnotation = .init(storeId: "", title: "", subtitle: "", foodType: [], coordinate: .init())
+    mapViewController.isSelected = false
+  }
+  
+  func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+    print(#function, "\(views)")
+  }
+  
+  func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+    
+  }
+  
+  
+  func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
+    let identifier = annotation.storeId
+    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+    
+    if annotationView == nil {
+      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      
+      let markerImage = Gukbaps(rawValue: annotation.foodType.first ?? "순대국밥")?
+        .uiImage?
+        .resizeImageTo(size: CGSize(width: 60, height: 60))
+      
+      annotationView?.image =  markerImage
+      
     }
     
     
-    /*
-     - Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
-     */
-    @MainActor
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard !annotation.isKind(of: MKUserLocation.self) else {
-            // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
-            return nil
-        }
-        var annotationView: MKAnnotationView?
-        
-        if let annotation = annotation as? StoreAnnotation {
-            annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
-        }
-        
-        return annotationView
-    }
-    
-    // 마커를 클릭 했을 때 동작하는 함수
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let annotation = view.annotation as? StoreAnnotation else { return }
-        print(#function, "마커 clicked")
-        mapViewController.selectedStoreAnnotation = annotation
-        mapViewController.isSelected = true
-    }
-    
-    // 마커를 클릭해제 했을 때 동작하는 함수
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        guard let _ = view.annotation as? StoreAnnotation else { return }
-        print(#function, "마커 deselect")
-        mapViewController.selectedStoreAnnotation = .init(storeId: "", title: "", subtitle: "", foodType: [], coordinate: .init())
-        mapViewController.isSelected = false
-    }
-    
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        print(#function, "\(views)")
-    }
-    
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        
-    }
-    
-    
-    func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
-        let identifier = annotation.storeId
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            
-            let markerImage = Gukbaps(rawValue: annotation.foodType.first ?? "순대국밥")?
-                .uiImage?
-                .resizeImageTo(size: CGSize(width: 60, height: 60))
-            
-            annotationView?.image =  markerImage
-            
-        }
-        
-        
-        return annotationView
-    }
-    
+    return annotationView
+  }
+  
 }
 
 // View라고 생각하면 됨
@@ -119,8 +119,9 @@ struct MapUIView: UIViewRepresentable {
       trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
       trackingButton.frame.size = CGSize(width: 42, height: 42)
       trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
-      trackingButton.layer.cornerRadius = 22.5
-        
+      trackingButton.layer.cornerRadius = 7
+//      trackingButton.layer.cornerRadius = 22.5
+
         
         
         

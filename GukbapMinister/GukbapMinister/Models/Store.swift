@@ -34,16 +34,18 @@ struct Store: Codable, Hashable, Identifiable {
   var countingStar: Double
   var foodType: [String] //국밥 타입: ex:순대,돼지국밥
   //    var viewCount: Int// 장소 조회수
-  
+    var likes : Int
+    var didLike : Bool? = false
+    var hits : Int
   static func == (lhs : Store, rhs: Store) -> Bool{
     lhs.id == rhs.id
   }
 }
 
 extension Store {
-  static var test: Store = .init(storeName: "name", storeAddress: "addressaddressaddressaddressaddressaddress", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "description", countingStar: 0.5, foodType: ["순대국밥"])
+    static var test: Store = .init(storeName: "name", storeAddress: "addressaddressaddressaddressaddressaddress", coordinate: GeoPoint(latitude: 37, longitude: 125), storeImages: [], menu: [:], description: "description", countingStar: 0.5, foodType: ["순대국밥"], likes: 0, hits: 17)
     
-    static var test2: Store = .init(storeName: "name2", storeAddress: "2", coordinate: GeoPoint(latitude: 37.5, longitude: 127), storeImages: [], menu: [:], description: "description2", countingStar: 0.5, foodType: ["돼지국밥"])
+    static var test2: Store = .init(storeName: "name2", storeAddress: "2", coordinate: GeoPoint(latitude: 37.5, longitude: 127), storeImages: [], menu: [:], description: "description2", countingStar: 0.5, foodType: ["돼지국밥"], likes: 0, hits: 23)
 }
 
 

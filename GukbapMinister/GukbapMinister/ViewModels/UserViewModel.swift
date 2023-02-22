@@ -31,16 +31,8 @@ final class UserViewModel: ObservableObject {
     @Published var gukbaps: [String] = []
     @Published var selection: Int = 0
     @Published var filterdGukbaps: [String] = []
-    @Published var reviewCount: Int = 0 {
-        didSet {
-            self.updateReviewCount()
-        }
-    }
-    @Published var storeReportCount: Int = 0 {
-        didSet {
-            self.updateStoreReportCount()
-        }
-    }
+    @Published var reviewCount: Int = 0
+    @Published var storeReportCount: Int = 0
     @Published var logStatus: Bool = false {
         didSet{
             UserDefaults.standard.set(logStatus, forKey: "logStatus")
@@ -49,16 +41,19 @@ final class UserViewModel: ObservableObject {
     
     init(){
         self.logStatus = UserDefaults.standard.bool(forKey: "logStatus")
+//        UserDefaults.standard.integer(forKey: state)
         self.fetchUserInfo(uid: currentUser?.uid)
     }
     
     @Published var isLoading: Bool = false
+//    @Published var userGrade: userGrade = .깍두기
     
     //로그인 상태
     enum SignInState{
         case signedIn
         case signedOut
         case kakaoSign
+        case noSigned
     }
     //state 옵저빙
     @Published var state: SignInState = .signedOut
@@ -203,9 +198,14 @@ final class UserViewModel: ObservableObject {
                 let authDataResult = try await Auth.auth().signIn(withEmail: signInEmailID, password: signInPassword)
                 let currentUser = authDataResult.user
                 print("Signed In As User \(currentUser.uid), with Email: \(String(describing: currentUser.email))")
-                self.state = .signedIn
-                fetchUserInfo(uid: currentUser.uid)
                 logStatus = true
+                self.state = .signedIn
+               
+                fetchUserInfo(uid: currentUser.uid)
+                
+                print("안녕하세요안녕하세요\(logStatus)")
+                print("asdf\(SignInState.noSigned.hashValue)")
+                print("asdf\(SignInState.signedIn.hashValue)")
             }catch{
                 print("Sign In Failed")
             }
@@ -285,12 +285,13 @@ final class UserViewModel: ObservableObject {
     
     // MARK: - 회원등급관련 리뷰수, 제보수 함수
     // 1. 리뷰수 증가 함수
-    func increaseReviewCount() {
+    private func increaseReviewCount() {
         self.reviewCount += 1
         print("\(#function) : 리뷰수 1 증가")
     }
     func updateReviewCount() {
         Task{
+            self.increaseReviewCount()
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([
@@ -304,12 +305,13 @@ final class UserViewModel: ObservableObject {
     }
     
     // 2. 제보수 증가 함수
-    func increaseStoreReportCount() {
+    private func increaseStoreReportCount() {
         self.storeReportCount += 1
         print("\(#function) : 국밥집 제보수 1 증가")
     }
     func updateStoreReportCount() {
         Task{
+            self.increaseStoreReportCount()
             do{
                 let uid = Auth.auth().currentUser?.uid
                 try await database.collection("User").document(uid ?? "").updateData([

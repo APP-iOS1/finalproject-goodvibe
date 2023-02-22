@@ -20,8 +20,8 @@ struct ExploreView: View {
     
     // 배너의 샘플
     //let sampleColors: [Color] = [.yellow, .orange, .red]
-    let bannerIndex : [String] = ["GBMain1", "GBMain2" , "GBMain3" ]
-    let bannerImg : [String : String] = ["GBMain1" : "이달의 국밥집 Top 3", "GBMain2" : "국밥집 장관들의 Pick", "GBMain3" : "서울 3대 국밥"]
+    let bannerIndex : [String] = ["Banner1_N", "Banner2_C" , "Banner3_D" ]
+    let bannerImg : [String : String] = ["Banner1_N" : "농민백암순대", "Banner2_C" : "청진옥", "Banner3_D" : "도야지 면옥"]
 
     
     // 배너 자동 넘기기 기능
@@ -60,28 +60,16 @@ struct ExploreView: View {
                                     TabView(selection: $currentIndex) {
                                         ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in
                                             
-                                            // TODO : 클릭시 국밥집 해당되는 국밥집 소개 페이지(또는 리스트 뷰, 또는 정보 창) 이동
-                                            // 현재는 2, 3번째 이미지 저작권(출처) 이슈
-                                            
                                             ZStack (alignment: .topLeading) {
-                                                Text("\(bannerImg[img] ?? "")")
-                                                    .font(.title)
-                                                    .bold()
-                                                    .foregroundColor(.white)
-                                                    .padding(.top, 25)
-                                                    .padding(.leading, 20)
-                                                    .zIndex(1)
-                                                    .tag(index)
-                                                
-                                                
                                                 Image("\(img)")
                                                     .resizable()
                                                     .scaledToFill()
                                                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
-                                                    .overlay{ (LinearGradient(gradient: Gradient(colors: [Color.black, .clear]), startPoint: .center, endPoint: .bottom).opacity(0.5))
-                                                    }
+
 
                                             }
+
+                                            
 //                                            .frame(maxWidth: .infinity)
 //                                            .frame(height: UIScreen.main.bounds.width * 0.75)
                                             
@@ -105,10 +93,20 @@ struct ExploreView: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack(alignment: .center, spacing: 0){
 
-                                    Text("찜이 가장 많이 된 국밥집")
+                                    Text("국밥집 조회수 랭킹")
                                         .font(.body)
                                         .bold()
+                                    Spacer()
                                     
+                                    NavigationLink{
+                                        DetailListView(listName : "국밥집 조회수 랭킹", list : storesViewModel.storesHits, images: storesViewModel.storeTitleImageHits)
+                                    } label:{
+                                        Text("더보기 >")
+                                            .font(.caption)
+                                            .bold()
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding(.trailing)
 
                                 }
                                 .padding(.top)
@@ -116,7 +114,7 @@ struct ExploreView: View {
                                 .font(.body)
 
                                 
-                                Text("국밥부 직원들이 가장 많이 찜한 국밥집들을 소개합니다")
+                                Text("국밥부 직원들이 가장 많이 찾아본 국밥집들을 소개합니다")
                                     .foregroundColor(.gray)
                                     .font(.caption)
                                     .padding(.leading)
@@ -125,13 +123,16 @@ struct ExploreView: View {
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, alignment: .center) {
-                                        ForEach(storesViewModel.stores, id: \.self){ store in
-                                            let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage()
+                                        ForEach(storesViewModel.storesHits, id: \.self){ store in
+                                            let imageData = storesViewModel.storeTitleImageHits[store.storeImages.first ?? ""] ?? Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder
                                             NavigationLink{
                                                 DetailView(store: store)
                                             } label:{
-                                                StoreCollectView(store:store, imagedata: imageData)
+                                                StoreHitsView(store:store, imagedata:  (imageData ?? Gukbaps(rawValue: "순대국밥")?.uiImagePlaceholder)!)
                                             }
+                                            .simultaneousGesture(TapGesture().onEnded{
+                                                storesViewModel.increaseHits(store: store)
+                                                })
                                             .padding(.bottom, 10)
                                         }
                                     }
@@ -179,11 +180,11 @@ struct ExploreView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, alignment: .center) {
                                         ForEach(storesViewModel.storesStar, id: \.self){ store in
-                                            let imageData = storesViewModel.storeTitleImageStar[store.storeImages.first ?? ""] ?? UIImage()
+                                            let imageData = storesViewModel.storeTitleImageStar[store.storeImages.first ?? ""] ?? Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder
                                             NavigationLink{
                                                 DetailView(store: store)
                                             } label:{
-                                                StoreStarView(store:store, imagedata: imageData)
+                                                StoreStarView(store:store, imagedata: (imageData ?? Gukbaps(rawValue: "순대국밥")?.uiImagePlaceholder)!)
                                             }
                                             .padding(.bottom, 10)
                                         }
@@ -206,9 +207,11 @@ struct ExploreView: View {
             .onAppear {
                 Task{
                     storesViewModel.subscribeStores()
-                    storesViewModel.fetchStarStores()
-                }
 
+
+                }
+                storesViewModel.fetchStarStores()
+                storesViewModel.fetchHitsStores()
             }
             .onDisappear {
                 storesViewModel.unsubscribeStores()
@@ -220,6 +223,7 @@ struct ExploreView: View {
             self.isLoading = false
           }
         }
+    
     } // var body
 }
 
@@ -257,6 +261,10 @@ struct StoreStarView: View{
                         .scaledToFill()
                         .frame(width: 190, height: 190)
                         .cornerRadius(10)
+                        .background{
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.black.opacity(0.2))
+                        }
                 }
                 
                 
@@ -306,8 +314,8 @@ struct StoreStarView: View{
 }
 
 
-// 찜 순으로 보여주는 하위 뷰
-struct StoreCollectView: View{
+// 조회수 순으로 보여주는 하위 뷰
+struct StoreHitsView: View{
     var store : Store
     var imagedata: UIImage
     var body: some View{
@@ -317,14 +325,14 @@ struct StoreCollectView: View{
             VStack{
                 ZStack(alignment: .topLeading){
                     HStack(alignment: .center, spacing: 0){
-                        Image(systemName: "heart.fill")
+                        Image(systemName: "eye")
                             .resizable()
-                            .foregroundColor(.red)
-                            .frame(width: 13, height: 12)
+                            .foregroundColor(.black)
+                            .frame(width: 15, height: 10)
                             .padding(.trailing, 5)
 
                         
-                        Text("124")
+                        Text("\(store.hits)")
                             .font(.caption)
                             .bold()
                     }
@@ -339,6 +347,10 @@ struct StoreCollectView: View{
                         .scaledToFill()
                         .frame(width: 190, height: 190)
                         .cornerRadius(10)
+                        .background{
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.black.opacity(0.2))
+                        }
                 }
 
                 

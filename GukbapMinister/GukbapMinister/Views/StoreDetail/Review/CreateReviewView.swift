@@ -14,7 +14,8 @@ import FirebaseAuth
 struct CreateReviewView: View {
     @EnvironmentObject private var userViewModel: UserViewModel
     @StateObject var reviewViewModel: ReviewViewModel
-    @ObservedObject var starStore: StarStore
+    
+    @Binding var selectedStar: Int
     
     @State private var selectedImages: [PhotosPickerItem] = []
     @State private var selectedImageData: [Data] =  []
@@ -55,20 +56,14 @@ struct CreateReviewView: View {
                         }
                         HStack(spacing: 15) {
                             Spacer()
-                            
-                            ForEach(0..<5) { index in
-                                Image(starStore.selectedStar >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .onTapGesture {
-                                        starStore.selectedStar = index
-                                    }
+                            GgakdugiRatingWide(selected: selectedStar, size: 40, spacing: 15) { star in
+                                selectedStar = star
                             }
                             Spacer()
                         }
                         
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
-                        Text("\(starStore.selectedStar + 1) / \(5)")
+                        Text("\(selectedStar + 1) / \(5)")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                     }//VStack
@@ -200,9 +195,9 @@ struct CreateReviewView: View {
                                 }//HStack
                                 .frame(height: 100)
                             }//ScrollView
-                 
+                            
                         }
-                       
+                        
                     } // HStack
                     .padding(EdgeInsets(top: 30, leading: 15, bottom: 50, trailing: 15))
                     VStack {
@@ -219,18 +214,18 @@ struct CreateReviewView: View {
                                 .lineLimit(11...)
                         }
                         
-//                        .navigationTitle(store.storeName)
-//                        .navigationBarTitleDisplayMode(.inline)
+                        //                        .navigationTitle(store.storeName)
+                        //                        .navigationBarTitleDisplayMode(.inline)
                         .navigationBarTitleDisplayMode(.inline)
-                                .toolbar {
-                                    ToolbarItem(placement: .principal) {
-                                        VStack {
-                                            Text("\(store.storeName)").font(.headline)
-                                            Text("\(store.storeAddress)").font(.subheadline)
-                                                .foregroundColor(.secondary)
-                                        }
-                                    }
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                VStack {
+                                    Text("\(store.storeName)").font(.headline)
+                                    Text("\(store.storeAddress)").font(.subheadline)
+                                        .foregroundColor(.secondary)
                                 }
+                            }
+                        }
                         
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
@@ -245,7 +240,7 @@ struct CreateReviewView: View {
                             if trimReviewText.count > 0 {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
-                                        userViewModel.increaseReviewCount()
+                                        userViewModel.updateReviewCount()
                                         Task{
                                             
                                             let createdAt = Date().timeIntervalSince1970
@@ -255,8 +250,10 @@ struct CreateReviewView: View {
                                                                         reviewText: reviewText,
                                                                         createdAt: createdAt,
                                                                         nickName: userViewModel.userInfo.userNickname,
-                                                                        starRating:  starStore.selectedStar,
-                                                                        storeName: store.storeName)
+                                                                        starRating:  selectedStar + 1,
+                                                                        storeName: store.storeName,
+                                                                        storeId: store.id ?? ""
+                                            )
                                             
                                             await reviewViewModel.addReview(review: review, images: images)
                                             
@@ -277,7 +274,7 @@ struct CreateReviewView: View {
                     Spacer()
                     
                 }//FirstVStack
-              
+                
                 
                 .popup(isPresented: $isReviewAdded) {
                     HStack {
@@ -302,7 +299,7 @@ struct CreateReviewView: View {
             .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
                 endEditing()
             } // onTapGesture
-//            .ignoresSafeArea(.keyboard, edges: .bottom)
+            //            .ignoresSafeArea(.keyboard, edges: .bottom)
             .onAppear{
                 userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
             }
@@ -315,7 +312,7 @@ struct CreateReviewView: View {
             
         }
         .animation(.easeInOut, value:selectedImageData)
-     
+        
     }//body
     
 }//struct CreateReviewView
