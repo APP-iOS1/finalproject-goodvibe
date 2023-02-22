@@ -19,4 +19,4 @@
 | <img src="https://avatars.githubusercontent.com/u/76909552?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/114223605?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/67450169?v=4" width=400> | <img src="https://avatars.githubusercontent.com/u/98198645?v=4" width=400> |
 
 ## 라이센스
-
+GukbapMinister is available under the MIT license. See the [LICENSE](https://github.com/APPSCHOOL1-REPO/finalproject-goodvibe/blob/main/LICENSE) file for more info.
