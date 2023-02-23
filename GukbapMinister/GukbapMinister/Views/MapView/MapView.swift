@@ -39,9 +39,8 @@ struct MapView: View {
                     }
                     
                     StoreReportButton()
-                        .offset(x: width * 0.5 - 35 - 12)
+                    .offset(x: width * 0.5 - 35 - 12, y: -200)
                     
-                 
                     VStack {
                         if isShowingSelectedStore {
                             Button {
@@ -53,7 +52,6 @@ struct MapView: View {
                             
                         } else {
                             Spacer()
-                                
                         }
 
                         StoreModalView(store: mapViewModel.selectedStore ?? .test)
@@ -61,7 +59,6 @@ struct MapView: View {
                         .offset(y: isShowingSelectedStore ? 0 : 400)
                         .animation(.easeInOut, value: isShowingSelectedStore)
                     }
-                    
                 }
             }
 
@@ -78,7 +75,7 @@ struct MapView: View {
       }
 
 }
-
+//
 //struct MapView_Previews: PreviewProvider {
 //
 //    static var previews: some View {

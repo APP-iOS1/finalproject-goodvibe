@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import MapKit
 
-// SwiftUI와 UIRepresentable 이 상호작용하도록 도와주는 것
+// SwiftUI와 UIRepresentable 이 상호작용 하도록 도와주는 것
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
   var mapViewController: MapUIView
   
@@ -17,10 +17,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     self.mapViewController = control
   }
   
-  
-  /*
-   - Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
-   */
+  // Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
   @MainActor
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard !annotation.isKind(of: MKUserLocation.self) else {
@@ -60,7 +57,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
   }
   
-  
   func setUpStoreAnnotationView(for annotation: StoreAnnotation, on mapView: MKMapView) -> MKAnnotationView? {
     let identifier = annotation.storeId
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -75,8 +71,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
       annotationView?.image =  markerImage
       
     }
-    
-    
     return annotationView
   }
   
@@ -84,24 +78,21 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 
 // View라고 생각하면 됨
 struct MapUIView: UIViewRepresentable {
-    
     @Binding var region: MKCoordinateRegion
     @Binding var storeAnnotations: [StoreAnnotation]
     @Binding var selectedStoreAnnotation: StoreAnnotation
     @Binding var isSelected: Bool
     @Binding var filters: [Gukbaps]
     
-    
-    
     /*
      - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
      */
+  
     func makeUIView(context: Context) -> MKMapView {
         let maps = MKMapView(frame: UIScreen.main.bounds)
         
         // 맵이 처음 보이는 지역을 서울로 설정
         maps.visibleMapRect = .seoul
-        
         
         // 유저의 위치를 볼 수있게 설정
         maps.showsUserLocation = true
@@ -118,13 +109,10 @@ struct MapUIView: UIViewRepresentable {
       let trackingButton = MKUserTrackingButton(mapView: maps)
       trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
       trackingButton.frame.size = CGSize(width: 42, height: 42)
-      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
+      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.155)
       trackingButton.layer.cornerRadius = 7
 //      trackingButton.layer.cornerRadius = 22.5
 
-        
-        
-        
         maps.addSubview(trackingButton)
         
         // 맵이 보이는 범위를 한국으로 제한하기
@@ -133,10 +121,8 @@ struct MapUIView: UIViewRepresentable {
         // 맵으로 줌아웃 했을 때 최대 고도 설정
         maps.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(500000))
         
-        
         return maps
     }
-    
     
     func updateUIView(_ view: MKMapView, context: Context) {
         // Assigning delegate
@@ -146,17 +132,14 @@ struct MapUIView: UIViewRepresentable {
         view.removeAnnotations(getRemovingAnnotations(filters, storeAnnotations: storeAnnotations))
         // 필터가 변함에 따라 뷰에 추가 해야 할 Annotation이 변동되기 때문
         view.addAnnotations(getAddingAnnotations(filters, storeAnnotations: storeAnnotations))
-        
     }
     
     func makeCoordinator() -> MapViewCoordinator{
         MapViewCoordinator(self)
     }
     
-    
     func getRemovingAnnotations(_ filters: [Gukbaps], storeAnnotations: [StoreAnnotation]) -> [StoreAnnotation] {
         var removingAnnotations: [StoreAnnotation] = []
-        
         if filters.isEmpty {
             return removingAnnotations
         } else {
@@ -168,7 +151,6 @@ struct MapUIView: UIViewRepresentable {
                     removingAnnotations.append(store)
                 }
             }
-            
             return removingAnnotations
         }
     }
@@ -191,4 +173,3 @@ struct MapUIView: UIViewRepresentable {
         }
     }
 }
-

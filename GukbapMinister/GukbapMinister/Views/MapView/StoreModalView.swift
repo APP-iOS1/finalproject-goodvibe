@@ -50,7 +50,6 @@ struct StoreModalView: View {
                         .padding(.leading, 5)
                         .padding(.bottom, 10)
                     }
-                    
                 }
                 .frame(height: 90)
                 .padding(.top, 10)
@@ -68,20 +67,15 @@ struct StoreModalView: View {
         }
     }
     
-    
-    
-    
 }
 
 extension StoreModalView {
-    
     var storeTitle: some View {
         HStack {
             NavigationLink(destination: DetailView(store: store)) {
                 Text(store.storeName)
                     .font(.title3)
                     .bold()
-//                    .offset(y: 7)
             }
             Spacer()
         }
@@ -93,7 +87,6 @@ extension StoreModalView {
             .overlay(Color.mainColor.opacity(0.5))
     }
     
-
     var imageOrPlaceholder: some View {
         NavigationLink(destination: DetailView(store: store)) {
             if let imageAddress = store.storeImages.first,
@@ -108,7 +101,6 @@ extension StoreModalView {
                         RoundedRectangle(cornerRadius: 6)
                             .stroke(.black.opacity(0.2))
                     }
-                
             } else {
                 Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
                     .resizable()
@@ -123,9 +115,6 @@ extension StoreModalView {
         }
     }
 }
-
-
-
 
 struct StoreModalView_Previews: PreviewProvider {
     static var previews: some View {

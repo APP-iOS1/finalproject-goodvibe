@@ -8,8 +8,6 @@
 import Foundation
 import MapKit
 
-
-
 extension MKMapRect {
   static let seoul =
   MKMapRect(origin: .init(x: 228718441.06904224,

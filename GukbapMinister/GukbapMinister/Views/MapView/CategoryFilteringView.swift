@@ -98,7 +98,6 @@ extension CategoryFilteringView {
                         Text("확인")
                     }
                 }
-                
                 if mode == .map {
                     Divider()
                 }
@@ -106,8 +105,6 @@ extension CategoryFilteringView {
             }
     }
 }
-
-
 
 extension CategoryFilteringView {
     private func handleFilteredGukbaps(index: Int, gukbap: Gukbaps) {

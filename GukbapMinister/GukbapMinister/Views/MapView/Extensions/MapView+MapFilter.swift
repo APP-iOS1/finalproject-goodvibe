@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 extension MapView {
     var mapFilter: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -20,9 +18,7 @@ extension MapView {
         }
         .frame(maxWidth: .infinity)
         .scrollDisabled(mapViewModel.filteredGukbaps.isEmpty)
-        
     }
-    
     
     private var filterButton: some View {
         Button {
