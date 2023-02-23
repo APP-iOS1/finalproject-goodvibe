@@ -10,9 +10,6 @@ import SwiftUI
 import PopupView
 import Shimmer
 
-
-
-
 struct StoreReportButton: View {
     @Environment(\.colorScheme) var scheme
     @State var showModal: Bool = false
@@ -35,8 +32,6 @@ struct StoreReportButton: View {
                         }
                         .padding(.bottom, 4)
                     
-                    
-                    
                     Circle()
                         .frame(width: 45, height: 45)
                         .overlay {
@@ -44,23 +39,11 @@ struct StoreReportButton: View {
                                 .frame(width: 45)
                                 .clipShape(Circle())
                         }
-                    
                 }
-                
             }.fullScreenCover(isPresented: $showModal2, content: {
                 SignInView2()
             })
-//            .onAppear {
-//                DispatchQueue.main.async {
-//                    self.showModal2 = true
-//                }
-//            }
-            //            .sheet(isPresented: $showModal2) {
-            //                NavigationStack{
-            //                    StoreReportView()
-            //                }
-            //            }
-        }else{
+        } else {
             Button {
                 showModal.toggle()
             } label: {
@@ -75,8 +58,6 @@ struct StoreReportButton: View {
                         }
                         .padding(.bottom, 4)
                     
-                    
-                    
                     Circle()
                         .frame(width: 45, height: 45)
                         .overlay {
@@ -84,9 +65,7 @@ struct StoreReportButton: View {
                                 .frame(width: 45)
                                 .clipShape(Circle())
                         }
-                    
                 }
-                
             }
             .sheet(isPresented: $showModal) {
                 NavigationStack{
@@ -95,7 +74,6 @@ struct StoreReportButton: View {
             }
         }
     }
-    
 }
 
 struct StoreReportButton_Previews: PreviewProvider {
