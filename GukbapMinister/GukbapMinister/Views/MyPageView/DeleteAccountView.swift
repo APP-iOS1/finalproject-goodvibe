@@ -13,25 +13,33 @@ struct DeleteAccountView: View {
     @State private var isShowingAlert: Bool = false
     
     var body: some View {
-        VStack (alignment:.leading) {
-            Button {
-                isShowingAlert.toggle()
-            } label: {
-//                Image(systemName: "xmark.circle")
-                Text("회원탈퇴")
-                    .foregroundColor(.red)
-            }
-            .alert("회원탈퇴", isPresented: $isShowingAlert) {
-                Button("확인", role: .cancel) {
-                    userViewModel.deleteUser()
+        VStack {
+            HStack {
+                Button {
+                    isShowingAlert.toggle()
+                } label: {
+    //                Image(systemName: "xmark.circle")
+                    Text("회원탈퇴")
+                        .foregroundColor(.red)
+                        .font(.caption)
                 }
-                Button("취소", role: .destructive) {
-                    
+                .alert("회원탈퇴", isPresented: $isShowingAlert) {
+                    Button("확인", role: .cancel) {
+                        userViewModel.deleteUser()
+                    }
+                    Button("취소", role: .destructive) {
+                        
+                    }
+                } message: {
+                    Text("사용자의 정보가 즉시 삭제됩니다. \n 회원탈퇴를 진행하시겠습니까?")
                 }
-            } message: {
-                Text("사용자의 정보가 즉시 삭제됩니다. \n 회원탈퇴를 진행하시겠습니까?")
+                Spacer()
             }
+            
+            Spacer()
         }
+        .padding(15)
+        
     }
 }
 
