@@ -67,13 +67,14 @@
 		5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D1298A639D00CBC816 /* Ex+Color.swift */; };
 		5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */; };
 		5BB236D9298B9F7700CBC816 /* Ex+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D8298B9F7700CBC816 /* Ex+UIImage.swift */; };
+		5BC5A66829A642F000B3B9AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */; };
+		5BC5A66A29A6430E00B3B9AC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5A66929A6430E00B3B9AC /* Config.xcconfig */; };
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
 		5BDB9AB72975751F00BFD5D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB62975751F00BFD5D9 /* Preview Assets.xcassets */; };
 		5BDB9ABE297575B900BFD5D9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9ABD297575B900BFD5D9 /* MapView.swift */; };
 		5BDB9AC02975760300BFD5D9 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */; };
-		5BDB9AC22975761B00BFD5D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AC12975761B00BFD5D9 /* GoogleService-Info.plist */; };
 		5BDB9AC5297576EA00BFD5D9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5BDB9AC4297576EA00BFD5D9 /* FirebaseAuth */; };
 		5BDB9AC7297576EA00BFD5D9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5BDB9AC6297576EA00BFD5D9 /* FirebaseFirestore */; };
 		5BDB9AC9297576EA00BFD5D9 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5BDB9AC8297576EA00BFD5D9 /* FirebaseFirestoreSwift */; };
@@ -174,6 +175,8 @@
 		5BB236D1298A639D00CBC816 /* Ex+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
 		5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarButton.swift; sourceTree = "<group>"; };
 		5BB236D8298B9F7700CBC816 /* Ex+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIImage.swift"; sourceTree = "<group>"; };
+		5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5BC5A66929A6430E00B3B9AC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GukbapMinister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GukbapMinisterApp.swift; sourceTree = "<group>"; };
 		5BDB9AB12975751C00BFD5D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -181,7 +184,6 @@
 		5BDB9AB62975751F00BFD5D9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5BDB9ABD297575B900BFD5D9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
-		5BDB9AC12975761B00BFD5D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BDB9ACC2975788C00BFD5D9 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		5BDB9AD1297579A900BFD5D9 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -426,7 +428,7 @@
 		5BDB9AA32975751C00BFD5D9 = {
 			isa = PBXGroup;
 			children = (
-				5BDB9AC12975761B00BFD5D9 /* GoogleService-Info.plist */,
+				5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */,
 				5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */,
 				030B4B3E299A0EF300866586 /* GukbapMinisterAdmin */,
 				5BDB9AAD2975751C00BFD5D9 /* Products */,
@@ -446,6 +448,7 @@
 		5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */ = {
 			isa = PBXGroup;
 			children = (
+				5BC5A66929A6430E00B3B9AC /* Config.xcconfig */,
 				5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */,
 				5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */,
 				5BDB9AE4297581C800BFD5D9 /* Info.plist */,
@@ -736,8 +739,9 @@
 			files = (
 				5B6536C12999C8E000EA8FE5 /* Ddukbaegi.boiling.gif in Resources */,
 				5BDB9AB72975751F00BFD5D9 /* Preview Assets.xcassets in Resources */,
-				5BDB9AC22975761B00BFD5D9 /* GoogleService-Info.plist in Resources */,
+				5BC5A66829A642F000B3B9AC /* GoogleService-Info.plist in Resources */,
 				5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */,
+				5BC5A66A29A6430E00B3B9AC /* Config.xcconfig in Resources */,
 				5B2E2E742994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -970,7 +974,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1025,7 +1029,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1043,7 +1047,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-				DEVELOPMENT_TEAM = 6R3M7VGRP2;
+				DEVELOPMENT_TEAM = SUDPP9C593;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
@@ -1063,7 +1067,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinister;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.GoobVibe.GukbapMinister-service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1082,7 +1086,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-				DEVELOPMENT_TEAM = 4YH8347DW8;
+				DEVELOPMENT_TEAM = SUDPP9C593;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
@@ -1102,7 +1106,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinister;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.GoobVibe.GukbapMinister-service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
