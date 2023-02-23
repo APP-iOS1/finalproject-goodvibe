@@ -20,4 +20,5 @@ struct User: Identifiable, Hashable, Codable {
     var status : String = ""
     var reviewCount: Int = 0
     var storeReportCount: Int = 0
+  //  var favoriteStoreId : [String] // 찜하기 누른 store id
 }

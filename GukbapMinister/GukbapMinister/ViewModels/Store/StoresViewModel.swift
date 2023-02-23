@@ -282,6 +282,55 @@ final class StoresViewModel: ObservableObject {
             }
         }
     }
+    
+//    // MARK: 사용자 찜하기 데이터 수정 Method
+//    func fetchFavorite(isFavorited: Bool, user: User, storeId: String) async {
+//        let deleteStore = user.favoriteStoreId.filter { $0 != storeId}
+//
+//        do{
+//            if isFavorited {
+//                try await database.collection("User")
+//                    .document(user.id)
+//                    .updateData([
+//                        "favoriteId": deleteStore + [storeId]
+//                    ])
+//            }else {
+//                try await database.collection("User")
+//                    .document(user.id)
+//                    .updateData([
+//                        "favoriteId": deleteStore
+//                    ])
+//            }
+//        }catch{
+//            print("fetchFavoriteStore error: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    // MARK: Store 좋아요 불러오는 Method
+//    func fetchUserFavoriteFoodCart(userId: String, foodCartId: String) async throws -> Bool {
+//        var user: User // 비동기 통신으로 받아올 Property
+//
+//        let userSnapshot = try await database.collection("User").document(userId).getDocument() // 첫번째 비동기 통신
+//        let docData = userSnapshot.data()!
+//
+//        let id: String = docData["id"] as? String ?? ""
+//        let email: String = dataDescription?["userEmail"] as? String ?? ""
+//        let nickName: String = dataDescription?["userNickname"] as? String ?? ""
+//        let ageRange: Int = dataDescription?["userEmail"] as? Int ?? 2
+//        let gukbaps: [String] = dataDescription?["gukbaps"] as? [String] ?? []
+//        let preferenceArea: String = dataDescription?["preferenceArea"] as? String ?? ""
+//        let status : String = dataDescription?["status"] as? String ?? ""
+//        let reviewCount: Int = dataDescription?["reviewCount"] as? Int ?? 0
+//        let storeReportCount: Int = dataDescription?["storeReportCount"] as? Int ?? 0
+//
+//
+//
+//        user = User(id: id, userNickname: userNickName, userEmail: userEmail, preferenceArea: preferenceArea, gender: gender, ageRange: ageRange, gukbaps: [gukbaps], filterdGukbaps: [filterdGukbaps], status: status, reviewCount: reviewCount, storeReportCount: storeReportCount, favoriteStoreId: [FavoriteStoreId])
+//
+//        return user.favoriteId.contains(StoreId)
+//    }
+    
 }
+
 
 
