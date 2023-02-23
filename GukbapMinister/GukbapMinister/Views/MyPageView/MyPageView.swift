@@ -14,7 +14,7 @@ struct MyPageView: View {
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
     @State private var isMyReviewPresented: Bool = false
-    @State private var isShowingAlert: Bool = false
+//    @State private var isShowingAlert: Bool = false
     
     @State private var isShowingNotice: Bool = false
     @State private var isShowingTerms: Bool = false
@@ -113,20 +113,8 @@ struct MyPageView: View {
                         
                     }
                     
-                    Button {
-                        userVM.isLoading = true
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                            userVM.signOut()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                            userVM.isLoading = false
-                        }
-                    } label: {
-                        HStack{
-                            Image(systemName: "paperplane.fill")
-                            Text("로그아웃")
-                        }
-                    }
+                    
+                    
                     Button {
                         isSheetPresented.toggle()
                     } label: {
@@ -150,22 +138,37 @@ struct MyPageView: View {
                     }
                     
                     
+//                    Button {
+//                        isShowingAlert.toggle()
+//                    } label: {
+//                        Image(systemName: "xmark.circle")
+//                        Text("회원탈퇴")
+//                            .foregroundColor(.red)
+//                    }
+//                    .alert("회원탈퇴", isPresented: $isShowingAlert) {
+//                        Button("확인", role: .cancel) {
+//                            userVM.deleteUser()
+//                        }
+//                        Button("취소", role: .destructive) {
+//
+//                        }
+//                    } message: {
+//                        Text("사용자의 정보가 즉시 삭제됩니다. \n 회원탈퇴를 진행하시겠습니까?")
+//                    }
+                    
                     Button {
-                        isShowingAlert.toggle()
+                        userVM.isLoading = true
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                            userVM.signOut()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                            userVM.isLoading = false
+                        }
                     } label: {
-                        Image(systemName: "xmark.circle")
-                        Text("회원탈퇴")
-                            .foregroundColor(.red)
-                    }
-                    .alert("회원탈퇴", isPresented: $isShowingAlert) {
-                        Button("확인", role: .cancel) {
-                            userVM.deleteUser()
+                        HStack{
+                            Image(systemName: "xmark.circle")
+                            Text("로그아웃")
                         }
-                        Button("취소", role: .destructive) {
-                            
-                        }
-                    } message: {
-                        Text("사용자의 정보가 즉시 삭제됩니다. \n 회원탈퇴를 진행하시겠습니까?")
                     }
                     
                 }
