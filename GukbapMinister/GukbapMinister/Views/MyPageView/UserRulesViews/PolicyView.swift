@@ -57,9 +57,6 @@ struct PolicyView: View {
                     
                     Text("버전 정보 1.0.0")
                     
-                    
-                    
-                    
                 }
                 
                 Button {
