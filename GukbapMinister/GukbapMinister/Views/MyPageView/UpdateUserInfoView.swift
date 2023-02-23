@@ -12,10 +12,11 @@ struct UpdateUserInfoView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var userViewModel: UserViewModel
-    
+        
     let currentUser = Auth.auth().currentUser
     
     var body: some View {
+        
         NavigationStack {
             VStack {
                 List {
@@ -26,42 +27,62 @@ struct UpdateUserInfoView: View {
                         } label: {
                             Text("\(userViewModel.userInfo.userNickname)")
                         }
-                    }, header: {
-                            Text("닉네임")
-                                .font(.title3)
                     })
                     
-                    Section(header: Text("선호하는 국밥").font(.title3)) {
+//                    Section(header: Text("선호하는 국밥").font(.title3)) {
+//                        NavigationLink {
+//                            EditGukbapView()
+//                        } label: {
+//                                VStack {
+//                                    ForEach(userViewModel.userInfo.gukbaps, id: \.self) { gukbap in
+//                                        Text("\(gukbap)")
+//                                            .font(.subheadline)
+//                                            .lineLimit(1)
+//                                            .padding(7.5)
+//                                            .padding(.horizontal, 5)
+//                                            .cornerRadius(30)
+//                                            .overlay{
+//                                                RoundedRectangle(cornerRadius: 30)
+//                                                    .stroke(.yellow, lineWidth: 1)
+//                                            }
+//                                    }
+//                                }
+//                        }
+//                    }
+                    
+//                    Section(header: Text("선호하는 지역").font(.title3)) {
+//                        NavigationLink {
+//                            EditPreferenceAreaView()
+//                        } label: {
+//                            Text("\(userViewModel.userInfo.preferenceArea)")
+//                        }
+//                    }
+                    Section(content: {
                         NavigationLink {
                             EditGukbapView()
                         } label: {
-                            
-                                VStack {
-                                    ForEach(userViewModel.userInfo.gukbaps, id: \.self) { gukbap in
-                                        Text("\(gukbap)")
-                                            .font(.subheadline)
-                                            .lineLimit(1)
-                                            .padding(7.5)
-                                            .padding(.horizontal, 5)
-                                            .cornerRadius(30)
-                                            .overlay{
-                                                RoundedRectangle(cornerRadius: 30)
-                                                    .stroke(.yellow, lineWidth: 1)
-                                            }
-                                    }
-                                }
+                            Text("선호하는 국밥")
                         }
-                    }
+                    })
                     
-                    Section(header: Text("선호하는 지역").font(.title3)) {
+                    Section(content: {
                         NavigationLink {
                             EditPreferenceAreaView()
                         } label: {
-                            Text("\(userViewModel.userInfo.preferenceArea)")
+                            Text("선호하는 지역")
                         }
-                    }
+                    })
+                    
+                    Section(content: {
+                        NavigationLink {
+                            DeleteAccountView()
+                        } label: {
+                            Text("더보기")
+                        }
+                    })
                 }
                 
+           
                 Button {
                     dismiss()
                 } label: {
@@ -70,7 +91,7 @@ struct UpdateUserInfoView: View {
                 
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("개인정보")
+            .navigationTitle("개인정보수정")
         }
         .onAppear {
             userViewModel.fetchUpdateUserInfo()
