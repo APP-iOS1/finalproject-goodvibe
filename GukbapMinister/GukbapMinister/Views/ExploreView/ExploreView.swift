@@ -84,6 +84,8 @@ struct ExploreView: View {
                                     ExploreCategoryIconsView()
                                         .frame(width: UIScreen.main.bounds.width)
                         }
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
                         
                         
                         // TODO : 찜 순으로 StoreCollectView 에 담아줘야함

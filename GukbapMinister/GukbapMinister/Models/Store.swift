@@ -34,9 +34,9 @@ struct Store: Codable, Hashable, Identifiable {
   var countingStar: Double
   var foodType: [String] //국밥 타입: ex:순대,돼지국밥
   //    var viewCount: Int// 장소 조회수
-    var likes : Int
-    var didLike : Bool? = false
-    var hits : Int
+    var likes : Int //가게를 찜한 유저 수
+    var hits : Int // 가게 detailView 조회수
+    
   static func == (lhs : Store, rhs: Store) -> Bool{
     lhs.id == rhs.id
   }

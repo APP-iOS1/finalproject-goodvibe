@@ -60,9 +60,9 @@ struct DetailView: View {
                         userStarRate
                         
                         ForEach(reviewViewModel.reviews) { review in
-                            if (review.storeName == store.storeName){
+                           if (review.storeName == store.storeName){
                                 UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                            }
+                           }
                         }//FirstForEach
                         
                     }//VStack
@@ -222,7 +222,7 @@ extension DetailView {
                                 }
                         }
                 }
-                .padding(.vertical, 20)
+                .padding(.top, 20)
             
         }
 
@@ -233,9 +233,15 @@ extension DetailView {
     var storeMenu: some View {
         VStack {
             VStack(alignment: .leading) {
-                Text("메뉴")
-                    .font(.title2.bold())
-                    .padding(.bottom)
+                HStack{
+                    Text("메뉴")
+
+                    Text("\(store.menu.count)")
+                        .foregroundColor(Color("AccentColor"))
+                       
+                }
+                .font(.title2.bold())
+                .padding(.bottom)
                 
                 ForEach(store.menu.sorted(by: <), id: \.key) {menu, price in
                     HStack{
@@ -254,13 +260,25 @@ extension DetailView {
     
     var userStarRate: some View {
         VStack {
+        
+       
+
             HStack {
                 Spacer()
                 VStack {
-                    //                    Text("\(userViewModel.userInfo.userNickname) 님의 리뷰를 작성해주세요.")
-                    Text("\(userViewModel.userInfo.userNickname) 님 이 국밥집은 어떠셨나요?")
-                        .fontWeight(.bold)
-                        .padding(.bottom,10)
+                    //로그인 안되어있을시 로그인하고 리뷰를 남겨주세요 보여주기, 아니면 아이디와 가게정보의 리뷰를 남겨주세요 보여주기
+                    if (currentUser?.uid == nil) {
+                        Text("로그인하고 리뷰를 남겨주세요.")
+                            .fontWeight(.bold)
+                            .padding(.bottom,10)
+                    }
+                       
+                    else {
+                        Text("\(userViewModel.userInfo.userNickname)님 '\(store.storeName)'의 리뷰를 남겨주세요! ")
+                            .fontWeight(.bold)
+                            .padding(.bottom,10)
+                    }
+                       
                     
                     
                     GgakdugiRatingWide(selected: selectedStar, size: 40, spacing: 15) { ggakdugi in
@@ -273,10 +291,24 @@ extension DetailView {
                 
                 Spacer()
             }
-            .background(scheme == .light ? .white : .black)
+           
+            Divider()
+            HStack{
+                Text("방문자 리뷰")
+               
+                    Text("\(reviewViewModel.reviews.count)")
+                        .foregroundColor(Color("AccentColor"))
+
+                Spacer()
+
+            }
+            .padding(.leading)
+            .padding(.top)
+            .font(.title2.bold())
+        
             
         }
-        
+        .background(scheme == .light ? .white : .black)
     }
 }
 

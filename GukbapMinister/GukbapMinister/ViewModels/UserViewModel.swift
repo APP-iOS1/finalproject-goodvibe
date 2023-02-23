@@ -17,7 +17,18 @@ import Firebase
 final class UserViewModel: ObservableObject {
     
     @Published var status = ""
-    
+//    var id: String = UUID().uuidString
+//    var userNickname: String = ""
+//    var userEmail: String =  ""
+//    var preferenceArea: String = ""
+//    var gender: String = ""
+//    var ageRange: Int = 0
+//    var gukbaps: [String] = []
+//    var filterdGukbaps: [String] = []
+//    var status : String = ""
+//    var reviewCount: Int = 0
+//    var storeReportCount: Int = 0
+//    var favoriteStoreId : [String] // 찜하기 누른 store id
     //MARK: - SignIn
     @Published var signInEmailID: String = ""
     @Published var signInPassword: String = ""
@@ -33,7 +44,9 @@ final class UserViewModel: ObservableObject {
     @Published var filterdGukbaps: [String] = []
     @Published var reviewCount: Int = 0
     @Published var storeReportCount: Int = 0
+//    @Published var favoriteStoreId : [String] = []
     @Published var logStatus: Bool = false {
+      
         didSet{
             UserDefaults.standard.set(logStatus, forKey: "logStatus")
         }
@@ -114,6 +127,7 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.status = data["status"] as? String ?? ""
                 self.userInfo.reviewCount = data["reviewCount"] as? Int ?? 0
                 self.userInfo.storeReportCount = data["storeReportCount"] as? Int ?? 0
+          //      self.userInfo.favoriteStoreId = data["favoriteStoreId"] as? [String] ?? []
             }
     }
     
@@ -136,6 +150,7 @@ final class UserViewModel: ObservableObject {
                 let status : String = dataDescription?["status"] as? String ?? ""
                 let reviewCount: Int = dataDescription?["reviewCount"] as? Int ?? 0
                 let storeReportCount: Int = dataDescription?["storeReportCount"] as? Int ?? 0
+                let favoriteStoreId: [String] = dataDescription?["favoriteStoreId"] as? [String] ?? []
                 
                 self.userInfo.id = uid
                 self.userInfo.userEmail = email
@@ -146,6 +161,7 @@ final class UserViewModel: ObservableObject {
                 self.userInfo.status = status
                 self.reviewCount = reviewCount
                 self.storeReportCount = storeReportCount
+      //          self.userInfo.favoriteStoreId = favoriteStoreId
                 
             } else {
                 print("Document does not exist")

@@ -9,6 +9,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import SwiftUI
 import Firebase
+import Kingfisher
 
 //TODO: 서버에 등록된 모든 리뷰를 가져올게 아니라 특정 조건에 맞는 리뷰를 가지고올 필요가 있음
 final class ReviewViewModel: ObservableObject {
@@ -30,9 +31,7 @@ final class ReviewViewModel: ObservableObject {
     //    var nickName: String
     //    var createdDate: String
     //    var storeName: String
-    
-    
-    
+
     func fetchReviews() {
         
         database.collection("Review")
@@ -102,7 +101,6 @@ final class ReviewViewModel: ObservableObject {
             await updateStoreRating(updatingReview: review, isDeleting: false)
             
             fetchReviews()
-            print("이미지 배열\(imgNameList)")
         } catch {
             print(error.localizedDescription)
         

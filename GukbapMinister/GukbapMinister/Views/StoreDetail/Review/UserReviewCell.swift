@@ -27,7 +27,9 @@ struct UserReviewCell:  View {
     
     var body: some View {
         VStack(spacing: 0){
+           
             HStack(spacing: 0){
+
                 Text("\(review.nickName)")
                         .fontWeight(.semibold)
                         .padding(.vertical)
