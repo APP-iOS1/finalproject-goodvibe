@@ -141,6 +141,7 @@ struct MyPageView: View {
                                     Text("로그아웃")
                                 }
                             }
+                            .foregroundColor(.black)
                             .padding(3)
                         }
                         

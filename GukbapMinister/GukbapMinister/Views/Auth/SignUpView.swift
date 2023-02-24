@@ -142,11 +142,11 @@ struct SignUpView: View {
                 //            .padding(.top,200)
             }//VStack
             .padding()
-            .fullScreenCover(isPresented: $userRulesView) {
-                UserRulesView()
+            .sheet(isPresented: $userRulesView) {
+                PrivacyPolicyView()
             }
-            .fullScreenCover(isPresented: $appRulesView) {
-                AppRulesView()
+            .sheet(isPresented: $appRulesView) {
+                ServiceTermsView()
             }
         }
     }
