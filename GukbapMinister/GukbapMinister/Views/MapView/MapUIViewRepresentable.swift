@@ -68,9 +68,24 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         .uiImage?
         .resizeImageTo(size: CGSize(width: 60, height: 60))
       
-      annotationView?.image =  markerImage
+      let text = UITextView(frame: CGRect(x: -20, y: 60, width: 100, height: 30))
+//      let fixedWidth = text.frame.size.width
+//      let newSize = text.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+//      text.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+      text.backgroundColor = .lightText
+      text.textAlignment = .center
+      text.layer.cornerRadius = 20
+      text.text = ("\(String(describing: annotation.title ?? ""))")
+      text.font = .boldSystemFont(ofSize: 15)
+      text.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+
       
+      
+      
+      annotationView?.image = markerImage
+      annotationView?.addSubview(text)
     }
+    
     return annotationView
   }
   
@@ -109,9 +124,9 @@ struct MapUIView: UIViewRepresentable {
       let trackingButton = MKUserTrackingButton(mapView: maps)
       trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
       trackingButton.frame.size = CGSize(width: 42, height: 42)
-      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.155)
+      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
       trackingButton.layer.cornerRadius = 7
-//      trackingButton.layer.cornerRadius = 22.5
+      // trackingButton.layer.cornerRadius = 22.5
 
         maps.addSubview(trackingButton)
         
