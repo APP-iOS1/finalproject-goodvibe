@@ -68,7 +68,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         .uiImage?
         .resizeImageTo(size: CGSize(width: 60, height: 60))
       
-      let text = UITextView(frame: CGRect(x: -20, y: 60, width: 100, height: 30))
+      let text = UITextView(frame: CGRect(x: -5, y: 55, width: 70, height: 20))
 //      let fixedWidth = text.frame.size.width
 //      let newSize = text.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
 //      text.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
@@ -76,7 +76,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
       text.textAlignment = .center
       text.layer.cornerRadius = 20
       text.text = ("\(String(describing: annotation.title ?? ""))")
-      text.font = .boldSystemFont(ofSize: 15)
+      text.font = .boldSystemFont(ofSize: 12)
       text.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
       
