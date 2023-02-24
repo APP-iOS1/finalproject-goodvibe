@@ -8,8 +8,6 @@ import SwiftUI
 import FirebaseAuth
 
 struct MyReviewView: View {
-//    @Environment(\.dismiss) var dismiss
-
     @StateObject private var reviewVM = ReviewViewModel()
     @EnvironmentObject private var userVM: UserViewModel
     //@StateObject private var storeVM : StoreViewModel
@@ -54,8 +52,6 @@ struct ReviewCell : View {
 //                //DetailView()
 //            } label: {
                 VStack{
-                    
-
                     HStack{
                         Text("\(reviewData.nickName)")
                             .foregroundColor(.black)
