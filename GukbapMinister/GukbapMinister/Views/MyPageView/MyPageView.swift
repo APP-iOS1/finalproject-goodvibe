@@ -20,7 +20,6 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
-            
             VStack(alignment: .leading){
                 Text("마이페이지")
                     .font(.largeTitle)
@@ -70,93 +69,87 @@ struct MyPageView: View {
                     .padding()
                 
                 
-                
-                VStack (alignment: .leading, spacing: 25) {
-                    //공지사항도 있어야할것같아서 버튼만 우선 만들었습니다.
-                    Button {
-                        self.isShowingNotice.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "exclamationmark.bubble")
-                            Text("공지")
+                VStack {
+                    List {
+                        Section(content: {
+                            NavigationLink {
+                                NoticeView()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "exclamationmark.bubble")
+                                    Text("공지")
+                                }
+                            }
+                        })
+                        
+                        Section(content: {
+                            NavigationLink {
+                                MyReviewView()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "pencil")
+                                    Text("내가 쓴 리뷰")
+                                }
+                            }
+                        })
+                        
+                        Section(content: {
+                            NavigationLink {
+                                UpdateUserInfoView()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "gearshape.fill")
+                                    Text("회원정보 수정")
+                                }
+                            }
+                        })
+                        
+                        Section(content: {
+                            NavigationLink {
+                                //
+                            } label: {
+                                HStack {
+                                    Image(systemName: "lock.open.fill")
+                                    Text("장소제보하기 (임시)")
+                                }
+                            }
+                        })
+                        
+                        Section(content: {
+                            NavigationLink {
+                                PolicyView()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "captions.bubble")
+                                    Text("앱정보")
+                                }
+                            }
+                        })
+                        
+                        Section {
+                            Button {
+                                userVM.isLoading = true
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                                    userVM.signOut()
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                                    userVM.isLoading = false
+                                }
+                            } label: {
+                                HStack{
+                                    Image(systemName: "xmark.circle")
+                                    Text("로그아웃")
+                                }
+                            }
+                            .padding(3)
                         }
-                    }
-                    .fullScreenCover(isPresented: $isShowingNotice) {
-                        NoticeView()
-                    }
-                    
-                    
-                    Button {
-                        self.isMyReviewPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "pencil")
-                            Text("내가 쓴 리뷰보기")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isMyReviewPresented) {
-                        MyReviewView()
-                    }
-                    
-                    Button {
-                        self.isUpdateUserInfoPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "gearshape.fill")
-                            Text("회원정보수정")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                        UpdateUserInfoView()
-                           
+                        
+//                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))
                         
                     }
-                    
-                    
-                    
-                    Button {
-                        isSheetPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "lock.open.fill")
-                            Text("장소 제보하기(임시)")
-                        }
-                    }
-                    
-                    //이용약관 페이지로 넘어가는 버튼
-                    Button {
-                        self.isShowingTerms.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "captions.bubble")
-                            Text("앱 정보")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isShowingTerms) {
-                        PolicyView()
-                    }
-                    
-             
-                    Button {
-                        userVM.isLoading = true
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                            userVM.signOut()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                            userVM.isLoading = false
-                        }
-                    } label: {
-                        HStack{
-                            Image(systemName: "xmark.circle")
-                            Text("로그아웃")
-                        }
-                    }
-                    
+//                    .listStyle(InsetGroupedListStyle())
                 }
-                .foregroundColor(.black)
-                .padding()
-                .padding(.top, 5)
-                .font(.title3)
+             
             }
             
             

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NoticeView: View {
-    @Environment(\.dismiss) var dismiss
 
     
     var body: some View {
@@ -21,12 +20,6 @@ struct NoticeView: View {
                     
                 }
               
-                Button {
-                    dismiss()
-                } label: {
-                    Text("뒤로")
-                }
-                
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("공지")

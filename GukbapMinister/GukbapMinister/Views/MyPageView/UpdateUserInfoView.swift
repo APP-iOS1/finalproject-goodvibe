@@ -10,7 +10,6 @@ import FirebaseAuth
 
 struct UpdateUserInfoView: View {
     
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var userViewModel: UserViewModel
         
     let currentUser = Auth.auth().currentUser
@@ -83,12 +82,6 @@ struct UpdateUserInfoView: View {
                 }
                 
            
-                Button {
-                    dismiss()
-                } label: {
-                    Text("뒤로")
-                }
-                
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("개인정보수정")
