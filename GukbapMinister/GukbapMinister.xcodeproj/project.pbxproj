@@ -7,21 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030B4B40299A0EF300866586 /* GukbapMinisterAdminApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B4B3F299A0EF300866586 /* GukbapMinisterAdminApp.swift */; };
-		030B4B42299A0EF300866586 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B4B41299A0EF300866586 /* ContentView.swift */; };
-		030B4B44299A0EF500866586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B4B43299A0EF500866586 /* Assets.xcassets */; };
-		030B4B47299A0EF500866586 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B4B46299A0EF500866586 /* Preview Assets.xcassets */; };
-		030B4B50299A15B000866586 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B4B4F299A15B000866586 /* Review.swift */; };
-		030B4B52299A189900866586 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B4B51299A189900866586 /* Store.swift */; };
-		030B4B55299A191500866586 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B54299A191500866586 /* FirebaseAuth */; };
-		030B4B57299A193200866586 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B56299A193200866586 /* FirebaseFirestore */; };
-		030B4B59299A193200866586 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B58299A193200866586 /* FirebaseFirestoreSwift */; };
-		030B4B5B299A193200866586 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B5A299A193200866586 /* FirebaseStorage */; };
-		030B4B5D299A193200866586 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B5C299A193200866586 /* KakaoSDK */; };
-		030B4B5F299A193200866586 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B5E299A193200866586 /* Shimmer */; };
-		030B4B61299A194100866586 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 030B4B60299A194100866586 /* PopupView */; };
-		030B4B63299A1A6400866586 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B4B62299A1A6400866586 /* StoreAnnotation.swift */; };
-		030B4B65299A1ABE00866586 /* StoreReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B4B64299A1ABE00866586 /* StoreReport.swift */; };
 		0392B3722987807B00C510E5 /* MapUIViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */; };
 		0392B374298782E800C510E5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B373298782E800C510E5 /* LocationManager.swift */; };
 		0392B37E298797E000C510E5 /* LocationMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */; };
@@ -125,15 +110,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		030B4B3D299A0EF300866586 /* GukbapMinisterAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GukbapMinisterAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		030B4B3F299A0EF300866586 /* GukbapMinisterAdminApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GukbapMinisterAdminApp.swift; sourceTree = "<group>"; };
-		030B4B41299A0EF300866586 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		030B4B43299A0EF500866586 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		030B4B46299A0EF500866586 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		030B4B4F299A15B000866586 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
-		030B4B51299A189900866586 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		030B4B62299A1A6400866586 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
-		030B4B64299A1ABE00866586 /* StoreReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReport.swift; sourceTree = "<group>"; };
 		0392B3712987807B00C510E5 /* MapUIViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUIViewRepresentable.swift; sourceTree = "<group>"; };
 		0392B373298782E800C510E5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0392B37D298797E000C510E5 /* LocationMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotationView.swift; sourceTree = "<group>"; };
@@ -231,20 +207,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		030B4B3A299A0EF300866586 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				030B4B5F299A193200866586 /* Shimmer in Frameworks */,
-				030B4B61299A194100866586 /* PopupView in Frameworks */,
-				030B4B55299A191500866586 /* FirebaseAuth in Frameworks */,
-				030B4B5D299A193200866586 /* KakaoSDK in Frameworks */,
-				030B4B5B299A193200866586 /* FirebaseStorage in Frameworks */,
-				030B4B57299A193200866586 /* FirebaseFirestore in Frameworks */,
-				030B4B59299A193200866586 /* FirebaseFirestoreSwift in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5BDB9AA92975751C00BFD5D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,37 +225,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		030B4B3E299A0EF300866586 /* GukbapMinisterAdmin */ = {
-			isa = PBXGroup;
-			children = (
-				030B4B3F299A0EF300866586 /* GukbapMinisterAdminApp.swift */,
-				030B4B41299A0EF300866586 /* ContentView.swift */,
-				030B4B4C299A148C00866586 /* Model */,
-				030B4B43299A0EF500866586 /* Assets.xcassets */,
-				030B4B45299A0EF500866586 /* Preview Content */,
-			);
-			path = GukbapMinisterAdmin;
-			sourceTree = "<group>";
-		};
-		030B4B45299A0EF500866586 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				030B4B46299A0EF500866586 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		030B4B4C299A148C00866586 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				030B4B51299A189900866586 /* Store.swift */,
-				030B4B62299A1A6400866586 /* StoreAnnotation.swift */,
-				030B4B64299A1ABE00866586 /* StoreReport.swift */,
-				030B4B4F299A15B000866586 /* Review.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		030B4B53299A191500866586 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,7 +364,6 @@
 			children = (
 				5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */,
 				5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */,
-				030B4B3E299A0EF300866586 /* GukbapMinisterAdmin */,
 				5BDB9AAD2975751C00BFD5D9 /* Products */,
 				030B4B53299A191500866586 /* Frameworks */,
 			);
@@ -443,7 +373,6 @@
 			isa = PBXGroup;
 			children = (
 				5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */,
-				030B4B3D299A0EF300866586 /* GukbapMinisterAdmin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -631,32 +560,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		030B4B3C299A0EF300866586 /* GukbapMinisterAdmin */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 030B4B4A299A0EF500866586 /* Build configuration list for PBXNativeTarget "GukbapMinisterAdmin" */;
-			buildPhases = (
-				030B4B39299A0EF300866586 /* Sources */,
-				030B4B3A299A0EF300866586 /* Frameworks */,
-				030B4B3B299A0EF300866586 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = GukbapMinisterAdmin;
-			packageProductDependencies = (
-				030B4B54299A191500866586 /* FirebaseAuth */,
-				030B4B56299A193200866586 /* FirebaseFirestore */,
-				030B4B58299A193200866586 /* FirebaseFirestoreSwift */,
-				030B4B5A299A193200866586 /* FirebaseStorage */,
-				030B4B5C299A193200866586 /* KakaoSDK */,
-				030B4B5E299A193200866586 /* Shimmer */,
-				030B4B60299A194100866586 /* PopupView */,
-			);
-			productName = GukbapMinisterAdmin;
-			productReference = 030B4B3D299A0EF300866586 /* GukbapMinisterAdmin.app */;
-			productType = "com.apple.product-type.application";
-		};
 		5BDB9AAB2975751C00BFD5D9 /* GukbapMinister */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BDB9ABA2975751F00BFD5D9 /* Build configuration list for PBXNativeTarget "GukbapMinister" */;
@@ -694,9 +597,6 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
-					030B4B3C299A0EF300866586 = {
-						CreatedOnToolsVersion = 14.2;
-					};
 					5BDB9AAB2975751C00BFD5D9 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -723,21 +623,11 @@
 			projectRoot = "";
 			targets = (
 				5BDB9AAB2975751C00BFD5D9 /* GukbapMinister */,
-				030B4B3C299A0EF300866586 /* GukbapMinisterAdmin */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		030B4B3B299A0EF300866586 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				030B4B47299A0EF500866586 /* Preview Assets.xcassets in Resources */,
-				030B4B44299A0EF500866586 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5BDB9AAA2975751C00BFD5D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -754,19 +644,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		030B4B39299A0EF300866586 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				030B4B52299A189900866586 /* Store.swift in Sources */,
-				030B4B42299A0EF300866586 /* ContentView.swift in Sources */,
-				030B4B50299A15B000866586 /* Review.swift in Sources */,
-				030B4B40299A0EF300866586 /* GukbapMinisterAdminApp.swift in Sources */,
-				030B4B65299A1ABE00866586 /* StoreReport.swift in Sources */,
-				030B4B63299A1A6400866586 /* StoreAnnotation.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5BDB9AA82975751C00BFD5D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -863,72 +740,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		030B4B48299A0EF500866586 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinisterAdmin/Preview Content\"";
-				DEVELOPMENT_TEAM = F2K4SQRVM6;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinisterAdmin;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		030B4B49299A0EF500866586 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinisterAdmin/Preview Content\"";
-				DEVELOPMENT_TEAM = F2K4SQRVM6;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.GoobVibe.GukbapMinisterAdmin;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 		5BDB9AB82975751F00BFD5D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1124,15 +935,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		030B4B4A299A0EF500866586 /* Build configuration list for PBXNativeTarget "GukbapMinisterAdmin" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				030B4B48299A0EF500866586 /* Debug */,
-				030B4B49299A0EF500866586 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		5BDB9AA72975751C00BFD5D9 /* Build configuration list for PBXProject "GukbapMinister" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1197,41 +999,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		030B4B54299A191500866586 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		030B4B56299A193200866586 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		030B4B58299A193200866586 /* FirebaseFirestoreSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
-		};
-		030B4B5A299A193200866586 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5BDB9AC3297576EA00BFD5D9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		030B4B5C299A193200866586 /* KakaoSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 63FCF52D29766BEA001712CA /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDK;
-		};
-		030B4B5E299A193200866586 /* Shimmer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 049BF93E2977169E00D2D044 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
-			productName = Shimmer;
-		};
-		030B4B60299A194100866586 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 049BF9392976320600D2D044 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
-		};
 		0400A0A829A7069100727132 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0400A0A729A7069100727132 /* XCRemoteSwiftPackageReference "Kingfisher" */;
