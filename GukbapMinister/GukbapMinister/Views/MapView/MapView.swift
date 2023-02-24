@@ -39,7 +39,7 @@ struct MapView: View {
                     }
                     
                     StoreReportButton()
-                    .offset(x: width * 0.5 - 35 - 12, y: -200)
+                    .offset(x: width * 0.5 - 35 - 12)
                     
                     VStack {
                         if isShowingSelectedStore {

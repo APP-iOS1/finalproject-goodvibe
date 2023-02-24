@@ -68,8 +68,12 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         .uiImage?
         .resizeImageTo(size: CGSize(width: 60, height: 60))
       
-      annotationView?.image =  markerImage
+      let text = UITextView(frame: CGRect(x: 0, y: 60, width: 90, height: 30))
+      text.backgroundColor = .clear
+      text.text = ("이석준가와이")
       
+      annotationView?.image = markerImage
+      annotationView?.addSubview(text)
     }
     return annotationView
   }
@@ -109,9 +113,9 @@ struct MapUIView: UIViewRepresentable {
       let trackingButton = MKUserTrackingButton(mapView: maps)
       trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
       trackingButton.frame.size = CGSize(width: 42, height: 42)
-      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.155)
+      trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
       trackingButton.layer.cornerRadius = 7
-//      trackingButton.layer.cornerRadius = 22.5
+      // trackingButton.layer.cornerRadius = 22.5
 
         maps.addSubview(trackingButton)
         
