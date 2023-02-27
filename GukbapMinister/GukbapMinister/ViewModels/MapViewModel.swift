@@ -11,7 +11,6 @@ import MapKit
 import SwiftUI
 import FirebaseFirestore
 
-
 class StoreDummyData {
     static let location : [Store] = [
         Store(id: "111", storeName: "농민백암순대", storeAddress: "서울특별시 강남구 역삼로 3길 20-4", coordinate: GeoPoint(latitude: 37.503693, longitude: 127.053033), storeImages: ["https://d12zq4w4guyljn.cloudfront.net/20201217093530967_photo_4cfe72970c06.jpg"], menu: ["":""], description: "", countingStar: 0.0, foodType: ["순대국밥"], likes : 0, hits: 17),
