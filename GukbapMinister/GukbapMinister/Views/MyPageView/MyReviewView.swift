@@ -17,14 +17,18 @@ struct MyReviewView: View {
             NavigationStack{
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0){
+                        
                         // review 컬렉션의 유저 아이디와 현재 유저 아이디를 비교하여 같으면 '내가 쓴 리뷰'로 보여준다
                         ForEach(reviewVM.reviews, id: \.self) { review in
                             if(review.userId == userVM.userInfo.id){
+                                //UserReviewCell에 네비게이션 링크를 걸어서 해당 가게의 디테일 뷰를 보여주도록 한다 TODO!
+                                //내가쓴 리뷰의 상호와 디테일뷰 스토어네임 비교해서 같은조건인것으로 걸러서 보여주기
                                 UserReviewCell(reviewViewModel: reviewVM, review: review, isInMypage: true)
                                     
                             }
                         }
                     }
+                    
                 }
                 .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
             }

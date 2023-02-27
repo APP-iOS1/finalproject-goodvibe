@@ -69,92 +69,85 @@ struct MyPageView: View {
                     .padding()
                 
                 
-                VStack {
+//                VStack {
                     List {
-                        Section(content: {
-                            NavigationLink {
-                                NoticeView()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "exclamationmark.bubble")
-                                    Text("공지")
-                                }
-                            }
-                        })
                         
-                        Section(content: {
-                            NavigationLink {
-                                MyReviewView()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "pencil")
-                                    Text("내가 쓴 리뷰")
-                                }
+                        NavigationLink {
+                            NoticeView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "exclamationmark.bubble")
+                                Text("공지")
                             }
-                        })
-                        
-                        Section(content: {
-                            NavigationLink {
-                                UpdateUserInfoView()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "gearshape.fill")
-                                    Text("회원정보 수정")
-                                }
-                            }
-                        })
-                        
-                        Section(content: {
-                            NavigationLink {
-                                //
-                            } label: {
-                                HStack {
-                                    Image(systemName: "lock.open.fill")
-                                    Text("장소제보하기 (임시)")
-                                }
-                            }
-                        })
-                        
-                        Section(content: {
-                            NavigationLink {
-                                PolicyView()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "captions.bubble")
-                                    Text("앱정보")
-                                }
-                            }
-                        })
-                        
-                        Section {
-                            Button {
-                                userVM.isLoading = true
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                                    userVM.signOut()
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                                    userVM.isLoading = false
-                                }
-                            } label: {
-                                HStack{
-                                    Image(systemName: "xmark.circle")
-                                    Text("로그아웃")
-                                }
-                            }
-                            .foregroundColor(.black)
-                            .padding(3)
                         }
                         
-//                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                        
+                        NavigationLink {
+                            MyReviewView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "pencil")
+                                Text("내가 쓴 리뷰")
+                            }
+                        }
+                        
+                        
+                        NavigationLink {
+                            UpdateUserInfoView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "gearshape.fill")
+                                Text("회원정보 수정")
+                            }
+                        }
+                        
+                        
+                        NavigationLink {
+                            //
+                        } label: {
+                            HStack {
+                                Image(systemName: "lock.open.fill")
+                                Text("장소제보하기 (임시)")
+                            }
+                        }
+                        
+                        
+                        NavigationLink {
+                            PolicyView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "captions.bubble")
+                                Text("앱정보")
+                            }
+                        }
+                        
+                        Button {
+                            userVM.isLoading = true
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                                userVM.signOut()
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                                userVM.isLoading = false
+                            }
+                        } label: {
+                            HStack{
+                                Image(systemName: "xmark.circle")
+                                Text("로그아웃")
+                            }
+                        }
+                        .foregroundColor(.black)
+                        .padding(1.5)
+                        
+                        //                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))
                         
                     }
 //                    .listStyle(InsetGroupedListStyle())
-                }
-             
+//                }
+                
             }
             
             
-            Spacer()
+//            Spacer()
         }
         .onAppear {
             userVM.fetchUpdateUserInfo()
