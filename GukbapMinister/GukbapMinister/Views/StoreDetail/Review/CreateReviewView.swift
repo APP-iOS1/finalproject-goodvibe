@@ -255,7 +255,8 @@ struct CreateReviewView: View {
                                                                         storeId: store.id ?? ""
                                             )
                                             
-                                            await reviewViewModel.addReview(review: review, images: images)
+                                            await reviewViewModel.addReview(review: review,
+                                                                            images: images)
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                                 showingSheet.toggle()

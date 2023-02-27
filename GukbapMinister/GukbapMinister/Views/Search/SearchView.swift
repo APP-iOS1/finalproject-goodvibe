@@ -26,7 +26,7 @@ struct SearchView: View {
     @State private var searchString: String = ""
     @State private var searchResult: [Store] = []
     @FocusState private var focusField: Field?
-    
+
     
     var mode: Mode = .map
     
@@ -117,8 +117,8 @@ extension SearchView {
 }
 
 
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
-    }
-}
+//struct SearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchView()
+//    }
+//}
