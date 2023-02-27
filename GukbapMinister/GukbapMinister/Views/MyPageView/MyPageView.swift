@@ -80,7 +80,8 @@ struct MyPageView: View {
                                 Text("공지")
                             }
                         }
-                        
+                        .listRowSeparator(.hidden)
+
                         
                         NavigationLink {
                             MyReviewView()
@@ -90,7 +91,8 @@ struct MyPageView: View {
                                 Text("내가 쓴 리뷰")
                             }
                         }
-                        
+                        .listRowSeparator(.hidden)
+
                         
                         NavigationLink {
                             UpdateUserInfoView()
@@ -100,6 +102,8 @@ struct MyPageView: View {
                                 Text("회원정보 수정")
                             }
                         }
+                        .listRowSeparator(.hidden)
+
                         
                         
                         NavigationLink {
@@ -110,6 +114,8 @@ struct MyPageView: View {
                                 Text("장소제보하기 (임시)")
                             }
                         }
+                        .listRowSeparator(.hidden)
+
                         
                         
                         NavigationLink {
@@ -139,15 +145,16 @@ struct MyPageView: View {
                         .padding(1.5)
                         
                         //                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))
-                        
+                        .listRowSeparator(.hidden)
                     }
-//                    .listStyle(InsetGroupedListStyle())
+                    .listStyle(.plain)
+
 //                }
                 
             }
             
             
-//            Spacer()
+            Spacer()
         }
         .onAppear {
             userVM.fetchUpdateUserInfo()
