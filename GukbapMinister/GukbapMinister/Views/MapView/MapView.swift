@@ -7,7 +7,6 @@ struct MapView: View {
 
     @Environment(\.colorScheme) var scheme
     // Command + F -> replace: changes searched word in the file
-    @Environment(\.colorScheme) var scheme
     @EnvironmentObject var storesViewModel: StoresViewModel
     @StateObject var mapViewModel = MapViewModel(storeLocations: [])
     @StateObject var locationManager = LocationManager()
