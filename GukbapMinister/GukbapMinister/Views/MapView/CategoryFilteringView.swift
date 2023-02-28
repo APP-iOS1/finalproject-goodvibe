@@ -84,10 +84,10 @@ extension CategoryFilteringView {
                 HStack {
                     Button {
                         didTap = Array(repeating: false, count: Gukbaps.allCases.count)
-                        switch mode {
-                        case .map: mapViewModel.filteredGukbaps = []
-                        case .myPage: userViewModel.filterdGukbaps = []
-                        }
+//                        switch mode {
+//                        case .map: mapViewModel.filteredGukbaps = []
+//                        case .myPage: userViewModel.filterdGukbaps = []
+//                        }
                     } label: {
                         Text("필터해제")
                     }

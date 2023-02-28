@@ -17,7 +17,7 @@ struct StoreReportButton: View {
     @EnvironmentObject var userViewModel : UserViewModel
     
     var body: some View {
-        if userViewModel.state == .noSigned{
+        if userViewModel.loginState == .logout {
             Button {
                 showModal2.toggle()
             } label: {
@@ -41,7 +41,7 @@ struct StoreReportButton: View {
                         }
                 }
             }.fullScreenCover(isPresented: $showModal2, content: {
-                SignInView2()
+//                SignInView2()
             })
         } else {
             Button {

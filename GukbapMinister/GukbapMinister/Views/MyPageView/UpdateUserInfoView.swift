@@ -94,7 +94,7 @@ struct UpdateUserInfoView: View {
             .navigationTitle("개인정보수정")
         }
         .onAppear {
-            userViewModel.fetchUpdateUserInfo()
+//            userViewModel.fetchUpdateUserInfo()
         }
     }
 }
