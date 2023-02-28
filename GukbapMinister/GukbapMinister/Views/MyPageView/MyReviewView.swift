@@ -11,6 +11,7 @@ struct MyReviewView: View {
     @StateObject private var reviewVM = ReviewViewModel()
     @EnvironmentObject private var userVM: UserViewModel
     //@StateObject private var storeVM : StoreViewModel
+    @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
     
     var body: some View {
         VStack{
@@ -22,9 +23,13 @@ struct MyReviewView: View {
                         ForEach(reviewVM.reviews, id: \.self) { review in
                             if(review.userId == userVM.userInfo.id){
                                 //UserReviewCell에 네비게이션 링크를 걸어서 해당 가게의 디테일 뷰를 보여주도록 한다 TODO!
-                                //내가쓴 리뷰의 상호와 디테일뷰 스토어네임 비교해서 같은조건인것으로 걸러서 보여주기
-                                UserReviewCell(reviewViewModel: reviewVM, review: review, isInMypage: true)
-                                    
+                                NavigationLink {
+                                    //내가쓴 리뷰의 상호와 디테일뷰 스토어네임 비교해서 같은조건인것으로 걸러서 보여주기
+//                                    DetailView(store: <#T##Store#>)
+
+                                } label: {
+                                    UserReviewCell(reviewViewModel: reviewVM, review: review, isInMypage: true)
+                                }
                             }
                         }
                     }
@@ -52,59 +57,59 @@ struct ReviewCell : View {
     
     var body: some View{
         VStack {
-//            NavigationLink {
-//                //DetailView()
-//            } label: {
-                VStack{
-                    HStack{
-                        Text("\(reviewData.nickName)")
-                            .foregroundColor(.black)
-                            .font(.caption)
-                            .bold()
-                            .padding()
-                        Spacer()
-                        Text("\(reviewData.createdDate)")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .padding()
-                    }
-                    VStack(alignment: .leading){
-                        Text("\(reviewData.storeName)")
-                            .foregroundColor(.black)
-                            .padding(.leading)
-                        HStack(spacing: -30){
-                            ForEach(0..<5) { index in
-                                Image(reviewData.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                    .padding()
-                            }
-                            Spacer()
-                        }//HStack
-                        .padding(.top,-25)
-                    }
-                    if reviewImg != UIImage(){
-                        Image(uiImage: reviewImg)
-                            .resizable()
-                            .frame(width: 75, height: 75)
-                            .cornerRadius(6)
-                            .padding(.leading, 20)
-                    }
-                    HStack{
-                        Text("\(reviewData.reviewText)")
-                            .font(.caption)
-                            .foregroundColor(.black)
-                            .padding()
-                        
-                        Spacer()
-                        
-                    }
-                    
-                    Divider()
-
+            //            NavigationLink {
+            //                //DetailView()
+            //            } label: {
+            VStack{
+                HStack{
+                    Text("\(reviewData.nickName)")
+                        .foregroundColor(.black)
+                        .font(.caption)
+                        .bold()
+                        .padding()
+                    Spacer()
+                    Text("\(reviewData.createdDate)")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .padding()
                 }
+                VStack(alignment: .leading){
+                    Text("\(reviewData.storeName)")
+                        .foregroundColor(.black)
+                        .padding(.leading)
+                    HStack(spacing: -30){
+                        ForEach(0..<5) { index in
+                            Image(reviewData.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                                .padding()
+                        }
+                        Spacer()
+                    }//HStack
+                    .padding(.top,-25)
+                }
+                if reviewImg != UIImage(){
+                    Image(uiImage: reviewImg)
+                        .resizable()
+                        .frame(width: 75, height: 75)
+                        .cornerRadius(6)
+                        .padding(.leading, 20)
+                }
+                HStack{
+                    Text("\(reviewData.reviewText)")
+                        .font(.caption)
+                        .foregroundColor(.black)
+                        .padding()
+                    
+                    Spacer()
+                    
+                }
+                
+                Divider()
+                
+            }
             
-           //}
+            //}
             
         }
         .background(.white)
