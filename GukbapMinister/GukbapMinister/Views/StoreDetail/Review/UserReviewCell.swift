@@ -24,7 +24,6 @@ struct UserReviewCell:  View {
     
     var review: Review
     var isInMypage: Bool = false
-    
     var body: some View {
         VStack(spacing: 0){
            
@@ -37,16 +36,19 @@ struct UserReviewCell:  View {
                     
                 if (userViewModel.currentUser?.uid ?? "" == review.userId) && !isInMypage {
                     Text("(내 리뷰)")
+                        .font(.caption)
                         .fontWeight(.medium)
+                        .foregroundColor(.secondary)
                 }
-                
                 if isInMypage {
                     Text("\(review.storeName)")
                         .font(.caption)
                         .foregroundColor(scheme == .light ? .secondary : .white)
                         .padding(.leading, 3)
                 }
-                
+                Text(" 리뷰 \(userViewModel.userInfo.reviewCount)")
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
                 Spacer()
                 
                 if userViewModel.currentUser?.uid ?? "" == review.userId {
@@ -152,6 +154,10 @@ struct UserReviewCell:  View {
             
             Divider()
         }//VStack
+        .onAppear{
+//            userViewModel.fetchUpdateUserInfo()
+
+        }
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $isShowingReportView) {
             ReportView(isshowingReportSheet: $isShowingReportView, selectedReportButton: $selectedReportButton, reportEnter: $reportEnter, review: review)

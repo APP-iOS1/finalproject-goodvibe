@@ -13,7 +13,7 @@ struct MyReviewView: View {
     @StateObject private var reviewVM = ReviewViewModel()
     @EnvironmentObject private var userVM: UserViewModel
     //@StateObject private var storeVM : StoreViewModel
-    
+
     // 디테일뷰를 보여줘야하는데 어떤 디테일뷰를 말하는지 살짞 이해가 되지 않음?
     var body: some View {
         VStack{
@@ -32,7 +32,7 @@ struct MyReviewView: View {
                 .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
             }
             .onAppear{
-                userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
+//                userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
                 reviewVM.fetchReviews()
             }
             .refreshable {

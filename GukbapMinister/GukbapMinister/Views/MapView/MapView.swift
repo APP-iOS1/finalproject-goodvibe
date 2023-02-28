@@ -4,6 +4,8 @@ import CoreLocation
 import CoreLocationUI
 
 struct MapView: View {
+
+    @Environment(\.colorScheme) var scheme
     // Command + F -> replace: changes searched word in the file
     @Environment(\.colorScheme) var scheme
     @EnvironmentObject var storesViewModel: StoresViewModel
@@ -73,13 +75,3 @@ struct MapView: View {
     }
     
 }
-//
-//struct MapView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        MapView(storesViewModel: StoresViewModel())
-//        // Preview will crash without implementing environmentObject here
-//            .environmentObject(MapViewModel(storeLocations: [.test]))
-//    }
-//
-//}

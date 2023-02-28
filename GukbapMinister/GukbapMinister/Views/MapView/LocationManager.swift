@@ -33,9 +33,10 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
+
+    // locationManagerDidchangeAuthorization에서 호출
     private func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
-            
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
@@ -50,7 +51,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorization() //여기서!2
+        checkLocationAuthorization()
     }
     
     func requestLocation() {

@@ -29,6 +29,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if let annotation = annotation as? StoreAnnotation {
             annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
         }
+
         return annotationView
     }
     
@@ -90,7 +91,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
 }
 
-// View라고 생각하면 됨
+// 하나의 View
 struct MapUIView: UIViewRepresentable {
     @Binding var region: MKCoordinateRegion
     @Binding var storeAnnotations: [StoreAnnotation]
@@ -98,17 +99,14 @@ struct MapUIView: UIViewRepresentable {
     @Binding var isSelected: Bool
     @Binding var filters: [Gukbaps]
     
-    /*
-     - Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
-     */
-    
+    // Description - Replace the body with a make UIView(context:) method that creates and return an empty MKMapView
     func makeUIView(context: Context) -> MKMapView {
         let maps = MKMapView(frame: UIScreen.main.bounds)
         
         // 맵이 처음 보이는 지역을 서울로 설정
         maps.visibleMapRect = .seoul
         
-        // 유저의 위치를 볼 수있게 설정
+        // 유저의 위치를 볼 수 있게 설정
         maps.showsUserLocation = true
         
         // 나침반이 보이게 설정

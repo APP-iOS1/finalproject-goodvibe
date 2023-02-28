@@ -52,7 +52,6 @@ struct CategoryFilteringView: View {
 }
 
 extension CategoryFilteringView {
-    
     @ViewBuilder
     private func placeButtonsinAlignment(_ start: Int, _ end: Int) -> some View {
         HStack{
@@ -84,10 +83,10 @@ extension CategoryFilteringView {
             HStack {
                 Button {
                     isTapped = Array(repeating: false, count: Gukbaps.allCases.count)
-                    switch mode {
-                    case .map: mapViewModel.filteredGukbaps = []
-                    case .myPage: userViewModel.filterdGukbaps = []
-                    }
+                    // switch mode {
+                    // case .map: mapViewModel.filteredGukbaps = []
+                    // case .myPage: userViewModel.filterdGukbaps = []
+                    // }
                 } label: {
                     Text("필터해제")
                 }

@@ -10,18 +10,20 @@ import FirebaseStorage
 import SwiftUI
 import Firebase
 import Kingfisher
+import FirebaseFirestoreSwift
 
 //TODO: 서버에 등록된 모든 리뷰를 가져올게 아니라 특정 조건에 맞는 리뷰를 가지고올 필요가 있음
-final class ReviewViewModel: ObservableObject {
+class ReviewViewModel: ObservableObject {
     @Published var reviews: [Review] = []
+    @Published var latestReviews: [Review] = []
+
     @Published var reviewImage: [String : UIImage] = [:]
-    
+ //   @Published var documents: [DocumentSnapshot] = []
     let database = Firestore.firestore()
     let storage = Storage.storage()
-    
-    init() {
-        reviews = []
-    }
+    //    init() {
+    //        reviews = []
+    //    }
     
     //    var id: String
     //    var userId: String
@@ -31,19 +33,23 @@ final class ReviewViewModel: ObservableObject {
     //    var nickName: String
     //    var createdDate: String
     //    var storeName: String
-
+    func updateReviews(){
+        
+    }
     func fetchReviews() {
         
         database.collection("Review")
             .order(by: "createdAt", descending: true)
+        
             .getDocuments { (snapshot, error) in
                 self.reviews.removeAll()
                 
                 if let snapshot {
                     for document in snapshot.documents {
-                        let id: String = document.documentID
                         
+                        let id: String = document.documentID
                         let docData = document.data()
+                        
                         let userId: String = docData["userId"] as? String ?? ""
                         let reviewText: String = docData["reviewText"] as? String ?? ""
                         let createdAt: Double = docData["createdAt"] as? Double ?? 0
@@ -67,9 +73,51 @@ final class ReviewViewModel: ObservableObject {
                                                     storeName: storeName,
                                                     storeId: storeId
                         )
-                        
                         self.reviews.append(review)
-                        print("reviews배열@@@@@@@ \(self.reviews)")
+                    }
+                }
+            }
+    }
+    // MARK: 최신순 리뷰 보여주기
+    func fetchLatestReviews() {
+        
+        database.collection("Review")
+            .order(by: "createdAt", descending: true)
+//            .start(afterDocument: documents.last!)
+        
+            .getDocuments { (snapshot, error) in
+                self.latestReviews.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                        
+                        let id: String = document.documentID
+                        let docData = document.data()
+                        
+                        let userId: String = docData["userId"] as? String ?? ""
+                        let reviewText: String = docData["reviewText"] as? String ?? ""
+                        let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                        let images: [String] = docData["images"] as? [String] ?? []
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let starRating: Int = docData["starRating"] as? Int ?? 0
+                        let storeName: String = docData["storeName"] as? String ?? ""
+                        let storeId: String = docData["storeId"] as? String ?? ""
+
+                        for imageName in images{
+                            self.retrieveImages(reviewId: id, imageName: imageName)
+                        }
+                        
+                        let review: Review = Review(id: id,
+                                                    userId: userId,
+                                                    reviewText: reviewText,
+                                                    createdAt: createdAt,
+                                                    images: images,
+                                                    nickName: nickName,
+                                                    starRating: starRating,
+                                                    storeName: storeName,
+                                                    storeId: storeId
+                        )
+                        self.latestReviews.append(review)
                     }
                 }
             }
@@ -101,6 +149,8 @@ final class ReviewViewModel: ObservableObject {
             await updateStoreRating(updatingReview: review, isDeleting: false)
             
             fetchReviews()
+            fetchLatestReviews()
+
         } catch {
             print(error.localizedDescription)
         
@@ -131,6 +181,8 @@ final class ReviewViewModel: ObservableObject {
             await updateStoreRating(updatingReview: review, isDeleting: true)
             
             fetchReviews()
+            fetchLatestReviews()
+
         } catch {
             print(error.localizedDescription)
         }
