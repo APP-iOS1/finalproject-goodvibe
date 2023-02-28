@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MyPageView: View {
-    @EnvironmentObject var userVM: UserViewModel
-    
+    @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
@@ -20,7 +19,8 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
-            
+            // 로그아웃 상태가 아니면(로그인상태이면) mypageView 띄우기
+            if userViewModel.isLoggedIn != false {
             VStack(alignment: .leading){
                 Text("마이페이지")
                     .font(.largeTitle)
@@ -46,12 +46,12 @@ struct MyPageView: View {
                             
                             VStack(alignment: .leading){
                                 HStack{
-                                    Text("\(userVM.userInfo.userNickname)")
+                                    Text("\(userViewModel.userInfo.userNickname)")
                                         .font(.title3)
                                     
                                     Spacer()
                                     
-                                    Text("\(userVM.userInfo.status)님")
+                                    Text("\(userViewModel.userInfo.userGrade)님")
                                         .font(.body)
                                         .padding(.trailing, 20)
                                 }
@@ -59,7 +59,7 @@ struct MyPageView: View {
                                 .padding(.bottom, 1)
                                 
                                 HStack{
-                                    Text(userVM.userInfo.userEmail)
+                                    Text(userViewModel.userInfo.userEmail)
                                         .font(.caption)
                                         .padding(.leading, 10)
                                 }
@@ -70,103 +70,105 @@ struct MyPageView: View {
                     .padding()
                 
                 
-                
-                VStack (alignment: .leading, spacing: 25) {
-                    //공지사항도 있어야할것같아서 버튼만 우선 만들었습니다.
-                    Button {
-                        self.isShowingNotice.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "exclamationmark.bubble")
-                            Text("공지")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isShowingNotice) {
-                        NoticeView()
-                    }
-                    
-                    
-                    Button {
-                        self.isMyReviewPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "pencil")
-                            Text("내가 쓴 리뷰보기")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isMyReviewPresented) {
-                        MyReviewView()
-                    }
-                    
-                    Button {
-                        self.isUpdateUserInfoPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "gearshape.fill")
-                            Text("회원정보수정")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                        UpdateUserInfoView()
-                           
+//                VStack {
+                    List {
                         
-                    }
-                    
-                    
-                    
-                    Button {
-                        isSheetPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "lock.open.fill")
-                            Text("장소 제보하기(임시)")
+                        NavigationLink {
+                            NoticeView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "exclamationmark.bubble")
+                                Text("공지")
+                            }
                         }
-                    }
-                    
-                    //이용약관 페이지로 넘어가는 버튼
-                    Button {
-                        self.isShowingTerms.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "captions.bubble")
-                            Text("앱 정보")
+                        .listRowSeparator(.hidden)
+
+                        
+                        NavigationLink {
+                            MyReviewView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "pencil")
+                                Text("내가 쓴 리뷰")
+                            }
                         }
-                    }
-                    .fullScreenCover(isPresented: $isShowingTerms) {
-                        PolicyView()
-                    }
-                    
-             
-                    Button {
-                        userVM.isLoading = true
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                            userVM.signOut()
+                        .listRowSeparator(.hidden)
+
+                        
+                        NavigationLink {
+                            UpdateUserInfoView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "gearshape.fill")
+                                Text("회원정보 수정")
+                            }
                         }
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                            userVM.isLoading = false
+                        .listRowSeparator(.hidden)
+
+                        
+                        
+                        NavigationLink {
+                            //
+                        } label: {
+                            HStack {
+                                Image(systemName: "lock.open.fill")
+                                Text("장소제보하기 (임시)")
+                            }
                         }
-                    } label: {
-                        HStack{
-                            Image(systemName: "xmark.circle")
-                            Text("로그아웃")
+                        .listRowSeparator(.hidden)
+
+                        
+                        
+                        NavigationLink {
+                            PolicyView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "captions.bubble")
+                                Text("앱정보")
+                            }
                         }
+                        
+                        Button {
+                            // userVM.isLoading = true
+                            // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                            //     userVM.signOut()
+                            // }
+                            // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                            //     userVM.isLoading = false
+                            // }
+                        } label: {
+                            HStack{
+                                Image(systemName: "xmark.circle")
+                                Text("로그아웃")
+                            }
+                        }
+                        .foregroundColor(.black)
+                        .padding(1.5)
+                        
+                        //                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                        .listRowSeparator(.hidden)
                     }
-                    
-                }
-                .foregroundColor(.black)
-                .padding()
-                .padding(.top, 5)
-                .font(.title3)
+                    .listStyle(.plain)
+
+//                }
+                
+            }
+                Spacer()
+                Text("\(userViewModel.userInfo.userGrade)")
+                Text("\(userViewModel.userInfo.userEmail)")
+                Text("\(userViewModel.userInfo.id)")
+            } else {
+                goLoginView()
+                    .environmentObject(userViewModel)
             }
             
-            
-            Spacer()
         }
         .onAppear {
-            userVM.fetchUpdateUserInfo()
+//            userVM.fetchUpdateUserInfo()
+            print("mypage onappear : \(userViewModel.userInfo)")
         }
         .overlay(content: {
-            LoadingView(show: $userVM.isLoading)
+//            LoadingView(show: $userVM.isLoading)
         })
         .sheet(isPresented: $isSheetPresented) {
             NavigationStack {

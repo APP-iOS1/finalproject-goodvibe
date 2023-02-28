@@ -40,7 +40,6 @@ struct UserReviewCell:  View {
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
                 }
-                
                 if isInMypage {
                     Text("\(review.storeName)")
                         .font(.caption)
@@ -156,7 +155,7 @@ struct UserReviewCell:  View {
             Divider()
         }//VStack
         .onAppear{
-            userViewModel.fetchUpdateUserInfo()
+//            userViewModel.fetchUpdateUserInfo()
 
         }
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동

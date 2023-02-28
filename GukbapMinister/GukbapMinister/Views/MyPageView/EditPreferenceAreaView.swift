@@ -26,13 +26,13 @@ struct EditPreferenceAreaView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("\(userViewModel.userInfo.preferenceArea)", text: $preferenceArea)
-                    .focused($focused, equals: .preferenceFocus)
+//                TextField("\(userViewModel.userInfo.preferenceArea)", text: $preferenceArea)
+//                    .focused($focused, equals: .preferenceFocus)
             }
             .navigationTitle("선호하는 지역")
             .toolbar {
                 Button {
-                    userViewModel.updateUserPreferenceArea(preferenceArea: preferenceArea)
+//                    userViewModel.updateUserPreferenceArea(preferenceArea: preferenceArea)
                     dismiss()
                 } label: {
                     Text("완료")

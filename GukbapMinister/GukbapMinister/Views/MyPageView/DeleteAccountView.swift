@@ -25,7 +25,7 @@ struct DeleteAccountView: View {
                 }
                 .alert("회원탈퇴", isPresented: $isShowingAlert) {
                     Button("확인", role: .cancel) {
-                        userViewModel.deleteUser()
+//                        userViewModel.deleteUser()
                     }
                     Button("취소", role: .destructive) {
                         

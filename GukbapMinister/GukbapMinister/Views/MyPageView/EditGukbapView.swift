@@ -14,7 +14,7 @@ struct EditGukbapView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                SignUpGukBabView()
+//                SignUpGukBabView()
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("선호하는 국밥")

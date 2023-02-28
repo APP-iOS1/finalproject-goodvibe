@@ -23,23 +23,23 @@ import FirebaseFirestoreSwift
 // }
 
 struct Store: Codable, Hashable, Identifiable {
-  
-  @DocumentID var id: String?
-  var storeName: String
-  var storeAddress: String
-  var coordinate: GeoPoint
-  var storeImages: [String]
-  var menu: [String : String]
-  var description: String
-  var countingStar: Double
-  var foodType: [String] //국밥 타입: ex:순대,돼지국밥
-  //    var viewCount: Int// 장소 조회수
+    
+    @DocumentID var id: String?
+    var storeName: String
+    var storeAddress: String
+    var coordinate: GeoPoint
+    var storeImages: [String]
+    var menu: [String : String]
+    var description: String
+    var countingStar: Double
+    var foodType: [String] //국밥 타입: ex:순대,돼지국밥
+    //    var viewCount: Int// 장소 조회수
     var likes : Int //가게를 찜한 유저 수
     var hits : Int // 가게 detailView 조회수
     
-  static func == (lhs : Store, rhs: Store) -> Bool{
-    lhs.id == rhs.id
-  }
+    static func == (lhs : Store, rhs: Store) -> Bool{
+        lhs.id == rhs.id
+    }
 }
 
 extension Store {

@@ -13,30 +13,31 @@ struct ContentView: View {
     @State  var isLoading: Bool = true
     @AppStorage("isFirstLaunching") var isFirstLaunching: Bool = true
     var body: some View {
-        ZStack{
-            if isLoading{
-                launchScreen.transition(.opacity).zIndex(1)
-            }
-            
-            if viewModel.logStatus{
-                MainTabView()
-                    .fullScreenCover(isPresented: $isFirstLaunching) {
-                        OnboardingTabView(isFirstLaunching: $isFirstLaunching)
-                    }
-            }else{
-                switch viewModel.state{
-                case .signedIn: MainTabView()
-                case .kakaoSign: SignUpTabView(selection: viewModel.selection)
-                case .signedOut: SignInView()
-                case .noSigned: MainTabView()
-                }
-            }
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                isLoading.toggle()
-            })
-        }
+        MainTabView()
+//        ZStack{
+//            if isLoading{
+//                launchScreen.transition(.opacity).zIndex(1)
+//            }
+//
+//            if viewModel.logStatus{
+//                MainTabView()
+//                    .fullScreenCover(isPresented: $isFirstLaunching) {
+//                        OnboardingTabView(isFirstLaunching: $isFirstLaunching)
+//                    }
+//            }else{
+//                switch viewModel.state{
+//                case .signedIn: MainTabView()
+//                case .kakaoSign: SignUpTabView(selection: viewModel.selection)
+//                case .signedOut: SignInView()
+//                case .noSigned: MainTabView()
+//                }
+//            }
+//        }
+//        .onAppear {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//                isLoading.toggle()
+//            })
+//        }
     }
 }
 extension ContentView{
