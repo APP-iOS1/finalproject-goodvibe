@@ -129,6 +129,8 @@ struct MyPageView: View {
                         }
                         
                         Button {
+                            userViewModel.logoutByPlatform()
+
                             // userVM.isLoading = true
                             // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
                             //     userVM.signOut()
