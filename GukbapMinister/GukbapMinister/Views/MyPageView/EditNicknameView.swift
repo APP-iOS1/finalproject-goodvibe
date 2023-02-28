@@ -35,7 +35,7 @@ struct EditNicknameView: View {
             .navigationTitle("닉네임")
             .toolbar {
                 Button {
-                    userViewModel.updateUserNickname(nickName: nickName)
+//                    userViewModel.updateUserNickname(nickName: nickName)
                     dismiss()
                 } label: {
                     Text("완료")

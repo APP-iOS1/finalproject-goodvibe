@@ -75,17 +75,26 @@ extension CategoryFilteringView {
     }
     
     private var toolbarItemContent: some View {
-        VStack {
-            if mode == .myPage {
-                Divider()
-            }
-            
-            HStack {
-                Button {
-                    didTap = Array(repeating: false, count: Gukbaps.allCases.count)
-                    switch mode {
-                    case .map: mapViewModel.filteredGukbaps = []
-                    case .myPage: userViewModel.filterdGukbaps = []
+            VStack {
+                if mode == .myPage {
+                    Divider()
+                }
+                
+                HStack {
+                    Button {
+                        didTap = Array(repeating: false, count: Gukbaps.allCases.count)
+//                        switch mode {
+//                        case .map: mapViewModel.filteredGukbaps = []
+//                        case .myPage: userViewModel.filterdGukbaps = []
+//                        }
+                    } label: {
+                        Text("필터해제")
+                    }
+                    Spacer()
+                    Button {
+                        showModal.toggle()
+                    } label: {
+                        Text("확인")
                     }
                 } label: {
                     Text("필터해제")

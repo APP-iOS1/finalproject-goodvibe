@@ -240,7 +240,7 @@ struct CreateReviewView: View {
                             if trimReviewText.count > 0 {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
-                                        userViewModel.updateReviewCount()
+
                                         Task{
                                             
                                             let createdAt = Date().timeIntervalSince1970
@@ -302,7 +302,7 @@ struct CreateReviewView: View {
             } // onTapGesture
             //            .ignoresSafeArea(.keyboard, edges: .bottom)
             .onAppear{
-                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
+//                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
             }
             .fullScreenCover(isPresented: $selectedImagesDetail){
                 ImageDetailView()

@@ -32,7 +32,7 @@ struct MyReviewView: View {
                 .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
             }
             .onAppear{
-                userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
+//                userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
                 reviewVM.fetchReviews()
             }
             .refreshable {
