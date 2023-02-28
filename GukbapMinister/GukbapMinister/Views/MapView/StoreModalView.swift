@@ -9,8 +9,7 @@ import SwiftUI
 
 struct StoreModalView: View {
     @EnvironmentObject private var storesViewModel: StoresViewModel
-    @State private var isHeart : Bool = false
-    
+    @State private var isHeartClicked : Bool = false
     var store: Store = .test
     
     var body: some View {

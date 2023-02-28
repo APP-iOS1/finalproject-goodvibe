@@ -29,7 +29,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         if let annotation = annotation as? StoreAnnotation {
             annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
         }
-        
+
         return annotationView
     }
     
@@ -68,16 +68,19 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
                 .uiImage?
                 .resizeImageTo(size: CGSize(width: 60, height: 60))
             
-            let text = UITextView(frame: CGRect(x: -5, y: 55, width: 70, height: 20))
-            //      let fixedWidth = text.frame.size.width
-            //      let newSize = text.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-            //      text.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+            let text = UITextView(frame: CGRect(x: -5, y: 55, width: 100, height: 20))
+            let fixedWidth = text.frame.size.width
+            let newSize = text.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+            text.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
             text.backgroundColor = .lightText
             text.textAlignment = .center
             text.layer.cornerRadius = 20
             text.text = ("\(String(describing: annotation.title ?? ""))")
             text.font = .boldSystemFont(ofSize: 12)
             text.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            text.translatesAutoresizingMaskIntoConstraints = true
+            text.isScrollEnabled = false
+            text.sizeToFit()
             
             annotationView?.image = markerImage
             annotationView?.addSubview(text)
@@ -122,10 +125,10 @@ struct MapUIView: UIViewRepresentable {
         trackingButton.layer.cornerRadius = 7
         
         maps.addSubview(trackingButton)
-        
+
         // 맵이 보이는 범위를 한국으로 제한하기
         maps.cameraBoundary = MKMapView.CameraBoundary(mapRect: .korea)
-        
+
         // 맵으로 줌아웃 했을 때 최대 고도 설정
         maps.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(500000))
         

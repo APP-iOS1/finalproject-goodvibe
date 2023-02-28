@@ -191,13 +191,13 @@ struct cellLiked : View {
                                 
 
 //                                Button{
-//                                    collectionVM.isHeart.toggle()
+//                                    collectionVM.isHeartClicked.toggle()
 //                                    // 하트가 ture => LikeStore 스토어id만 append메서드 vs delte메서드
 //                                    // append(cellData.sotreId)
 //                                    collectionVM.manageHeart(userId: currentUser?.uid ?? "", store: cellData)
 //
 //                                } label: {
-//                                    Image(systemName: collectionVM.isHeart ? "heart.fill" : "heart")
+//                                    Image(systemName: collectionVM.isHeartClicked ? "heart.fill" : "heart")
 //                                        .foregroundColor(.red)
 //                                }
 
@@ -296,7 +296,7 @@ struct cellRandom : View {
                             Spacer()
 
 //                            Button{
-//                                collectionVM.isHeart = true
+//                                collectionVM.isHeartClicked = true
 //                                self.plusHeart = true
 //
 ////                                    collectionVM.isHeart.toggle()

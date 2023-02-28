@@ -33,6 +33,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
+
     // locationManagerDidchangeAuthorization에서 호출
     private func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
@@ -41,7 +42,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         case .restricted:
             print("Your location is restricted")
         case .denied:
-            print("Your have denied")
+            print("You have denied")
         case .authorizedAlways, .authorizedWhenInUse:
             break
         @unknown default:
@@ -71,6 +72,5 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print (error)
-        
     }
 }

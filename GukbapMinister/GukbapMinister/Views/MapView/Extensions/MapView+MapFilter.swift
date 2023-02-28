@@ -12,7 +12,7 @@ extension MapView {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 filterButton
-                filteredElements
+                filteredContents
             }
             .padding(.vertical, 8)
         }
@@ -50,7 +50,7 @@ extension MapView {
         }
     }
     
-    private var filteredElements: some View {
+    private var filteredContents: some View {
         HStack {
             ForEach(mapViewModel.filteredGukbaps, id:\.self) { gukbap in
                 HStack(spacing: 2) {
