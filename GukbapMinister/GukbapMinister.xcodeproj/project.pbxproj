@@ -16,6 +16,8 @@
 		0400A09429935BE200727132 /* ReviewReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A09329935BE200727132 /* ReviewReportViewModel.swift */; };
 		0400A0A929A7069100727132 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0400A0A829A7069100727132 /* Kingfisher */; };
 		0400A0AB29AC413E00727132 /* UserReviewCellDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0400A0AA29AC413E00727132 /* UserReviewCellDetailView.swift */; };
+		0400A0AF29AC761700727132 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0400A0AE29AC761700727132 /* GoogleService-Info.plist */; };
+		0400A0B129AC762700727132 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0400A0B029AC762700727132 /* Config.xcconfig */; };
 		041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE96D297A287000BE32E7 /* ReviewDetailView.swift */; };
 		041FE9712988D57500BE32E7 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE9702988D57500BE32E7 /* SegmentedPicker.swift */; };
 		041FE9732988DCDE00BE32E7 /* Ex+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE9722988DCDE00BE32E7 /* Ex+View.swift */; };
@@ -54,7 +56,6 @@
 		5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D1298A639D00CBC816 /* Ex+Color.swift */; };
 		5BB236D5298B6B6C00CBC816 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */; };
 		5BB236D9298B9F7700CBC816 /* Ex+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB236D8298B9F7700CBC816 /* Ex+UIImage.swift */; };
-		5BC5A66829A642F000B3B9AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */; };
 		5BDB9AB02975751C00BFD5D9 /* GukbapMinisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */; };
 		5BDB9AB22975751C00BFD5D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB12975751C00BFD5D9 /* ContentView.swift */; };
 		5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB9AB32975751F00BFD5D9 /* Assets.xcassets */; };
@@ -85,7 +86,6 @@
 		6348D765299A8E4E00148552 /* NoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D764299A8E4E00148552 /* NoLoginView.swift */; };
 		6348D767299A930300148552 /* SignInView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D766299A930300148552 /* SignInView2.swift */; };
 		6348D769299B5D8B00148552 /* NoLoginView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D768299B5D8B00148552 /* NoLoginView2.swift */; };
-		6399503629A7029100A05F9F /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6399503529A7029100A05F9F /* Config.xcconfig */; };
 		6399503829A7301900A05F9F /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6399503729A7301900A05F9F /* DeleteAccountView.swift */; };
 		63D2582C299A060100370202 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582B299A060100370202 /* NoticeView.swift */; };
 		63D2582E299A0D9800370202 /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582D299A0D9800370202 /* PolicyView.swift */; };
@@ -119,6 +119,8 @@
 		0400A08F2992119500727132 /* StoreImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreImageDetailView.swift; sourceTree = "<group>"; };
 		0400A09329935BE200727132 /* ReviewReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewReportViewModel.swift; sourceTree = "<group>"; };
 		0400A0AA29AC413E00727132 /* UserReviewCellDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewCellDetailView.swift; sourceTree = "<group>"; };
+		0400A0AE29AC761700727132 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0400A0B029AC762700727132 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		041FE96D297A287000BE32E7 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
 		041FE9702988D57500BE32E7 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		041FE9722988DCDE00BE32E7 /* Ex+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+View.swift"; sourceTree = "<group>"; };
@@ -155,7 +157,6 @@
 		5BB236D1298A639D00CBC816 /* Ex+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
 		5BB236D4298B6B6C00CBC816 /* SearchBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarButton.swift; sourceTree = "<group>"; };
 		5BB236D8298B9F7700CBC816 /* Ex+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIImage.swift"; sourceTree = "<group>"; };
-		5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BDB9AAC2975751C00BFD5D9 /* GukbapMinister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GukbapMinister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDB9AAF2975751C00BFD5D9 /* GukbapMinisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GukbapMinisterApp.swift; sourceTree = "<group>"; };
 		5BDB9AB12975751C00BFD5D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -184,7 +185,6 @@
 		6348D764299A8E4E00148552 /* NoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLoginView.swift; sourceTree = "<group>"; };
 		6348D766299A930300148552 /* SignInView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView2.swift; sourceTree = "<group>"; };
 		6348D768299B5D8B00148552 /* NoLoginView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLoginView2.swift; sourceTree = "<group>"; };
-		6399503529A7029100A05F9F /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		6399503729A7301900A05F9F /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		63D2582B299A060100370202 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		63D2582D299A0D9800370202 /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
@@ -365,7 +365,7 @@
 		5BDB9AA32975751C00BFD5D9 = {
 			isa = PBXGroup;
 			children = (
-				5BC5A66729A642F000B3B9AC /* GoogleService-Info.plist */,
+				0400A0AE29AC761700727132 /* GoogleService-Info.plist */,
 				5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */,
 				5BDB9AAD2975751C00BFD5D9 /* Products */,
 				030B4B53299A191500866586 /* Frameworks */,
@@ -383,7 +383,7 @@
 		5BDB9AAE2975751C00BFD5D9 /* GukbapMinister */ = {
 			isa = PBXGroup;
 			children = (
-				6399503529A7029100A05F9F /* Config.xcconfig */,
+				0400A0B029AC762700727132 /* Config.xcconfig */,
 				5B2E2E732994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif */,
 				5B6536C02999C8E000EA8FE5 /* Ddukbaegi.boiling.gif */,
 				5BDB9AE4297581C800BFD5D9 /* Info.plist */,
@@ -637,10 +637,10 @@
 			files = (
 				5B6536C12999C8E000EA8FE5 /* Ddukbaegi.boiling.gif in Resources */,
 				5BDB9AB72975751F00BFD5D9 /* Preview Assets.xcassets in Resources */,
-				5BC5A66829A642F000B3B9AC /* GoogleService-Info.plist in Resources */,
 				5BDB9AB42975751F00BFD5D9 /* Assets.xcassets in Resources */,
-				6399503629A7029100A05F9F /* Config.xcconfig in Resources */,
 				5B2E2E742994D5A700A7B94F /* Ddukbaegi.boiling.Intro.gif in Resources */,
+				0400A0B129AC762700727132 /* Config.xcconfig in Resources */,
+				0400A0AF29AC761700727132 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

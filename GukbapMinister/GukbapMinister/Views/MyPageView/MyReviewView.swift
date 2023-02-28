@@ -33,10 +33,10 @@ struct MyReviewView: View {
             }
             .onAppear{
                 userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
-                reviewVM.fetchReviews()
+              //  reviewVM.fetchReviews()
             }
             .refreshable {
-                reviewVM.fetchReviews()
+               // reviewVM.fetchReviews()
             }
             
             

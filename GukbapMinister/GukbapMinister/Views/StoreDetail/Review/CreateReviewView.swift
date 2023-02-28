@@ -252,7 +252,8 @@ struct CreateReviewView: View {
                                                                         nickName: userViewModel.userInfo.userNickname,
                                                                         starRating:  selectedStar + 1,
                                                                         storeName: store.storeName,
-                                                                        storeId: store.id ?? ""
+                                                                        storeId: store.id ?? "",
+                                                                        show: false
                                             )
                                             
                                             await reviewViewModel.addReview(review: review,

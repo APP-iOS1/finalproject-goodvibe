@@ -6,9 +6,11 @@
 //
 import SwiftUI
 import Shimmer
+import FirebaseFirestore
 
 import FirebaseAuth
-
+import Firebase
+import FirebaseFirestoreSwift
 struct DetailView: View {
     @Environment(\.colorScheme) var scheme
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -45,18 +47,14 @@ struct DetailView: View {
             $0.storeName == store.storeName
         }
     }
-//    var storeLatestReview : [Review] {
-//        reviewViewModel.latestReviews.filter{
-//            $0.storeName == store.storeName
-//        }
-//    }
-    var store : Store
-    @State var data : [Review] = []
-    @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
+    @State var reviewData : [Review] = []
     
+    var store : Store
+    @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
+
     var body: some View {
         NavigationStack {
-            GeometryReader { geo in
+   
                 ScrollView(showsIndicators: false) {
                     VStack{
                         storeImages
@@ -68,48 +66,77 @@ struct DetailView: View {
                         storeMenu
                         
                         userStarRate
-
-                        ForEach(reviewViewModel.reviews) { review in
-                          
-                         
-                                
-                                if (review.storeName == store.storeName){
-                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                                    
-//                                    if self.data.last?.id == review.id {
-//                                        GeometryReader{ g in
-//                                            UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-//                                                .onAppear{
-//                                                    self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
-//                                                }
-//                                                .onReceive(self.time) { (_) in
-//                                                    print(g.frame(in:.global).maxY)
-//                                                }
-//
-//
-//                                        }
-//                                    }
-                                    
-                                }
-                            
-                        }//FirstForEach
-//                        GeometryReader {reader -> Color in
-//                            DispatchQueue.main.async {
-//
-//                                let minY = reader.frame(in: .global).minY
-//                                let height = UIScreen.main.bounds.height * 0.7
-//                                if reviewViewModel.reviews.isEmpty && ( minY < height) {
-//                                    print("마지막\(minY)")
-//                                }
-//                                if  minY < height {
-//                                    print("화면 70%\(minY)")
-//                                }
-//
-//                            }
-//                            return Color.clear
-//
-//                        }
                         
+                        
+                        
+                        
+                        
+                        if !self.reviewViewModel.reviews2.isEmpty {
+                        ForEach(reviewViewModel.reviews2) { review in
+                            
+                            if review.reviewText == "" {}
+                            else {
+                                   //  ZStack{
+                                if self.reviewViewModel.reviews2.last?.id == review.id {
+                                    GeometryReader { g in
+                                        UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                                            .onAppear(){
+                                                self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
+                                            }
+                                            .onReceive(self.time) { (_) in
+                                                print(g.frame(in:.global).maxY)
+                                                print(UIScreen.main.bounds.height - 120)
+                                                if g.frame(in:.global).maxY < UIScreen.main.bounds.height - 120{
+                                                 
+                                                    reviewViewModel.updateReviews()
+                                                    print("리뷰 데이터 로딩중")
+                                                    self.time.upstream.connect().cancel()
+                                                }
+
+                                            }
+                                    }
+                                }
+                                else{
+                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                                }
+                                    //  }
+                            }
+                            
+                        }
+                        //FirstForEach
+                        }else{
+                            VStack{
+                                Image(uiImage: (Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder!)!)
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.53,
+                                           height: UIScreen.main.bounds.height * 0.25 )
+                                
+                                    Text("작성된 리뷰가 없습니다.")
+                                         .padding(.bottom)
+                                         .padding(.top,-20)
+                                         .font(.title2)
+                                         .fontWeight(.semibold)
+                                         .foregroundColor(.secondary)
+                            }
+                        }
+//                                                GeometryReader {reader -> Color in
+//
+//
+//                                                        let minY = reader.frame(in: .global).minY
+//                                                        let height = UIScreen.main.bounds.height * 0.7
+//                                                        if reviewViewModel.reviews2.isEmpty && ( minY < height) {
+//                                                            print("마지막\(minY)")
+//                                                        }
+//                                                        if minY < height {
+//                                                            print("화면 70%\(minY)")
+//                                                            reviewViewModel.fetchReviews()
+//                                                        }
+//
+//
+//                                                    return Color.clear
+//
+//                                                }
+                           
                     }//VStack
                     
                 }//ScrollView
@@ -134,7 +161,7 @@ struct DetailView: View {
                         }
                     }
                 }
-            }//GeometryReader
+       
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -156,10 +183,11 @@ struct DetailView: View {
             CreateReviewView(reviewViewModel: reviewViewModel,selectedStar: $selectedStar, showingSheet: $showingCreateRewviewSheet, store: store )
         }
         .onAppear{
+            print("asdfadjflakjsdhkljfhasdkjfhakjsdhfkajhsdlkjfhkaljhskdhfkjahskljdhfkjahskldjhfkjahskjdhfkjahsdkjfhakjdshfkjhlasdf\(UIScreen.main.bounds.height)")
+            print("review2,2,2,2,2,2,2,2,\(reviewViewModel.reviews2)")
             Task{
                 storesViewModel.subscribeStores()
             }
-            reviewViewModel.fetchLatestReviews()
 
             reviewViewModel.fetchReviews()
 
@@ -168,9 +196,9 @@ struct DetailView: View {
             storesViewModel.unsubscribeStores()
         }
         .refreshable {
-            reviewViewModel.fetchLatestReviews()
 
-            reviewViewModel.fetchReviews()
+           reviewViewModel.fetchReviews()
+
 
         }
         .redacted(reason: isLoading ? .placeholder : [])
@@ -180,7 +208,10 @@ struct DetailView: View {
             self.isLoading = false
           }
         }
+        
+       
     }//body
+
 }//struct
 extension DetailView {
     
@@ -351,7 +382,7 @@ extension DetailView {
                     HStack{
                         Text("방문자 리뷰")
                             .foregroundColor(.black)
-                        Text("\(storeReview.count)")
+                        Text("\(reviewViewModel.reviews2.count)")
                                 .foregroundColor(Color("AccentColor"))
             
                         Spacer()
