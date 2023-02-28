@@ -13,17 +13,23 @@ import Kingfisher
 import FirebaseFirestoreSwift
 
 //TODO: 서버에 등록된 모든 리뷰를 가져올게 아니라 특정 조건에 맞는 리뷰를 가지고올 필요가 있음
+/// Description
 class ReviewViewModel: ObservableObject {
     @Published var reviews: [Review] = []
     @Published var latestReviews: [Review] = []
+    
+    @Published var reviews2: [Review] = []
+   // var lastDocumentSnapshot: DocumentSnapshot?
+    @Published var lastDoc: DocumentSnapshot!
 
     @Published var reviewImage: [String : UIImage] = [:]
- //   @Published var documents: [DocumentSnapshot] = []
+    
     let database = Firestore.firestore()
     let storage = Storage.storage()
-    //    init() {
-    //        reviews = []
-    //    }
+    
+        init() {
+            reviews = []
+        }
     
     //    var id: String
     //    var userId: String
@@ -33,23 +39,138 @@ class ReviewViewModel: ObservableObject {
     //    var nickName: String
     //    var createdDate: String
     //    var storeName: String
+    
+
+    //MARK: 다음 데이터 업데이트
     func updateReviews(){
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.database.collection("Review")
+                .order(by: "createdAt", descending: true)
+                .start(afterDocument: self.lastDoc)
+                .limit(to: 1)
+                .getDocuments{(snap, err ) in
+                    if err != nil{
+                        print((err?.localizedDescription)!)
+                        return
+                    }
+                    //
+                 //   self.reviews2.removeLast()
+
+                    if !snap!.documents.isEmpty{
+                        for document in snap!.documents {
+
+                            let id: String = document.documentID
+                            let docData = document.data()
+
+                            let userId: String = docData["userId"] as? String ?? ""
+                            let reviewText: String = docData["reviewText"] as? String ?? ""
+                            let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                            let images: [String] = docData["images"] as? [String] ?? []
+                            let nickName: String = docData["nickName"] as? String ?? ""
+                            let starRating: Int = docData["starRating"] as? Int ?? 0
+                            let storeName: String = docData["storeName"] as? String ?? ""
+                            let storeId: String = docData["storeId"] as? String ?? ""
+                            let show: Bool = docData["show"] as? Bool ?? false
+
+                            for imageName in images{
+                                self.retrieveImages(reviewId: id, imageName: imageName)
+                            }
+
+                            let review: Review = Review(id: id,
+                                                        userId: userId,
+                                                        reviewText: reviewText,
+                                                        createdAt: createdAt,
+                                                        images: images,
+                                                        nickName: nickName,
+                                                        starRating: starRating,
+                                                        storeName: storeName,
+                                                        storeId: storeId,
+                                                        show: show
+                            )
+                            self.reviews2.append(review)
+                        }
+                        self.lastDoc = snap!.documents.last
+                    }// if
+                    else{
+                        print("마지막 리뷰 데이터")
+                    }
+                }
+        }
+
         
+    
     }
+
+    // MARK: pagination ex1
+//    func fetchReviews() {
+//
+//       var query =  database.collection("Review")
+//            .order(by: "createdAt", descending: true)
+//            .limit(to:10)
+//
+//        if let lastDocSnap = lastDocumentSnapshot {
+//            query = query.start(afterDocument: lastDocSnap)
+//        }
+//            query.getDocuments { (snapshot, error) in
+//                //self.reviews2.removeAll()
+//
+//                guard let snapshot = snapshot else { return }
+//
+//                    for document in snapshot.documents {
+//
+//                        let id: String = document.documentID
+//                        let docData = document.data()
+//
+//                        let userId: String = docData["userId"] as? String ?? ""
+//                        let reviewText: String = docData["reviewText"] as? String ?? ""
+//                        let createdAt: Double = docData["createdAt"] as? Double ?? 0
+//                        let images: [String] = docData["images"] as? [String] ?? []
+//                        let nickName: String = docData["nickName"] as? String ?? ""
+//                        let starRating: Int = docData["starRating"] as? Int ?? 0
+//                        let storeName: String = docData["storeName"] as? String ?? ""
+//                        let storeId: String = docData["storeId"] as? String ?? ""
+//
+//                        for imageName in images{
+//                            self.retrieveImages(reviewId: id, imageName: imageName)
+//                        }
+//
+//                        let review1: Review = Review(id: id,
+//                                                    userId: userId,
+//                                                    reviewText: reviewText,
+//                                                    createdAt: createdAt,
+//                                                    images: images,
+//                                                    nickName: nickName,
+//                                                    starRating: starRating,
+//                                                    storeName: storeName,
+//                                                    storeId: storeId
+//                        )
+//                        self.reviews2.append(review1)
+//                    }
+//                self.lastDocumentSnapshot = snapshot.documents.last
+//
+//            }
+//    }
+    // MARK: pagination ex2
     func fetchReviews() {
         
         database.collection("Review")
             .order(by: "createdAt", descending: true)
-        
-            .getDocuments { (snapshot, error) in
-                self.reviews.removeAll()
+            .limit(to: 3)
+            .getDocuments { (snap, err) in
                 
-                if let snapshot {
-                    for document in snapshot.documents {
-                        
+                if err != nil{
+                    print((err?.localizedDescription)!)
+                    return
+                }
+            
+                 self.reviews2.removeAll()
+
+                    for document in snap!.documents {
+
                         let id: String = document.documentID
                         let docData = document.data()
-                        
+
                         let userId: String = docData["userId"] as? String ?? ""
                         let reviewText: String = docData["reviewText"] as? String ?? ""
                         let createdAt: Double = docData["createdAt"] as? Double ?? 0
@@ -58,11 +179,12 @@ class ReviewViewModel: ObservableObject {
                         let starRating: Int = docData["starRating"] as? Int ?? 0
                         let storeName: String = docData["storeName"] as? String ?? ""
                         let storeId: String = docData["storeId"] as? String ?? ""
-
+                        let show: Bool = docData["show"] as? Bool ?? false
+                        
                         for imageName in images{
                             self.retrieveImages(reviewId: id, imageName: imageName)
                         }
-                        
+
                         let review: Review = Review(id: id,
                                                     userId: userId,
                                                     reviewText: reviewText,
@@ -71,55 +193,12 @@ class ReviewViewModel: ObservableObject {
                                                     nickName: nickName,
                                                     starRating: starRating,
                                                     storeName: storeName,
-                                                    storeId: storeId
+                                                    storeId: storeId,
+                                                    show: show
                         )
-                        self.reviews.append(review)
+                        self.reviews2.append(review)
                     }
-                }
-            }
-    }
-    // MARK: 최신순 리뷰 보여주기
-    func fetchLatestReviews() {
-        
-        database.collection("Review")
-            .order(by: "createdAt", descending: true)
-//            .start(afterDocument: documents.last!)
-        
-            .getDocuments { (snapshot, error) in
-                self.latestReviews.removeAll()
-                
-                if let snapshot {
-                    for document in snapshot.documents {
-                        
-                        let id: String = document.documentID
-                        let docData = document.data()
-                        
-                        let userId: String = docData["userId"] as? String ?? ""
-                        let reviewText: String = docData["reviewText"] as? String ?? ""
-                        let createdAt: Double = docData["createdAt"] as? Double ?? 0
-                        let images: [String] = docData["images"] as? [String] ?? []
-                        let nickName: String = docData["nickName"] as? String ?? ""
-                        let starRating: Int = docData["starRating"] as? Int ?? 0
-                        let storeName: String = docData["storeName"] as? String ?? ""
-                        let storeId: String = docData["storeId"] as? String ?? ""
-
-                        for imageName in images{
-                            self.retrieveImages(reviewId: id, imageName: imageName)
-                        }
-                        
-                        let review: Review = Review(id: id,
-                                                    userId: userId,
-                                                    reviewText: reviewText,
-                                                    createdAt: createdAt,
-                                                    images: images,
-                                                    nickName: nickName,
-                                                    starRating: starRating,
-                                                    storeName: storeName,
-                                                    storeId: storeId
-                        )
-                        self.latestReviews.append(review)
-                    }
-                }
+                self.lastDoc = snap!.documents.last
             }
     }
     
@@ -149,7 +228,6 @@ class ReviewViewModel: ObservableObject {
             await updateStoreRating(updatingReview: review, isDeleting: false)
             
             fetchReviews()
-            fetchLatestReviews()
 
         } catch {
             print(error.localizedDescription)
@@ -181,7 +259,6 @@ class ReviewViewModel: ObservableObject {
             await updateStoreRating(updatingReview: review, isDeleting: true)
             
             fetchReviews()
-            fetchLatestReviews()
 
         } catch {
             print(error.localizedDescription)

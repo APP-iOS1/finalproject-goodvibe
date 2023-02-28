@@ -23,7 +23,10 @@ extension Review {
            nickName: "",
            starRating: 0,
            storeName: "",
-           storeId: ""
+           storeId: "",
+           show: false
+           
+           
     )
     
 }
