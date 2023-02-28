@@ -40,9 +40,19 @@ struct DetailView: View {
     
     
     @State private var isLoading: Bool = true
-    
-    
+    var storeReview : [Review] {
+        reviewViewModel.reviews.filter{
+            $0.storeName == store.storeName
+        }
+    }
+//    var storeLatestReview : [Review] {
+//        reviewViewModel.latestReviews.filter{
+//            $0.storeName == store.storeName
+//        }
+//    }
     var store : Store
+    @State var data : [Review] = []
+    @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
     
     var body: some View {
         NavigationStack {
@@ -58,12 +68,47 @@ struct DetailView: View {
                         storeMenu
                         
                         userStarRate
-                        
+
                         ForEach(reviewViewModel.reviews) { review in
-                           if (review.storeName == store.storeName){
-                                UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                           }
+                          
+                         
+                                
+                                if (review.storeName == store.storeName){
+                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                                    
+//                                    if self.data.last?.id == review.id {
+//                                        GeometryReader{ g in
+//                                            UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+//                                                .onAppear{
+//                                                    self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
+//                                                }
+//                                                .onReceive(self.time) { (_) in
+//                                                    print(g.frame(in:.global).maxY)
+//                                                }
+//
+//
+//                                        }
+//                                    }
+                                    
+                                }
+                            
                         }//FirstForEach
+//                        GeometryReader {reader -> Color in
+//                            DispatchQueue.main.async {
+//
+//                                let minY = reader.frame(in: .global).minY
+//                                let height = UIScreen.main.bounds.height * 0.7
+//                                if reviewViewModel.reviews.isEmpty && ( minY < height) {
+//                                    print("마지막\(minY)")
+//                                }
+//                                if  minY < height {
+//                                    print("화면 70%\(minY)")
+//                                }
+//
+//                            }
+//                            return Color.clear
+//
+//                        }
                         
                     }//VStack
                     
@@ -114,15 +159,22 @@ struct DetailView: View {
             Task{
                 storesViewModel.subscribeStores()
             }
+            reviewViewModel.fetchLatestReviews()
+
             reviewViewModel.fetchReviews()
+
         }
         .onDisappear {
             storesViewModel.unsubscribeStores()
         }
         .refreshable {
+            reviewViewModel.fetchLatestReviews()
+
             reviewViewModel.fetchReviews()
+
         }
         .redacted(reason: isLoading ? .placeholder : [])
+        
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.isLoading = false
@@ -293,18 +345,25 @@ extension DetailView {
             }
            
             Divider()
-            HStack{
-                Text("방문자 리뷰")
-               
-                    Text("\(reviewViewModel.reviews.count)")
-                        .foregroundColor(Color("AccentColor"))
-
-                Spacer()
-
-            }
-            .padding(.leading)
-            .padding(.top)
-            .font(.title2.bold())
+                NavigationLink{
+                   UserReviewCellDetailView()
+                }label:{
+                    HStack{
+                        Text("방문자 리뷰")
+                            .foregroundColor(.black)
+                        Text("\(storeReview.count)")
+                                .foregroundColor(Color("AccentColor"))
+            
+                        Spacer()
+                        Image(systemName: "chevron.forward")
+                            .foregroundColor(.gray)
+                            .padding(.trailing)
+                    }//HStack
+                   
+                }//NavigationLink
+                .padding(.leading)
+                .padding(.top)
+                .font(.title2.bold())
         
             
         }

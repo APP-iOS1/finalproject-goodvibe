@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MyPageView: View {
-    @EnvironmentObject var userVM: UserViewModel
-    
+    @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
@@ -20,6 +19,8 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
+            // 로그아웃 상태가 아니면(로그인상태이면) mypageView 띄우기
+            if userViewModel.isLoggedIn != false {
             VStack(alignment: .leading){
                 Text("마이페이지")
                     .font(.largeTitle)
@@ -45,12 +46,12 @@ struct MyPageView: View {
                             
                             VStack(alignment: .leading){
                                 HStack{
-                                    Text("\(userVM.userInfo.userNickname)")
+                                    Text("\(userViewModel.userInfo.userNickname)")
                                         .font(.title3)
                                     
                                     Spacer()
                                     
-                                    Text("\(userVM.userInfo.status)님")
+                                    Text("\(userViewModel.userInfo.userGrade)님")
                                         .font(.body)
                                         .padding(.trailing, 20)
                                 }
@@ -58,7 +59,7 @@ struct MyPageView: View {
                                 .padding(.bottom, 1)
                                 
                                 HStack{
-                                    Text(userVM.userInfo.userEmail)
+                                    Text(userViewModel.userInfo.userEmail)
                                         .font(.caption)
                                         .padding(.leading, 10)
                                 }
@@ -128,13 +129,13 @@ struct MyPageView: View {
                         }
                         
                         Button {
-                            userVM.isLoading = true
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                                userVM.signOut()
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                                userVM.isLoading = false
-                            }
+                            // userVM.isLoading = true
+                            // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                            //     userVM.signOut()
+                            // }
+                            // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                            //     userVM.isLoading = false
+                            // }
                         } label: {
                             HStack{
                                 Image(systemName: "xmark.circle")
@@ -152,15 +153,22 @@ struct MyPageView: View {
 //                }
                 
             }
+                Spacer()
+                Text("\(userViewModel.userInfo.userGrade)")
+                Text("\(userViewModel.userInfo.userEmail)")
+                Text("\(userViewModel.userInfo.id)")
+            } else {
+                goLoginView()
+                    .environmentObject(userViewModel)
+            }
             
-            
-            Spacer()
         }
         .onAppear {
-            userVM.fetchUpdateUserInfo()
+//            userVM.fetchUpdateUserInfo()
+            print("mypage onappear : \(userViewModel.userInfo)")
         }
         .overlay(content: {
-            LoadingView(show: $userVM.isLoading)
+//            LoadingView(show: $userVM.isLoading)
         })
         .sheet(isPresented: $isSheetPresented) {
             NavigationStack {

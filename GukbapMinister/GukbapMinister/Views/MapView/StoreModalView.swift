@@ -9,8 +9,7 @@ import SwiftUI
 
 struct StoreModalView: View {
     @EnvironmentObject private var storesViewModel: StoresViewModel
-    @State private var isHeart : Bool = false
-    
+    @State private var isHeartClicked : Bool = false
     var store: Store = .test
     
     var body: some View {
@@ -38,7 +37,7 @@ struct StoreModalView: View {
                                     .lineLimit(1)
                                     .fixedSize(horizontal: false, vertical: true)
                                 Image(systemName: "ellipsis.circle")
-                                    
+                                
                                 Spacer()
                             }
                             .font(.subheadline)
@@ -47,8 +46,8 @@ struct StoreModalView: View {
                         .padding(.top, 10)
                         Spacer()
                         GgakdugiRatingShort(rate: store.countingStar, size: 20)
-                        .padding(.leading, 5)
-                        .padding(.bottom, 10)
+                            .padding(.leading, 5)
+                            .padding(.bottom, 10)
                     }
                 }
                 .frame(height: 90)

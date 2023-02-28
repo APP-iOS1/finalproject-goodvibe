@@ -240,7 +240,7 @@ struct CreateReviewView: View {
                             if trimReviewText.count > 0 {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
-                                        userViewModel.updateReviewCount()
+
                                         Task{
                                             
                                             let createdAt = Date().timeIntervalSince1970
@@ -255,7 +255,8 @@ struct CreateReviewView: View {
                                                                         storeId: store.id ?? ""
                                             )
                                             
-                                            await reviewViewModel.addReview(review: review, images: images)
+                                            await reviewViewModel.addReview(review: review,
+                                                                            images: images)
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                                 showingSheet.toggle()
@@ -301,7 +302,7 @@ struct CreateReviewView: View {
             } // onTapGesture
             //            .ignoresSafeArea(.keyboard, edges: .bottom)
             .onAppear{
-                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
+//                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
             }
             .fullScreenCover(isPresented: $selectedImagesDetail){
                 ImageDetailView()

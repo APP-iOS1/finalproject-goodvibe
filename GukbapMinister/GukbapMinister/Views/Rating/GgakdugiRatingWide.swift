@@ -23,7 +23,7 @@ struct GgakdugiRatingWide: View {
     }
     
     var body: some View {
-        if userViewModel.state == .noSigned{
+        if userViewModel.loginState == .logout {
             HStack(spacing: spacing) {
                 ForEach(0..<5) { index in
                     Image(selected >= index ? "Ggakdugi" : "Ggakdugi.gray")
