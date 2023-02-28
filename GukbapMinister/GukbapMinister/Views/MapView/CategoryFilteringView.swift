@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CategoryFilteringView: View {
+    
     enum Mode {
         case map, myPage
     }
@@ -15,7 +16,6 @@ struct CategoryFilteringView: View {
     @Binding var showModal: Bool
     @ObservedObject var mapViewModel: MapViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-    
     @State private var didTap: [Bool] = Array(repeating: false, count: Gukbaps.allCases.count)
     var mode: Mode = .map
     
@@ -52,7 +52,6 @@ struct CategoryFilteringView: View {
 }
 
 extension CategoryFilteringView {
-    
     @ViewBuilder
     private func getButtonsInRange(_ start: Int, _ end: Int) -> some View {
         HStack{
@@ -66,7 +65,7 @@ extension CategoryFilteringView {
                             .frame(width: 28, height: 28)
                         
                         Text(gukbap.rawValue)
-                           
+                        
                     }
                     .categoryCapsule(isChanged: didTap[index])
                 }
@@ -97,12 +96,21 @@ extension CategoryFilteringView {
                     } label: {
                         Text("확인")
                     }
+                } label: {
+                    Text("필터해제")
                 }
-                if mode == .map {
-                    Divider()
+                Spacer()
+                Button {
+                    showModal.toggle()
+                } label: {
+                    Text("확인")
                 }
-                    
             }
+            if mode == .map {
+                Divider()
+            }
+            
+        }
     }
 }
 
