@@ -41,15 +41,17 @@ struct UserReviewCell:  View {
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
                 }
+                Text(" 리뷰 \(userViewModel.userInfo.reviewCount)")
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
+                
                 if isInMypage {
                     Text("\(review.storeName)")
                         .font(.caption)
                         .foregroundColor(scheme == .light ? .secondary : .white)
                         .padding(.leading, 3)
                 }
-                Text(" 리뷰 \(userViewModel.userInfo.reviewCount)")
-                    .foregroundColor(.secondary)
-                    .font(.caption2)
+              
                 Spacer()
                 
                 if userViewModel.currentUser?.uid ?? "" == review.userId {

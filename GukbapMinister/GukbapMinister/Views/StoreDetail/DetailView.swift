@@ -71,32 +71,53 @@ struct DetailView: View {
                         userStarRate
 
                         if !self.storeReview.isEmpty {
-                        ForEach(storeReview) { review in
-                            
+               //         ForEach(storeReview) { review in
+                            ForEach(Array(storeReview.enumerated()), id: \.offset) { index, review in
                             
                              
-                                if self.storeReview.last?.id == review.id {
-                                    GeometryReader { g in
-                                        UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                                            .onAppear(){
-                                                self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
-                                            }
-                                            .onReceive(self.time) { (_) in
-                                                print(g.frame(in:.global).maxY)
-                                                print(UIScreen.main.bounds.height - 120)
-                                                if g.frame(in:.global).maxY < UIScreen.main.bounds.height - 120{
-                                                 
-                                                    reviewViewModel.updateReviews()
-                                                    print("리뷰 데이터 로딩중")
-                                                    self.time.upstream.connect().cancel()
+//                                if self.storeReview.last?.id == review.id {
+//                                    GeometryReader { g in
+//                                        UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+//                                            .onAppear(){
+//                                                self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
+//                                            }
+//                                            .onReceive(self.time) { (_) in
+//                                                print(g.frame(in:.global).maxY)
+//                                                print(UIScreen.main.bounds.height - 120)
+//                                                if g.frame(in:.global).maxY < UIScreen.main.bounds.height - 120{
+//
+//                                                    reviewViewModel.updateReviews()
+//                                                    print("리뷰 데이터 로딩중")
+//                                                    self.time.upstream.connect().cancel()
+//                                                }
+//                                            }
+//                                    }
+//                                }
+//                                else{
+//                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+//                                }
+                          
+                            
+                                UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                                    .onAppear(){
+                                        print("\(index)번째 페이지")
+                                      
+                                        if index == storeReview.count - 1{
+                                            if ((self.storeReview.last?.id) != nil) == true {
+                                                VStack{
+                                                    Text("더보기")
+                                                        .font(.title3)
+                                                        .foregroundColor(.black)
+
                                                 }
+                                                
                                             }
+                                            reviewViewModel.updateReviews()
+                                            print("리뷰 데이터 로딩중")
+                                        }
+                                    
                                     }
-                                }
-                                else{
-                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                                }
-                               
+                            
                             
                             
                         }

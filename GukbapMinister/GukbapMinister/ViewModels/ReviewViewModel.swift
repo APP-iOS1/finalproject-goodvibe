@@ -83,7 +83,7 @@ class ReviewViewModel: ObservableObject {
     //MARK: 다음 데이터 업데이트
     func updateReviews(){
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.database.collection("Review")
                 .order(by: "createdAt", descending: true)
                 .start(afterDocument: self.lastDoc)
