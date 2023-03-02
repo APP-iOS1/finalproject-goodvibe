@@ -48,7 +48,13 @@ struct ExploreOrderedStoresItem: View {
                     .padding(.top, 3)
                     .padding(.leading, 3)
 
-                    KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first ?? URL(string: ""))
+                    KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
+                        .placeholder {
+                            Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 190, height: 190)
+                        }
                         .resizable()
                         .scaledToFill()
                         .frame(width: 190, height: 190)

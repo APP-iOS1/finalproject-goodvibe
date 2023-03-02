@@ -67,13 +67,13 @@ final class ExploreViewModel: ObservableObject {
         }
     }
     
-    // 조회수를 increase시키는 메서드 
+    // 조회수를 increase시키는 메서드
     func increaseHits(store : Store) {
         if let documentId = store.id {
             database.collection("Store")
-                    .document(documentId)
-                    .updateData(["hits" : store.hits + 1])
-
+                .document(documentId)
+                .updateData(["hits" : store.hits + 1])
+            
         }
     }
     

@@ -67,8 +67,13 @@ struct ListCell : View {
             } label: {
                 HStack{
                     HStack(alignment: .top){
-                        
-                        KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first ?? URL(string: ""))
+                        KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
+                            .placeholder {
+                                Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 90, height: 90)
+                            }
                             .resizable()
                             .scaledToFill()
                             .frame(width: 90, height: 90)
