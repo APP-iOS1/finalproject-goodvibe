@@ -1,31 +1,15 @@
-//
-//  DetailListView.swift
-//  GukbapMinister
-//
-//  Created by 기태욱 on 2023/02/09.
-//
-//
-//  CollectionView.swift
-//  GukbapMinister
-//
-//  Created by Martin on 2023/01/16.
-//
+
 
 import SwiftUI
-import FirebaseAuth
+import Kingfisher
 
-struct DetailListView: View {
-    @EnvironmentObject private var storesViewModel: StoresViewModel
-    @EnvironmentObject private var userVM: UserViewModel
-    @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
-    
-    let currentUser = Auth.auth().currentUser
+struct OrderedListView: View {
+    @ObservedObject var exploreViewModel : ExploreViewModel
+    var mode: ExploreOrderingMode
+    var stores: [Store] {
+        return mode == .hits ? exploreViewModel.storesOrderedByHits : exploreViewModel.storesOrderedByStar
+    }
 
-    
-    var listName : String
-    var list : [Store]
-    var images : [String : UIImage]
-    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -39,11 +23,8 @@ struct DetailListView: View {
                                 .frame(width: UIScreen.main.bounds.width, height: 10)
                                 .foregroundColor(.gray.opacity(0.2))
                             
-                            ForEach(Array(list.enumerated()), id: \.offset){ (index, element) in
-                                
-                                let imageData = images[element.storeImages.first ?? ""] ?? UIImage()
-                                
-                                ListCell(cellData: element, imagedata: imageData)
+                            ForEach(stores, id: \.self){ store in
+                                ListCell(exploreViewModel: exploreViewModel, store: store)
                                     .frame(width: UIScreen.main.bounds.width-40, height: 90)
                                     .padding()
                                     .padding(.vertical, 10)
@@ -58,7 +39,7 @@ struct DetailListView: View {
                 } // ScrollView
                 .toolbarBackground(Color.white, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
-                .navigationTitle("\(listName)")
+                .navigationTitle(mode == .hits ? "국밥집 조회수 랭킹" : "깍두기 점수가 높은 국밥집")
                 .navigationBarTitleDisplayMode(.inline)
             } // ZStack
         } // NavigationStack
@@ -69,9 +50,9 @@ struct DetailListView: View {
 
 // cell
 struct ListCell : View {
+    @ObservedObject var exploreViewModel : ExploreViewModel
+    var store : Store
     
-    var cellData : Store
-    var imagedata: UIImage
     @State var isLoading = true
     
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
@@ -82,12 +63,17 @@ struct ListCell : View {
         
         VStack {
             NavigationLink {
-                DetailView(store : cellData)
+                DetailView(store : store)
             } label: {
                 HStack{
                     HStack(alignment: .top){
-                        
-                        Image(uiImage: imagedata)
+                        KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
+                            .placeholder {
+                                Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 90, height: 90)
+                            }
                             .resizable()
                             .scaledToFill()
                             .frame(width: 90, height: 90)
@@ -98,16 +84,13 @@ struct ListCell : View {
                         
                         VStack(alignment: .leading, spacing: 1){
                             HStack{
-                                Text(cellData.storeName)
+                                Text(store.storeName)
                                     .font(.body)
                                     .bold()
                                     .padding(4)
                                 
                                 Spacer()
-                                
-
                             }
-                            
                             
                             HStack(alignment: .center){
                                 Text("깍두기 점수")
@@ -121,20 +104,19 @@ struct ListCell : View {
                                         .padding(.trailing, 5)
 
                                     
-                                    Text("\(String(format: "%.1f", cellData.countingStar))")
+                                    Text("\(String(format: "%.1f", store.countingStar))")
                                         .font(.caption)
                                         .bold()
                                 }
                                 
                                 Spacer()
-                                
                             }
                             .frame(height: 20)
                             .padding(.leading, 5)
                             
                             
                             HStack{
-                                Text(cellData.storeAddress)
+                                Text(store.storeAddress)
                                     .font(.callout)
                                     .lineLimit(1)
                                     .padding(.top, 3)
@@ -145,7 +127,7 @@ struct ListCell : View {
                             
                             HStack{
                                 LazyHGrid(rows: rowOne) {
-                                    ForEach(cellData.foodType, id: \.self) { foodType in
+                                    ForEach(store.foodType, id: \.self) { foodType in
                                         Text("\(foodType)")
                                             .font(.caption)
                                             .padding(9)

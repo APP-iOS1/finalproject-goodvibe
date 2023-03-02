@@ -5,10 +5,13 @@ import CoreLocationUI
 
 struct MapView: View {
     @Environment(\.colorScheme) var scheme
-    @EnvironmentObject var storesViewModel: StoresViewModel
+
     @StateObject var mapViewModel = MapViewModel(storeLocations: [])
     @StateObject var locationManager = LocationManager()
-    @EnvironmentObject var userViewModel: UserViewModel
+    
+    @EnvironmentObject var userViewModel : UserViewModel
+    @EnvironmentObject var storesViewModel: StoresViewModel
+
     // 필터 버튼을 눌렀을 때 동작
     @State var isShowingFilterModal: Bool = false
     @State private var isShowingSelectedStore: Bool = false
@@ -61,10 +64,9 @@ struct MapView: View {
             
         }
         .onAppear {
-            Task{
-                mapViewModel.storeLocations = storesViewModel.stores
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    mapViewModel.setStoreLocationAnnotations()
+            Task {
+                DispatchQueue.main.asyncAfter(deadline:.now() + 0.5) {
+                    mapViewModel.storeLocations = storesViewModel.stores
                 }
             }
         }

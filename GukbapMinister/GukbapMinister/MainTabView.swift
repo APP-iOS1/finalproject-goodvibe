@@ -16,19 +16,19 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            MapView()
+            MapView(mapViewModel: MapViewModel(storeLocations: storesViewModel.stores))
                 .tabItem {
                     Label("지도", image: "GBmapIcon")
                 }
-                .tag(0)
+                .tag(1)
                 .environmentObject(storesViewModel)
             
             
-            ExploreView()
+            ExploreView(exploreViewModel: ExploreViewModel(stores: storesViewModel.stores))
                 .tabItem {
                     Label("둘러보기", image: "GBexploreIcon")
                 }
-                .tag(1)
+                .tag(2)
                 .environmentObject(storesViewModel)
                 .environmentObject(userViewModel)
 
@@ -74,14 +74,14 @@ struct MainTabView: View {
                     }
                     .toolbar(.visible, for: .tabBar)
                     .toolbarBackground(Color.white, for: .tabBar)
-                    .tag(2)
+                    .tag(3)
                     .environmentObject(storesViewModel)
                     .environmentObject(userViewModel)
                 MyPageView()
                     .tabItem {
                         Label("마이페이지", image: "GBmypageIcon")
                     }
-                    .tag(3)
+                    .tag(4)
                     .environmentObject(userViewModel)
                     .environmentObject(storesViewModel)
 
