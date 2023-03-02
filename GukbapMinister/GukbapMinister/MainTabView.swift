@@ -83,6 +83,8 @@ struct MainTabView: View {
                     }
                     .tag(3)
                     .environmentObject(userViewModel)
+                    .environmentObject(storesViewModel)
+
 //            }
 
         }

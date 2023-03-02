@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NoticeView: View {
 
+    //관리자앱과 연동 필요
     
     var body: some View {
         NavigationStack {
