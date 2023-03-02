@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var storesViewModel: StoresViewModel
     
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
@@ -86,6 +87,8 @@ struct MyPageView: View {
                         
                         NavigationLink {
                             MyReviewView()
+                                .environmentObject(storesViewModel)
+
                         } label: {
                             HStack {
                                 Image(systemName: "pencil")

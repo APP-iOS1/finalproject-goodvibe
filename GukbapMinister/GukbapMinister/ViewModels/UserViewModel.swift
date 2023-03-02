@@ -34,7 +34,7 @@ class UserViewModel: ObservableObject {
     
     // MARK: - 프로퍼티
     let database = Firestore.firestore() // FireStore 참조 객체
-    let currentUser = Auth.auth().currentUser
+    var currentUser = Auth.auth().currentUser
     
     // MARK: - @Published 변수
     @Published var loginState: LoginState = .logout // 로그인 상태 변수
@@ -43,12 +43,12 @@ class UserViewModel: ObservableObject {
     
     // MARK: - 자동로그인을 위한 UserDefaults 변수
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
-    @AppStorage("loginFlatform") var loginFlatform: String = (UserDefaults.standard.string(forKey: "loginFlatform") ?? "")
+    @AppStorage("loginPlatform") var loginPlatform: String = (UserDefaults.standard.string(forKey: "loginPlatform") ?? "")
     
     init() {
         print("\(self.isLoggedIn)")
-        print("\(self.loginFlatform)")
-        if self.isLoggedIn {
+        print("\(self.loginPlatform)")
+        if self.isLoggedIn && currentUser != nil {
             self.fetchUserInfo(uid: self.currentUser?.uid ?? "")
         }
     }
@@ -129,12 +129,12 @@ class UserViewModel: ObservableObject {
                     // 로그인 성공시 유저정보 FireStore에 저장
                     self.insertUserInFireStore(uid: uid, userEmail: user.profile?.email ?? "", userName: user.profile?.name ?? "")
                     self.fetchUserInfo(uid: uid)
-                    
+                    print("로그인 후 : currentUser - \(self.currentUser)")
                 }
                 // 구글로그인 상태로 전환
                 self.loginState = .googleLogin
                 UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                UserDefaults.standard.set("googleLogin", forKey: "loginFlatform")
+                UserDefaults.standard.set("googleLogin", forKey: "loginPlatform")
                 print("asdfasdf \(self.isLoggedIn)")
             }
         
@@ -154,7 +154,7 @@ class UserViewModel: ObservableObject {
                     // 카카오 로그인으로 전환
                     self.loginState = .kakaoLogin
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    UserDefaults.standard.set("kakaoLogin", forKey: "loginFlatform")
+                    UserDefaults.standard.set("kakaoLogin", forKey: "loginPlatform")
                     // firebase에 저장
                     self.loginFirebase()
                 }
@@ -173,7 +173,7 @@ class UserViewModel: ObservableObject {
                     // 카카오 로그인으로 전환
                     self.loginState = .kakaoLogin
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    UserDefaults.standard.set("kakaoLogin", forKey: "loginFlatform")
+                    UserDefaults.standard.set("kakaoLogin", forKey: "loginPlatform")
                     // firebase에 저장
                     self.loginFirebase()
                 }
@@ -224,19 +224,30 @@ class UserViewModel: ObservableObject {
         
         print("현재 로그인 플랫폼 - \(String(describing: self.loginState))")
         
-        switch loginFlatform {
+        switch loginPlatform {
         case "googleLogin": // 구글로그인일때
-            
-            GIDSignIn.sharedInstance.signOut() // 구글 로그아웃
             do {
-                try Auth.auth().signOut() // FirebaseAuth 로그아웃
                 UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                UserDefaults.standard.set("noLoginPlatform", forKey: "loginPlatform")
+                try Auth.auth().signOut()
                 self.loginState = .logout // 로그아웃 상태로 전환
                 print("\(#function) - 구글 로그아웃 성공")
                 print("\(self.isLoggedIn)")
-            } catch {
-                print("\(error.localizedDescription)")
+                print("로그아웃 후 : currentUser - \(self.currentUser)")
+            } catch let signOutError as NSError {
+              print("Error signing out: %@", signOutError)
             }
+//            GIDSignIn.sharedInstance.signOut() // 구글 로그아웃
+//            do {
+//                UserDefaults.standard.set(false, forKey: "isLoggedIn")
+//                UserDefaults.standard.set("noLoginPlatform", forKey: "loginPlatform")
+//                try Auth.auth().signOut() // FirebaseAuth 로그아웃
+//                self.loginState = .logout // 로그아웃 상태로 전환
+//                print("\(#function) - 구글 로그아웃 성공")
+//                print("\(self.isLoggedIn)")
+//            } catch {
+//                print("\(error.localizedDescription)")
+//            }
             
         case "kakaoLogin": // 카카오로그인일때
 //            UserApi.shared.unlink { error in
@@ -252,6 +263,7 @@ class UserViewModel: ObservableObject {
                     do {
                         try Auth.auth().signOut()
                         UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                        UserDefaults.standard.set("noLoginPlatform", forKey: "loginPlatform")
                         self.loginState = .logout // 로그아웃 상태로 전환
                         print("\(#function) - 카카오 로그아웃 성공")
                     } catch {

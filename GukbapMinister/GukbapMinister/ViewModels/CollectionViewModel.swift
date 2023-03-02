@@ -26,8 +26,9 @@ class CollectionViewModel : ObservableObject {
     let storage = Storage.storage()
     
     // MARK: - 찜한 가게 목록 불러오기
-    func fetchLikedStore(userId: String) {
-        let ref = database.collection("User").document("\(userId)").collection("LikedStore")
+    func fetchLikedStore() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let ref = database.collection("User").document(uid).collection("LikedStore")
         
         ref.getDocuments { snapShot, error in
             
@@ -77,7 +78,7 @@ class CollectionViewModel : ObservableObject {
         
         ref.delete()
         
-        self.fetchLikedStore(userId: userId)
+        self.fetchLikedStore()
     }
     
     // MARK: - 찜한 가게 추가/삭제
@@ -104,7 +105,7 @@ class CollectionViewModel : ObservableObject {
             self.disLikeStore(userId: userId, store: store)
 
         }
-        self.fetchLikedStore(userId: userId)
+        self.fetchLikedStore()
     }
     
     func likeStore(userId: String, store: Store){
