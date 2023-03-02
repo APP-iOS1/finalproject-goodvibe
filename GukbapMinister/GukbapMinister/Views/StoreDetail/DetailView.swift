@@ -60,7 +60,7 @@ struct DetailView: View {
    
                 ScrollView(showsIndicators: false) {
                     VStack{
-                        storeImages
+                        DetailStoreImages(viewModel: DetailStoreImageViewModel(store: store), showDetail: $isshowingStoreImageDetail)
                         
                         storeFoodTypeAndRate
                         
@@ -69,11 +69,7 @@ struct DetailView: View {
                         storeMenu
                         
                         userStarRate
-                        
-                        
-                        
-                        
-                        
+
                         if !self.storeReview.isEmpty {
                         ForEach(storeReview) { review in
                             
@@ -218,31 +214,6 @@ struct DetailView: View {
 
 }//struct
 extension DetailView {
-    
-    //MARK: 가게 이미지
-    var storeImages: some View {
-        TabView {
-            
-            ForEach(Array(store.storeImages.enumerated()), id: \.offset){ index, imageData in
-                Button(action: {
-                    isshowingStoreImageDetail.toggle()
-                }){
-                    if let image = storesViewModel.storeTitleImage[imageData] {
-                        
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                        
-                    }
-                    //if let
-                }
-                
-            }
-            
-        }
-        .frame(height:Screen.maxWidth * 0.8)
-        .tabViewStyle(.page(indexDisplayMode: .always))
-    }
     
     //MARK: 가게 음식종류, 평점
     var storeFoodTypeAndRate: some View {

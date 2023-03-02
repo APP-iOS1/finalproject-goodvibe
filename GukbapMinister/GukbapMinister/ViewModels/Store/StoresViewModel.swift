@@ -74,7 +74,8 @@ final class StoresViewModel: ObservableObject {
                     //FirebaseFireStoreSwift 를 써서 @Document 프로퍼티를 썼더니 가능
                     self.stores = documents.compactMap { queryDocumentSnapshot in
                         let result = Result { try queryDocumentSnapshot.data(as: Store.self) }
-
+                        
+                        //FIXME: Kingfisher 도입하면 fetchImage 메서드가 더이상 필요 없을 예정
                         switch result {
                         case .success(let store):
                             for imageName in store.storeImages {
@@ -97,6 +98,9 @@ final class StoresViewModel: ObservableObject {
                 }
         }
     }
+    
+    
+    
     
     func fetchImages(storeId: String, imageName: String) async throws -> UIImage {
         let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
