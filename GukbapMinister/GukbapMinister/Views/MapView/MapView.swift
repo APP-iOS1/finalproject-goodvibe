@@ -4,13 +4,11 @@ import CoreLocation
 import CoreLocationUI
 
 struct MapView: View {
-
     @Environment(\.colorScheme) var scheme
-    // Command + F -> replace: changes searched word in the file
     @EnvironmentObject var storesViewModel: StoresViewModel
     @StateObject var mapViewModel = MapViewModel(storeLocations: [])
     @StateObject var locationManager = LocationManager()
-    @EnvironmentObject var userViewModel : UserViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     // 필터 버튼을 눌렀을 때 동작
     @State var isShowingFilterModal: Bool = false
     @State private var isShowingSelectedStore: Bool = false
@@ -32,11 +30,11 @@ struct MapView: View {
                     )
                     .ignoresSafeArea(edges: [.top, .horizontal])
                     
-                    VStack {
-                        SearchBarButton()
-                        mapFilter
-                        Spacer()
-                    }
+                  VStack {
+                    SearchBarButton()
+                    mapFilter
+                    Spacer()
+                  }
                     
                     StoreReportButton()
                         .offset(x: width * 0.5 - 35 - 12)
@@ -70,7 +68,6 @@ struct MapView: View {
                 }
             }
         }
-        
     }
     
 }
