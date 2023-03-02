@@ -310,6 +310,8 @@ struct CreateReviewView: View {
             }
             .onDisappear{
                 reviewViewModel.fetchReviews()
+                reviewViewModel.fetchAllReviews()
+
             }
             
         }

@@ -44,6 +44,7 @@ struct StoreImageDetailView: View {
                     
                 }
                 .navigationBarBackButtonHidden(true)
+                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {

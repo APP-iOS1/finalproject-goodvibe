@@ -39,7 +39,45 @@ class ReviewViewModel: ObservableObject {
     //    var nickName: String
     //    var createdDate: String
     //    var storeName: String
-    
+    func fetchAllReviews() {
+            
+            database.collection("Review")
+                .order(by: "createdAt", descending: true)
+                .getDocuments { (snapshot, error) in
+                    self.reviews.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+                            let id: String = document.documentID
+                            
+                            let docData = document.data()
+                            let userId: String = docData["userId"] as? String ?? ""
+                            let reviewText: String = docData["reviewText"] as? String ?? ""
+                            let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                            let images: [String] = docData["images"] as? [String] ?? []
+                            let nickName: String = docData["nickName"] as? String ?? ""
+                            let starRating: Int = docData["starRating"] as? Int ?? 0
+                            let storeName: String = docData["storeName"] as? String ?? ""
+                            let storeId: String = docData["storeId"] as? String ?? ""
+                            let show: Bool = docData["show"] as? Bool ?? false
+
+                            let review: Review = Review(id: id,
+                                                        userId: userId,
+                                                        reviewText: reviewText,
+                                                        createdAt: createdAt,
+                                                        images: images,
+                                                        nickName: nickName,
+                                                        starRating: starRating,
+                                                        storeName: storeName,
+                                                        storeId: storeId,
+                                                        show: show
+                            )
+                            
+                            self.reviews.append(review)
+                        }
+                    }
+                }
+        }
 
     //MARK: 다음 데이터 업데이트
     func updateReviews(){

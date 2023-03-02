@@ -43,12 +43,15 @@ struct DetailView: View {
     
     @State private var isLoading: Bool = true
     var storeReview : [Review] {
+        reviewViewModel.reviews2.filter{
+            $0.storeName == store.storeName
+        }
+    }
+    var checkAllReviewCount : [Review] {
         reviewViewModel.reviews.filter{
             $0.storeName == store.storeName
         }
     }
-    @State var reviewData : [Review] = []
-    
     var store : Store
     @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
 
@@ -71,13 +74,13 @@ struct DetailView: View {
                         
                         
                         
-                        if !self.reviewViewModel.reviews2.isEmpty {
-                        ForEach(reviewViewModel.reviews2) { review in
+                        if !self.storeReview.isEmpty {
+                        ForEach(storeReview) { review in
                             
                             if review.reviewText == "" {}
                             else {
                                    //  ZStack{
-                                if self.reviewViewModel.reviews2.last?.id == review.id {
+                                if self.storeReview.last?.id == review.id {
                                     GeometryReader { g in
                                         UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
                                             .onAppear(){
@@ -183,13 +186,13 @@ struct DetailView: View {
             CreateReviewView(reviewViewModel: reviewViewModel,selectedStar: $selectedStar, showingSheet: $showingCreateRewviewSheet, store: store )
         }
         .onAppear{
-            print("asdfadjflakjsdhkljfhasdkjfhakjsdhfkajhsdlkjfhkaljhskdhfkjahskljdhfkjahskldjhfkjahskjdhfkjahsdkjfhakjdshfkjhlasdf\(UIScreen.main.bounds.height)")
-            print("review2,2,2,2,2,2,2,2,\(reviewViewModel.reviews2)")
+            
             Task{
                 storesViewModel.subscribeStores()
             }
 
             reviewViewModel.fetchReviews()
+            reviewViewModel.fetchAllReviews()
 
         }
         .onDisappear {
@@ -198,6 +201,7 @@ struct DetailView: View {
         .refreshable {
 
            reviewViewModel.fetchReviews()
+            reviewViewModel.fetchAllReviews()
 
 
         }
@@ -382,7 +386,7 @@ extension DetailView {
                     HStack{
                         Text("방문자 리뷰")
                             .foregroundColor(.black)
-                        Text("\(reviewViewModel.reviews2.count)")
+                        Text("\(checkAllReviewCount.count)")
                                 .foregroundColor(Color("AccentColor"))
             
                         Spacer()
