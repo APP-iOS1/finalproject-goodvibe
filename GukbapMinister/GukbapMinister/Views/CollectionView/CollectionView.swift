@@ -126,7 +126,7 @@ struct CollectionView: View {
         } // NavigationStack
         .onAppear {
             print("collectionview onappear : \(userViewModel.userInfo)")
-//            collectionVM.fetchLikedStore(userId: currentUser?.uid ?? "")
+                collectionVM.fetchLikedStore()
             //userVM.fetchUserInfo(uid: currentUser?.uid ?? "")
 //            Task{
 //                storesViewModel.subscribeStores()
