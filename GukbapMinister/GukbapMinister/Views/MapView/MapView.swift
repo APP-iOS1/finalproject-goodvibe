@@ -30,11 +30,11 @@ struct MapView: View {
                     )
                     .ignoresSafeArea(edges: [.top, .horizontal])
                     
-                    VStack {
-                        SearchBarButton()
-                        mapFilter
-                        Spacer()
-                    }
+                  VStack {
+                    SearchBarButton()
+                    mapFilter
+                    Spacer()
+                  }
                     
                     StoreReportButton()
                         .offset(x: width * 0.5 - 35 - 12)
@@ -68,7 +68,6 @@ struct MapView: View {
                 }
             }
         }
-        
     }
     
 }

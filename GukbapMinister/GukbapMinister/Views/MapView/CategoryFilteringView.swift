@@ -31,11 +31,11 @@ struct CategoryFilteringView: View {
             .padding(.bottom, 12)
             
             VStack(alignment: .center){
-                placeButtonsinAlignment(0,2)
-                placeButtonsinAlignment(3,4)
-                placeButtonsinAlignment(5,7)
-                placeButtonsinAlignment(8,9)
-                placeButtonsinAlignment(10,11)
+                placeButtonsInAlignment(0,2)
+                placeButtonsInAlignment(3,4)
+                placeButtonsInAlignment(5,7)
+                placeButtonsInAlignment(8,9)
+                placeButtonsInAlignment(10,11)
             }
             
             Spacer()
@@ -53,7 +53,7 @@ struct CategoryFilteringView: View {
 
 extension CategoryFilteringView {
     @ViewBuilder
-    private func placeButtonsinAlignment(_ start: Int, _ end: Int) -> some View {
+    private func placeButtonsInAlignment(_ start: Int, _ end: Int) -> some View {
         HStack{
             ForEach(Array(Gukbaps.allCases.enumerated())[start...end], id: \.offset) { index, gukbap in
                 Button{

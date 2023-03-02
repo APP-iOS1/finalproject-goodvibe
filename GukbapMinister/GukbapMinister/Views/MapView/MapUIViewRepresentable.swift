@@ -139,17 +139,15 @@ struct MapUIView: UIViewRepresentable {
     }
     
     func updateUIView(_ view: MKMapView, context: Context) {
+        
         // Assigning delegate
         view.delegate = context.coordinator
-        
+      
         // 필터가 변함에 따라 뷰에서 제거 해야 할 Annotation이 변동되기 때문
         view.removeAnnotations(getRemovingAnnotations(filters, storeAnnotations: storeAnnotations))
+      
         // 필터가 변함에 따라 뷰에 추가 해야 할 Annotation이 변동되기 때문
         view.addAnnotations(getAddingAnnotations(filters, storeAnnotations: storeAnnotations))
-    }
-    
-    func makeCoordinator() -> MapViewCoordinator{
-        MapViewCoordinator(self)
     }
     
     func getRemovingAnnotations(_ filters: [Gukbaps], storeAnnotations: [StoreAnnotation]) -> [StoreAnnotation] {
@@ -187,4 +185,9 @@ struct MapUIView: UIViewRepresentable {
             return addingAnnotations
         }
     }
+  
+  func makeCoordinator() -> MapViewCoordinator {
+      MapViewCoordinator(self)
+  }
+  
 }
