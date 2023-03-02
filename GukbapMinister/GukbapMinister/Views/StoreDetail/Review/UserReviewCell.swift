@@ -5,6 +5,7 @@
 //  Created by Martin on 2023/02/14.
 //
 import SwiftUI
+import Kingfisher
 
 //MARK: 가게 리뷰
 struct UserReviewCell:  View {
@@ -13,7 +14,7 @@ struct UserReviewCell:  View {
     @StateObject var reviewViewModel: ReviewViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     
-
+    
     @State private var isShowingReportView = false
     @State private var isshowingReviewDetailView = false
     @State var reportEnter = false
@@ -26,29 +27,31 @@ struct UserReviewCell:  View {
     var isInMypage: Bool = false
     var body: some View {
         VStack(spacing: 0){
-           
+            
             HStack(spacing: 0){
-
+                
                 Text("\(review.nickName)")
-                        .fontWeight(.semibold)
-                        .padding(.vertical)
-//                        .padding(.leading)
-                    
+                    .fontWeight(.semibold)
+                    .padding(.vertical)
+                //                        .padding(.leading)
+                
                 if (userViewModel.currentUser?.uid ?? "" == review.userId) && !isInMypage {
                     Text("(내 리뷰)")
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
                 }
+                Text(" 리뷰 \(userViewModel.userInfo.reviewCount)")
+                    .foregroundColor(.secondary)
+                    .font(.caption2)
+                
                 if isInMypage {
                     Text("\(review.storeName)")
                         .font(.caption)
                         .foregroundColor(scheme == .light ? .secondary : .white)
                         .padding(.leading, 3)
                 }
-                Text(" 리뷰 \(userViewModel.userInfo.reviewCount)")
-                    .foregroundColor(.secondary)
-                    .font(.caption2)
+              
                 Spacer()
                 
                 if userViewModel.currentUser?.uid ?? "" == review.userId {
@@ -115,25 +118,41 @@ struct UserReviewCell:  View {
             .padding(.leading)
             .padding(.trailing, 5)
             .padding(.top, -10)
-            
-            
-            
-            
+
             let columns = Array(repeating: GridItem(.flexible(),spacing: -8), count: 2)
             LazyVGrid(columns: columns, alignment: .leading, spacing: 4, content: {
                 
-                ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
+                //                ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageData in
+                //                    Button(action:{
+                //                        isshowingReviewDetailView.toggle()
+                //                    }){
+                //                        if let image = reviewViewModel.reviewImage[imageData] {
+                //
+                //                            Image(uiImage: image)
+                //                                .resizable()
+                //                                .aspectRatio(contentMode: .fill)
+                //                                .frame(width: getWidth(index: index), height: getHeight(index: index))
+                //                                .cornerRadius(5)
+                //                        }//if let
+                //                    }
+                //
+                //                }
+                //                // ForEach(review.images)
+                //
+                //
+                //            })
+                ForEach(Array(review.images!.enumerated()), id: \.offset) { index, imageURL in
                     Button(action:{
                         isshowingReviewDetailView.toggle()
                     }){
-                        if let image = reviewViewModel.reviewImage[imageData] {
-                            
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: getWidth(index: index), height: getHeight(index: index))
-                                .cornerRadius(5)
-                        }//if let
+                        KFImage(reviewViewModel.reviewImageURLs[imageURL])
+                            .placeholder{
+                                ProgressView()
+                            }
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: getWidth(index: index), height: getHeight(index: index))
+                            .cornerRadius(5)
                     }
                     
                 }
@@ -155,8 +174,8 @@ struct UserReviewCell:  View {
             Divider()
         }//VStack
         .onAppear{
-//            userViewModel.fetchUpdateUserInfo()
-
+            //            userViewModel.fetchUpdateUserInfo()
+            
         }
         //"부적절한 리뷰 신고하기" 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $isShowingReportView) {
