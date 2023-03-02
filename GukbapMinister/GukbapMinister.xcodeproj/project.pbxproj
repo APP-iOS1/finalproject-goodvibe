@@ -19,9 +19,6 @@
 		041FE96E297A287000BE32E7 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE96D297A287000BE32E7 /* ReviewDetailView.swift */; };
 		041FE9732988DCDE00BE32E7 /* Ex+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FE9722988DCDE00BE32E7 /* Ex+View.swift */; };
 		0488EE592977DD8A00D866B7 /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488EE582977DD8A00D866B7 /* ImageDetailView.swift */; };
-
-		049510CE29ADF8EC00088A1D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 049510CD29ADF8EC00088A1D /* Config.xcconfig */; };
-
 		049BF93B2976320600D2D044 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93A2976320600D2D044 /* PopupView */; };
 		049BF93D2976848D00D2D044 /* CreateReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BF93C2976848D00D2D044 /* CreateReviewView.swift */; };
 		049BF9402977169E00D2D044 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 049BF93F2977169E00D2D044 /* Shimmer */; };
@@ -43,8 +40,6 @@
 		5B0E6FDD299BE04C00F4C0F6 /* UserReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */; };
 		5B138DE02988EB3A004F9187 /* StoreAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */; };
 		5B138DE22988EB66004F9187 /* MKMapRect+Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */; };
-		5B18D99429B02DEF0079628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B18D99329B02DEF0079628D /* GoogleService-Info.plist */; };
-		5B18D99629B02E1F0079628D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5B18D99529B02E1F0079628D /* Config.xcconfig */; };
 		5B18D99829B03CBD0079628D /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18D99729B03CBD0079628D /* ExploreViewModel.swift */; };
 		5B18D99A29B0478F0079628D /* ExploreBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18D99929B0478F0079628D /* ExploreBanner.swift */; };
 		5B18D99C29B06CA90079628D /* ExploreOrderedStores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18D99B29B06CA90079628D /* ExploreOrderedStores.swift */; };
@@ -119,9 +114,6 @@
 		041FE96D297A287000BE32E7 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
 		041FE9722988DCDE00BE32E7 /* Ex+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+View.swift"; sourceTree = "<group>"; };
 		0488EE582977DD8A00D866B7 /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
-
-		049510CD29ADF8EC00088A1D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-
 		049BF93C2976848D00D2D044 /* CreateReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReviewView.swift; sourceTree = "<group>"; };
 		1406FCC629AC93BF006A67FE /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1406FCC729AC93C0006A67FE /* goLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goLoginView.swift; sourceTree = "<group>"; };
@@ -140,7 +132,6 @@
 		5B0E6FDC299BE04C00F4C0F6 /* UserReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReviewCell.swift; sourceTree = "<group>"; };
 		5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAnnotation.swift; sourceTree = "<group>"; };
 		5B138DE12988EB66004F9187 /* MKMapRect+Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapRect+Regions.swift"; sourceTree = "<group>"; };
-		5B18D99329B02DEF0079628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B18D99529B02E1F0079628D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5B18D99729B03CBD0079628D /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		5B18D99929B0478F0079628D /* ExploreBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBanner.swift; sourceTree = "<group>"; };
@@ -246,10 +237,10 @@
 			children = (
 				5BDB9ABF2975760300BFD5D9 /* ExploreView.swift */,
 				5B18D99929B0478F0079628D /* ExploreBanner.swift */,
+				5BF928D5299368C600DB1445 /* ExploreCategoryIconsView.swift */,
 				5B18D99B29B06CA90079628D /* ExploreOrderedStores.swift */,
 				5B18D99D29B06E360079628D /* ExploreOrderedStoresItem.swift */,
 				ADC041172994C90B00E3C5E5 /* OrderedListView.swift */,
-				5BF928D5299368C600DB1445 /* ExploreCategoryIconsView.swift */,
 				5B24E178299380FC00F746A0 /* ExploreCategoryDetailView.swift */,
 			);
 			path = ExploreView;
@@ -848,9 +839,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-
-				DEVELOPMENT_TEAM = F93LH9N2L8;
-
+				DEVELOPMENT_TEAM = 4YH8347DW8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;
@@ -869,7 +858,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.GoobVibe.GukbapMinister-service";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.GoobVibe.GukbapMinister-servicee12";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -889,9 +878,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GukbapMinister/Preview Content\"";
-
 				DEVELOPMENT_TEAM = F93LH9N2L8;
-
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GukbapMinister/Info.plist;

@@ -59,7 +59,7 @@ struct DetailView: View {
         NavigationStack {
    
                 ScrollView(showsIndicators: false) {
-                    VStack{
+                    LazyVStack{
                         DetailStoreImages(viewModel: DetailStoreImageViewModel(store: store), showDetail: $isshowingStoreImageDetail)
                         
                         storeFoodTypeAndRate
@@ -73,9 +73,8 @@ struct DetailView: View {
                         if !self.storeReview.isEmpty {
                         ForEach(storeReview) { review in
                             
-                            if review.reviewText == "" {}
-                            else {
-                                   //  ZStack{
+                            
+                             
                                 if self.storeReview.last?.id == review.id {
                                     GeometryReader { g in
                                         UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
@@ -91,15 +90,14 @@ struct DetailView: View {
                                                     print("리뷰 데이터 로딩중")
                                                     self.time.upstream.connect().cancel()
                                                 }
-
                                             }
                                     }
                                 }
                                 else{
                                     UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
                                 }
-                                    //  }
-                            }
+                               
+                            
                             
                         }
                         //FirstForEach
@@ -352,7 +350,7 @@ extension DetailView {
            
             Divider()
                 NavigationLink{
-                   UserReviewCellDetailView()
+                //   UserReviewCellDetailView()
                 }label:{
                     HStack{
                         Text("방문자 리뷰")
@@ -361,9 +359,9 @@ extension DetailView {
                                 .foregroundColor(Color("AccentColor"))
             
                         Spacer()
-                        Image(systemName: "chevron.forward")
-                            .foregroundColor(.gray)
-                            .padding(.trailing)
+//                        Image(systemName: "chevron.forward")
+//                            .foregroundColor(.gray)
+//                            .padding(.trailing)
                     }//HStack
                    
                 }//NavigationLink

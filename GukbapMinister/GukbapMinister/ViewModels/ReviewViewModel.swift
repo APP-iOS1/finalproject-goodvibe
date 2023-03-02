@@ -16,19 +16,20 @@ import FirebaseFirestoreSwift
 /// Description
 class ReviewViewModel: ObservableObject {
     @Published var reviews: [Review] = []
-    @Published var latestReviews: [Review] = []
-    
     @Published var reviews2: [Review] = []
-   // var lastDocumentSnapshot: DocumentSnapshot?
+    
     @Published var lastDoc: DocumentSnapshot!
 
-    @Published var reviewImage: [String : UIImage] = [:]
+   // @Published var reviewImage: [String : UIImage] = [:]
     
+    @Published var reviewImageURLs: [String: URL] = [:]
+
     let database = Firestore.firestore()
     let storage = Storage.storage()
     
         init() {
             reviews = []
+            reviews2 = []
         }
     
     //    var id: String
@@ -82,7 +83,7 @@ class ReviewViewModel: ObservableObject {
     //MARK: 다음 데이터 업데이트
     func updateReviews(){
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.database.collection("Review")
                 .order(by: "createdAt", descending: true)
                 .start(afterDocument: self.lastDoc)
@@ -140,61 +141,12 @@ class ReviewViewModel: ObservableObject {
     
     }
 
-    // MARK: pagination ex1
-//    func fetchReviews() {
-//
-//       var query =  database.collection("Review")
-//            .order(by: "createdAt", descending: true)
-//            .limit(to:10)
-//
-//        if let lastDocSnap = lastDocumentSnapshot {
-//            query = query.start(afterDocument: lastDocSnap)
-//        }
-//            query.getDocuments { (snapshot, error) in
-//                //self.reviews2.removeAll()
-//
-//                guard let snapshot = snapshot else { return }
-//
-//                    for document in snapshot.documents {
-//
-//                        let id: String = document.documentID
-//                        let docData = document.data()
-//
-//                        let userId: String = docData["userId"] as? String ?? ""
-//                        let reviewText: String = docData["reviewText"] as? String ?? ""
-//                        let createdAt: Double = docData["createdAt"] as? Double ?? 0
-//                        let images: [String] = docData["images"] as? [String] ?? []
-//                        let nickName: String = docData["nickName"] as? String ?? ""
-//                        let starRating: Int = docData["starRating"] as? Int ?? 0
-//                        let storeName: String = docData["storeName"] as? String ?? ""
-//                        let storeId: String = docData["storeId"] as? String ?? ""
-//
-//                        for imageName in images{
-//                            self.retrieveImages(reviewId: id, imageName: imageName)
-//                        }
-//
-//                        let review1: Review = Review(id: id,
-//                                                    userId: userId,
-//                                                    reviewText: reviewText,
-//                                                    createdAt: createdAt,
-//                                                    images: images,
-//                                                    nickName: nickName,
-//                                                    starRating: starRating,
-//                                                    storeName: storeName,
-//                                                    storeId: storeId
-//                        )
-//                        self.reviews2.append(review1)
-//                    }
-//                self.lastDocumentSnapshot = snapshot.documents.last
-//
-//            }
-//    }
     // MARK: pagination ex2
     func fetchReviews() {
         
         database.collection("Review")
             .order(by: "createdAt", descending: true)
-            .limit(to: 3)
+            .limit(to:5)
             .getDocuments { (snap, err) in
                 
                 if err != nil{
@@ -218,11 +170,11 @@ class ReviewViewModel: ObservableObject {
                         let storeName: String = docData["storeName"] as? String ?? ""
                         let storeId: String = docData["storeId"] as? String ?? ""
                         let show: Bool = docData["show"] as? Bool ?? false
-                        
+
                         for imageName in images{
                             self.retrieveImages(reviewId: id, imageName: imageName)
                         }
-
+                        
                         let review: Review = Review(id: id,
                                                     userId: userId,
                                                     reviewText: reviewText,
@@ -328,21 +280,38 @@ class ReviewViewModel: ObservableObject {
 
     
     // MARK: - 서버의 Storage에서 이미지를 가져오는 Method
+//    func retrieveImages(reviewId: String, imageName: String) {
+//        let ref = storage.reference().child("images/\(reviewId)/\(imageName)")
+//
+//
+//        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+//        ref.getData(maxSize: 15 * 1024 * 1024) { data, error in
+//            if let error = error {
+//                print("error while downloading image\n\(error.localizedDescription)")
+//                return
+//            } else {
+//                let image = UIImage(data: data!)
+//                self.reviewImage[imageName] = image
+//            }
+//        }
+//        //
+//
+//    }
     func retrieveImages(reviewId: String, imageName: String) {
-        let ref = storage.reference().child("images/\(reviewId)/\(imageName)")
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        ref.getData(maxSize: 15 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("error while downloading image\n\(error.localizedDescription)")
-                return
-            } else {
-                let image = UIImage(data: data!)
-                self.reviewImage[imageName] = image
+      
+            let ref = storage.reference().child("images/\(reviewId)/\(imageName)")
+            ref.downloadURL() { url, error in
+                if let error = error {
+                    print(#function, error.localizedDescription)
+                }else if let url = url  {
+                    let imageUrl = URL(string: url.absoluteString)!
+                    self.reviewImageURLs[imageName] = imageUrl
+                }
             }
-        }
+            
+        
     }
-    
+
 
     func updateStoreRating(updatingReview: Review, isDeleting: Bool) async {
         let storeReviews = reviews.filter { $0.storeName == updatingReview.storeName }
