@@ -33,7 +33,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
-
     // locationManagerDidchangeAuthorization에서 호출
     private func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {

@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import MapKit
 
-// SwiftUI와 UIRepresentable 이 상호작용 하도록 도와주는 것
+// SwiftUI와 UIRepresentable이 상호작용 하도록 도와주는 것
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
     var mapViewController: MapUIView
     
@@ -17,19 +17,21 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         self.mapViewController = control
     }
     
-    // Description - 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
+    // 특정 어노테이션 오브젝트와 연관된 뷰를 리턴
     @MainActor
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard !annotation.isKind(of: MKUserLocation.self) else {
-            // Make a fast exit if the annotation is the `MKUserLocation`, as it's not an annotation view we wish to customize.
+            
+            // MKUserLocation일시 customize 해주고 싶은 annotation view가 아니기에 빠르게 exit 하게 해주는 것
             return nil
         }
+        
         var annotationView: MKAnnotationView?
         
         if let annotation = annotation as? StoreAnnotation {
             annotationView = setUpStoreAnnotationView(for: annotation, on: mapView)
         }
-
+        
         return annotationView
     }
     
@@ -68,22 +70,23 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
                 .uiImage?
                 .resizeImageTo(size: CGSize(width: 60, height: 60))
             
-            let text = UITextView(frame: CGRect(x: -5, y: 55, width: 100, height: 20))
-            let fixedWidth = text.frame.size.width
-            let newSize = text.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-            text.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-            text.backgroundColor = .lightText
-            text.textAlignment = .center
-            text.layer.cornerRadius = 20
-            text.text = ("\(String(describing: annotation.title ?? ""))")
-            text.font = .boldSystemFont(ofSize: 12)
-            text.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-            text.translatesAutoresizingMaskIntoConstraints = true
-            text.isScrollEnabled = false
-            text.sizeToFit()
+            let markerText = UITextView(frame: CGRect(x: -5, y: 55, width: 100, height: 20))
+            let fixedWidth = markerText.frame.size.width
+            let adjustedSize = markerText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+            markerText.frame.size = CGSize(width: max(adjustedSize.width, fixedWidth), height: adjustedSize.height)
+            markerText.backgroundColor = .lightText
+            markerText.layer.cornerRadius = 20
+            markerText.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            markerText.text = ("\(String(describing: annotation.title ?? ""))")
+            markerText.font = .boldSystemFont(ofSize: 12)
+            markerText.textAlignment = .center
+            markerText.translatesAutoresizingMaskIntoConstraints = true
+            markerText.isScrollEnabled = false
+            markerText.isEditable = false
+            markerText.sizeToFit()
             
             annotationView?.image = markerImage
-            annotationView?.addSubview(text)
+            annotationView?.addSubview(markerText)
         }
         
         return annotationView
@@ -125,10 +128,10 @@ struct MapUIView: UIViewRepresentable {
         trackingButton.layer.cornerRadius = 7
         
         maps.addSubview(trackingButton)
-
+        
         // 맵이 보이는 범위를 한국으로 제한하기
         maps.cameraBoundary = MKMapView.CameraBoundary(mapRect: .korea)
-
+        
         // 맵으로 줌아웃 했을 때 최대 고도 설정
         maps.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(500000))
         
@@ -151,6 +154,7 @@ struct MapUIView: UIViewRepresentable {
     
     func getRemovingAnnotations(_ filters: [Gukbaps], storeAnnotations: [StoreAnnotation]) -> [StoreAnnotation] {
         var removingAnnotations: [StoreAnnotation] = []
+        
         if filters.isEmpty {
             return removingAnnotations
         } else {
