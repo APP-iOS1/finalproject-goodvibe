@@ -294,23 +294,14 @@ extension DetailView {
             Divider()
             NavigationLink{
                 //   UserReviewCellDetailView()
-            }label:{
-                HStack{
-                    Text("방문자 리뷰")
-                        .foregroundColor(.black)
-                    Text("\(checkAllReviewCount.count)")
-                        .foregroundColor(Color("AccentColor"))
-                    
-                    Spacer()
-                    //                        Image(systemName: "chevron.forward")
-                    //                            .foregroundColor(.gray)
-                    //                            .padding(.trailing)
-                }//HStack
-                
-            }//NavigationLink
-            .padding(.leading)
-            .padding(.top)
-            .font(.title2.bold())
+
+                }label:{
+                    HStack{
+                        Text("방문자 리뷰")
+                            .foregroundColor(scheme == .light ? .black : .white)
+                        Text("\(checkAllReviewCount.count)")
+                                .foregroundColor(Color("AccentColor"))
+
             
             
         }

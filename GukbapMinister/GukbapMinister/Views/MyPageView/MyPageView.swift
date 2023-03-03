@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @Environment(\.colorScheme) var scheme
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var storesViewModel: StoresViewModel
     @StateObject private var reviewViewModel = ReviewViewModel()
@@ -172,7 +173,7 @@ struct MyPageView: View {
                                 Text("로그아웃")
                             }
                         }
-                        .foregroundColor(.black)
+//                        .foregroundColor(.black)
                         .padding(1.5)
                         
                         //                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))

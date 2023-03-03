@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GgakdugiRatingShort: View {
+    @Environment(\.colorScheme) var scheme
     var rate: Double
     var size: CGFloat
     var showText: Bool
@@ -25,8 +26,11 @@ struct GgakdugiRatingShort: View {
             HStack{
                 if showText {
                     Text("깍두기 점수")
+                        .foregroundColor(scheme == .light ? .black : .white)
                 }
                 Text("\(String(format: "%.1f", rate))")
+                    .foregroundColor(scheme == .light ? .black : .white)
+                
             }
             .font(.footnote)
             .bold()
