@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct StoreModalView: View {
-    @EnvironmentObject private var storesViewModel: StoresViewModel
-    @State private var isHeartClicked : Bool = false
-    var store: Store = .test
+    var store: Store
     
     var body: some View {
         NavigationStack {
@@ -20,7 +19,7 @@ struct StoreModalView: View {
                     .padding(.top, 10)
                 
                 HStack(alignment: .top) {
-                    imageOrPlaceholder
+                    StoreModalImage(manager: StoreImageManager(store: store))
                     VStack(alignment: .leading){
                         Menu {
                             Button {
@@ -86,38 +85,52 @@ extension StoreModalView {
             .overlay(Color.mainColor.opacity(0.5))
     }
     
-    var imageOrPlaceholder: some View {
-        NavigationLink(destination: DetailView(store: store)) {
-            if let imageAddress = store.storeImages.first,
-               let imageData = storesViewModel.storeTitleImage[imageAddress]
+    
+}
+
+
+struct StoreModalImage: View {
+    @StateObject var manager = StoreImageManager(store: .test)
+
+    var body: some View {
+        NavigationLink(destination: DetailView(store: manager.store)) {
+            if let url = manager.imageURLs.first
             {
-                Image(uiImage: imageData)
+                KFImage(url)
+                    .placeholder {
+                        Gukbaps(rawValue: manager.store.foodType.first ?? "순대국밥")?
+                                .placeholder
+                                .resizable()
+                                .scaledToFit()
+                                .modifier(StoreModalImageModifier())
+                    }
+                    .loadDiskFileSynchronously()
+                    .cacheMemoryOnly() //Sets whether the image should only be cached in memory but not in disk.
+                    .fade(duration: 0.5)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 90, height: 90)
-                    .cornerRadius(6)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(.black.opacity(0.2))
-                    }
+                    .modifier(StoreModalImageModifier())
             } else {
-                Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+                Gukbaps(rawValue: manager.store.foodType.first ?? "순대국밥")?.placeholder
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 90, height: 90)
-                    .cornerRadius(6)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(.black.opacity(0.2))
-                    }
+                    .modifier(StoreModalImageModifier())
             }
         }
+
     }
 }
 
-struct StoreModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreModalView()
-            .environmentObject(StoresViewModel())
+struct StoreModalImageModifier: ViewModifier {
+
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 90, height: 90)
+            .cornerRadius(6)
+            .overlay {
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(.black.opacity(0.2))
+            }
     }
 }
+

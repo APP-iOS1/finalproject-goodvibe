@@ -10,18 +10,14 @@ import UIKit
 
 import Firebase
 import FirebaseFirestore
-import FirebaseStorage
 
 // 스토어의 정보를 모두 가져오는 뷰모델
 @MainActor
 final class StoresViewModel: ObservableObject {
     @Published var stores: [Store] = []
-    @Published var storeTitleImage: [String : UIImage] = [:]
-    
     @Published var countRan = 0
 
     private var database = Firestore.firestore()
-    private var storage = Storage.storage()
     private var listenerRegistration: ListenerRegistration?
  
     
@@ -73,47 +69,13 @@ final class StoresViewModel: ObservableObject {
                     
                     //FirebaseFireStoreSwift 를 써서 @Document 프로퍼티를 썼더니 가능
                     self.stores = documents.compactMap { queryDocumentSnapshot in
-                        let result = Result { try queryDocumentSnapshot.data(as: Store.self) }
-                        
-                        //FIXME: Kingfisher 도입하면 fetchImage 메서드가 더이상 필요 없을 예정
-                        switch result {
-                        case .success(let store):
-                            for imageName in store.storeImages {
-                                Task.init{
-                                    do{
-                                        try await self.fetchImages(storeId: store.storeName, imageName: imageName)
-                                    }
-                                    catch{
-                                        print("sotreViewModel 'fetchImages' Error")
-                                    }
-                                }
-                               
-                            }
-                            return store
-                        case .failure(let error):
-                            print(#function, "\(error.localizedDescription)")
-                            return nil
-                        }
+                      try? queryDocumentSnapshot.data(as: Store.self)
                     }
                 }
         }
     }
     
-    
-    
-    
-    func fetchImages(storeId: String, imageName: String) async throws -> UIImage {
-        let ref = storage.reference().child("storeImages/\(storeId)/\(imageName)")
 
-        let data = try await ref.data(maxSize: 1 * 1024 * 1024)
-        let image = UIImage(data: data)
-        
-        self.storeTitleImage[imageName] = image
-        
-        return image!
-    }
-
-    
 //    // MARK: 사용자 찜하기 데이터 수정 Method
 //    func fetchFavorite(isFavorited: Bool, user: User, storeId: String) async {
 //        let deleteStore = user.favoriteStoreId.filter { $0 != storeId}

@@ -18,7 +18,7 @@ struct DetailView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
     @EnvironmentObject private var storesViewModel: StoresViewModel
-    @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
+//    @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
     
     @State private var selectedStar: Int = 0
     
@@ -60,7 +60,7 @@ struct DetailView: View {
    
                 ScrollView(showsIndicators: false) {
                     LazyVStack{
-                        DetailStoreImages(viewModel: DetailStoreImageViewModel(store: store), showDetail: $isshowingStoreImageDetail)
+                        StoreImagesTabView(manager: StoreImageManager(store: store), showDetail: $isshowingStoreImageDetail)
                         
                         storeFoodTypeAndRate
                         
@@ -168,16 +168,16 @@ struct DetailView: View {
                                 .tint(scheme == .light ? .black : .white)
                         }
                     }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            collectionViewModel.isHeart.toggle()
-                            collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
-                        } label: {
-                            Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
-                                .tint(.red)
-                        }
-                    }
+                    //FIXME: Like 기능 collectionViewModel -> DetailViewModel 이관예정
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        Button {
+//                            collectionViewModel.isHeart.toggle()
+//                            collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
+//                        } label: {
+//                            Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
+//                                .tint(.red)
+//                        }
+//                    }
                 }
        
             .navigationBarTitleDisplayMode(.inline)
@@ -194,7 +194,7 @@ struct DetailView: View {
         }//NavigationStack
         //가게 이미지만 보는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingStoreImageDetail){
-            StoreImageDetailView(storesViewModel: storesViewModel, isshowingStoreImageDetail: $isshowingStoreImageDetail, store: store)
+            StoreImageDetailView(manager: StoreImageManager(store: store), isshowingStoreImageDetail: $isshowingStoreImageDetail)
         }
         //리뷰 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $showingCreateRewviewSheet) {

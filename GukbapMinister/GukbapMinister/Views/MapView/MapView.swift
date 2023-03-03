@@ -54,10 +54,12 @@ struct MapView: View {
                             Spacer()
                         }
                         
-                        StoreModalView(store: mapViewModel.selectedStore ?? .test)
-                            .padding(25)
-                            .offset(y: isShowingSelectedStore ? 0 : 400)
-                            .animation(.easeInOut, value: isShowingSelectedStore)
+                        if let selectedStore = mapViewModel.selectedStore {
+                            StoreModalView(store: selectedStore)
+                                .padding(25)
+                                .offset(y: isShowingSelectedStore ? 0 : 400)
+                                .animation(.easeInOut, value: isShowingSelectedStore)
+                        }
                     }
                 }
             }
