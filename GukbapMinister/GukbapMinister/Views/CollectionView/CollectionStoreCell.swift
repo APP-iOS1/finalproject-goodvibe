@@ -8,26 +8,26 @@
 import SwiftUI
 import Kingfisher
 
-struct CollectionLikedStoreCell: View {
-    @StateObject var manager = CollectionLikedStoreManager(store: .test)
+struct CollectionStoreCell: View {
+    @StateObject var viewModel = DetailViewModel(store: .test)
     @StateObject var imageManager = StoreImageManager(store: .test)
     
     var rowOne: [GridItem] = Array(repeating: .init(.fixed(50)), count: 1)
     
     @State private var isLoading = true
-    @State private var isLiked = true
+    
     
     var body: some View {
         VStack {
             NavigationLink {
-                DetailView(store : manager.store)
+                DetailView(detailViewModel: DetailViewModel(store: viewModel.store))
             } label: {
                 HStack {
                     HStack(alignment: .top) {
                         if let url = imageManager.imageURLs.first {
                             KFImage(url)
                                 .placeholder {
-                                    if let gukbap = manager.store.foodType.first {
+                                    if let gukbap = viewModel.store.foodType.first {
                                         Gukbaps(rawValue: gukbap)?.placeholder
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
@@ -54,26 +54,28 @@ struct CollectionLikedStoreCell: View {
                         
                         VStack(alignment: .leading, spacing: 0) {
                             HStack{
-                                Text(manager.store.storeName)
+                                Text(viewModel.store.storeName)
                                     .font(.title3)
                                     .bold()
                                     .padding(.top, 3)
                                 Spacer()
                                 
                                 Button{
-                                    dislikeStore()
+                                    Task {
+                                        await viewModel.handleLikeButton()
+                                    }
                                 } label: {
-                                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                                    Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
                                         .foregroundColor(.red)
                                 }
                             }
                             
-                            Text(manager.store.storeAddress)
+                            Text(viewModel.store.storeAddress)
                                 .font(.caption)
                                 .padding(.top, 3)
                             
                             HStack(alignment: .center){
-                                GgakdugiRatingShort(rate: manager.store.countingStar , size: 22)
+                                GgakdugiRatingShort(rate: viewModel.store.countingStar , size: 22)
                                 Spacer()
                             }
                             .padding(.top, 5)
@@ -81,7 +83,7 @@ struct CollectionLikedStoreCell: View {
                             
                             HStack{
                                 LazyHGrid(rows: rowOne) {
-                                    ForEach(manager.store.foodType, id: \.self) { foodType in
+                                    ForEach(viewModel.store.foodType, id: \.self) { foodType in
                                         Text("\(foodType)")
                                             .font(.caption)
                                             .padding(8)
@@ -106,19 +108,6 @@ struct CollectionLikedStoreCell: View {
         }
     }
     
-    func dislikeStore() {
-        Task {
-            isLiked = false
-            await manager.dislikeStore()
-        }
-    }
 }
 
 
-
-
-struct CollectionLikedStoreCell_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionLikedStoreCell()
-    }
-}

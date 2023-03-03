@@ -23,7 +23,7 @@ struct ExploreCategoryDetailView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(stores) { store in
                         NavigationLink {
-                            DetailView(store: store)
+                            DetailView(detailViewModel: DetailViewModel(store: store))
                         } label: {
                             StoreGridItem(manager: StoreImageManager(store: store), width: gridSize, imageSize: imageSize)
                         }

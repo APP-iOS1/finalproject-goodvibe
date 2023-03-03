@@ -15,26 +15,19 @@ struct DetailView: View {
     @Environment(\.colorScheme) var scheme
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
+    @StateObject var detailViewModel = DetailViewModel(store: .test)
+    
+    @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject private var storesViewModel: StoresViewModel
-//    @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
-    
+
     @State private var selectedStar: Int = 0
-    
-    @State private var text: String = ""
-    @State private var isBookmarked: Bool = false
     @State private var showingCreateRewviewSheet: Bool = false
-    @State private var ggakdugiCount: Int = 0
     
-    @State var startOffset: CGFloat = 0
-    @State var scrollViewOffset: CGFloat = 0
-    @State private var isReviewImageClicked: Bool = false
     
     let currentUser = Auth.auth().currentUser
     
     //lineLimit 관련 변수
-    @State private var isFirst: Bool = true
     @State private var isExpanded: Bool = false
     
     //StoreImageDetailView 전달 변수
@@ -42,6 +35,7 @@ struct DetailView: View {
     
     
     @State private var isLoading: Bool = true
+    
     var storeReview : [Review] {
         reviewViewModel.reviews2.filter{
             $0.storeName == store.storeName
@@ -52,7 +46,11 @@ struct DetailView: View {
             $0.storeName == store.storeName
         }
     }
-    var store : Store
+    
+    var store : Store {
+        return detailViewModel.store
+    }
+    
     @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
 
     var body: some View {
@@ -168,16 +166,17 @@ struct DetailView: View {
                                 .tint(scheme == .light ? .black : .white)
                         }
                     }
-                    //FIXME: Like 기능 collectionViewModel -> DetailViewModel 이관예정
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        Button {
-//                            collectionViewModel.isHeart.toggle()
-//                            collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
-//                        } label: {
-//                            Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
-//                                .tint(.red)
-//                        }
-//                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            Task {
+                               await detailViewModel.handleLikeButton()
+                            }
+                        } label: {
+                            Image(systemName: detailViewModel.isLiked ? "heart.fill" : "heart")
+                                .tint(.red)
+                        }
+                    }
                 }
        
             .navigationBarTitleDisplayMode(.inline)
@@ -221,7 +220,6 @@ struct DetailView: View {
 
         }
         .redacted(reason: isLoading ? .placeholder : [])
-        
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.isLoading = false
@@ -337,9 +335,6 @@ extension DetailView {
     
     var userStarRate: some View {
         VStack {
-        
-       
-
             HStack {
                 Spacer()
                 VStack {
@@ -348,16 +343,12 @@ extension DetailView {
                         Text("로그인하고 리뷰를 남겨주세요.")
                             .fontWeight(.bold)
                             .padding(.bottom,10)
-                    }
-                       
-                    else {
+                    } else {
                         Text("\(userViewModel.userInfo.userNickname)님 '\(store.storeName)'의 리뷰를 남겨주세요! ")
                             .fontWeight(.bold)
                             .padding(.bottom,10)
                     }
-                       
-                    
-                    
+
                     GgakdugiRatingWide(selected: selectedStar, size: 40, spacing: 15) { ggakdugi in
                         self.selectedStar = ggakdugi
                         showingCreateRewviewSheet.toggle()

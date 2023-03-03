@@ -1,5 +1,5 @@
 //
-//  CollectionLikedStoreManager.swift
+//  DetailViewModel.swift
 //  GukbapMinister
 //
 //  Created by Martin on 2023/03/03.
@@ -10,20 +10,41 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
-import FirebaseStorage
 
-//FIXME: 만들고보니까 DetailViewModel이랑 중복되는 코드가 많아서 추후 수정하면 좋을 것 같다.
-final class CollectionLikedStoreManager: ObservableObject {
+final class DetailViewModel: ObservableObject {
     @Published var store: Store
+    @Published var isLiked: Bool = false
     
-    private var database = Firestore.firestore()
+    private let database = Firestore.firestore()
     
-    init(store: Store = .test) {
+    init(store: Store) {
         self.store = store
+        checkIsLikedStore(store)
+    }
+    
+    //MARK: - initalizing 할 때 User/LikedStore 컬렉션에 해당 가게가 있는지 체크
+    private func checkIsLikedStore(_ store: Store) {
+        guard let documentId = store.id else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        database.collection("User")
+            .document(uid)
+            .collection("LikedStore")
+            .document(documentId)
+            .getDocument { (document, error) in
+                if let document {
+                    self.isLiked = document.exists
+                }
+                
+                if let error {
+                    print(error.localizedDescription)
+                    return
+                }
+            }
     }
     
     
-    func dislikeStore() async {
+    private func dislikeStore() async {
         guard let documentId = store.id else { return }
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -63,4 +84,16 @@ final class CollectionLikedStoreManager: ObservableObject {
         }
         
     }
+    
+    //MARK: - UI 핸들러
+    
+    func handleLikeButton() async {
+        self.isLiked.toggle()
+        if isLiked {
+            await likeStore()
+        } else {
+            await dislikeStore()
+        }
+    }
+    
 }

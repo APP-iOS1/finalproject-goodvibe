@@ -29,7 +29,7 @@ struct MyReviewView: View {
                                      //storeName 비교 하여 디테일뷰 가져오긔
                                     ForEach(storesViewModel.stores, id: \.self) { store in
                                         if(review.storeName == store.storeName) {
-                                            DetailView(store: store)
+                                            DetailView(detailViewModel: DetailViewModel(store: store))
                                         }
                                         
                                     }

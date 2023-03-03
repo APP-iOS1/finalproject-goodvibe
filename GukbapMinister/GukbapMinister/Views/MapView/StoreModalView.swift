@@ -70,7 +70,7 @@ struct StoreModalView: View {
 extension StoreModalView {
     var storeTitle: some View {
         HStack {
-            NavigationLink(destination: DetailView(store: store)) {
+            NavigationLink(destination: DetailView(detailViewModel: DetailViewModel(store: store))) {
                 Text(store.storeName)
                     .font(.title3)
                     .bold()
@@ -93,7 +93,7 @@ struct StoreModalImage: View {
     @StateObject var manager = StoreImageManager(store: .test)
 
     var body: some View {
-        NavigationLink(destination: DetailView(store: manager.store)) {
+        NavigationLink(destination: DetailView(detailViewModel: DetailViewModel(store: manager.store))) {
             if let url = manager.imageURLs.first
             {
                 KFImage(url)

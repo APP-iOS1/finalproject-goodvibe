@@ -24,8 +24,8 @@ struct CollectionLikedStores: View {
             .padding()
             
             ForEach(stores, id: \.self) { store in
-                CollectionLikedStoreCell(manager: CollectionLikedStoreManager(store: store),
-                                         imageManager: StoreImageManager(store: store))
+                CollectionStoreCell( viewModel: DetailViewModel(store: store),
+                                     imageManager: StoreImageManager(store: store))
                     .frame(width: UIScreen.main.bounds.width-40, height: 90)
                     .padding()
                     .overlay(

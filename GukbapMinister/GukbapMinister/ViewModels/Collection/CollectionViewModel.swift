@@ -50,33 +50,6 @@ class CollectionViewModel : ObservableObject {
     }
     
     
-    // MARK: - 찜한 가게 추가/삭제
-//    func manageHeart(userId: String, store: Store) {
-//        let ref = database.collection("User").document(userId).collection("LikedStore").document(store.id ?? "")
-//        
-//        if isHeart {
-//            ref.setData([
-//                "storeId" : store.id ?? "",
-//                "storeName" : store.storeName,
-//                "storeAddress" : store.storeAddress,
-//                "coordinate" : store.coordinate,
-//                "storeImages" : store.storeImages,
-//                "description" : store.description,
-//                "countingStar" : store.countingStar
-//            ])
-//            print("\(self.isHeart)")
-//            print("\(#function) : 찜한 가게 추가")
-//            self.likeStore(userId: userId, store: store)
-//        } else {
-//            ref.delete()
-//            print("\(self.isHeart)")
-//            print("\(#function) : 찜한 가게 삭제")
-//            self.disLikeStore(userId: userId, store: store)
-//
-//        }
-//        self.fetchLikedStore()
-//    }
-    
     func likeStore(userId: String, store: Store){
         let ref = database.collection("Store").document(store.id ?? "")
         ref.updateData([

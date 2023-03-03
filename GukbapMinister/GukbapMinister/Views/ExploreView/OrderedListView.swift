@@ -63,7 +63,7 @@ struct ListCell : View {
         
         VStack {
             NavigationLink {
-                DetailView(store : store)
+                DetailView(detailViewModel: DetailViewModel(store: store))
             } label: {
                 HStack{
                     HStack(alignment: .top){

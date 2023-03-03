@@ -58,7 +58,7 @@ struct ExploreOrderedStores: View {
                 LazyHGrid(rows: rows, alignment: .center) {
                     ForEach(stores, id: \.self){ store in
                         NavigationLink{
-                            DetailView(store: store)
+                            DetailView(detailViewModel: DetailViewModel(store: store))
                         } label:{
                            ExploreOrderedStoresItem(exploreViewModel: exploreViewModel, store: store, mode: mode)
                         }

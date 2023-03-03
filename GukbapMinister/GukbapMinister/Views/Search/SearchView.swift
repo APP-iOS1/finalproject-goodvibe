@@ -96,7 +96,7 @@ extension SearchView {
             List {
                 ForEach(searchResult, id: \.self) { store in
                     NavigationLink {
-                        DetailView(store: store)
+                        DetailView(detailViewModel: DetailViewModel(store: store))
                     } label: {
                         Text("\(store.storeName)")
                     }

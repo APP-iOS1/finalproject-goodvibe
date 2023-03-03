@@ -20,7 +20,6 @@ struct CollectionView: View {
         NavigationStack {
             if userViewModel.isLoggedIn == true {
                 ZStack {
-
                     Color.gray.opacity(0.2)
                     
                     ScrollView {
@@ -29,29 +28,8 @@ struct CollectionView: View {
                           CollectionLikedStores(collectionViewModel: viewModel)
                         } else {
                             // 내가 찜한 가게가 없을 시 랜덤한 가게를 보여준다
-                            VStack{
-                                Spacer()
-                                VStack(alignment:.leading){
-                                    VStack{
-                                        HStack{
-                                            Text("찜한 곳이 없네요")
-                                            Spacer()
-                                        }
-                                        HStack{
-                                            Text("추천하는 국밥집은 어떠신가요?")
-                                            Spacer()
-                                            
-                                        }
-                                    }
-                                    .font(.callout)
-                                    .bold()
-                                    .padding(.leading)
-
-                                    ForEach(Array(storesViewModel.stores.enumerated()), id: \.offset){ (index, element) in
-
-                                    }
-                                }
-                            }
+                           CollectionRandomStores()
+                                .environmentObject(storesViewModel)
                         }
                         
                     } // ScrollView
@@ -97,7 +75,7 @@ struct cellRandom : View {
         
         VStack {
             NavigationLink {
-                DetailView(store : cellData)
+                DetailView(detailViewModel: DetailViewModel(store: cellData))
             } label: {
                 HStack (alignment: .top){
                     
