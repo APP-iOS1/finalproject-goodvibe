@@ -24,6 +24,7 @@ struct MyReviewView: View {
             NavigationStack{
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 0){
+
                         if !self.MyReview.isEmpty {
                             ForEach(Array(MyReview.enumerated()), id: \.offset) { index, review in
                                 NavigationLink {
@@ -57,21 +58,21 @@ struct MyReviewView: View {
                                 
                             }
                         }else {
-                                Image("Image")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.53,
-                                           height: UIScreen.main.bounds.height * 0.25 )
-                                
-                                Text("작성된 리뷰가 없습니다.")
-                                    .padding(.bottom)
-                                    .padding(.top,-20)
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.secondary)
-                            
+//                                Image("Image")
+//                                    .resizable()
+//                                    .frame(width: UIScreen.main.bounds.width * 0.53,
+//                                           height: UIScreen.main.bounds.height * 0.25 )
+                     
+                                    Text("작성된 리뷰가 없습니다.")
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.secondary)
+                                        .padding(.top,300)
+                       
                         }
                         }
-                    }
+
+}
                 }
                 .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
             }
