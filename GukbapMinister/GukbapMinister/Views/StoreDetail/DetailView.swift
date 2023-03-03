@@ -375,7 +375,7 @@ extension DetailView {
                 }label:{
                     HStack{
                         Text("방문자 리뷰")
-                            .foregroundColor(.black)
+                            .foregroundColor(scheme == .light ? .black : .white)
                         Text("\(checkAllReviewCount.count)")
                                 .foregroundColor(Color("AccentColor"))
             

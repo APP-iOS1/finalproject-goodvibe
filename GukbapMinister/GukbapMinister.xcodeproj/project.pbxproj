@@ -31,6 +31,7 @@
 		149CBCEF297A273400F298C7 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149CBCEE297A273400F298C7 /* SearchView.swift */; };
 		14A1879D298A601E00B4FE7F /* UpdateUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1879C298A601E00B4FE7F /* UpdateUserInfoView.swift */; };
 		14B1A958298F883E003E58FB /* EditPreferenceAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1A957298F883E003E58FB /* EditPreferenceAreaView.swift */; };
+		14D937A529B1D906008C0E1D /* Ex+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D937A429B1D906008C0E1D /* Ex+UIColor.swift */; };
 		5B0058422990B6E700564930 /* StoreReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058412990B6E700564930 /* StoreReport.swift */; };
 		5B0058442990B78C00564930 /* StoreReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058432990B78C00564930 /* StoreReportView.swift */; };
 		5B0058462990B7BB00564930 /* StoreReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0058452990B7BB00564930 /* StoreReportViewModel.swift */; };
@@ -123,6 +124,7 @@
 		149CBCEE297A273400F298C7 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		14A1879C298A601E00B4FE7F /* UpdateUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserInfoView.swift; sourceTree = "<group>"; };
 		14B1A957298F883E003E58FB /* EditPreferenceAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPreferenceAreaView.swift; sourceTree = "<group>"; };
+		14D937A429B1D906008C0E1D /* Ex+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIColor.swift"; sourceTree = "<group>"; };
 		5B0058412990B6E700564930 /* StoreReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReport.swift; sourceTree = "<group>"; };
 		5B0058432990B78C00564930 /* StoreReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportView.swift; sourceTree = "<group>"; };
 		5B0058452990B7BB00564930 /* StoreReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReportViewModel.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				5BB236D1298A639D00CBC816 /* Ex+Color.swift */,
 				041FE9722988DCDE00BE32E7 /* Ex+View.swift */,
 				5BB236D8298B9F7700CBC816 /* Ex+UIImage.swift */,
+				14D937A429B1D906008C0E1D /* Ex+UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				14A1879D298A601E00B4FE7F /* UpdateUserInfoView.swift in Sources */,
 				1406FCCB29AC9482006A67FE /* UserViewModel.swift in Sources */,
 				5B18D99E29B06E360079628D /* ExploreOrderedStoresItem.swift in Sources */,
+				14D937A529B1D906008C0E1D /* Ex+UIColor.swift in Sources */,
 				5BDB9AD929757A6400BFD5D9 /* Store.swift in Sources */,
 				5B18D99A29B0478F0079628D /* ExploreBanner.swift in Sources */,
 				5B24E179299380FC00F746A0 /* ExploreCategoryDetailView.swift in Sources */,

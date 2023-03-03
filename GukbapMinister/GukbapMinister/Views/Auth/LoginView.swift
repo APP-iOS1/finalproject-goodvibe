@@ -46,7 +46,8 @@ struct LoginView: View {
                     }
                     
             }
-//            .cornerRadius(10)
+            .background(.white)
+            .cornerRadius(10)
 //            .border(0.5, width: .black)
 //            .padding([.leading,.trailing],5)
             

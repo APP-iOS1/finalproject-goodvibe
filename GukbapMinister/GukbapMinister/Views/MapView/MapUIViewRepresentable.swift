@@ -74,7 +74,8 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
             let fixedWidth = markerText.frame.size.width
             let adjustedSize = markerText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
             markerText.frame.size = CGSize(width: max(adjustedSize.width, fixedWidth), height: adjustedSize.height)
-            markerText.backgroundColor = .lightText
+            markerText.backgroundColor = .defaultBackGroundColor
+            markerText.textColor = .defaultLabelColor
             markerText.layer.cornerRadius = 20
             markerText.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
             markerText.text = ("\(String(describing: annotation.title ?? ""))")

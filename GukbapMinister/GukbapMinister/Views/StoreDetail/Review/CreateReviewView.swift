@@ -12,6 +12,7 @@ import Shimmer
 import FirebaseAuth
 
 struct CreateReviewView: View {
+    @Environment(\.colorScheme) var scheme
     @EnvironmentObject private var userViewModel: UserViewModel
     @StateObject var reviewViewModel: ReviewViewModel
     
@@ -64,6 +65,7 @@ struct CreateReviewView: View {
                         
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
                         Text("\(selectedStar + 1) / \(5)")
+                            .foregroundColor(scheme == .light ? .black : .white)
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                     }//VStack
@@ -204,10 +206,10 @@ struct CreateReviewView: View {
                         Section {
                             TextField("작성된 리뷰는 우리 모두가 확인할 수 있어요. 국밥 같은 따뜻한 마음을 나눠주세요.", text: $reviewText, axis: .vertical)
                                 .keyboardType(.default)
-                            
+//                                .foregroundColor(scheme == .light ? .black : .white)
                                 .frame(width: 300, height: 250, alignment: .center)
                                 .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
-                                .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.white, lineWidth: 1.5))
+                                .background(RoundedRectangle(cornerRadius: 5.0).stroke(scheme ==  .light ? Color.mainColor : Color.white, lineWidth: 1.5))
                                 .multilineTextAlignment(.leading)
                                 .autocapitalization(.none)
                                 .disableAutocorrection(true)
@@ -233,7 +235,7 @@ struct CreateReviewView: View {
                                     showingSheet.toggle()
                                 }) {
                                     Image(systemName: "xmark")
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(scheme == .light ? .black : .white)
                                     
                                 }
                             }
@@ -297,7 +299,7 @@ struct CreateReviewView: View {
                         .position(.top)
                 } // popup
             }//NavigationStack
-            .background(Color.white) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
+            .background(scheme == .light ? .white : .black) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
             .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
                 endEditing()
             } // onTapGesture
