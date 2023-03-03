@@ -84,6 +84,8 @@
 		6348D75F2994B0EF00148552 /* OnboardingView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D75E2994B0EF00148552 /* OnboardingView2.swift */; };
 		6348D7612994B15500148552 /* OnboardingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D7602994B15500148552 /* OnboardingTabView.swift */; };
 		6348D7632994BF0F00148552 /* OnboardingView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6348D7622994BF0F00148552 /* OnboardingView3.swift */; };
+		6352AE4529B1B3FF00813233 /* RegisterStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352AE4429B1B3FF00813233 /* RegisterStoreView.swift */; };
+		6352AE4729B1D82000813233 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352AE4629B1D82000813233 /* Notice.swift */; };
 		6399503829A7301900A05F9F /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6399503729A7301900A05F9F /* DeleteAccountView.swift */; };
 		63D2582C299A060100370202 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582B299A060100370202 /* NoticeView.swift */; };
 		63D2582E299A0D9800370202 /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2582D299A0D9800370202 /* PolicyView.swift */; };
@@ -175,6 +177,8 @@
 		6348D75E2994B0EF00148552 /* OnboardingView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView2.swift; sourceTree = "<group>"; };
 		6348D7602994B15500148552 /* OnboardingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTabView.swift; sourceTree = "<group>"; };
 		6348D7622994BF0F00148552 /* OnboardingView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView3.swift; sourceTree = "<group>"; };
+		6352AE4429B1B3FF00813233 /* RegisterStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStoreView.swift; sourceTree = "<group>"; };
+		6352AE4629B1D82000813233 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		6399503729A7301900A05F9F /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		63D2582B299A060100370202 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		63D2582D299A0D9800370202 /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 				5B138DDF2988EB3A004F9187 /* StoreAnnotation.swift */,
 				5B0058412990B6E700564930 /* StoreReport.swift */,
 				5BDB9ADA29757A8300BFD5D9 /* Review.swift */,
+				6352AE4629B1D82000813233 /* Notice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -496,6 +501,7 @@
 			children = (
 				63D2582A299A038B00370202 /* UserRulesViews */,
 				5BDB9ACF2975790400BFD5D9 /* MyPageView.swift */,
+				6352AE4429B1B3FF00813233 /* RegisterStoreView.swift */,
 				63D2582B299A060100370202 /* NoticeView.swift */,
 				AD07DFC8298A5E50005DBA8D /* MyReviewView.swift */,
 				14A1879C298A601E00B4FE7F /* UpdateUserInfoView.swift */,
@@ -677,6 +683,8 @@
 				03EE6A9E297791BF005616B3 /* StoreModalView.swift in Sources */,
 				AD05311D2976902000594238 /* CategoryFilteringView.swift in Sources */,
 				5B01F2E52976CD1200ACB32F /* CommentUnit.swift in Sources */,
+				6352AE4529B1B3FF00813233 /* RegisterStoreView.swift in Sources */,
+				6352AE4729B1D82000813233 /* Notice.swift in Sources */,
 				63D25836299A1AB400370202 /* CommunityGuideLineView.swift in Sources */,
 				5BB236D2298A639D00CBC816 /* Ex+Color.swift in Sources */,
 				5B01F2E32976840800ACB32F /* DetailView.swift in Sources */,
