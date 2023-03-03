@@ -14,12 +14,14 @@ struct StoreReportButton: View {
     @Environment(\.colorScheme) var scheme
     @State var showModal: Bool = false
     @State var showModal2: Bool = false
+    @State var isShowingLoginView: Bool = false // 로그인뷰 트리거
+    @State var isShowingAlert: Bool = false // alert 트리거
     @EnvironmentObject var userViewModel : UserViewModel
     
     var body: some View {
-        if userViewModel.loginState == .logout {
+        if userViewModel.isLoggedIn == false {
             Button {
-                showModal2.toggle()
+                self.isShowingAlert.toggle()
             } label: {
                 VStack(spacing: 0) {
                     Text("국밥집 제보")
@@ -40,9 +42,22 @@ struct StoreReportButton: View {
                                 .clipShape(Circle())
                         }
                 }
-            }.fullScreenCover(isPresented: $showModal2, content: {
-//                SignInView2()
-            })
+                .alert("로그인이 필요한 서비스입니다.", isPresented: $isShowingAlert) {
+                    Button("아니요", role: .destructive) {
+                        
+                    }
+                    .foregroundColor(.blue)
+                    Button("예", role: .cancel) {
+                        self.isShowingLoginView.toggle()
+                    }
+                    .foregroundColor(.red)
+                } message: {
+                    Text("로그인 하시겠습니까?")
+                }
+                .sheet(isPresented: $isShowingLoginView) {
+                    LoginView()
+                }
+            }
         } else {
             Button {
                 showModal.toggle()
