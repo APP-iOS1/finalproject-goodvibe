@@ -87,7 +87,7 @@ class ReviewViewModel: ObservableObject {
             self.database.collection("Review")
                 .order(by: "createdAt", descending: true)
                 .start(afterDocument: self.lastDoc)
-                .limit(to: 1)
+                .limit(to: 4)
                 .getDocuments{(snap, err ) in
                     if err != nil{
                         print((err?.localizedDescription)!)

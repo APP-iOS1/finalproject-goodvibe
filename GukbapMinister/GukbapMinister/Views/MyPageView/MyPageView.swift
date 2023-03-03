@@ -10,23 +10,25 @@ import SwiftUI
 struct MyPageView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var storesViewModel: StoresViewModel
-    
+    @StateObject private var reviewViewModel = ReviewViewModel()
+
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
     @State private var isMyReviewPresented: Bool = false
     
     @State private var isShowingNotice: Bool = false
     @State private var isShowingTerms: Bool = false
-    
+    var checkAllMyReviewCount : [Review] {
+        reviewViewModel.reviews.filter{
+            $0.userId == userViewModel.userInfo.id
+        }
+    }
     var body: some View {
         NavigationStack {
             // 로그아웃 상태가 아니면(로그인상태이면) mypageView 띄우기
             if userViewModel.isLoggedIn != false {
             VStack(alignment: .leading){
-                Text("마이페이지")
-                    .font(.largeTitle)
-                    .padding(.top, 20)
-                    .padding()
+           
                 
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.opacity(0.1))
@@ -49,6 +51,27 @@ struct MyPageView: View {
                                 HStack{
                                     Text("\(userViewModel.userInfo.userNickname)")
                                         .font(.title3)
+                                    
+                    
+                                    switch userViewModel.loginState{
+                                    case .kakaoLogin :
+                                        Image("KakaoLogin")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.052, height: UIScreen.main.bounds.height * 0.025)
+                                    
+                                    case .googleLogin :
+                                        Image("GoogleLogin")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.052, height: UIScreen.main.bounds.height * 0.025)
+
+                                    case .appleLogin :
+                                        Image("AppleLogin")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.052, height: UIScreen.main.bounds.height * 0.025)
+
+                                    case .logout : Text("")
+                                        
+                                    }
                                     
                                     Spacer()
                                     
@@ -93,6 +116,8 @@ struct MyPageView: View {
                             HStack {
                                 Image(systemName: "pencil")
                                 Text("내가 쓴 리뷰")
+                                Spacer()
+                                Text("\(checkAllMyReviewCount.count)")
                             }
                         }
                         .listRowSeparator(.hidden)
@@ -158,6 +183,9 @@ struct MyPageView: View {
 //                }
                 
             }
+            .navigationTitle("마이페이지")
+            .navigationBarTitleDisplayMode(.inline)
+
                 Spacer()
                 Text("\(userViewModel.userInfo.userGrade)")
                 Text("\(userViewModel.userInfo.userEmail)")
@@ -170,7 +198,7 @@ struct MyPageView: View {
         }
         .onAppear {
 //            userVM.fetchUpdateUserInfo()
-            print("mypage onappear : \(userViewModel.userInfo)")
+            reviewViewModel.fetchAllReviews()
         }
         .overlay(content: {
 //            LoadingView(show: $userVM.isLoading)

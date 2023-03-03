@@ -14,19 +14,21 @@ struct MyReviewView: View {
     @StateObject private var collectionVM: CollectionViewModel = CollectionViewModel()
     @EnvironmentObject private var storesViewModel: StoresViewModel
     
-
+    var MyReview : [Review] {
+        reviewVM.reviews2.filter{
+            $0.userId == userVM.userInfo.id
+        }
+    }
     var body: some View {
         VStack{
             NavigationStack{
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0){
-                        
-                        // review 컬렉션의 유저 아이디와 현재 유저 아이디를 비교하여 같으면 '내가 쓴 리뷰'로 보여준다
-                        ForEach(reviewVM.reviews2, id: \.self) { review in
-                            if(review.userId == userVM.userInfo.id){
+                    LazyVStack(spacing: 0){
+                        if !self.MyReview.isEmpty {
+                            ForEach(Array(MyReview.enumerated()), id: \.offset) { index, review in
                                 NavigationLink {
                                     //내가쓴 리뷰의 상호와 디테일뷰 스토어네임 비교해서 같은조건인것으로 걸러서 보여주기
-                                     //storeName 비교 하여 디테일뷰 가져오긔
+                                    //storeName 비교 하여 디테일뷰 가져오기
                                     ForEach(storesViewModel.stores, id: \.self) { store in
                                         if(review.storeName == store.storeName) {
                                             DetailView(store: store)
@@ -34,14 +36,42 @@ struct MyReviewView: View {
                                         
                                     }
                                     
-                                    
                                 } label: {
                                     UserReviewCell(reviewViewModel: reviewVM, review: review, isInMypage: true)
+                                        .onAppear(){
+                                   
+                                            if (index == MyReview.count) || (index < MyReview.count) {
+                                                if index == MyReview.count - 1{
+                                                    if ((self.MyReview.last?.id) != nil) == true {
+                                                        
+                                                    }
+                                                    reviewVM.updateReviews()
+                                                    print("\(index+1)번째 리뷰 데이터 로딩중")
+                                                }
+                                            }
+                                         
+                                        
+                                        }
+                                
                                 }
+                                
                             }
+                        }else {
+                                Image("Image")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.53,
+                                           height: UIScreen.main.bounds.height * 0.25 )
+                                
+                                Text("작성된 리뷰가 없습니다.")
+                                    .padding(.bottom)
+                                    .padding(.top,-20)
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.secondary)
+                            
+                        }
                         }
                     }
-                    
                 }
                 .navigationBarTitle("내가 쓴 리뷰보기", displayMode: .inline)
             }
@@ -49,7 +79,6 @@ struct MyReviewView: View {
 
 //                userVM.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
                 reviewVM.fetchReviews()
-
             }
             .refreshable {
                // reviewVM.fetchReviews()
@@ -57,76 +86,7 @@ struct MyReviewView: View {
             
         }
     }
-}
 
 
 
-struct ReviewCell : View {
-    var reviewData : Review
-    var reviewImg : UIImage
-    
-    var body: some View{
-        VStack {
-            //            NavigationLink {
-            //                //DetailView()
-            //            } label: {
-            VStack{
-                HStack{
-                    Text("\(reviewData.nickName)")
-                        .foregroundColor(.black)
-                        .font(.caption)
-                        .bold()
-                        .padding()
-                    Spacer()
-                    Text("\(reviewData.createdDate)")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-                VStack(alignment: .leading){
-                    Text("\(reviewData.storeName)")
-                        .foregroundColor(.black)
-                        .padding(.leading)
-                    HStack(spacing: -30){
-                        ForEach(0..<5) { index in
-                            Image(reviewData.starRating >= index ? "Ggakdugi" : "Ggakdugi.gray")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                                .padding()
-                        }
-                        Spacer()
-                    }//HStack
-                    .padding(.top,-25)
-                }
-                if reviewImg != UIImage(){
-                    Image(uiImage: reviewImg)
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                        .cornerRadius(6)
-                        .padding(.leading, 20)
-                }
-                HStack{
-                    Text("\(reviewData.reviewText)")
-                        .font(.caption)
-                        .foregroundColor(.black)
-                        .padding()
-                    
-                    Spacer()
-                    
-                }
-                
-                Divider()
-                
-            }
-            
-            //}
-            
-        }
-        .background(.white)
-    }
-}
-//struct MyReviewView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MyReviewView()
-//    }
-//}
+

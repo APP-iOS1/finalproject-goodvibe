@@ -31,6 +31,7 @@ struct UserReviewCell:  View {
             HStack(spacing: 0){
                 
                 Text("\(review.nickName)")
+                    .foregroundColor(.black)
                     .fontWeight(.semibold)
                     .padding(.vertical)
                 //                        .padding(.leading)
@@ -49,7 +50,7 @@ struct UserReviewCell:  View {
                     Text("\(review.storeName)")
                         .font(.caption)
                         .foregroundColor(scheme == .light ? .secondary : .white)
-                        .padding(.leading, 3)
+                        .padding(.leading, 5)
                 }
               
                 Spacer()
@@ -166,6 +167,7 @@ struct UserReviewCell:  View {
             
             HStack{
                 Text("\(review.reviewText)")
+                    .foregroundColor(.black)
                     .font(.body)
                     .padding()
                 Spacer()
@@ -188,7 +190,7 @@ struct UserReviewCell:  View {
         }
     }
     func getWidth(index:Int) -> CGFloat{
-        let width = getRect().width - 25
+        let width = getRect().width * 0.9347
         
         if (review.images?.count ?? 0) % 2 == 0{
             return width / 2
@@ -205,7 +207,7 @@ struct UserReviewCell:  View {
         }
     }
     func getHeight(index:Int) -> CGFloat{
-        let height = getRect().height - 544
+        let height = getRect().height * 0.33
         
         if (review.images?.count ?? 0) == 1{
             return height
