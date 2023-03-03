@@ -85,7 +85,7 @@ struct StoreReportView: View {
                         dismiss()
                     }
                 } label: {
-                    Text("등록")
+                    Text("제보하기")
                 }
                 .disabled(!isReportCompleted)
                 
