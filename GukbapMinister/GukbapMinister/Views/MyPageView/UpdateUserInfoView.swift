@@ -57,7 +57,7 @@ struct UpdateUserInfoView: View {
            
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("개인정보수정")
+            .navigationTitle("회원정보 수정")
         }
         .onAppear {
 //            userViewModel.fetchUpdateUserInfo()

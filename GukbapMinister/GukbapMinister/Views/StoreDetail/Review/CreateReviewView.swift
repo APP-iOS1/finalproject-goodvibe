@@ -47,6 +47,7 @@ struct CreateReviewView: View {
     }
     var body: some View {
         NavigationStack {
+        
             ScrollView{
                 VStack{
                     VStack{
@@ -239,7 +240,7 @@ struct CreateReviewView: View {
                                     
                                 }
                             }
-                            if trimReviewText.count > 0 {
+                            if trimReviewText.count > 0 &&  isReviewAdded == false {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
 
@@ -261,7 +262,7 @@ struct CreateReviewView: View {
                                             await reviewViewModel.addReview(review: review,
                                                                             images: images)
                                             
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
                                                 showingSheet.toggle()
                                             }
                                             isReviewAdded.toggle()
@@ -282,23 +283,27 @@ struct CreateReviewView: View {
                 
                 .popup(isPresented: $isReviewAdded) {
                     HStack {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.white)
-                        Text("리뷰가 작성되었습니다.")
-                            .foregroundColor(.white)
+                        Image(uiImage: (Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImage!)!)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width * 0.13,
+                                   height: UIScreen.main.bounds.height * 0.05 )
+                        Text("\(userViewModel.userInfo.userNickname)님의 소중한 리뷰가 작성되었습니다.")
+                            .foregroundColor(.black)
                             .font(.footnote)
-                            .bold()
+                            .fontWeight(.regular)
                     }
-                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                    .background(Color("AccentColor"))
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    .background(Color("AccentColor").opacity(0.85))
                     .cornerRadius(100)
                 } customize: {
                     $0
-                        .autohideIn(2)
-                        .type(.floater())
+                        .autohideIn(1.3)
+                        .animation(.spring())
+                        .type(.floater(verticalPadding: 0, useSafeAreaInset: true))
                         .position(.top)
                 } // popup
             }//NavigationStack
+
             .background(scheme == .light ? .white : .black) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
             .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
                 endEditing()
