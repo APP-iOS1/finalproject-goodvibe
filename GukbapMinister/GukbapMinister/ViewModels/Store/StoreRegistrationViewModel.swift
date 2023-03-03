@@ -94,7 +94,6 @@ final class StoreRegistrationViewModel: ObservableObject {
     }
     
     private func updateStoreInfo(_ store: Store) {
-        
         if let documentId = store.id {
             do {
                 try database.collection("Store")
@@ -104,7 +103,6 @@ final class StoreRegistrationViewModel: ObservableObject {
             catch {
                 print(error)
             }
-            
         }
     }
     

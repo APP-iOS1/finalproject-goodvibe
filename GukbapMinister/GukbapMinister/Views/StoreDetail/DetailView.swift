@@ -15,26 +15,19 @@ struct DetailView: View {
     @Environment(\.colorScheme) var scheme
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var reviewViewModel: ReviewViewModel = ReviewViewModel()
+    @StateObject var detailViewModel = DetailViewModel(store: .test)
+    
+    @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject private var storesViewModel: StoresViewModel
-    @StateObject private var collectionViewModel: CollectionViewModel = CollectionViewModel()
-    
+
     @State private var selectedStar: Int = 0
-    
-    @State private var text: String = ""
-    @State private var isBookmarked: Bool = false
     @State private var showingCreateRewviewSheet: Bool = false
-    @State private var ggakdugiCount: Int = 0
     
-    @State var startOffset: CGFloat = 0
-    @State var scrollViewOffset: CGFloat = 0
-    @State private var isReviewImageClicked: Bool = false
     
     let currentUser = Auth.auth().currentUser
     
     //lineLimit 관련 변수
-    @State private var isFirst: Bool = true
     @State private var isExpanded: Bool = false
     
     //StoreImageDetailView 전달 변수
@@ -42,6 +35,7 @@ struct DetailView: View {
     
     
     @State private var isLoading: Bool = true
+    
     var storeReview : [Review] {
         reviewViewModel.reviews2.filter{
             $0.storeName == store.storeName
@@ -52,7 +46,11 @@ struct DetailView: View {
             $0.storeName == store.storeName
         }
     }
-    var store : Store
+    
+    var store : Store {
+        return detailViewModel.store
+    }
+    
     @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
     var body: some View {
         NavigationStack {
@@ -60,7 +58,7 @@ struct DetailView: View {
             ScrollView(showsIndicators: false) {
                 VStack{
                     //해당 가게 전체 사진
-                    DetailStoreImages(viewModel: DetailStoreImageViewModel(store: store), showDetail: $isshowingStoreImageDetail)
+                    StoreImagesTabView(manager: StoreImageManager(store: store), showDetail: $isshowingStoreImageDetail)
                     
                     //가게 국밥종류, 별점
                     storeFoodTypeAndRate
@@ -90,16 +88,18 @@ struct DetailView: View {
                             .tint(scheme == .light ? .black : .white)
                     }
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        collectionViewModel.isHeart.toggle()
-                        collectionViewModel.manageHeart(userId: currentUser?.uid ?? "" , store: store)
-                    } label: {
-                        Image(systemName: collectionViewModel.isHeart ? "heart.fill" : "heart")
-                            .tint(.red)
-                    }
+                        Button {
+                            Task {
+                               await detailViewModel.handleLikeButton()
+                            }
+                        } label: {
+                            Image(systemName: detailViewModel.isLiked ? "heart.fill" : "heart")
+                                .tint(.red)
+                        }
                 }
+                
             }
             
             .navigationBarTitleDisplayMode(.inline)
@@ -116,7 +116,7 @@ struct DetailView: View {
         }//NavigationStack
         //가게 이미지만 보는 sheet로 이동
         .fullScreenCover(isPresented: $isshowingStoreImageDetail){
-            StoreImageDetailView(storesViewModel: storesViewModel, isshowingStoreImageDetail: $isshowingStoreImageDetail, store: store)
+            StoreImageDetailView(manager: StoreImageManager(store: store), isshowingStoreImageDetail: $isshowingStoreImageDetail)
         }
         //리뷰 작성하는 sheet로 이동
         .fullScreenCover(isPresented: $showingCreateRewviewSheet) {
@@ -143,7 +143,6 @@ struct DetailView: View {
             
         }
         .redacted(reason: isLoading ? .placeholder : [])
-        
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.isLoading = false

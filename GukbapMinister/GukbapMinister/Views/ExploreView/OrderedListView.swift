@@ -62,15 +62,45 @@ struct ListCell : View {
     
     var body: some View {
         
-            VStack {
-                NavigationLink {
-                    DetailView(store : store)
-                } label: {
-                    HStack{
-                        HStack(alignment: .top){
-                            KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
-                                .placeholder {
-                                    Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+        
+        VStack {
+            NavigationLink {
+                DetailView(detailViewModel: DetailViewModel(store: store))
+            } label: {
+                HStack{
+                    HStack(alignment: .top){
+                        KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
+                            .placeholder {
+                                Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 90, height: 90)
+                            }
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 90, height: 90)
+                            .cornerRadius(25)
+                            .overlay(RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color("MainColor"), lineWidth: 0.2))
+                        
+                        
+                        VStack(alignment: .leading, spacing: 1){
+                            HStack{
+                                Text(store.storeName)
+                                    .font(.body)
+                                    .bold()
+                                    .padding(4)
+                                
+                                Spacer()
+                            }
+                            
+                            HStack(alignment: .center){
+                                Text("깍두기 점수")
+                                    .bold()
+                                    .font(.caption2)
+                                
+                                HStack(alignment: .center, spacing: 0){
+                                    Image("Ggakdugi")
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 90, height: 90)

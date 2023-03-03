@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct StoreImageDetailView: View {
-    @StateObject  var storesViewModel: StoresViewModel
+    @StateObject var manager = StoreImageManager(store: .test)
 
     @Binding var isshowingStoreImageDetail : Bool
-    var store : Store
+    
 
     var body: some View {
         NavigationStack{
@@ -21,22 +22,22 @@ struct StoreImageDetailView: View {
                 VStack{
                     TabView {
 
-                        ForEach(Array(store.storeImages.enumerated()), id: \.offset){ index, imageData in
-                            Button(action: {
-                                isshowingStoreImageDetail.toggle()
-                            }){
-                                if let image = storesViewModel.storeTitleImage[imageData] {
-                                    
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-             
-                                }
-                                //if let
+                        ForEach(manager.imageURLs, id: \.self){ url in
+                            Button {
+                                isshowingStoreImageDetail = false
+                            } label: {
+                                KFImage(url)
+                                    .placeholder {
+                                        Gukbaps(rawValue: manager.store.foodType.first ?? "순대국밥")?.placeholder
+                                            .resizable()
+                                            .scaledToFill()
+                                    }
+                                    .cacheMemoryOnly()
+                                    .fade(duration: 0.25)
+                                    .resizable()
+                                    .scaledToFill()
                             }
-                            
                         }
-                    
                     }
                     .offset(y:-30)
                     .frame(height:Screen.maxWidth * 1)
@@ -48,7 +49,7 @@ struct StoreImageDetailView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
-                            isshowingStoreImageDetail.toggle()
+                            isshowingStoreImageDetail = false
                         }) {
                             Image(systemName: "xmark")
                                 .foregroundColor(Color.white)
