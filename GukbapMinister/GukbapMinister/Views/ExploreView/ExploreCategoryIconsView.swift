@@ -37,6 +37,7 @@ struct ExploreCategoryIconsView: View {
             }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
+        .foregroundColor(scheme == .light ? .black : .white)
         .background(scheme == .light ? .white : .black)
     }
 }

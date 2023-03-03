@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct CollectionView: View {
+    @Environment(\.colorScheme) var scheme
     @EnvironmentObject private var storesViewModel: StoresViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
     
@@ -23,7 +24,7 @@ struct CollectionView: View {
                 ZStack{
                     
                     // 배경 색
-                    Color.gray.opacity(0.2)
+                    scheme == .light ? Color(.white) : Color(.black)
                     
                     ScrollView{
                         if (collectionVM.stores != [] ) {
@@ -55,13 +56,14 @@ struct CollectionView: View {
                                                 .stroke(.gray.opacity(0.3))
                                                 .frame(width: UIScreen.main.bounds.width - 20, height: 120)
                                         )
-                                    
+                                        
                                         .padding(.vertical,5)
+                                        
                                     Divider()
                                     
                                 }
                             }
-                            .background(.white)
+                            .background(scheme == .light ? .white : .black)
                             
                             
                         } else{
@@ -114,11 +116,12 @@ struct CollectionView: View {
                         }
                         
                     } // ScrollView
-                    .toolbarBackground(Color.white, for: .navigationBar)
+                    .toolbarBackground(scheme == .light ? .white : .black, for: .navigationBar)
                     .toolbarBackground(.visible, for: .navigationBar)
                     .navigationTitle("내가 찜한 가게")
                     .navigationBarTitleDisplayMode(.inline)
                 } // ZStack
+                .background(scheme == .light ? .white : .black)
             } else {
                     goLoginView()
                         .environmentObject(userViewModel)
@@ -150,6 +153,7 @@ struct CollectionView: View {
 
 // 내가 찜한 곳이 있을 시 보여주는 cell
 struct cellLiked : View {
+    @Environment(\.colorScheme) var scheme
     @EnvironmentObject private var userVM: UserViewModel
     
     var collectionVM: CollectionViewModel
@@ -183,6 +187,7 @@ struct cellLiked : View {
 
                             HStack{
                                 Text(cellData.storeName)
+                                    .foregroundColor(scheme == .light ? .black : .white)
                                     .font(.title3)
                                     .bold()
                                     .padding(.top, 3)
@@ -205,6 +210,7 @@ struct cellLiked : View {
                             
                             
                             Text(cellData.storeAddress)
+                                .foregroundColor(scheme == .light ? .black : .white)
                                 .font(.caption)
                                 .padding(.top, 3)
                             
@@ -222,9 +228,10 @@ struct cellLiked : View {
                                 LazyHGrid(rows: rowOne) {
                                     ForEach(cellData.foodType, id: \.self) { foodType in
                                         Text("\(foodType)")
+                                            .foregroundColor(scheme == .light ? .black : .white)
                                             .font(.caption)
                                             .padding(8)
-                                            .background(Capsule().fill(Color.gray.opacity(0.15)))
+                                            .background(scheme == .light ? Capsule().fill(Color.gray.opacity(0.15)) : Capsule().fill(Color.gray.opacity(0.3)))
                                     }
                                 }
                             }

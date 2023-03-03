@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ExploreOrderedStoresItem: View {
+    @Environment(\.colorScheme) var scheme
     @ObservedObject var exploreViewModel: ExploreViewModel
     var store : Store
     var mode: ExploreOrderingMode
@@ -72,7 +73,8 @@ struct ExploreOrderedStoresItem: View {
                             .fontWeight(.bold)
                             .font(.callout)
                             .padding(5)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color("AccentColor").opacity(0.1)))
+                            .background(RoundedRectangle(cornerRadius: 10).fill(scheme == .light ? Color("AccentColor").opacity(0.1) : Color("AccentColor").opacity(0.5)))
+                            .foregroundColor(scheme == .light ? .black : .white)
                         
                         Spacer()
                     }
@@ -82,6 +84,7 @@ struct ExploreOrderedStoresItem: View {
                             .font(.caption2)
                             .lineLimit(1)
                             .padding(.leading, 3)
+                            .foregroundColor(scheme == .light ? .black : .white)
                         Spacer()
                     }
                     .padding(.vertical, 3)
@@ -94,6 +97,7 @@ struct ExploreOrderedStoresItem: View {
                             .lineLimit(1)
                             .padding(.leading, 3)
                             .multilineTextAlignment(.leading)
+                            .foregroundColor(scheme == .light ? .black : .white)
                         Spacer()
                     }
                     .padding(.vertical, 3)
