@@ -27,6 +27,7 @@ struct MainTabView: View {
             ExploreView(exploreViewModel: ExploreViewModel(stores: storesViewModel.stores))
                 .tabItem {
                     Label("둘러보기", image: "GBexploreIcon")
+
                 }
                 .tag(2)
                 .environmentObject(storesViewModel)
@@ -71,7 +72,9 @@ struct MainTabView: View {
                 CollectionView()
                     .tabItem {
                         Label("내가 찜한 곳", image: "GBcollectionIcon")
+
                     }
+
                     .toolbar(.visible, for: .tabBar)
                     .toolbarBackground(Color.white, for: .tabBar)
                     .tag(3)
@@ -80,6 +83,7 @@ struct MainTabView: View {
                 MyPageView()
                     .tabItem {
                         Label("마이페이지", image: "GBmypageIcon")
+
                     }
                     .tag(4)
                     .environmentObject(userViewModel)

@@ -3,6 +3,7 @@ import SwiftUI
 import PopupView
 
 struct ReportView: View {
+    @Environment(\.colorScheme) var scheme
     @Binding var isshowingReportSheet : Bool
 
     @Binding var selectedReportButton : String
@@ -62,29 +63,30 @@ struct ReportView: View {
                             }){
                                 HStack{
                                     Text(index).font(.system(size:16))
+                                        .foregroundColor(scheme == .light ? .black : .white)
                                     Spacer()
                                     ZStack{
-                                        Circle().fill(self.selectedReportButton == index ? Color("AccentColor") : Color.black.opacity(0.2)).frame(width: 18,height: 18)
+                                        Circle()
+                                            .fill(self.selectedReportButton == index ? Color("AccentColor") : Color.black.opacity(0.2))
+                                            .frame(width: 18,height: 18)
+                                            .background(scheme == .light ? .white : .black)
                                         
                                         if self.selectedReportButton == index {
-                                            if count == 6{
+                                            if count == 6 {
                                                 
                                             }
                                             else {
                                                 Image(systemName: "checkmark.circle.fill")
                                                                               .font(.system(size:18))
                                                                               .foregroundColor(Color.blue)
-                                                                              .background(Color.white)
-                                                
-                            
+                                                                              .background(scheme == .light ? .white : .black)
                                             }
-                                           
-                                      
                                         }
                                     }
                                 }
                                 .foregroundColor(.black)
                             }
+//                            .background(scheme == .light ? .white : .black)
                         }
                         TextField("신고사유를 작성해주세요", text: $memo, axis: .vertical)
                   
@@ -120,14 +122,11 @@ struct ReportView: View {
                     }){
                         Text("신고하기")
                             .font(.subheadline)
-                            .foregroundColor(.white)
-                            
+                            .foregroundColor(scheme == .light ? .black : .white)
                             .padding()
                             .frame(maxWidth: Screen.maxWidth)
                             .bold()
                     }
-                    
-                    
                     .background(
                         self.selectedReportButton == "" || memo.isEmpty ?
                         
@@ -152,7 +151,7 @@ struct ReportView: View {
                                     isshowingReportSheet.toggle()
                                 }) {
                                     Image(systemName: "xmark")
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(scheme == .light ? .black : .white)
             
                                 }
                             }

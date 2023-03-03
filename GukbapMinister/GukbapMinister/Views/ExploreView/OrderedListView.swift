@@ -4,6 +4,7 @@ import SwiftUI
 import Kingfisher
 
 struct OrderedListView: View {
+    @Environment(\.colorScheme) var scheme
     @ObservedObject var exploreViewModel : ExploreViewModel
     var mode: ExploreOrderingMode
     var stores: [Store] {
@@ -33,11 +34,11 @@ struct OrderedListView: View {
 
                             }
                         }
-                        .background(.white)
+                        .background(scheme == .light  ? .white : .black)
                         
                     
                 } // ScrollView
-                .toolbarBackground(Color.white, for: .navigationBar)
+                .toolbarBackground(scheme == .light ? Color.white : Color.black, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .navigationTitle(mode == .hits ? "국밥집 조회수 랭킹" : "깍두기 점수가 높은 국밥집")
                 .navigationBarTitleDisplayMode(.inline)
@@ -50,6 +51,7 @@ struct OrderedListView: View {
 
 // cell
 struct ListCell : View {
+    @Environment(\.colorScheme) var scheme
     @ObservedObject var exploreViewModel : ExploreViewModel
     var store : Store
     
@@ -100,59 +102,92 @@ struct ListCell : View {
                                 HStack(alignment: .center, spacing: 0){
                                     Image("Ggakdugi")
                                         .resizable()
-                                        .frame(width: 15, height: 15)
-                                        .padding(.trailing, 5)
-
-                                    
-                                    Text("\(String(format: "%.1f", store.countingStar))")
-                                        .font(.caption)
+                                        .scaledToFill()
+                                        .frame(width: 90, height: 90)
+                                }
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 90, height: 90)
+                                .cornerRadius(25)
+                                .overlay(RoundedRectangle(cornerRadius: 25)
+                                    .stroke(Color("MainColor"), lineWidth: 0.2))
+                            
+                            
+                            VStack(alignment: .leading, spacing: 1){
+                                HStack{
+                                    Text(store.storeName)
+                                        .foregroundColor(scheme == .light ? .black : .white)
+                                        .font(.body)
                                         .bold()
+                                        .padding(4)
+                                    
+                                    Spacer()
                                 }
                                 
-                                Spacer()
-                            }
-                            .frame(height: 20)
-                            .padding(.leading, 5)
-                            
-                            
-                            HStack{
-                                Text(store.storeAddress)
-                                    .font(.callout)
-                                    .lineLimit(1)
-                                    .padding(.top, 3)
-                                Spacer()
-                            }
-                            .padding(.leading, 4)
-
-                            
-                            HStack{
-                                LazyHGrid(rows: rowOne) {
-                                    ForEach(store.foodType, id: \.self) { foodType in
-                                        Text("\(foodType)")
+                                HStack(alignment: .center){
+                                    Text("깍두기 점수")
+                                        .foregroundColor(scheme == .light ? .black : .white)
+                                        .bold()
+                                        .font(.caption2)
+                                    
+                                    HStack(alignment: .center, spacing: 0){
+                                        Image("Ggakdugi")
+                                            .resizable()
+                                            .frame(width: 15, height: 15)
+                                            .padding(.trailing, 5)
+                                        
+                                        
+                                        Text("\(String(format: "%.1f", store.countingStar))")
+                                            .foregroundColor(scheme == .light ? .black : .white)
                                             .font(.caption)
-                                            .padding(9)
-                                            .background(Capsule().fill(Color.gray.opacity(0.15)))
+                                            .bold()
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                .frame(height: 20)
+                                .padding(.leading, 5)
+                                
+                                
+                                HStack{
+                                    Text(store.storeAddress)
+                                        .foregroundColor(scheme == .light ? .black : .white)
+                                        .font(.callout)
+                                        .lineLimit(1)
+                                        .padding(.top, 3)
+                                    Spacer()
+                                }
+                                .padding(.leading, 4)
+                                
+                                
+                                HStack{
+                                    LazyHGrid(rows: rowOne) {
+                                        ForEach(store.foodType, id: \.self) { foodType in
+                                            Text("\(foodType)")
+                                                .foregroundColor(scheme == .light ? .black : .white)
+                                                .font(.caption)
+                                                .padding(9)
+                                                .background(scheme == .light ? Capsule().fill(Color.gray.opacity(0.15)) : Capsule().fill(Color.gray.opacity(0.3)))
+                                        }
                                     }
                                 }
+                                
+                                
                             }
                             
-                            
                         }
-                        
+                        .foregroundColor(.black)
+                        .frame(height: 120)
+                        .padding(.leading, 0)
                     }
-                    .foregroundColor(.black)
-                    .frame(height: 120)
-                    .padding(.leading, 0)
                 }
             }
-        }
-        .redacted(reason: isLoading ? .placeholder : [])
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.isLoading = false
+            .redacted(reason: isLoading ? .placeholder : [])
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.isLoading = false
+                }
             }
-        }
-
     }
 }
 

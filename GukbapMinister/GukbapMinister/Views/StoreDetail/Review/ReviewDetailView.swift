@@ -51,7 +51,7 @@ struct ReviewDetailView: View {
                     VStack{
                         
                         Text(selectedtedReview.reviewText)
-                            .font(.title3)
+                            .font(.body)
                         
                     }
                     .foregroundColor(.white)

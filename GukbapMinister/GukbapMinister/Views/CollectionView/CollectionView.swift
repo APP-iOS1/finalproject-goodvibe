@@ -11,6 +11,7 @@ import Kingfisher
 
 struct CollectionView: View {
     @StateObject private var viewModel: CollectionViewModel = CollectionViewModel()
+    @Environment(\.colorScheme) var scheme
     @EnvironmentObject private var storesViewModel: StoresViewModel
     @EnvironmentObject private var userViewModel: UserViewModel
     
@@ -33,11 +34,12 @@ struct CollectionView: View {
                         }
                         
                     } // ScrollView
-                    .toolbarBackground(Color.white, for: .navigationBar)
+                    .toolbarBackground(scheme == .light ? .white : .black, for: .navigationBar)
                     .toolbarBackground(.visible, for: .navigationBar)
                     .navigationTitle("내가 찜한 가게")
                     .navigationBarTitleDisplayMode(.inline)
                 } // ZStack
+                .background(scheme == .light ? .white : .black)
             } else {
                     goLoginView()
                         .environmentObject(userViewModel)

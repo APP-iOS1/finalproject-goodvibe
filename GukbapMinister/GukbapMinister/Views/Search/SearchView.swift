@@ -66,6 +66,7 @@ extension SearchView {
             backButton()
                   
             TextField("국밥집 검색",text: $searchString, axis: .horizontal)
+                .foregroundColor(scheme == .light ? .black : .white)
                 .keyboardType(.default)
                 .textInputAutocapitalization(.never)
                 .onChange(of: searchString) { name in
