@@ -259,8 +259,6 @@ extension DetailView {
     var userStarRate: some View {
         VStack {
             
-            
-            
             HStack {
                 Spacer()
                 VStack {
@@ -269,9 +267,7 @@ extension DetailView {
                         Text("로그인하고 리뷰를 남겨주세요.")
                             .fontWeight(.bold)
                             .padding(.bottom,10)
-                    }
-                    
-                    else {
+                    }else {
                         Text("\(userViewModel.userInfo.userNickname)님 '\(store.storeName)'의 리뷰를 남겨주세요! ")
                             .fontWeight(.bold)
                             .padding(.bottom,10)
@@ -293,105 +289,106 @@ extension DetailView {
             Divider()
             NavigationLink{
                 //   UserReviewCellDetailView()
-
-                }label:{
-                    HStack{
-                        Text("방문자 리뷰")
-                            .foregroundColor(scheme == .light ? .black : .white)
-                        Text("\(checkAllReviewCount.count)")
-                                .foregroundColor(Color("AccentColor"))
-
-            
-            
-        }
-        .background(scheme == .light ? .white : .black)
-    }
-    
-    // MARK: 각각의 reviewViewModel forEach 돌려서 불러오기.
-    var storeAllReview: some View {
-        LazyVStack{
-            if !self.storeReview.isEmpty {
-                ForEach(Array(storeReview.enumerated()), id: \.offset) { index, review in
+                
+            }label:{
+                HStack{
+                    Text("방문자 리뷰")
+                        .foregroundColor(scheme == .light ? .black : .white)
+                    Text("\(checkAllReviewCount.count)")
+                        .foregroundColor(Color("AccentColor"))
                     
                     
-                    //                                if self.storeReview.last?.id == review.id {
-                    //                                    GeometryReader { g in
-                    //                                        UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                    //                                            .onAppear(){
-                    //                                                self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
-                    //                                            }
-                    //                                            .onReceive(self.time) { (_) in
-                    //                                                print(g.frame(in:.global).maxY)
-                    //                                                print(UIScreen.main.bounds.height - 120)
-                    //                                                if g.frame(in:.global).maxY < UIScreen.main.bounds.height - 120{
-                    //
-                    //                                                    reviewViewModel.updateReviews()
-                    //                                                    print("리뷰 데이터 로딩중")
-                    //                                                    self.time.upstream.connect().cancel()
-                    //                                                }
-                    //                                            }
-                    //                                    }
-                    //                                }
-                    //                                else{
-                    //                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                    //                                }
-                    
-                    
-                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
-                        .onAppear(){
-                            print("\(index)번째 페이지")
-                            print("카운트 -1 :\(storeReview.count - 1)")
-                            if (index == storeReview.count) || (index < storeReview.count) {
-                                if index == storeReview.count - 1{
-                                    if ((self.storeReview.last?.id) != nil) == true {
-                                        
-                                    }
-                                    reviewViewModel.updateReviews()
-                                    print("리뷰 데이터 로딩중")
-                                }
-                            }
-                        }
                     
                 }
-                //FirstForEach
-            }else{
-                VStack{
-                    Image(uiImage: (Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder!)!)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.width * 0.53,
-                               height: UIScreen.main.bounds.height * 0.25 )
-                    
-                    Text("작성된 리뷰가 없습니다.")
-                        .padding(.bottom)
-                        .padding(.top,-20)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.secondary)
-                }
+                .background(scheme == .light ? .white : .black)
             }
-            //                                                GeometryReader {reader -> Color in
-            //
-            //
-            //                                                        let minY = reader.frame(in: .global).minY
-            //                                                        let height = UIScreen.main.bounds.height * 0.7
-            //                                                        if reviewViewModel.reviews2.isEmpty && ( minY < height) {
-            //                                                            print("마지막\(minY)")
-            //                                                        }
-            //                                                        if minY < height {
-            //                                                            print("화면 70%\(minY)")
-            //                                                            reviewViewModel.fetchReviews()
-            //                                                        }
-            //
-            //
-            //                                                    return Color.clear
-            //
-            //                                                }
         }
-        
-        
-        
     }
-}
+            // MARK: 각각의 reviewViewModel forEach 돌려서 불러오기.
+            var storeAllReview: some View {
+                LazyVStack{
+                    if !self.storeReview.isEmpty {
+                        ForEach(Array(storeReview.enumerated()), id: \.offset) { index, review in
+                            
+                            
+                            //                                if self.storeReview.last?.id == review.id {
+                            //                                    GeometryReader { g in
+                            //                                        UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                            //                                            .onAppear(){
+                            //                                                self.time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
+                            //                                            }
+                            //                                            .onReceive(self.time) { (_) in
+                            //                                                print(g.frame(in:.global).maxY)
+                            //                                                print(UIScreen.main.bounds.height - 120)
+                            //                                                if g.frame(in:.global).maxY < UIScreen.main.bounds.height - 120{
+                            //
+                            //                                                    reviewViewModel.updateReviews()
+                            //                                                    print("리뷰 데이터 로딩중")
+                            //                                                    self.time.upstream.connect().cancel()
+                            //                                                }
+                            //                                            }
+                            //                                    }
+                            //                                }
+                            //                                else{
+                            //                                    UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                            //                                }
+                            
+                            
+                            UserReviewCell(reviewViewModel: reviewViewModel, review: review, isInMypage: false)
+                                .onAppear(){
+                                    print("\(index)번째 페이지")
+                                    print("카운트 -1 :\(storeReview.count - 1)")
+                                    if (index == storeReview.count) || (index < storeReview.count) {
+                                        if index == storeReview.count - 1{
+                                            if ((self.storeReview.last?.id) != nil) == true {
+                                                
+                                            }
+                                            reviewViewModel.updateReviews()
+                                            print("리뷰 데이터 로딩중")
+                                        }
+                                    }
+                                }
+                            
+                        }
+                        //FirstForEach
+                    }else{
+                        VStack{
+                            Image(uiImage: (Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImagePlaceholder!)!)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width * 0.53,
+                                       height: UIScreen.main.bounds.height * 0.25 )
+                            
+                            Text("작성된 리뷰가 없습니다.")
+                                .padding(.bottom)
+                                .padding(.top,-20)
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    //                                                GeometryReader {reader -> Color in
+                    //
+                    //
+                    //                                                        let minY = reader.frame(in: .global).minY
+                    //                                                        let height = UIScreen.main.bounds.height * 0.7
+                    //                                                        if reviewViewModel.reviews2.isEmpty && ( minY < height) {
+                    //                                                            print("마지막\(minY)")
+                    //                                                        }
+                    //                                                        if minY < height {
+                    //                                                            print("화면 70%\(minY)")
+                    //                                                            reviewViewModel.fetchReviews()
+                    //                                                        }
+                    //
+                    //
+                    //                                                    return Color.clear
+                    //
+                    //                                                }
+                }
+                
+                
+                
+            }
+        }
 
 
 

@@ -104,93 +104,89 @@ struct ListCell : View {
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 90, height: 90)
+                                        .cornerRadius(25)
                                 }
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 90, height: 90)
-                                .cornerRadius(25)
-                                .overlay(RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color("MainColor"), lineWidth: 0.2))
-                            
-                            
-                            VStack(alignment: .leading, spacing: 1){
-                                HStack{
-                                    Text(store.storeName)
-                                        .foregroundColor(scheme == .light ? .black : .white)
-                                        .font(.body)
-                                        .bold()
-                                        .padding(4)
-                                    
-                                    Spacer()
-                                }
+
                                 
-                                HStack(alignment: .center){
-                                    Text("깍두기 점수")
-                                        .foregroundColor(scheme == .light ? .black : .white)
-                                        .bold()
-                                        .font(.caption2)
-                                    
-                                    HStack(alignment: .center, spacing: 0){
-                                        Image("Ggakdugi")
-                                            .resizable()
-                                            .frame(width: 15, height: 15)
-                                            .padding(.trailing, 5)
-                                        
-                                        
-                                        Text("\(String(format: "%.1f", store.countingStar))")
+                                VStack(alignment: .leading, spacing: 1){
+                                    HStack{
+                                        Text(store.storeName)
                                             .foregroundColor(scheme == .light ? .black : .white)
-                                            .font(.caption)
+                                            .font(.body)
                                             .bold()
+                                            .padding(4)
+                                        
+                                        Spacer()
                                     }
                                     
-                                    Spacer()
-                                }
-                                .frame(height: 20)
-                                .padding(.leading, 5)
-                                
-                                
-                                HStack{
-                                    Text(store.storeAddress)
-                                        .foregroundColor(scheme == .light ? .black : .white)
-                                        .font(.callout)
-                                        .lineLimit(1)
-                                        .padding(.top, 3)
-                                    Spacer()
-                                }
-                                .padding(.leading, 4)
-                                
-                                
-                                HStack{
-                                    LazyHGrid(rows: rowOne) {
-                                        ForEach(store.foodType, id: \.self) { foodType in
-                                            Text("\(foodType)")
+                                    HStack(alignment: .center){
+                                        Text("깍두기 점수")
+                                            .foregroundColor(scheme == .light ? .black : .white)
+                                            .bold()
+                                            .font(.caption2)
+                                        
+                                        HStack(alignment: .center, spacing: 0){
+                                            Image("Ggakdugi")
+                                                .resizable()
+                                                .frame(width: 15, height: 15)
+                                                .padding(.trailing, 5)
+                                            
+                                            
+                                            Text("\(String(format: "%.1f", store.countingStar))")
                                                 .foregroundColor(scheme == .light ? .black : .white)
                                                 .font(.caption)
-                                                .padding(9)
-                                                .background(scheme == .light ? Capsule().fill(Color.gray.opacity(0.15)) : Capsule().fill(Color.gray.opacity(0.3)))
+                                                .bold()
+                                        }
+                                        
+                                        Spacer()
+                                    }
+                                    .frame(height: 20)
+                                    .padding(.leading, 5)
+                                    
+                                    
+                                    HStack{
+                                        Text(store.storeAddress)
+                                            .foregroundColor(scheme == .light ? .black : .white)
+                                            .font(.callout)
+                                            .lineLimit(1)
+                                            .padding(.top, 3)
+                                        Spacer()
+                                    }
+                                    .padding(.leading, 4)
+                                    
+                                    
+                                    HStack{
+                                        LazyHGrid(rows: rowOne) {
+                                            ForEach(store.foodType, id: \.self) { foodType in
+                                                Text("\(foodType)")
+                                                    .foregroundColor(scheme == .light ? .black : .white)
+                                                    .font(.caption)
+                                                    .padding(9)
+                                                    .background(scheme == .light ? Capsule().fill(Color.gray.opacity(0.15)) : Capsule().fill(Color.gray.opacity(0.3)))
+                                            }
                                         }
                                     }
+                                    
+                                    
                                 }
                                 
-                                
                             }
-                            
+                            .foregroundColor(.black)
+                            .frame(height: 120)
+                            .padding(.leading, 0)
                         }
-                        .foregroundColor(.black)
-                        .frame(height: 120)
-                        .padding(.leading, 0)
+                    }
+                }
+                .redacted(reason: isLoading ? .placeholder : [])
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.isLoading = false
                     }
                 }
             }
-            .redacted(reason: isLoading ? .placeholder : [])
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.isLoading = false
-                }
-            }
+        }
     }
 }
-
 
 //struct DetailListView_Previews: PreviewProvider {
 //    static var previews: some View {
