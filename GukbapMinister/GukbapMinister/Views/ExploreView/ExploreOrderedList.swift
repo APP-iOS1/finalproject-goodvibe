@@ -66,24 +66,7 @@ struct ListCell : View {
             } label: {
                 HStack{
                     HStack(alignment: .top) {
-                        KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
-                            .placeholder {
-                                Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 90, height: 90)
-                            }
-                            .loadDiskFileSynchronously()
-                            .cacheMemoryOnly() //Sets whether the image should only be cached in memory but not in disk.
-                            .fade(duration: 0.5)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 90, height: 90)
-                            .cornerRadius(25)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color("MainColor"), lineWidth: 0.2)
-                            }
+                        StoreImageThumbnail(manager: StoreImageManager(store: store),width: 90, height: 90, cornerRadius: 6)
                         
                         VStack(alignment: .leading, spacing: 1) {
                             HStack{
@@ -100,7 +83,7 @@ struct ListCell : View {
                                     .bold()
                                     .font(.caption2)
                                 
-                                GgakdugiRatingShort(rate: store.countingStar, size: 10)
+                                GgakdugiRatingShort(rate: store.countingStar, size: 15)
                             }
                             .frame(height: 20)
                             .padding(.leading, 5)

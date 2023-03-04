@@ -13,32 +13,30 @@ struct ExploreBanner: View {
 
     
     // 배너 자동 넘기기 기능
-    private var numberOfImages = 3
+    private let numberOfImages = 3
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State private var currentIndex = 0
     
     var body: some View {
         TabView(selection: $currentIndex) {
             ForEach(Array(bannerIndex.enumerated()), id: \.offset) { index, img in
-                
                 ZStack (alignment: .topLeading) {
                     Image("\(img)")
                         .resizable()
                         .scaledToFill()
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
-
-
                 }
             }
         }
         .frame(height: UIScreen.main.bounds.width * 0.75)
         .tabViewStyle(.page(indexDisplayMode: .always))
         .onReceive(timer, perform: { _ in next()})
+        .onDisappear {
+            self.timer.upstream.connect().cancel()
+        }
     }
     
-    func previous() {
-        currentIndex = currentIndex > 0 ? currentIndex - 1 : numberOfImages - 1
-    }
+    
     func next() {
         withAnimation {
             currentIndex = currentIndex < numberOfImages ? currentIndex + 1 : 0

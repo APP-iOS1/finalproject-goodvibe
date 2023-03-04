@@ -49,21 +49,7 @@ struct ExploreOrderedHScrollCell: View {
                     .padding(.top, 3)
                     .padding(.leading, 3)
 
-                    KFImage(exploreViewModel.storeImageURLs[store.storeName]?.first)
-                        .placeholder {
-                            Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.placeholder
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 190, height: 190)
-                        }
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 190, height: 190)
-                        .cornerRadius(10)
-                        .background{
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(.black.opacity(0.2))
-                        }
+                    StoreImageThumbnail(manager: StoreImageManager(store: store), width: 190, height: 190, cornerRadius: 10, mode: .tab)
                 }
                 
                 
