@@ -125,7 +125,7 @@ struct MapUIView: UIViewRepresentable {
         let trackingButton = MKUserTrackingButton(mapView: maps)
         trackingButton.layer.backgroundColor = UIColor(white: 5, alpha: 0.8).cgColor
         trackingButton.frame.size = CGSize(width: 42, height: 42)
-        trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 17, y: maps.frame.height * 0.55)
+        trackingButton.frame.origin = CGPoint(x: maps.frame.width - trackingButton.frame.width - 25, y: maps.frame.height * 0.55)
         trackingButton.layer.cornerRadius = 7
         
         maps.addSubview(trackingButton)
@@ -143,10 +143,10 @@ struct MapUIView: UIViewRepresentable {
         
         // Assigning delegate
         view.delegate = context.coordinator
-      
+        
         // 필터가 변함에 따라 뷰에서 제거 해야 할 Annotation이 변동되기 때문
         view.removeAnnotations(getRemovingAnnotations(filters, storeAnnotations: storeAnnotations))
-      
+        
         // 필터가 변함에 따라 뷰에 추가 해야 할 Annotation이 변동되기 때문
         view.addAnnotations(getAddingAnnotations(filters, storeAnnotations: storeAnnotations))
     }
@@ -186,9 +186,9 @@ struct MapUIView: UIViewRepresentable {
             return addingAnnotations
         }
     }
-  
-  func makeCoordinator() -> MapViewCoordinator {
-      MapViewCoordinator(self)
-  }
-  
+    
+    func makeCoordinator() -> MapViewCoordinator {
+        MapViewCoordinator(self)
+    }
+    
 }
