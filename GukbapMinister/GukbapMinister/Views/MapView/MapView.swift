@@ -26,8 +26,7 @@ struct MapView: View {
                     MapUIView(
                         region: $locationManager.region,
                         storeAnnotations: $mapViewModel.storeLocationAnnotations,
-                        selectedStoreAnnotation:
-                            $mapViewModel.selectedStoreAnnotation,
+                        selectedStoreAnnotation: $mapViewModel.selectedStoreAnnotation,
                         isSelected: $isShowingSelectedStore,
                         filters: $mapViewModel.filteredGukbaps
                     )
@@ -36,30 +35,13 @@ struct MapView: View {
                     VStack {
                         SearchBarButton()
                         mapFilter
+                            .offset(x: width * 0.05 - 29)
                         Spacer()
                     }
+                    
                     StoreReportButton()
                         .offset(x: width * 0.5 - 35 - 12)
-                    
-                    //                    VStack {
-                    //                        if isShowingSelectedStore {
-                    //                            Button {
-                    //                                isShowingSelectedStore.toggle()
-                    //                            } label: {
-                    //                                Spacer()
-                    //                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    //                            }
-                    //                        } else {
-                    //                            Spacer()
-                    //                        }
-                    //
-                    //
-                    //                        if let selectedStore = mapViewModel.selectedStore {
-                    //                            StoreModalView(store: selectedStore)
-                    //                                .padding(25)
-                    //                                .offset(y: isShowingSelectedStore ? 0 : 400)
-                    //                                .animation(.easeInOut, value: isShowingSelectedStore)
-                    //                        }
+
                 }
                 .onTapGesture {
                     if isShowingSelectedStore {
@@ -75,7 +57,6 @@ struct MapView: View {
                     }
                 }
             }
-            
         }
         .onAppear {
             Task {
@@ -85,5 +66,6 @@ struct MapView: View {
             }
         }
     }
+    
     
 }

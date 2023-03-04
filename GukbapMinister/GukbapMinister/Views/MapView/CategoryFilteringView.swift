@@ -88,7 +88,7 @@ extension CategoryFilteringView {
                     // case .myPage: userViewModel.filterdGukbaps = []
                     // }
                 } label: {
-                    Text("필터해제")
+                    Text("전체해제")
                 }
                 Spacer()
                 Button {
