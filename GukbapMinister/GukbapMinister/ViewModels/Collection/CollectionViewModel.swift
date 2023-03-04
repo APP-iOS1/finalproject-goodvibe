@@ -48,18 +48,5 @@ class CollectionViewModel : ObservableObject {
                 }
         }
     }
-    
-    
-    func likeStore(userId: String, store: Store){
-        let ref = database.collection("Store").document(store.id ?? "")
-        ref.updateData([
-            "likes": store.likes + 1])
-    }
-    func disLikeStore(userId: String, store: Store){
-        let ref = database.collection("Store").document(store.id ?? "")
-        ref.updateData([
-            "likes": store.likes - 1])
-    }
-
 
 } 

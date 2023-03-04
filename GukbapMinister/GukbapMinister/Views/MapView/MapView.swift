@@ -5,13 +5,13 @@ import CoreLocationUI
 
 struct MapView: View {
     @Environment(\.colorScheme) var scheme
-
+    
     @StateObject var mapViewModel = MapViewModel(storeLocations: [])
     @StateObject var locationManager = LocationManager()
     
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var storesViewModel: StoresViewModel
-
+    
     // 필터 버튼을 눌렀을 때 동작
     @State var isShowingFilterModal: Bool = false
     @State private var isShowingSelectedStore: Bool = false
@@ -33,33 +33,45 @@ struct MapView: View {
                     )
                     .ignoresSafeArea(edges: [.top, .horizontal])
                     
-                  VStack {
-                    SearchBarButton()
-                    mapFilter
-                    Spacer()
-                  }
-                    
+                    VStack {
+                        SearchBarButton()
+                        mapFilter
+                        Spacer()
+                    }
                     StoreReportButton()
                         .offset(x: width * 0.5 - 35 - 12)
                     
-                    VStack {
-                        if isShowingSelectedStore {
-                            Button {
-                                isShowingSelectedStore.toggle()
-                            } label: {
-                                Spacer()
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            }
-                        } else {
-                            Spacer()
-                        }
-                        
-                        if let selectedStore = mapViewModel.selectedStore {
-                            StoreModalView(store: selectedStore)
-                                .padding(25)
-                                .offset(y: isShowingSelectedStore ? 0 : 400)
-                                .animation(.easeInOut, value: isShowingSelectedStore)
-                        }
+                    //                    VStack {
+                    //                        if isShowingSelectedStore {
+                    //                            Button {
+                    //                                isShowingSelectedStore.toggle()
+                    //                            } label: {
+                    //                                Spacer()
+                    //                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    //                            }
+                    //                        } else {
+                    //                            Spacer()
+                    //                        }
+                    //
+                    //
+                    //                        if let selectedStore = mapViewModel.selectedStore {
+                    //                            StoreModalView(store: selectedStore)
+                    //                                .padding(25)
+                    //                                .offset(y: isShowingSelectedStore ? 0 : 400)
+                    //                                .animation(.easeInOut, value: isShowingSelectedStore)
+                    //                        }
+                }
+                .onTapGesture {
+                    if isShowingSelectedStore {
+                        isShowingSelectedStore = false
+                    }
+                }
+                .overlay(alignment: .bottom) {
+                    if let selectedStore = mapViewModel.selectedStore {
+                        StoreModalView(store: selectedStore)
+                            .padding(25)
+                            .offset(y: isShowingSelectedStore ? 0 : 400)
+                            .animation(.easeInOut, value: isShowingSelectedStore)
                     }
                 }
             }
