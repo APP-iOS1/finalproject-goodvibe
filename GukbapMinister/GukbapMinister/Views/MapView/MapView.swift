@@ -54,6 +54,7 @@ struct MapView: View {
                             Spacer()
                         }
                         
+                        
                         if let selectedStore = mapViewModel.selectedStore {
                             StoreModalView(store: selectedStore)
                                 .padding(25)

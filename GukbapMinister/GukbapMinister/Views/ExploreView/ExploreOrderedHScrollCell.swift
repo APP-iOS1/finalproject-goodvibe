@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct ExploreOrderedStoresItem: View {
+struct ExploreOrderedHScrollCell: View {
     @Environment(\.colorScheme) var scheme
     @ObservedObject var exploreViewModel: ExploreViewModel
     var store : Store

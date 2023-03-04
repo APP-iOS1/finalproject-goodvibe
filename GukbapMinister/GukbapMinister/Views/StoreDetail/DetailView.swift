@@ -91,9 +91,7 @@ struct DetailView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            Task {
-                               await detailViewModel.handleLikeButton()
-                            }
+                             detailViewModel.handleLikeButton()
                         } label: {
                             Image(systemName: detailViewModel.isLiked ? "heart.fill" : "heart")
                                 .tint(.red)

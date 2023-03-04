@@ -37,9 +37,9 @@ struct ExploreView: View {
                         
                         VStack{
                             // 조회수 순 정렬 뷰
-                            ExploreOrderedStores(exploreViewModel: exploreViewModel, mode: .hits)
+                            ExploreOrderedHScroll(exploreViewModel: exploreViewModel, mode: .hits)
                             // 깍두기 점수 순 정렬 뷰
-                            ExploreOrderedStores(exploreViewModel: exploreViewModel, mode: .star)
+                            ExploreOrderedHScroll(exploreViewModel: exploreViewModel, mode: .star)
                         }//VStack
                     } //ScrollView
                 } //VStack
