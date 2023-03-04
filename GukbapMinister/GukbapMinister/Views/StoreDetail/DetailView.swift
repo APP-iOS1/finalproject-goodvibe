@@ -50,9 +50,10 @@ struct DetailView: View {
     var store : Store {
         return detailViewModel.store
     }
-    
+  
     @State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
     var body: some View {
+        
         NavigationStack {
             
             ScrollView(showsIndicators: false) {
@@ -133,14 +134,15 @@ struct DetailView: View {
             storesViewModel.unsubscribeStores()
         }
         .refreshable {
-            
             reviewViewModel.fetchReviews()
             reviewViewModel.fetchAllReviews()
-            
+            CustomRefreshSpinner()
+
             
         }
         .redacted(reason: isLoading ? .placeholder : [])
         .onAppear {
+     
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.isLoading = false
             }
@@ -289,14 +291,18 @@ extension DetailView {
                 
             }label:{
                 HStack{
-                    Text("방문자 리뷰")
+                    Text("방문자리뷰")
                         .foregroundColor(scheme == .light ? .black : .white)
                     Text("\(checkAllReviewCount.count)")
                         .foregroundColor(Color("AccentColor"))
-                    
+                    Spacer()
                     
                     
                 }
+                .font(.title2.bold())
+                .padding(.leading,15)
+                .padding(.top)
+                
                 .background(scheme == .light ? .white : .black)
             }
         }

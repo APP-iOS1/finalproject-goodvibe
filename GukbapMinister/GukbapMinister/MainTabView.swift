@@ -15,97 +15,97 @@ struct MainTabView: View {
     @State private var showModal: Bool = false
     
     var body: some View {
-        TabView(selection: $tabSelection) {
-            MapView(mapViewModel: MapViewModel(storeLocations: storesViewModel.stores))
-                .tabItem {
-                    Label("지도", image: "GBmapIcon")
-                }
-                .tag(1)
-                .environmentObject(storesViewModel)
-            
-            
-            ExploreView(exploreViewModel: ExploreViewModel(stores: storesViewModel.stores))
-                .tabItem {
-                    Label("둘러보기", image: "GBexploreIcon")
-
-                }
-                .tag(2)
-                .environmentObject(storesViewModel)
-                .environmentObject(userViewModel)
-
-
-//            if userViewModel.state == .noSigned{
-//                //                CollectionView()
-//                NoLoginView()
-//                    .tabItem {
-//                        Label("내가 찜한 곳", image: "GBcollectionIcon")
-//                    }
-//                    .toolbar(.visible, for: .tabBar)
-//                    .toolbarBackground(Color.white, for: .tabBar)
-//                    .tag(2)
-//                //                    .environmentObject(storesViewModel)
-//                    .environmentObject(userViewModel)
-//                    .fullScreenCover(isPresented: $showModal, content: {
-//                        SignInView2()
-//                    })
-//                    .onAppear {
-//                        DispatchQueue.main.async {
-//                            self.showModal = true
-//                        }
-//                    }
-//                //                MyPageView()
-//                NoLoginView2()
-//                    .tabItem {
-//                        Label("마이페이지", image: "GBmypageIcon")
-//                    }
-//                    .tag(3)
-//                    .environmentObject(userViewModel)
-//                    .fullScreenCover(isPresented: $showModal, content: {
-//                        SignInView2()
-//                    })
-//                    .onAppear {
-//                        DispatchQueue.main.async {
-//                            self.showModal = true
-//                        }
-//                    }
-//            }else{
-                CollectionView()
+            TabView(selection: $tabSelection) {
+                MapView(mapViewModel: MapViewModel(storeLocations: storesViewModel.stores))
                     .tabItem {
-                        Label("내가 찜한 곳", image: "GBcollectionIcon")
+                        Label("지도", image: "GBmapIcon")
+                    }
+                    .tag(1)
+                    .environmentObject(storesViewModel)
+                
+                
+                ExploreView(exploreViewModel: ExploreViewModel(stores: storesViewModel.stores))
+                    .tabItem {
+                        Label("둘러보기", image: "GBexploreIcon")
 
                     }
-
-                    .toolbar(.visible, for: .tabBar)
-                    .toolbarBackground(Color.white, for: .tabBar)
-                    .tag(3)
+                    .tag(2)
                     .environmentObject(storesViewModel)
                     .environmentObject(userViewModel)
-                MyPageView()
-                    .tabItem {
-                        Label("마이페이지", image: "GBmypageIcon")
 
-                    }
-                    .tag(4)
-                    .environmentObject(userViewModel)
-                    .environmentObject(storesViewModel)
 
-//            }
+    //            if userViewModel.state == .noSigned{
+    //                //                CollectionView()
+    //                NoLoginView()
+    //                    .tabItem {
+    //                        Label("내가 찜한 곳", image: "GBcollectionIcon")
+    //                    }
+    //                    .toolbar(.visible, for: .tabBar)
+    //                    .toolbarBackground(Color.white, for: .tabBar)
+    //                    .tag(2)
+    //                //                    .environmentObject(storesViewModel)
+    //                    .environmentObject(userViewModel)
+    //                    .fullScreenCover(isPresented: $showModal, content: {
+    //                        SignInView2()
+    //                    })
+    //                    .onAppear {
+    //                        DispatchQueue.main.async {
+    //                            self.showModal = true
+    //                        }
+    //                    }
+    //                //                MyPageView()
+    //                NoLoginView2()
+    //                    .tabItem {
+    //                        Label("마이페이지", image: "GBmypageIcon")
+    //                    }
+    //                    .tag(3)
+    //                    .environmentObject(userViewModel)
+    //                    .fullScreenCover(isPresented: $showModal, content: {
+    //                        SignInView2()
+    //                    })
+    //                    .onAppear {
+    //                        DispatchQueue.main.async {
+    //                            self.showModal = true
+    //                        }
+    //                    }
+    //            }else{
+                    CollectionView()
+                        .tabItem {
+                            Label("내가 찜한 곳", image: "GBcollectionIcon")
 
-        }
-        .accentColor(.mainColor)
-        .onAppear {
-            storesViewModel.subscribeStores()
-        }
-        .onDisappear {
-            storesViewModel.unsubscribeStores()
+                        }
+
+                        .toolbar(.visible, for: .tabBar)
+                        .toolbarBackground(Color.white, for: .tabBar)
+                        .tag(3)
+                        .environmentObject(storesViewModel)
+                        .environmentObject(userViewModel)
+                    MyPageView()
+                        .tabItem {
+                            Label("마이페이지", image: "GBmypageIcon")
+
+                        }
+                        .tag(4)
+                        .environmentObject(userViewModel)
+                        .environmentObject(storesViewModel)
+
+    //            }
+
+            }
+            .accentColor(.mainColor)
+            .onAppear {
+                storesViewModel.subscribeStores()
+            }
+            .onDisappear {
+                storesViewModel.unsubscribeStores()
         }
         
     }
 }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView(storesViewModel: StoresViewModel())
-            
-    }
-}
+//struct MainTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainTabView(storesViewModel: StoresViewModel())
+//
+//    }
+//}

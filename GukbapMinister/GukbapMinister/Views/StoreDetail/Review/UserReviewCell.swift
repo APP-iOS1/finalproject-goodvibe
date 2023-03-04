@@ -111,7 +111,7 @@ struct UserReviewCell:  View {
                         Image(systemName: "chevron.right")
                             .font(.system(size:7))
                     }
-                    .padding()
+                    .padding(.trailing)
                     .foregroundColor(.secondary)
                 }
                 
