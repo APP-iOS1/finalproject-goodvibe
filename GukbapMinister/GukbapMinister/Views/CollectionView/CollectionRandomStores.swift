@@ -15,29 +15,27 @@ struct CollectionRandomStores: View {
     }
     
     var body: some View {
-        VStack{
-            Spacer()
-            VStack(alignment:.leading){
-                VStack{
-                    HStack{
-                        Text("찜한 곳이 없네요")
-                        Spacer()
-                    }
-                    HStack{
-                        Text("추천하는 국밥집은 어떠신가요?")
-                        Spacer()
-                        
-                    }
+        VStack {
+            VStack{
+                HStack{
+                    Text("찜한 곳이 없네요")
+                    Spacer()
                 }
-                .font(.callout)
-                .bold()
-                .padding(.leading)
-
-                ForEach(stores.shuffled().prefix(5), id: \.self){ store in
-                    CollectionStoreCell(viewModel: DetailViewModel(store: store), imageManager: StoreImageManager(store: store))
+                HStack{
+                    Text("추천하는 국밥집은 어떠신가요?")
+                    Spacer()
+                    
                 }
             }
+            .font(.callout)
+            .bold()
+            .padding(.leading)
+            
+            ForEach(stores.shuffled().prefix(5), id: \.self){ store in
+                CollectionStoreCell(viewModel: DetailViewModel(store: store))
+            }
         }
+        
     }
 }
 

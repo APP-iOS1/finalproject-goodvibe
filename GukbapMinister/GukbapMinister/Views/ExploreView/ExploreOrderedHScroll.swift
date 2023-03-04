@@ -1,5 +1,5 @@
 //
-//  ExploreHScrollView.swift
+//  ExploreOrderedHscroll.swift
 //  GukbapMinister
 //
 //  Created by Martin on 2023/03/02.
@@ -10,7 +10,7 @@ import SwiftUI
 enum ExploreOrderingMode {
     case star,hits
 }
-struct ExploreOrderedStores: View {
+struct ExploreOrderedHScroll: View {
     @Environment(\.colorScheme) var scheme
     @ObservedObject var exploreViewModel: ExploreViewModel
     
@@ -30,7 +30,7 @@ struct ExploreOrderedStores: View {
                 Spacer()
                 
                 NavigationLink{
-                  OrderedListView(exploreViewModel: exploreViewModel, mode: mode)
+                  ExploreOrderedList(exploreViewModel: exploreViewModel, mode: mode)
                 } label:{
                     Text("더보기 >")
                         .font(.caption)
@@ -58,9 +58,9 @@ struct ExploreOrderedStores: View {
                 LazyHGrid(rows: rows, alignment: .center) {
                     ForEach(stores, id: \.self){ store in
                         NavigationLink{
-                            DetailView(detailViewModel: DetailViewModel(store: store))
+                           DetailView(detailViewModel: DetailViewModel(store: store))
                         } label:{
-                           ExploreOrderedStoresItem(exploreViewModel: exploreViewModel, store: store, mode: mode)
+                           ExploreOrderedHScrollCell(exploreViewModel: exploreViewModel, store: store, mode: mode)
                         }
                         .simultaneousGesture(TapGesture().onEnded{
                             if mode == .hits {

@@ -41,6 +41,7 @@ struct MapView: View {
                     
                     StoreReportButton()
                         .offset(x: width * 0.5 - 35 - 12)
+
                 }
                 .onTapGesture {
                     if isShowingSelectedStore {
