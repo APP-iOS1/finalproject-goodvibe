@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PolicyView: View {
-    @Environment(\.dismiss) var dismiss
     
     
     var body: some View {
@@ -57,16 +56,8 @@ struct PolicyView: View {
                     
                     Text("버전 정보 1.0.0")
                     
-                    
-                    
-                    
                 }
                 
-                Button {
-                    dismiss()
-                } label: {
-                    Text("뒤로")
-                }
                 
             }
             .navigationBarTitleDisplayMode(.inline)

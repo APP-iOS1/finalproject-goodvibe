@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ExploreCategoryDetailView: View {
     @EnvironmentObject var storesViewModel: StoresViewModel
@@ -21,11 +22,10 @@ struct ExploreCategoryDetailView: View {
                 
                 LazyVGrid(columns: columns) {
                     ForEach(stores) { store in
-                        let imageData = storesViewModel.storeTitleImage[store.storeImages.first ?? ""] ?? UIImage(named: "ExampleImage")
                         NavigationLink {
-                            DetailView(store: store)
+                            DetailView(detailViewModel: DetailViewModel(store: store))
                         } label: {
-                            StoreGridItem(store: store, imagedata: imageData ?? UIImage(), width: gridSize, imageSize: imageSize)
+                            StoreGridItem(manager: StoreImageManager(store: store), width: gridSize, imageSize: imageSize)
                         }
                     }
                 }
@@ -40,8 +40,8 @@ struct ExploreCategoryDetailView: View {
 
 struct StoreGridItem: View{
     @Environment(\.colorScheme) var scheme
-    var store :Store
-    var imagedata: UIImage
+    @StateObject var manager = StoreImageManager(store: .test)
+    
     var width: CGFloat
     var imageSize: CGFloat
     
@@ -49,16 +49,34 @@ struct StoreGridItem: View{
         
         VStack{
             VStack{
-                Image(uiImage: imagedata)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageSize, height: imageSize)
-                    .cornerRadius(10)
+                if let url = manager.imageURLs.first {
+                    KFImage(url)
+                        .placeholder {
+                            if let gukbap = manager.store.foodType.first {
+                                Gukbaps(rawValue: gukbap)?.placeholder
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: imageSize, height: imageSize)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .cacheMemoryOnly()
+                        .fade(duration: 0.25)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: imageSize, height: imageSize)
+                        .cornerRadius(10)
+                } else {
+                    Gukbaps(rawValue: "순대국밥")?.placeholder
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: imageSize, height: imageSize)
+                        .cornerRadius(10)
+                }
                 
                 VStack{
-                    
                     HStack {
-                        Text("\(store.storeName)")
+                        Text("\(manager.store.storeName)")
                             .fontWeight(.bold)
                             .font(.callout)
                             .lineLimit(1)
@@ -68,7 +86,7 @@ struct StoreGridItem: View{
                     
 
                     HStack {
-                        Text("\(store.storeAddress)")
+                        Text("\(manager.store.storeAddress)")
                             .font(.caption2)
                             .lineLimit(1)
                             .foregroundColor(scheme == .light ? .gray : .white)
@@ -78,7 +96,7 @@ struct StoreGridItem: View{
                     
 
                     HStack{
-                        Text("\(store.description)")
+                        Text("\(manager.store.description)")
                             .font(.caption)
                             .lineLimit(1)
                             .multilineTextAlignment(.leading)

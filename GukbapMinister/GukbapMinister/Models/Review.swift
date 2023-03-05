@@ -33,4 +33,5 @@ struct Review: Codable, Identifiable, Hashable {
     var storeName: String
     // 가게Id 추가
     var storeId: String
+    var show : Bool
 }

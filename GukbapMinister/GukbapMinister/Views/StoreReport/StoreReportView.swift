@@ -79,13 +79,13 @@ struct StoreReportView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
                     viewModel.handleDoneTapped()
-                    userViewModel.updateStoreReportCount()
+//                    userViewModel.updateStoreReportCount()
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         dismiss()
                     }
                 } label: {
-                    Text("등록")
+                    Text("제보하기")
                 }
                 .disabled(!isReportCompleted)
                 

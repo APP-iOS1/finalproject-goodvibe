@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct MyPageView: View {
-    @EnvironmentObject var userVM: UserViewModel
-    
-    
+    @Environment(\.colorScheme) var scheme
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var storesViewModel: StoresViewModel
+    @StateObject private var reviewViewModel = ReviewViewModel()
+
     @State private var isSheetPresented: Bool = false
     @State private var isUpdateUserInfoPresented: Bool = false
     @State private var isMyReviewPresented: Bool = false
-    @State private var isShowingAlert: Bool = false
     
     @State private var isShowingNotice: Bool = false
     @State private var isShowingTerms: Bool = false
-    
+    var checkAllMyReviewCount : [Review] {
+        reviewViewModel.reviews.filter{
+            $0.userId == userViewModel.userInfo.id
+        }
+    }
     var body: some View {
         NavigationStack {
-            
+            // 로그아웃 상태가 아니면(로그인상태이면) mypageView 띄우기
+            if userViewModel.isLoggedIn != false {
             VStack(alignment: .leading){
-                Text("마이페이지")
-                    .font(.largeTitle)
-                    .padding(.top, 20)
-                    .padding()
+           
                 
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.gray.opacity(0.1))
@@ -47,12 +50,33 @@ struct MyPageView: View {
                             
                             VStack(alignment: .leading){
                                 HStack{
-                                    Text("\(userVM.userInfo.userNickname)")
+                                    Text("\(userViewModel.userInfo.userNickname)")
                                         .font(.title3)
+                                    
+                    
+                                    switch userViewModel.loginState{
+                                    case .kakaoLogin :
+                                        Image("KakaoLogin")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.052, height: UIScreen.main.bounds.height * 0.025)
+                                    
+                                    case .googleLogin :
+                                        Image("GoogleLogin")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.052, height: UIScreen.main.bounds.height * 0.025)
+
+                                    case .appleLogin :
+                                        Image("AppleLogin")
+                                            .resizable()
+                                            .frame(width: UIScreen.main.bounds.width * 0.052, height: UIScreen.main.bounds.height * 0.025)
+
+                                    case .logout : Text("")
+                                        
+                                    }
                                     
                                     Spacer()
                                     
-                                    Text("\(userVM.userInfo.status)님")
+                                    Text("\(userViewModel.userInfo.userGrade)님")
                                         .font(.body)
                                         .padding(.trailing, 20)
                                 }
@@ -60,7 +84,7 @@ struct MyPageView: View {
                                 .padding(.bottom, 1)
                                 
                                 HStack{
-                                    Text(userVM.userInfo.userEmail)
+                                    Text(userViewModel.userInfo.userEmail)
                                         .font(.caption)
                                         .padding(.leading, 10)
                                 }
@@ -71,118 +95,115 @@ struct MyPageView: View {
                     .padding()
                 
                 
-                
-                VStack (alignment: .leading, spacing: 25) {
-                    //공지사항도 있어야할것같아서 버튼만 우선 만들었습니다.
-                    Button {
-                        self.isShowingNotice.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "exclamationmark.bubble")
-                            Text("공지")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isShowingNotice) {
-                        NoticeView()
-                    }
-                    
-                    
-                    Button {
-                        self.isMyReviewPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "pencil")
-                            Text("내가 쓴 리뷰보기")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isMyReviewPresented) {
-                        MyReviewView()
-                    }
-                    
-                    Button {
-                        self.isUpdateUserInfoPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "gearshape.fill")
-                            Text("회원정보수정")
-                        }
-                    }
-                    .fullScreenCover(isPresented: $isUpdateUserInfoPresented) {
-                        UpdateUserInfoView()
-                           
+//                VStack {
+                    List {
                         
-                    }
-                    
-                    Button {
-                        userVM.isLoading = true
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-                            userVM.signOut()
+                        NavigationLink {
+                            NoticeView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "exclamationmark.bubble")
+                                Text("공지")
+                            }
                         }
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
-                            userVM.isLoading = false
+                        .listRowSeparator(.hidden)
+
+                        
+                        NavigationLink {
+                            MyReviewView()
+                                .environmentObject(storesViewModel)
+
+                        } label: {
+                            HStack {
+                                Image(systemName: "pencil")
+                                Text("내가 쓴 리뷰")
+                                Spacer()
+                                Text("\(checkAllMyReviewCount.count)")
+                            }
                         }
-                    } label: {
-                        HStack{
-                            Image(systemName: "paperplane.fill")
-                            Text("로그아웃")
+                        .listRowSeparator(.hidden)
+
+                        
+                        NavigationLink {
+                            UpdateUserInfoView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "gearshape.fill")
+                                Text("회원정보 수정")
+                            }
                         }
-                    }
-                    Button {
-                        isSheetPresented.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "lock.open.fill")
-                            Text("장소 제보하기(임시)")
+                        .listRowSeparator(.hidden)
+
+                        
+                        // 서포터즈에게만 열리고(국밥부차관), 나머지 사람들한테는 클릭했을 때 서포터즈에 지원하세요라는 홍보 문구, 위도 경도 임시 부분을 geocoding (주소만입력하면 자동으로 위도경도 기입), Store컬렉션으로 바로 들어가는데 Store_Temp 만들어서 관리자앱에서 관리할 수 있게.
+                        NavigationLink {
+                            //  if 유저등급 == 국밥부차관등급 { RegisterStoreView  열림}
+                            // else  {국밥부 차관에 지원하세요  alert (확인버튼만 우선 구현)}
+                        } label: {
+                            HStack {
+                                Image(systemName: "lock.open.fill")
+                                Text("새로운 국밥집 등록하기")
+                            }
                         }
-                    }
-                    
-                    //이용약관 페이지로 넘어가는 버튼
-                    Button {
-                        self.isShowingTerms.toggle()
-                    } label: {
-                        HStack{
-                            Image(systemName: "captions.bubble")
-                            Text("앱 정보")
+                        .listRowSeparator(.hidden)
+
+                        
+                        
+                        NavigationLink {
+                            PolicyView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "captions.bubble")
+                                Text("앱정보")
+                            }
                         }
-                    }
-                    .fullScreenCover(isPresented: $isShowingTerms) {
-                        PolicyView()
-                    }
-                    
-                    
-                    Button {
-                        isShowingAlert.toggle()
-                    } label: {
-                        Image(systemName: "xmark.circle")
-                        Text("회원탈퇴")
-                            .foregroundColor(.red)
-                    }
-                    .alert("회원탈퇴", isPresented: $isShowingAlert) {
-                        Button("확인", role: .cancel) {
-                            userVM.deleteUser()
+                        
+                        Button {
+                            userViewModel.logoutByPlatform()
+
+                            // userVM.isLoading = true
+                            // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+                            //     userVM.signOut()
+                            // }
+                            // DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5){
+                            //     userVM.isLoading = false
+                            // }
+                        } label: {
+                            HStack{
+                                Image(systemName: "xmark.circle")
+                                Text("로그아웃")
+                            }
                         }
-                        Button("취소", role: .destructive) {
-                            
-                        }
-                    } message: {
-                        Text("사용자의 정보가 즉시 삭제됩니다. \n 회원탈퇴를 진행하시겠습니까?")
+//                        .foregroundColor(.black)
+                        .padding(1.5)
+                        
+                        //                        .listRowInsets(EdgeInsets.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                        .listRowSeparator(.hidden)
                     }
-                    
-                }
-                .foregroundColor(.black)
-                .padding()
-                .padding(.top, 5)
-                .font(.title3)
+                    .listStyle(.plain)
+
+//                }
+                
+            }
+            .navigationTitle("마이페이지")
+            .navigationBarTitleDisplayMode(.inline)
+
+                Spacer()
+                Text("\(userViewModel.userInfo.userGrade)")
+                Text("\(userViewModel.userInfo.userEmail)")
+                Text("\(userViewModel.userInfo.id)")
+            } else {
+                goLoginView()
+                    .environmentObject(userViewModel)
             }
             
-            
-            Spacer()
         }
         .onAppear {
-            userVM.fetchUpdateUserInfo()
+//            userVM.fetchUpdateUserInfo()
+            reviewViewModel.fetchAllReviews()
         }
         .overlay(content: {
-            LoadingView(show: $userVM.isLoading)
+//            LoadingView(show: $userVM.isLoading)
         })
         .sheet(isPresented: $isSheetPresented) {
             NavigationStack {
