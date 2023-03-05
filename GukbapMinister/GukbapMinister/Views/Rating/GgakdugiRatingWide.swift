@@ -15,6 +15,7 @@ struct GgakdugiRatingWide: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var showModal: Bool = false
     @State private var showingAlert = false
+    @State private var showingLoginView = false
     init(selected: Int, size: CGFloat, spacing: CGFloat, perform: @escaping (Int) -> Void) {
         self.selected = selected
         self.size = size
@@ -23,7 +24,7 @@ struct GgakdugiRatingWide: View {
     }
     
     var body: some View {
-        if userViewModel.state == .noSigned{
+        if userViewModel.isLoggedIn == false {
             HStack(spacing: spacing) {
                 ForEach(0..<5) { index in
                     Image(selected >= index ? "Ggakdugi" : "Ggakdugi.gray")
@@ -32,8 +33,21 @@ struct GgakdugiRatingWide: View {
                         .frame(width: size, height: size)
                         .onTapGesture {
                             showingAlert.toggle()
-                        }.alert(isPresented: $showingAlert){
-                            Alert(title: Text("로그인이 필요한 서비스입니다."), dismissButton: .cancel(Text("확인")))
+                        }
+                        .alert("로그인이 필요한 서비스입니다.", isPresented: $showingAlert) {
+                            Button("아니요", role: .destructive) {
+                                
+                            }
+                            .foregroundColor(.blue)
+                            Button("예", role: .cancel) {
+                                self.showingLoginView.toggle()
+                            }
+                            .foregroundColor(.red)
+                        } message: {
+                            Text("로그인 하시겠습니까?")
+                        }
+                        .sheet(isPresented: $showingLoginView) {
+                            LoginView()
                         }
                 }
             }

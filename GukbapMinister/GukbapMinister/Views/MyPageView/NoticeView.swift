@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NoticeView: View {
-    @Environment(\.dismiss) var dismiss
 
+    //관리자앱과 연동 필요
     
     var body: some View {
         NavigationStack {
@@ -21,12 +21,6 @@ struct NoticeView: View {
                     
                 }
               
-                Button {
-                    dismiss()
-                } label: {
-                    Text("뒤로")
-                }
-                
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("공지")

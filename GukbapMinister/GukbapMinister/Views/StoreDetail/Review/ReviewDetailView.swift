@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Kingfisher
 struct ReviewDetailView: View {
     
     @StateObject var reviewViewModel: ReviewViewModel
@@ -33,12 +33,13 @@ struct ReviewDetailView: View {
                                 Button(action:{
                                     isShowingReviewDetailView.toggle()
                                 }){
-                                    if let image = reviewViewModel.reviewImage[imageKey] {
-                                        
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
+                                    KFImage(reviewViewModel.reviewImageURLs[imageKey])
+                                        .placeholder{
+                                            ProgressView()
+                                        }
+                                        .resizable()
+                                        .scaledToFit()
+                            
                                 }
                             
                             }//ForEach
@@ -50,7 +51,7 @@ struct ReviewDetailView: View {
                     VStack{
                         
                         Text(selectedtedReview.reviewText)
-                            .font(.title3)
+                            .font(.body)
                         
                     }
                     .foregroundColor(.white)

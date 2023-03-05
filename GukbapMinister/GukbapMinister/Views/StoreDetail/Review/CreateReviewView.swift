@@ -12,6 +12,7 @@ import Shimmer
 import FirebaseAuth
 
 struct CreateReviewView: View {
+    @Environment(\.colorScheme) var scheme
     @EnvironmentObject private var userViewModel: UserViewModel
     @StateObject var reviewViewModel: ReviewViewModel
     
@@ -46,6 +47,7 @@ struct CreateReviewView: View {
     }
     var body: some View {
         NavigationStack {
+        
             ScrollView{
                 VStack{
                     VStack{
@@ -64,6 +66,7 @@ struct CreateReviewView: View {
                         
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
                         Text("\(selectedStar + 1) / \(5)")
+                            .foregroundColor(scheme == .light ? .black : .white)
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                     }//VStack
@@ -204,10 +207,10 @@ struct CreateReviewView: View {
                         Section {
                             TextField("작성된 리뷰는 우리 모두가 확인할 수 있어요. 국밥 같은 따뜻한 마음을 나눠주세요.", text: $reviewText, axis: .vertical)
                                 .keyboardType(.default)
-                            
+//                                .foregroundColor(scheme == .light ? .black : .white)
                                 .frame(width: 300, height: 250, alignment: .center)
                                 .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
-                                .background(RoundedRectangle(cornerRadius: 5.0).stroke(Color.white, lineWidth: 1.5))
+                                .background(RoundedRectangle(cornerRadius: 5.0).stroke(scheme ==  .light ? Color.mainColor : Color.white, lineWidth: 1.5))
                                 .multilineTextAlignment(.leading)
                                 .autocapitalization(.none)
                                 .disableAutocorrection(true)
@@ -233,14 +236,14 @@ struct CreateReviewView: View {
                                     showingSheet.toggle()
                                 }) {
                                     Image(systemName: "xmark")
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(scheme == .light ? .black : .white)
                                     
                                 }
                             }
-                            if trimReviewText.count > 0 {
+                            if trimReviewText.count > 0 &&  isReviewAdded == false {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action:{
-                                        userViewModel.updateReviewCount()
+
                                         Task{
                                             
                                             let createdAt = Date().timeIntervalSince1970
@@ -252,12 +255,14 @@ struct CreateReviewView: View {
                                                                         nickName: userViewModel.userInfo.userNickname,
                                                                         starRating:  selectedStar + 1,
                                                                         storeName: store.storeName,
-                                                                        storeId: store.id ?? ""
+                                                                        storeId: store.id ?? "",
+                                                                        show: false
                                             )
                                             
-                                            await reviewViewModel.addReview(review: review, images: images)
+                                            await reviewViewModel.addReview(review: review,
+                                                                            images: images)
                                             
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
                                                 showingSheet.toggle()
                                             }
                                             isReviewAdded.toggle()
@@ -278,36 +283,42 @@ struct CreateReviewView: View {
                 
                 .popup(isPresented: $isReviewAdded) {
                     HStack {
-                        Image(systemName: "checkmark")
-                            .foregroundColor(.white)
-                        Text("리뷰가 작성되었습니다.")
-                            .foregroundColor(.white)
+                        Image(uiImage: (Gukbaps(rawValue: store.foodType.first ?? "순대국밥")?.uiImage!)!)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width * 0.13,
+                                   height: UIScreen.main.bounds.height * 0.05 )
+                        Text("\(userViewModel.userInfo.userNickname)님의 소중한 리뷰가 작성되었습니다.")
+                            .foregroundColor(.black)
                             .font(.footnote)
-                            .bold()
+                            .fontWeight(.regular)
                     }
-                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                    .background(Color("AccentColor"))
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    .background(Color("AccentColor").opacity(0.85))
                     .cornerRadius(100)
                 } customize: {
                     $0
-                        .autohideIn(2)
-                        .type(.floater())
+                        .autohideIn(1.3)
+                        .animation(.spring())
+                        .type(.floater(verticalPadding: 0, useSafeAreaInset: true))
                         .position(.top)
                 } // popup
             }//NavigationStack
-            .background(Color.white) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
+
+            .background(scheme == .light ? .white : .black) // 화면 밖 터치할 때 백그라운드 지정을 안 해주면 View에 올라간 요소들 클릭 시에만 적용됨.
             .onTapGesture() { // 키보드 밖 화면 터치 시 키보드 사라짐
                 endEditing()
             } // onTapGesture
             //            .ignoresSafeArea(.keyboard, edges: .bottom)
             .onAppear{
-                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
+//                userViewModel.fetchUserInfo(uid: Auth.auth().currentUser?.uid ?? "")
             }
             .fullScreenCover(isPresented: $selectedImagesDetail){
                 ImageDetailView()
             }
             .onDisappear{
                 reviewViewModel.fetchReviews()
+                reviewViewModel.fetchAllReviews()
+
             }
             
         }

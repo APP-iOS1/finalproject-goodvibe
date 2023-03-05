@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBarButton: View {
     @State var isShowingSearchView: Bool = false
-    
+
     var body: some View {
         HStack{
             Button {

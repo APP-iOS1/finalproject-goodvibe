@@ -26,7 +26,7 @@ struct SearchView: View {
     @State private var searchString: String = ""
     @State private var searchResult: [Store] = []
     @FocusState private var focusField: Field?
-    
+
     
     var mode: Mode = .map
     
@@ -66,6 +66,7 @@ extension SearchView {
             backButton()
                   
             TextField("국밥집 검색",text: $searchString, axis: .horizontal)
+                .foregroundColor(scheme == .light ? .black : .white)
                 .keyboardType(.default)
                 .textInputAutocapitalization(.never)
                 .onChange(of: searchString) { name in
@@ -96,7 +97,7 @@ extension SearchView {
             List {
                 ForEach(searchResult, id: \.self) { store in
                     NavigationLink {
-                        DetailView(store: store)
+                        DetailView(detailViewModel: DetailViewModel(store: store))
                     } label: {
                         Text("\(store.storeName)")
                     }
@@ -117,8 +118,8 @@ extension SearchView {
 }
 
 
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
-    }
-}
+//struct SearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchView()
+//    }
+//}

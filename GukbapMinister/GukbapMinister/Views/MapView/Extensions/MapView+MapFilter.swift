@@ -7,22 +7,18 @@
 
 import SwiftUI
 
-
-
 extension MapView {
     var mapFilter: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 filterButton
-                filteredElements
+                filteredContents
             }
             .padding(.vertical, 8)
         }
         .frame(maxWidth: .infinity)
         .scrollDisabled(mapViewModel.filteredGukbaps.isEmpty)
-        
     }
-    
     
     private var filterButton: some View {
         Button {
@@ -54,7 +50,7 @@ extension MapView {
         }
     }
     
-    private var filteredElements: some View {
+    private var filteredContents: some View {
         HStack {
             ForEach(mapViewModel.filteredGukbaps, id:\.self) { gukbap in
                 HStack(spacing: 2) {
